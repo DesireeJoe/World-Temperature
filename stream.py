@@ -20,4 +20,4 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
 if page == 'Home':
 
     # Add the image to the home page
-    st.image("world.jpg",  use_column_width=True)
+    st.image("world.png",  use_column_width=True)
