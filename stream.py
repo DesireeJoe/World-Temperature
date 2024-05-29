@@ -26,3 +26,11 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
                             "Model 2",
                             "Time-series modeling with SARIMA",
                             "Conclusion", "Credits"])
+
+
+
+#####
+if page == 'Home':
+
+    # Add the image to the home page
+    st.image("world.jpg",  use_column_width=True)
