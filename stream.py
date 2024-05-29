@@ -21,3 +21,24 @@ if page == 'Home':
 
     # Add the image to the home page
     st.image("world.png",  use_column_width=True)
+
+
+# Inject custom CSS
+st.markdown(
+    """
+    <style>
+    .reportview-container {
+        background: black;
+        color: white;
+    }
+    .sidebar .sidebar-content {
+        background: black;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Your Streamlit app content
+st.title("World Temperature")
+
