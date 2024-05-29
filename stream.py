@@ -18,7 +18,10 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
 
 #####
 if page == 'Home':
-
+  
+  
+# Your Streamlit app content
+  st.title("World Temperature")
     # Add the image to the home page
     st.image("world.png",  use_column_width=True)
 
@@ -39,6 +42,5 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Your Streamlit app content
-st.title("World Temperature")
+
 
