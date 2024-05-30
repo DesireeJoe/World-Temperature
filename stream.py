@@ -54,8 +54,7 @@ This project dives into historical temperature records to uncover trends and pat
 
 We want to understand how global warming has evolved over centuries and decades. We'll start by carefully looking at temperature data, going from the past to the present. Through detailed analysis and visualisation, we'll reveal how temperatures have changed across different parts of the world and over time.
 
-We'll also explore what factors might be driving these changes, such as carbon dioxide emissions and regional climate patterns.
-
+Using data from FAO, NASA and ‘Our World In Data”, This project explores historical temperature records to try to uncover trends and patterns. We will highlight this data exploration in further detail in the next steps.
     """)
 
 
