@@ -2,7 +2,7 @@ import streamlit as st
 
 # Seitenleiste
 
-st.sidebar.markdown('<style>div.row-widget.stRadio div{color: white;}</style>', unsafe_allow_html=True)
+st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
 # st.sidebar.write('<font color="black">Main Menu</font>', unsafe_allow_html=True)
 page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Exploration Analysis - NASA",
