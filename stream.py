@@ -22,8 +22,6 @@ if page == 'Home':
   
 # Your Streamlit app content
   st.title("World Temperature")
-  st.markdown('<h2 style="font-size: 24px;">Objectives</h2>', unsafe_allow_html=True)
-    st.write("1. Analyze how the temperature has changed over the last few centuries and decades on earth.")
 
   # Add the image to the home page
   st.image("world.png",  use_column_width=True)
