@@ -94,7 +94,7 @@ if page == 'Credits':
     with col2:
         st.write("Manasi Deshpande")
         st.write("Desireé Jörke")
-        st.write("Fiona")
+        st.write("Fiona Murphy")
         st.markdown("<br>", unsafe_allow_html=True)
         st.write("Tarik Anour (Tutor)")
         st.markdown("<br>", unsafe_allow_html=True)
@@ -115,14 +115,14 @@ if page == 'Credits':
 
 
         st.markdown(
-            f'<a href="www.linkedin.com/in/desireé-jörke-7ba6321a3" target="_blank">'
+            f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
             f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
             f'</a>', 
             unsafe_allow_html=True
         )
 
         st.markdown(
-            f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
+            f'<a href="https://www.linkedin.com/in/fionamurphy90//" target="_blank">'
             f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
             f'</a>', 
             unsafe_allow_html=True
