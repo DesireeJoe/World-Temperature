@@ -211,10 +211,10 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
  \n\n
 **Base period:** 1951-1980
 """)
-st.dataframe(fao_merged, height=400)
+st.dataframe(FAO_merged, height=400)
 
 # Filter rows where 'Months' is 'Meteorological year'
-fao_merged_filt = fao_merged[fao_merged['Months'] == 'Meteorological year']
+fao_merged_filt = FAO_merged[FAO_merged['Months'] == 'Meteorological year']
 
 # Filter for 5 continents
 fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
