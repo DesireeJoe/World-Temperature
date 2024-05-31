@@ -42,7 +42,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-if page == 'Introduction'
+if page == 'Introduction':
 
    st.write("## World Temperature: Effects of Greenhouse Emissions on Gobal Temperatures")
    st.markdown("""
