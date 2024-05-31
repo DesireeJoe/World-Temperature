@@ -355,7 +355,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 
          st.markdown("***")
          with st.expander("Missing values"):
-         st.markdown("#### Missing values")
+              st.markdown("#### Missing values")
 
     # Total missing values
          mis_val = sta.isnull().sum()
