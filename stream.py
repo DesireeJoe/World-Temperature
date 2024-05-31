@@ -1,10 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy.stats import linregress
+import math
 
 # Seitenleiste
-#fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
 st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
 # st.sidebar.write('<font color="black">Main Menu</font>', unsafe_allow_html=True)
 page = st.sidebar.radio(" ", ["Home", "Introduction",
