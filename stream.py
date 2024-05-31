@@ -234,13 +234,10 @@ if page == "Exploration Analysis - OWID":
     if st.checkbox('Show raw data'):
        st.subheader('Raw data')
        st.write(Co2)
-  
-       st.dataframe(Co2)
 
      # Expandable section for descriptive statistics
     with st.expander("Descriptive statistics of the OWID dataset"):
          st.dataframe(Co2.describe())
-         st.markdown('**Looking at the OWID dataset, the summary statistics indicate various things:**')
 
     with st.expander("Properties of the OWID dataset"):
          st.markdown("###### Dimensions")
