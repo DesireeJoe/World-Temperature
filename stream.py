@@ -7,12 +7,12 @@ st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', 
 page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Exploration Analysis - NASA",
                               "Exploration Analysis - OWID",
+                              "Exploration Analysis - Surface Temperature Anomaly",
                               "Exploration Analysis - FAO",
-                            "Modeling preparation",
-                            "Model 1",
-                            "Model 2",
-                            "Time-series modeling with SARIMA",
-                            "Conclusion", "Credits"])
+                              "Modeling preparation",
+                              "Machine Learning Models",
+                              "Time-series modeling with SARIMA",
+                              "Conclusion", "Credits"])
 
 
 
