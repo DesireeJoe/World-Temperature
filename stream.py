@@ -251,6 +251,12 @@ fig.tight_layout(pad=3.0)
 # Display the plot in Streamlit
 st.pyplot(fig)
 
+######
+if page ==  "Exploration Analysis - OWID":
+
+# Title of the app
+  st.title('Exploration Analysis - OWID')
+
 
 #Credits#
 ####
