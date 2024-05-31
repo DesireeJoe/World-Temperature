@@ -332,10 +332,10 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
         st.write(sta)
 
      # Expandable section for descriptive statistics
-     with st.expander("Descriptive statistics of the OWID dataset"):
-        st.dataframe(sta.describe())
+     with st.expander("Descriptive statistics of the Surface Temperature Anomaly dataset"):
+         st.dataframe(sta.describe())
 
-    with st.expander("Properties of the Surface Temperature Anomaly dataset"):
+     with st.expander("Properties of the Surface Temperature Anomaly dataset"):
          st.markdown("###### Dimensions")
          st.markdown(f"- Number of Rows: {sta.shape[0]}\n"
                     f"- Number of Columns: {sta.shape[1]}\n")
