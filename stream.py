@@ -138,11 +138,35 @@ if page == 'Credits':
 ######################################################
 ######
 if page ==  "Exploration Analysis - OWID":
-
 # Title of the app
   st.title('Exploration Analysis - OWID')
+if page == "Exploration Analysis - OWID":
+    st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Exploration Analysis - OWID</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-# Load data
+    st.write('Exploratory analyses are used to gain initial insight into the data, identify data quality issues, discover patterns and generate hypotheses. They are the starting point for further analyses and research in which specific questions are answered or models are developed.')
+    st.write('Various representations and visualisations of the dataset now follow.')
+
+    st.markdown("#### The OWID Dataset")
+
+    st.write('**Intro**')
+    st.write('The CO2 and Greenhouse Gas Emissions dataset is a collection of key metrics maintained by Our World in Data. It is updated regularly and includes data on CO2 emissions (annual, per capita, cumulative and consumption-based), other greenhouse gasses, energy mix, and other relevant metrics.')
+    st.write('Overview of the OWID dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
+  # Load data
   @st.cache
   def load_data():
     Co2 = pd.read_csv("owid-co2-data.csv", encoding='latin1')
@@ -154,18 +178,65 @@ if page ==  "Exploration Analysis - OWID":
   if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(Co2)
+  
+  st.dataframe(Co2)
 
-  # Basic data info
-  st.subheader('Basic Data Information')
-  st.write(f"Size of the DataFrame: {Co2.shape}")
-  buffer = io.StringIO()
-  Co2.info(buf=buffer)
-  s = buffer.getvalue()
-  st.text(s)
-  st.write(f"Missing values per column:\n{Co2.isna().sum()}")
-  st.write(f"Number of duplicates: {Co2.duplicated().sum()}")
-  st.write(Co2.describe())
-####
+    # Expandable section for descriptive statistics
+    with st.expander("Descriptive statistics of the OWID dataset"):
+        st.dataframe(Co2.describe())
+        st.markdown('**Looking at the OWID dataset, the summary statistics indicate various things:**')
+
+    with st.expander("Properties of the OWID dataset"):
+        st.markdown("###### Dimensions")
+        st.markdown(f"- Number of Rows: {Co2.shape[0]}\n"
+                    f"- Number of Columns: {Co2.shape[1]}\n")
+        st.markdown("")
+        st.markdown("###### Data types")
+        st.markdown("- 71 variables are of data type float\n"
+                    "- 1 variable is of dtype integer\n"
+                    "- 2 variables are of dtype object\n")
+        st.markdown("")
+        st.markdown("###### Missing values")
+        st.markdown("- Exist in almost all of the variables in the dataset\n"
+                    "- Vary greatly in share of total entries among variables\n")
+        st.markdown("")
+        st.markdown("###### Variables")
+        st.markdown("- The dataset consists mainly of numerical variables on CO2 emissions with different scopes like emissions per emission source and the scope of aggregation (like total, shared, cumulative, per capita)\n"
+                    "- Other context metrics like year, population, country and GDP\n"
+                    "- For an in-detail description see [OWID CO2 Data GitHub](https://github.com/owid/co2-data)\n")
+
+    st.markdown("***")
+
+    # Missing values analysis
+    st.markdown("#### Missing values")
+
+    # Function to calculate missing values
+    def missing_values_table(df):
+        mis_val = df.isnull().sum()
+        mis_val_percent = 100 * mis_val / len(df)
+        mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+        mis_val_table_ren_columns = mis_val_table.rename(columns={0: 'Missing Values', 1: '% of Total Values'})
+        mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
+        return mis_val_table_ren_columns
+    
+    # Calculate the missing values table
+    missing_table = missing_values_table(Co2)
+
+    # Display the missing values table
+    st.dataframe(missing_table)
+    st.write('<span style="font-size: 12px;">*Click on the column heading to sort in ascending / descending order.</span>', unsafe_allow_html=True)
+
+    st.write('**Having a more in-detail look at the amount of missing values in the dataset shows that:**')
+    st.markdown('  * There is a large amount of missing values in the dataset, accumulating to 56.62% of all values in the dataset.')
+    st.markdown('  * The amount of missing values varies greatly across variables.')
+    st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g., `share_global_luc_co2`, `co2`).')
+    st.markdown('  * Some variables have missing values exceeding 90% of entries (e.g., `consumption_co2`, `other_industry_co2`).')
+
+    st.write('The high share of missing values across a large part of the variables in the OWID dataset (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and preprocessing that might influence interpretability of the results further down the road.')
+
+    st.markdown("***")
+
+#################################################################################################################################################################33
 if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 
 # Title of the app
