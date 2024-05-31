@@ -263,15 +263,15 @@ if page == "Exploration Analysis - OWID":
 
     # Create a function that calculates the percentage of missing values in each column of your dataset.
     def missing_values_table(Co2):
-    """
-    Function to calculate the percentage of missing values in each column of the dataset.
+         """
+         Function to calculate the percentage of missing values in each column of the dataset.
     
-    Parameters:
-    Co2 (DataFrame): The dataframe for which the missing values need to be calculated.
+         Parameters:
+         Co2 (DataFrame): The dataframe for which the missing values need to be calculated.
     
-    Returns:
-    DataFrame: A dataframe containing the count and percentage of missing values for each column.
-    """
+         Returns:
+         DataFrame: A dataframe containing the count and percentage of missing values for each column.
+         """
     # Total missing values
     mis_val = Co2.isnull().sum()
     
