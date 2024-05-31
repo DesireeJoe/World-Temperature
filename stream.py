@@ -253,10 +253,14 @@ if page == "Exploration Analysis - FAO" :
   st.write("### Exploration of FAO Datasets")
   st.write("##### Food and Agriculture Orginization of the United Nations")
 
-    @st.cache
-  def load_data():
+# Load data
+   @st.cache
+    def load_data():
     FAO_merged = pd.read_csv("FAO_merged.csv", encoding='latin1')
     return FAO_merged
+
+  FAO_merged = load_data()
+
     
   with st.expander("Full description of data"):
     st.markdown("""
