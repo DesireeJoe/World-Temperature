@@ -136,25 +136,3 @@ if page == 'Credits':
 
 # linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
 # linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
-
-
-
-##### Exploration Analysis - NASA
-#### NASA Dataset Darstellung
-
-if page == "Exploration Analysis - NASA":
-    st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-    
