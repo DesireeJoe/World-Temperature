@@ -252,6 +252,12 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
   st.write("##### Food and Agriculture Orginization of the United Nations")
+
+    @st.cache
+  def load_data():
+    FAO_merged = pd.read_csv("FAO_merged.csv", encoding='latin1')
+    return FAO_merged
+    
   with st.expander("Full description of data"):
     st.markdown("""
                 **Data description:**
@@ -269,7 +275,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
  \n\n
 **Base period:** 1951-1980
 """)
-st.dataframe(FAO_merged, height=400)
+st.dataframe(FAO, height=400)
 
 # Filter rows where 'Months' is 'Meteorological year'
 fao_merged_filt = FAO_merged[FAO_merged['Months'] == 'Meteorological year']
