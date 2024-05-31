@@ -392,10 +392,12 @@ if page == "Exploration Analysis - FAO" :
 # Load data
   @st.cache
   def load_data():
-    FAO_merged = pd.read_csv("FAO_merged.csv", sep=';', encoding='latin1')
-    return FAO_merged
+    FAO_Continent = pd.read_csv("FAO_merged.csv", sep=',', encoding='latin1')
+    FAO_global = pd.read_csv("FAO_Global.csv", sep=',', encoding='latin1')
 
-  FAO_merged = load_data()
+    return FAO_Continent, FAO_global
+
+  FAO_Continent,FAO_global = load_data()
 
     
   with st.expander("Full description of data"):
@@ -415,10 +417,9 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
  \n\n
 **Base period:** 1951-1980
 """)
-st.dataframe(FAO_merged, height=400)
+st.dataframe(FAO_global, height=400)
 
-# Filter rows where 'Months' is 'Meteorological year'
-fao_merged_filt = FAO_merged[FAO_merged['Months'] == 'Meteorological year']
+fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
 # Filter for 5 continents
 fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
@@ -441,7 +442,7 @@ fig, axs = plt.subplots(5, 1, figsize=(10, 20))
 # Plot temperature against years for each area
 for i, area in enumerate(filtered_data['Area'].unique()):
     area_data = filtered_data[filtered_data['Area'] == area]
-    axs[i].plot(area_data['Year'], area_data['Temperature change (°C)'], marker='o', label=area)
+    axs[i].plot(area_data['Year'], area_data['Temperature change'], marker='o', label=area)
     axs[i].set_xlabel('Years')
     axs[i].set_ylabel('Temperature (°C)')
     axs[i].set_title(f'Temperature change (°C) for {area}')
@@ -452,9 +453,50 @@ for i, area in enumerate(filtered_data['Area'].unique()):
 # Adjust layout to prevent overlap
 fig.tight_layout(pad=3.0)
 
-# Display the plot in Streamlit
 st.pyplot(fig)
 
+#All continents graph
+fig, ax = plt.subplots()
+
+ax.plot(FAO_Continent.query("Area == 'Europe'")['Year'], FAO_Continent.query("Area == 'Europe'")['Temperature change'], marker='o', color='blue', label='Europe')
+ax.plot(FAO_Continent.query("Area == 'Asia'")['Year'], FAO_Continent.query("Area == 'Asia'")['Temperature change'], marker='x', color='green', label='Asia')
+ax.plot(FAO_Continent.query("Area == 'Africa'")['Year'], FAO_Continent.query("Area == 'Africa'")['Temperature change'], marker='s', color='red', label='Africa')
+ax.plot(FAO_Continent.query("Area == 'Americas'")['Year'], FAO_Continent.query("Area == 'Americas'")['Temperature change'], marker='^', color='orange', label='Americas')
+ax.plot(FAO_Continent.query("Area == 'Oceania'")['Year'], FAO_Continent.query("Area == 'Oceania'")['Temperature change'], marker='D', color='purple', label='Oceania')
+
+ax.set_xlabel('Years')
+ax.set_ylabel('Temperature')
+ax.set_title('Temperature Variation for Different Continents')
+ax.legend()
+ax.grid(True)
+
+st.pyplot(fig)
+
+import plotly.express as px
+
+# Plotly Choropleth Map with a different color scale
+fig = px.choropleth(
+    FAO_global,
+    locations='ISO3 Code',
+    color='Temperature change',
+    hover_name='Area',
+    animation_frame='Year',
+    projection='natural earth',
+    title='Temperature Change Over Time',
+    color_continuous_scale='Viridis'  # Change the color scale to Viridis
+)
+
+# Customize the layout
+fig.update_layout(
+    coloraxis_colorbar=dict(
+        title='Temperature Change (°C)'
+    ),
+    coloraxis_colorbar_thickness=25,
+    coloraxis_colorbar_len=0.5
+)
+
+# Display the map in Streamlit
+st.plotly_chart(fig)
 
 ###
 #Credits#
