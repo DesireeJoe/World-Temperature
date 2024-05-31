@@ -274,7 +274,7 @@ if page ==  "Exploration Analysis - OWID":
   st.subheader('Basic Data Information')
   st.write(f"Size of the DataFrame: {Co2.shape}")
   buffer = io.StringIO()
-  nasa.info(buf=buffer)
+  Co2.info(buf=buffer)
   s = buffer.getvalue()
   st.text(s)
   st.write(f"Missing values per column:\n{Co2.isna().sum()}")
