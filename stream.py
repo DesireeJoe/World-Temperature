@@ -288,7 +288,7 @@ if page == "Exploration Analysis - OWID":
     mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
     
     # Return the dataframe with missing information
-    return  mis_val_table_ren_columns
+       return mis_val_table_ren_columns
 
     # Calculate the missing values table for the CO2 dataset
     missing_table_Co2 = missing_values_table(Co2)
