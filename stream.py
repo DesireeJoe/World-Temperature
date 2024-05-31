@@ -263,12 +263,12 @@ if page == "Exploration Analysis - OWID":
          st.markdown("#### Missing values")
 
     # Create a function that calculates the percentage of missing values in each column of your dataset.
-         def missing_values_table(df):
+         def missing_values_table(Co2):
     # Total missing values
-            mis_val = df.isnull().sum()
+            mis_val = Co2.isnull().sum()
 
     # Percentage of missing values
-            mis_val_percent = 100 * mis_val / len(df)
+            mis_val_percent = 100 * mis_val / len(Co2)
 
     # Make a table with the results
             mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
@@ -283,7 +283,7 @@ if page == "Exploration Analysis - OWID":
             return mis_val_table_ren_columns
     
     # Calculate the missing values table
-            missing_table = missing_values_table(df_OWID)
+            missing_table = missing_values_table(Co2)
 
     # Display the missing values table using st.dataframe
             st.dataframe(missing_table)
