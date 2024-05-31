@@ -292,11 +292,11 @@ if page == "Exploration Analysis - OWID":
     st.markdown("***")
 #
 #####################################################################################################################################################################
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+  if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Title of the app
-  st.title('Exploration Analysis - Surface Temperature Anomaly')
-if page == "Exploration Analysis - OWID":
-    st.markdown(
+     st.title('Exploration Analysis - Surface Temperature Anomaly')
+  if page == "Exploration Analysis - OWID":
+     st.markdown(
         """
         <style>
         .centered-title {
@@ -309,32 +309,32 @@ if page == "Exploration Analysis - OWID":
         </style>
         """,
         unsafe_allow_html=True,
-    )
-    st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
-    st.markdown("<br><br>", unsafe_allow_html=True)
+     )
+     st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
 
-    st.markdown("#### The Surface Temperature Anomaly Dataset")
+     st.markdown("#### The Surface Temperature Anomaly Dataset")
 
-    st.write('**Intro**')
-    st.write('Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature. Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).')
-    st.write('Overview of the Surface Temperature Anomaly dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
+     st.write('**Intro**')
+     st.write('Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature. Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).')
+     st.write('Overview of the Surface Temperature Anomaly dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
 
     # Load Data
-    @st.cache
-    def load_data():
+     @st.cache
+     def load_data():
         sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
         return sta
 
-    sta = load_data()
+     sta = load_data()
 
       # Show the data
-    if st.checkbox('Show raw data'):
-       st.subheader('Raw data')
-       st.write(sta)
+     if st.checkbox('Show raw data'):
+        st.subheader('Raw data')
+        st.write(sta)
 
      # Expandable section for descriptive statistics
-    with st.expander("Descriptive statistics of the OWID dataset"):
-         st.dataframe(sta.describe())
+     with st.expander("Descriptive statistics of the OWID dataset"):
+        st.dataframe(sta.describe())
 
     with st.expander("Properties of the Surface Temperature Anomaly dataset"):
          st.markdown("###### Dimensions")
