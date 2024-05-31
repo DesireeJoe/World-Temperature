@@ -292,10 +292,9 @@ if page == "Exploration Analysis - OWID":
     st.markdown("***")
 #
 #####################################################################################################################################################################
-  if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Title of the app
      st.title('Exploration Analysis - Surface Temperature Anomaly')
-  if page == "Exploration Analysis - OWID":
      st.markdown(
         """
         <style>
