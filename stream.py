@@ -354,7 +354,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
                      "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
 
          st.markdown("***")
-         
+      with st.expander("Missing values"):
          st.markdown("#### Missing values")
 
     # Total missing values
