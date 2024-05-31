@@ -1,3 +1,12 @@
+pip install pandas numpy seaborn matplotlib scipy streamlit
+import streamlit as st
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
+import math
+from scipy.stats import linregress
 import streamlit as st
 
 # Seitenleiste
@@ -59,15 +68,6 @@ Using data from FAO, NASA and ‘Our World In Data”, This project explores his
     """)
 ####
 
-pip install pandas numpy seaborn matplotlib scipy streamlit
-import streamlit as st
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
-import math
-from scipy.stats import linregress
 #Nasa Exploration#
 if page ==  "Exploration Analysis - NASA":
 
