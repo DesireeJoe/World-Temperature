@@ -293,33 +293,98 @@ if page == "Exploration Analysis - OWID":
 #
 #####################################################################################################################################################################
 if page ==  "Exploration Analysis - Surface Temperature Anomaly":
-
 # Title of the app
   st.title('Exploration Analysis - Surface Temperature Anomaly')
+if page == "Exploration Analysis - OWID":
+    st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-# Load data
-  @st.cache
-  def load_data():
-    sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
-    return sta
+    st.markdown("#### The Surface Temperature Anomaly Dataset")
 
-  sta = load_data()
+    st.write('**Intro**')
+    st.write('Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature. Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).')
+    st.write('Overview of the Surface Temperature Anomaly dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
 
-  # Show the data
-  if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(sta)
+    # Load Data
+    @st.cache
+    def load_data():
+        sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
+        return sta
 
-  # Basic data info
-  st.subheader('Basic Data Information')
-  st.write(f"Size of the DataFrame: {sta.shape}")
-  buffer = io.StringIO()
-  sta.info(buf=buffer)
-  s = buffer.getvalue()
-  st.text(s)
-  st.write(f"Missing values per column:\n{sta.isna().sum()}")
-  st.write(f"Number of duplicates: {sta.duplicated().sum()}")
-  st.write(sta.describe())
+    sta = load_data()
+
+      # Show the data
+    if st.checkbox('Show raw data'):
+       st.subheader('Raw data')
+       st.write(sta)
+
+     # Expandable section for descriptive statistics
+    with st.expander("Descriptive statistics of the OWID dataset"):
+         st.dataframe(sta.describe())
+
+    with st.expander("Properties of the Surface Temperature Anomaly dataset"):
+         st.markdown("###### Dimensions")
+         st.markdown(f"- Number of Rows: {sta.shape[0]}\n"
+                    f"- Number of Columns: {sta.shape[1]}\n")
+         st.markdown("")
+         st.markdown("###### Data types")
+         st.markdown("- 71 variables are of data type float\n"
+                    "- 1 variable is of dtype integer\n"
+                    "- 2 variables are of dtype object\n")
+         st.markdown("")
+         st.markdown("###### Missing values")
+         st.markdown("- Exist in almost all of the variables in the dataset\n"
+                    "- Vary greatly in share of total entries among variables\n")
+         st.markdown("")
+         st.markdown("###### Variables")
+         st.markdown("- The dataset consists only 4 columns: The Year from 1880-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
+                     "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
+
+         st.markdown("***")
+         st.markdown("#### Missing values")
+
+    # Total missing values
+    mis_val = sta.isnull().sum()
+    
+    # Percentage of missing values
+    mis_val_percent = 100 * mis_val / len(sta)
+    
+    # Make a table with the results
+    mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+    
+    # Rename the columns
+    mis_val_table_ren_columns = mis_val_table.rename(columns={0: 'Missing Values', 1: '% of Total Values'})
+    
+    # Sort the table by percentage of missing descending and filter out columns with no missing values
+    mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
+
+    # Display the missing values table using Streamlit
+    st.title("CO2 Dataset Missing Values Analysis")
+    st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
+    st.dataframe(mis_val_table_ren_columns)
+    
+    st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+    st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
+    st.markdown("***")
+
+    st.markdown("#### Duplicated values")
+
+    st.write(f"Number of duplicates: {sta.duplicated().sum()}")
+    
 #########################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
