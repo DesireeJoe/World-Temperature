@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import linregress
-import math
+
 
 # Seitenleiste
 #fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
