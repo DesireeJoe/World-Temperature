@@ -263,7 +263,7 @@ if page == "Exploration Analysis - OWID":
          st.markdown("#### Missing values")
 
     # Create a function that calculates the percentage of missing values in each column of your dataset.
-      def missing_values_table(df):
+         def missing_values_table(df):
     # Total missing values
          mis_val = df.isnull().sum()
 
