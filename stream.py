@@ -59,8 +59,6 @@ Using data from FAO, NASA and ‘Our World In Data”, This project explores his
     """)
 ####
 
-#Nasa Exploration#
-if page ==  "Exploration Analysis - NASA":
 
 import streamlit as st
 import pandas as pd
@@ -70,9 +68,11 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 import math
 from scipy.stats import linregress
+#Nasa Exploration#
+if page ==  "Exploration Analysis - NASA":
 
 # Title of the app
-st.title('Exploration Analysis - NASA')
+  st.title('Exploration Analysis - NASA')
 
 # Load data
 @st.cache_data
