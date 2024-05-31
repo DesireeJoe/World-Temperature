@@ -256,7 +256,7 @@ if page == "Exploration Analysis - FAO" :
 # Load data
   @st.cache
   def load_data():
-    FAO_merged = pd.read_csv("FAO_merged.csv", encoding='latin1')
+    FAO_merged = pd.read_csv("FAO_merged.csv", sep=';', encoding='latin1')
     return FAO_merged
 
   FAO_merged = load_data()
