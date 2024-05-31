@@ -71,7 +71,7 @@ if page ==  "Exploration Analysis - NASA":
   st.title('Exploration Analysis - NASA')
 
 # Load data
-@st.cache_data
+@st.cache
 def load_data():
     nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
     return nasa
