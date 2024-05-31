@@ -60,7 +60,7 @@ Using data from FAO, NASA and ‘Our World In Data”, This project explores his
 ####
 
 #Nasa Exploration#
-if page ==  "Exploration Analysis - NASA"
+if page ==  "Exploration Analysis - NASA":
 
 import streamlit as st
 import pandas as pd
