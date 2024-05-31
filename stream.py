@@ -1,7 +1,8 @@
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # Seitenleiste
-fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
 st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
 # st.sidebar.write('<font color="black">Main Menu</font>', unsafe_allow_html=True)
 page = st.sidebar.radio(" ", ["Home", "Introduction",
@@ -78,6 +79,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
  \n\n
 **Base period:** 1951-1980
 """)
+fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
 st.dataframe(fao_merged, height=400)
 
 # Filter rows where 'Months' is 'Meteorological year'
