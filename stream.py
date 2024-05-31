@@ -257,6 +257,30 @@ if page ==  "Exploration Analysis - OWID":
 # Title of the app
   st.title('Exploration Analysis - OWID')
 
+# Load data
+  @st.cache
+  def load_data():
+    Co2 = pd.read_csv("owid-co2-data.csv", encoding='latin1')
+    return Co2
+
+  Co2 = load_data()
+
+  # Show the data
+  if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(Co2)
+
+  # Basic data info
+  st.subheader('Basic Data Information')
+  st.write(f"Size of the DataFrame: {Co2.shape}")
+  buffer = io.StringIO()
+  nasa.info(buf=buffer)
+  s = buffer.getvalue()
+  st.text(s)
+  st.write(f"Missing values per column:\n{Co2.isna().sum()}")
+  st.write(f"Number of duplicates: {Co2.duplicated().sum()}")
+  st.write(f"Unique years: {Co2['Year'].unique()}")
+  st.write(Co2.describe())
 
 #Credits#
 ####
