@@ -286,19 +286,19 @@ if page == "Exploration Analysis - OWID":
             missing_table = missing_values_table(df_OWID)
 
     # Display the missing values table using st.dataframe
-             st.dataframe(missing_table)
-             st.write('<span style="font-size: 12px;">*Click on the column heading to sort in ascending / descending order.</span>', unsafe_allow_html=True)
+            st.dataframe(missing_table)
+            st.write('<span style="font-size: 12px;">*Click on the column heading to sort in ascending / descending order.</span>', unsafe_allow_html=True)
 
 
-             st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-             st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
-             st.markdown('  * The amount of missing values varies a great deal across variables,')
-             st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
-             st.markdown('  * while others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
+            st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+            st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
+            st.markdown('  * The amount of missing values varies a great deal across variables,')
+            st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
+            st.markdown('  * while others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
    
-             st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
+            st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
-             st.markdown("***")
+            st.markdown("***")
     
 
 #
