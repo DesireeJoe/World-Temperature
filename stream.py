@@ -218,7 +218,6 @@ if page ==  "Exploration Analysis - OWID":
   st.text(s)
   st.write(f"Missing values per column:\n{Co2.isna().sum()}")
   st.write(f"Number of duplicates: {Co2.duplicated().sum()}")
-  st.write(f"Unique years: {Co2['Year'].unique()}")
   st.write(Co2.describe())
 
 #Credits#
