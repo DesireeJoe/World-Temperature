@@ -59,7 +59,7 @@ Using data from FAO, NASA and ‘Our World In Data”, This project explores his
     """)
 ####
 
-
+pip install pandas numpy seaborn matplotlib scipy streamlit
 import streamlit as st
 import pandas as pd
 import numpy as np
