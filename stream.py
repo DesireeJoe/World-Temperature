@@ -230,7 +230,40 @@ if page == "Exploration Analysis - OWID":
 
     Co2 = load_data()
 
+      # Show the data
+     if st.checkbox('Show raw data'):
+        st.subheader('Raw data')
+        st.write(Co2)
+  
+     st.dataframe(Co2)
 
+     # Expandable section for descriptive statistics
+     with st.expander("Descriptive statistics of the OWID dataset"):
+          st.dataframe(Co2.describe())
+          st.markdown('**Looking at the OWID dataset, the summary statistics indicate various things:**')
+
+     with st.expander("Properties of the OWID dataset"):
+          st.markdown("###### Dimensions")
+          st.markdown(f"- Number of Rows: {Co2.shape[0]}\n"
+                    f"- Number of Columns: {Co2.shape[1]}\n")
+          st.markdown("")
+          st.markdown("###### Data types")
+          st.markdown("- 71 variables are of data type float\n"
+                    "- 1 variable is of dtype integer\n"
+                    "- 2 variables are of dtype object\n")
+          st.markdown("")
+          st.markdown("###### Missing values")
+          st.markdown("- Exist in almost all of the variables in the dataset\n"
+                    "- Vary greatly in share of total entries among variables\n")
+          st.markdown("")
+          st.markdown("###### Variables")
+          st.markdown("- The dataset consists mainly of numerical variables on CO2 emissions with different scopes like emissions per emission source and the scope of aggregation (like total, shared, cumulative, per capita)\n"
+                    "- Other context metrics like year, population, country and GDP\n"
+                    "- For an in-detail description see [OWID CO2 Data GitHub](https://github.com/owid/co2-data)\n")
+
+     st.markdown("***")
+
+    
 
 #
 #####################################################################################################################################################################
