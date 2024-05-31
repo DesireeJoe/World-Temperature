@@ -259,7 +259,46 @@ if page == "Exploration Analysis - OWID":
                     "- For an in-detail description see [OWID CO2 Data GitHub](https://github.com/owid/co2-data)\n")
 
          st.markdown("***")
+     if page == "Exploration Analysis - OWID":
+         st.markdown("#### Missing values")
 
+    # Create a function that calculates the percentage of missing values in each column of your dataset.
+    def missing_values_table(df):
+    # Total missing values
+         mis_val = df.isnull().sum()
+
+    # Percentage of missing values
+         mis_val_percent = 100 * mis_val / len(df)
+
+    # Make a table with the results
+         mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+
+    # Rename the columns
+         mis_val_table_ren_columns = mis_val_table.rename(columns={0: 'Missing Values', 1: '% of Total Values'})
+
+    # Sort the table by percentage of missing descending
+         mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=True).round(1)
+
+    # Return the dataframe with missing information
+         return mis_val_table_ren_columns
+    
+    # Calculate the missing values table
+         missing_table = missing_values_table(df_OWID)
+
+    # Display the missing values table using st.dataframe
+    st.dataframe(missing_table)
+    st.write('<span style="font-size: 12px;">*Click on the column heading to sort in ascending / descending order.</span>', unsafe_allow_html=True)
+
+
+    st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+    st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
+    st.markdown('  * The amount of missing values varies a great deal across variables,')
+    st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
+    st.markdown('  * while others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
+   
+    st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
+
+    st.markdown("***")
     
 
 #
