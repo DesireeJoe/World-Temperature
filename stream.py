@@ -372,17 +372,17 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
          mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-    st.title("CO2 Dataset Missing Values Analysis")
-    st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
-    st.dataframe(mis_val_table_ren_columns)
+         st.title("CO2 Dataset Missing Values Analysis")
+         st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
+         st.dataframe(mis_val_table_ren_columns)
     
-    st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-    st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
-    st.markdown("***")
+         st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+         st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
+         st.markdown("***")
 
-    st.markdown("#### Duplicated values")
+         st.markdown("#### Duplicated values")
 
-    st.write(f"Number of duplicates: {sta.duplicated().sum()}")
+         st.write(f"Number of duplicates: {sta.duplicated().sum()}")
     
 #########################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
