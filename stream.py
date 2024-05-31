@@ -219,6 +219,35 @@ if page ==  "Exploration Analysis - OWID":
   st.write(f"Missing values per column:\n{Co2.isna().sum()}")
   st.write(f"Number of duplicates: {Co2.duplicated().sum()}")
   st.write(Co2.describe())
+####
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+
+# Title of the app
+  st.title('Exploration Analysis - Surface Temperature Anomaly')
+
+# Load data
+  @st.cache
+  def load_data():
+    sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
+    return sta
+
+  sta = load_data()
+
+  # Show the data
+  if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(sta)
+
+  # Basic data info
+  st.subheader('Basic Data Information')
+  st.write(f"Size of the DataFrame: {sta.shape}")
+  buffer = io.StringIO()
+  sta.info(buf=buffer)
+  s = buffer.getvalue()
+  st.text(s)
+  st.write(f"Missing values per column:\n{sta.isna().sum()}")
+  st.write(f"Number of duplicates: {sta.duplicated().sum()}")
+  st.write(sta.describe())
 
 #Credits#
 ####
