@@ -5,6 +5,10 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 import math
+import io
+
+
+
 
 # Seitenleiste
 st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
