@@ -354,6 +354,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
                      "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
 
          st.markdown("***")
+         
          st.markdown("#### Missing values")
 
     # Total missing values
@@ -378,11 +379,10 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     
          st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
          st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
+         
          st.markdown("***")
 
-         st.markdown("#### Duplicated values")
-
-         st.write(f"Number of duplicates: {sta.duplicated().sum()}")
+  
     
 #########################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
