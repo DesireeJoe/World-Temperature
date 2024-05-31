@@ -280,10 +280,7 @@ if page == "Exploration Analysis - OWID":
     st.title("CO2 Dataset Missing Values Analysis")
     st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
     st.dataframe(mis_val_table_ren_columns)
-           
-    st.write('<span style="font-size: 12px;">*Click on the column heading to sort in ascending / descending order.</span>', unsafe_allow_html=True)
-
-
+    
     st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
     st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
     st.markdown('  * The amount of missing values varies a great deal across variables,')
