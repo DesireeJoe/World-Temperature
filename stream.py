@@ -228,7 +228,7 @@ if page == "Exploration Analysis - OWID":
         Co2 = pd.read_csv("owid-co2-data.csv", encoding='latin1')
         return Co2
 
-     Co2 = load_data()
+    Co2 = load_data()
 
 
 
