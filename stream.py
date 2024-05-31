@@ -222,8 +222,8 @@ if page == "Exploration Analysis - OWID":
     st.write('The CO2 and Greenhouse Gas Emissions dataset is a collection of key metrics maintained by Our World in Data. It is updated regularly and includes data on CO2 emissions (annual, per capita, cumulative and consumption-based), other greenhouse gasses, energy mix, and other relevant metrics.')
     st.write('Overview of the OWID dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
   # Load data
-   @st.cache
-   def load_data():
+  @st.cache
+  def load_data():
     Co2 = pd.read_csv("owid-co2-data.csv", encoding='latin1')
     return Co2
 
@@ -231,10 +231,10 @@ if page == "Exploration Analysis - OWID":
 
   # Show the data
   if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(Co2)
+     st.subheader('Raw data')
+     st.write(Co2)
   
-  st.dataframe(Co2)
+     st.dataframe(Co2)
 
     # Expandable section for descriptive statistics
     with st.expander("Descriptive statistics of the OWID dataset"):
