@@ -136,3 +136,62 @@ if page == 'Credits':
 # linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
     
 ######################################################
+######
+if page ==  "Exploration Analysis - OWID":
+
+# Title of the app
+  st.title('Exploration Analysis - OWID')
+
+# Load data
+  @st.cache
+  def load_data():
+    Co2 = pd.read_csv("owid-co2-data.csv", encoding='latin1')
+    return Co2
+
+  Co2 = load_data()
+
+  # Show the data
+  if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(Co2)
+
+  # Basic data info
+  st.subheader('Basic Data Information')
+  st.write(f"Size of the DataFrame: {Co2.shape}")
+  buffer = io.StringIO()
+  Co2.info(buf=buffer)
+  s = buffer.getvalue()
+  st.text(s)
+  st.write(f"Missing values per column:\n{Co2.isna().sum()}")
+  st.write(f"Number of duplicates: {Co2.duplicated().sum()}")
+  st.write(Co2.describe())
+####
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+
+# Title of the app
+  st.title('Exploration Analysis - Surface Temperature Anomaly')
+
+# Load data
+  @st.cache
+  def load_data():
+    sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
+    return sta
+
+  sta = load_data()
+
+  # Show the data
+  if st.checkbox('Show raw data'):
+    st.subheader('Raw data')
+    st.write(sta)
+
+  # Basic data info
+  st.subheader('Basic Data Information')
+  st.write(f"Size of the DataFrame: {sta.shape}")
+  buffer = io.StringIO()
+  sta.info(buf=buffer)
+  s = buffer.getvalue()
+  st.text(s)
+  st.write(f"Missing values per column:\n{sta.isna().sum()}")
+  st.write(f"Number of duplicates: {sta.duplicated().sum()}")
+  st.write(sta.describe())
+####
