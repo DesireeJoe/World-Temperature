@@ -1,4 +1,4 @@
-pip install -r requirements.txt
+pip install -r Requirements.txt
 
 # Seitenleiste
 #fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
