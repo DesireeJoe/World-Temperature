@@ -42,21 +42,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-if page == 'Introduction':
-    st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black; /* https://www.w3schools.com/colors/colors_picker.asp */
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+if page == 'Introduction'
 
    st.write("## World Temperature: Effects of Greenhouse Emissions on Gobal Temperatures")
    st.markdown("""
