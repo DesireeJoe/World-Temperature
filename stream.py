@@ -44,7 +44,7 @@ st.markdown(
 )
 if page == 'Introduction':
 
-   st.write("## World Temperature: Effects of Greenhouse Emissions on Gobal Temperatures")
+   st.write("## World Temperature: Effects of Greenhouse Gasses on Gobal Temperatures")
    st.markdown("""
 Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change. 
 
