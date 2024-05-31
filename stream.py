@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Seitenleiste
-fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
+#fao_merged = pd.read_csv("FAO_merged.csv", delimiter=';')
 st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
 # st.sidebar.write('<font color="black">Main Menu</font>', unsafe_allow_html=True)
 page = st.sidebar.radio(" ", ["Home", "Introduction",
