@@ -261,17 +261,6 @@ if page == "Exploration Analysis - OWID":
          st.markdown("***")
          st.markdown("#### Missing values")
 
-    # Create a function that calculates the percentage of missing values in each column of your dataset.
-    def missing_values_table(Co2):
-         """
-         Function to calculate the percentage of missing values in each column of the dataset.
-    
-         Parameters:
-         Co2 (DataFrame): The dataframe for which the missing values need to be calculated.
-    
-         Returns:
-         DataFrame: A dataframe containing the count and percentage of missing values for each column.
-         """
     # Total missing values
     mis_val = Co2.isnull().sum()
     
@@ -286,17 +275,11 @@ if page == "Exploration Analysis - OWID":
     
     # Sort the table by percentage of missing descending and filter out columns with no missing values
     mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
-    
-    # Return the dataframe with missing information
-       return mis_val_table_ren_columns
-
-    # Calculate the missing values table for the CO2 dataset
-    missing_table_Co2 = missing_values_table(Co2)
 
     # Display the missing values table using Streamlit
     st.title("CO2 Dataset Missing Values Analysis")
     st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
-    st.dataframe(missing_table_Co2)
+    st.dataframe(mis_val_table_ren_columns)
            
 
 #
