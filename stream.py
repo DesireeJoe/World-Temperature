@@ -94,7 +94,7 @@ if page == 'Credits':
     with col2:
         st.write("Manasi Deshpande")
         st.write("Fiona")
-        st.write("Desiree")
+        st.write("Desiree Jorke")
         st.markdown("<br>", unsafe_allow_html=True)
         st.write("Tarik Anour (Tutor)")
         st.markdown("<br>", unsafe_allow_html=True)
