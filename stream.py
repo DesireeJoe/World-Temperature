@@ -58,7 +58,6 @@ if page == 'Introduction':
         unsafe_allow_html=True,
     )
 
-   st.markdown('<h1 class="centered-title">Introduction</h1>', unsafe_allow_html=True)
    st.write("## World Temperature: Effects of Greenhouse Emissions on Gobal Temperatures")
    st.markdown("""
 Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change. 
