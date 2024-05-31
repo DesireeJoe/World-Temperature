@@ -259,7 +259,6 @@ if page == "Exploration Analysis - OWID":
                     "- For an in-detail description see [OWID CO2 Data GitHub](https://github.com/owid/co2-data)\n")
 
          st.markdown("***")
-
          st.markdown("#### Missing values")
 
     # Create a function that calculates the percentage of missing values in each column of your dataset.
