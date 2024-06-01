@@ -420,7 +420,7 @@ if page ==  "Exploration Analysis - OWID":
   """)
   st.markdown("***")
   
- if page ==  "Exploration Analysis - OWID":
+if page ==  "Exploration Analysis - OWID":
   # Convert the 'year' column to an integer
     Co2_OWID['year'] = Co2_OWID['year'].astype(int)
 
