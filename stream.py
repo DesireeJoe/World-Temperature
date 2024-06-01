@@ -441,16 +441,16 @@ if page ==  "Exploration Analysis - OWID":
 # Extract data for the top 5 countries
     top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
 
+#pivot the values 
+    methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
+
 # Title and Introduction
     st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
     st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
 
 # Plotting
     plt.figure(figsize=(12, 6))
-
-    for country in top_5_countries_methane.index:
-        country_data = top_5_countries_data[top_5_countries_data['country'] == country]
-        plt.plot(country_data['year'], country_data['methane'], label=country)
+    methane_pivot.plot()
 
         plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
         plt.xlabel('Year', fontsize=12)
