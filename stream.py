@@ -603,13 +603,12 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    st.markdown("***")
 
    if page ==  "Exploration Analysis - Surface Temperature Anomaly":
-      sns.set_style("whitegrid")
-      
       @st.cache
       def load_data():
         merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
-        return Co2
-
+        return merged_data
+      sns.set_style("whitegrid")
+  
 # Title and Plot Title Description
    st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
    st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
