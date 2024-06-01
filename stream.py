@@ -420,7 +420,6 @@ st.write("""
 - The sudden decline can also be attributed to missing values that have not yet been addressed.
 - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
 """)
-#
 #####################################################################################################################################################################
 if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Title of the app
