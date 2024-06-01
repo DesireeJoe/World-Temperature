@@ -74,44 +74,44 @@ if page ==  "Exploration Analysis - NASA":
   st.title('Exploration Analysis - NASA')
 
   #introduction
-      st.markdown(
-        """
-        <style>
-        .intro-box {
-            border: 2px solid #0B3D91; 
-            border-radius: 10px;
-            background-color: #f9f9f9;
-            padding: 15px;
-            margin: 15px 0;
-            position: relative;
-        }
-        .intro-header {
-            color: #0B3D91; 
-            font-size: 24px;
-            font-weight: bold;
-        }
-        .intro-text {
-            font-size: 16px;
-            line-height: 1.6;
-        }
-        .intro-image {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 150px; /* Adjust the size as needed */
-        }
-        </style>
-        <div class="intro-box">
-            <div class="intro-header">Background, History and Updates</div>
-            <div class="intro-text">
-                The GISS Surface Temperature Analysis version 4 - the GISTEMP v4 - is an estimate of global surface temperature change. Graphs and tables are updated around the middle of every month using current data files from NOAA GHCN v4 (meteorological stations) and also from ERSST v5 (ocean areas), combined as described in our publications Hansen et al. (2010) and Lenssen et al. (2019). These updated files incorporate reports for the previous month and also late reports and corrections for earlier months. Temperature change indicates deviations from the typical or expected temperature for a specific location and time. Tables of Global and Hemispheric Monthly Means and also Zonal Annual Means are available. We want to show a brief overview of the NASA temperature dataset, including descriptive statistics and basic properties.
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-    st.image("nasa_x2.png", width=150, use_column_width=True)
-
+  st.markdown(
+          """
+          <style>
+          .intro-box {
+              border: 2px solid #0B3D91; 
+              border-radius: 10px;
+              background-color: #f9f9f9;
+              padding: 15px;
+              margin: 15px 0;
+              position: relative;
+          }
+          .intro-header {
+              color: #0B3D91; 
+              font-size: 24px;
+              font-weight: bold;
+          }
+          .intro-text {
+              font-size: 16px;
+              line-height: 1.6;
+          }
+          .intro-image {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              width: 150px; /* Adjust the size as needed */
+          }
+          </style>
+          <div class="intro-box">
+              <div class="intro-header">Background, History and Updates</div>
+              <div class="intro-text">
+                  The GISS Surface Temperature Analysis version 4 - the GISTEMP v4 - is an estimate of global surface temperature change. Graphs and tables are updated around the middle of every month using current data files from NOAA GHCN v4 (meteorological stations) and also from ERSST v5 (ocean areas), combined as described in our publications Hansen et al. (2010) and Lenssen et al. (2019). These updated files incorporate reports for the previous month and also late reports and corrections for earlier months. Temperature change indicates deviations from the typical or expected temperature for a specific location and time. Tables of Global and Hemispheric Monthly Means and also Zonal Annual Means are available. We want to show a brief overview of the NASA temperature dataset, including descriptive statistics and basic properties.
+              </div>
+          </div>
+          """,
+          unsafe_allow_html=True
+      )
+      st.image("nasa_x2.png", width=150, use_column_width=True)
+  
   
 # Load data
   @st.cache
