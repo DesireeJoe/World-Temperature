@@ -439,78 +439,78 @@ if page ==  "Exploration Analysis - OWID":
         """,
         unsafe_allow_html=True,
      )
-     st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
+      st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
+      st.markdown("<br><br>", unsafe_allow_html=True)
 
-     st.markdown("#### The Surface Temperature Anomaly Dataset")
+      st.markdown("#### The Surface Temperature Anomaly Dataset")
 
-     st.write('**Intro**')
-     st.write('Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature. Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).')
-     st.write('Overview of the Surface Temperature Anomaly dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
+      st.write('**Intro**')
+      st.write('Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature. Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).')
+      st.write('Overview of the Surface Temperature Anomaly dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
 
     # Load Data
-     @st.cache
-     def load_data():
-        sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
-        return sta
+      @st.cache
+      def load_data():
+         sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
+         return sta
 
-     sta = load_data()
+      sta = load_data()
 
       # Show the data
-     if st.checkbox('Show raw data'):
-        st.subheader('Raw data')
-        st.write(sta)
+      if st.checkbox('Show raw data'):
+         st.subheader('Raw data')
+         st.write(sta)
 
      # Expandable section for descriptive statistics
-     with st.expander("Descriptive statistics of the Surface Temperature Anomaly dataset"):
-         st.dataframe(sta.describe())
+      with st.expander("Descriptive statistics of the Surface Temperature Anomaly dataset"):
+           st.dataframe(sta.describe())
 
-     with st.expander("Properties of the Surface Temperature Anomaly dataset"):
-         st.markdown("###### Dimensions")
-         st.markdown(f"- Number of Rows: {sta.shape[0]}\n"
-                    f"- Number of Columns: {sta.shape[1]}\n")
-         st.markdown("")
-         st.markdown("###### Data types")
-         st.markdown("- 71 variables are of data type float\n"
-                    "- 1 variable is of dtype integer\n"
-                    "- 2 variables are of dtype object\n")
-         st.markdown("")
-         st.markdown("###### Missing values")
-         st.markdown("- Exist in almost all of the variables in the dataset\n"
-                    "- Vary greatly in share of total entries among variables\n")
-         st.markdown("")
-         st.markdown("###### Variables")
-         st.markdown("- The dataset consists only 4 columns: The Year from 1880-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
-                     "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
+      with st.expander("Properties of the Surface Temperature Anomaly dataset"):
+           st.markdown("###### Dimensions")
+           st.markdown(f"- Number of Rows: {sta.shape[0]}\n"
+                       f"- Number of Columns: {sta.shape[1]}\n")
+           st.markdown("")
+           st.markdown("###### Data types")
+           st.markdown("- 71 variables are of data type float\n"
+                       "- 1 variable is of dtype integer\n"
+                       "- 2 variables are of dtype object\n")
+           st.markdown("")
+           st.markdown("###### Missing values")
+           st.markdown("- Exist in almost all of the variables in the dataset\n"
+                       "- Vary greatly in share of total entries among variables\n")
+           st.markdown("")
+           st.markdown("###### Variables")
+           st.markdown("- The dataset consists only 4 columns: The Year from 1880-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
+                       "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
 
-         st.markdown("***")
+           st.markdown("***")
          
-         st.markdown("#### Missing values")
+           st.markdown("#### Missing values")
 
     # Total missing values
-         mis_val = sta.isnull().sum()
+           mis_val = sta.isnull().sum()
     
     # Percentage of missing values
-         mis_val_percent = 100 * mis_val / len(sta)
+           mis_val_percent = 100 * mis_val / len(sta)
     
     # Make a table with the results
-         mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
+           mis_val_table = pd.concat([mis_val, mis_val_percent], axis=1)
     
     # Rename the columns
-         mis_val_table_ren_columns = mis_val_table.rename(columns={0: 'Missing Values', 1: '% of Total Values'})
+           mis_val_table_ren_columns = mis_val_table.rename(columns={0: 'Missing Values', 1: '% of Total Values'})
     
     # Sort the table by percentage of missing descending and filter out columns with no missing values
-         mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
+           mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-         st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
-         st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
-         st.dataframe(mis_val_table_ren_columns)
+           st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
+           st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
+           st.dataframe(mis_val_table_ren_columns)
     
-         st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-         st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
+           st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+           st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
          
-         st.markdown("***")
+           st.markdown("***")
 
   
     
