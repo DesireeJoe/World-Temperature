@@ -693,7 +693,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
 **Base period:** 1951-1980
 """)
 
-        st.dataframe(FAO_global, height=400)
+     st.dataframe(FAO_global, height=400)
 
 fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
