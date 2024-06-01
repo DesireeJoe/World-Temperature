@@ -124,27 +124,18 @@ if page ==  "Exploration Analysis - NASA":
   if st.checkbox('Show raw data'):
     st.subheader('Raw data')
     st.write(nasa)
-
-  # Basic data info expander with custom styles
+    
+# Basic data info expander
   with st.expander("Basic Data Information"):
-      st.markdown(
-          """
-          <div style="color: #0B3D91; font-size: 22px;">
-              <b>Size of the DataFrame:</b> {0}<br>
-              <b>Missing values per column:</b> {1}<br>
-              <b>Number of duplicates:</b> {2}<br>
-              <b>Data Description:</b><br>{4}<br>
-          </div>
-          """.format(
-              nasa.shape,
-              nasa.isna().sum(),
-              nasa.duplicated().sum(),
-              nasa.describe()
-          ), 
-          unsafe_allow_html=True
-      )
-
-
+      st.write("**Size of the DataFrame:**", nasa.shape)
+      buffer = io.StringIO()
+      nasa.info(buf=buffer)
+      s = buffer.getvalue()
+      st.text(s)
+      st.write("**Missing values per column:**", nasa.isna().sum())
+      st.write("**Number of duplicates:**", nasa.duplicated().sum())
+      st.write("**Data Description:**")
+      st.write(nasa.describe())
 
   # Boxplot for distribution of variables
   st.subheader('Temperature Anomalies - Box-and-Whisker Plot')
