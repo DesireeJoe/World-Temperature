@@ -425,7 +425,7 @@ if page ==  "Exploration Analysis - OWID":
     Co2['year'] = Co2['year'].astype(int)
 
     # Filter data to exclude entries that are not individual countries
-    excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 'European Union (27)', 
+    excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
                     'North America', 'Oceania', 'South America', 'High-income countries', 
                     'Low-income countries', 'Lower-middle-income countries', 
                     'Upper-middle-income countries']
