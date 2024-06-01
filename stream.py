@@ -439,7 +439,7 @@ if page ==  "Exploration Analysis - OWID":
         """,
         unsafe_allow_html=True,
      )
-       st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
+   st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
        st.markdown("<br><br>", unsafe_allow_html=True)
 
        st.markdown("#### The Surface Temperature Anomaly Dataset")
