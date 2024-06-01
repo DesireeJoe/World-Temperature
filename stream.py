@@ -113,9 +113,10 @@ if page ==  "Exploration Analysis - NASA":
         """,
         unsafe_allow_html=True
     )
+  
 
     # Display the image
-    st.image("nasa_x2.png", caption="", use_column_width=True)
+  st.image("nasa_x2.png", caption="", use_column_width=True)
   
 # Load data
   @st.cache
