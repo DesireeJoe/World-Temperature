@@ -457,7 +457,7 @@ if page ==  "Exploration Analysis - OWID":
         st.pyplot(plt)
 
 # Description of the plot
-     st.markdown("### Description of Methane Emissions Distribution")
+        st.markdown("### Description of Methane Emissions Distribution")
      st.write("""
      - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
      - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
