@@ -773,7 +773,7 @@ with col3:
         )
 
 
-        st.markdown(
+st.markdown(
          f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
          f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
          f'</a>', 
