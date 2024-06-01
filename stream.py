@@ -458,13 +458,13 @@ if page ==  "Exploration Analysis - OWID":
 
 # Description of the plot
         st.markdown("### Description of Methane Emissions Distribution")
-     st.write("""
+        st.write("""
      - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
      - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
      - India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
      - Russia's methane emissions may stem from various sources such as natural gas production, agricultural activities, and landfills, reflecting the country's vast territory and resource-intensive industries.
      - The European Union, representing a collective of countries, demonstrates efforts to curb methane emissions over time, possibly driven by regulatory measures, technological advancements, and increased awareness of environmental issues.
-     """)
+        """)
 #####################################################################################################################################################################
  
 if page ==  "Exploration Analysis - Surface Temperature Anomaly":
