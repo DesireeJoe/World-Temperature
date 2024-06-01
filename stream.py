@@ -422,18 +422,18 @@ if page ==  "Exploration Analysis - OWID":
   
 if page ==  "Exploration Analysis - OWID":
   # Convert the 'year' column to an integer
-    Co2_OWID['year'] = Co2_OWID['year'].astype(int)
+    Co2['year'] = Co2['year'].astype(int)
 
-    Co2_OWID = Co2_OWID[~Co2_OWID['country'].isin(excluded_entries)]
+    Co2 = Co2[~Co2['country'].isin(excluded_entries)]
 
 # Calculate total methane emissions for each country
-    country_methane_emissions = Co2_OWID.groupby('country')['methane'].sum()
+    country_methane_emissions = Co2.groupby('country')['methane'].sum()
 
 # Sort countries based on methane emissions and select top 5
     top_5_countries_methane = country_methane_emissions.nlargest(5)
 
 # Extract data for the top 5 countries
-    top_5_countries_data = Co2_OWID[Co2_OWID['country'].isin(top_5_countries_methane.index)]
+    top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
 
 # Title and Introduction
     st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
