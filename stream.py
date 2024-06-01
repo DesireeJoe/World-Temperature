@@ -126,16 +126,18 @@ if page ==  "Exploration Analysis - NASA":
     st.write(nasa)
 
   # Basic data info
-  st.subheader('Basic Data Information')
-  st.write(f"Size of the DataFrame: {nasa.shape}")
-  buffer = io.StringIO()
-  nasa.info(buf=buffer)
-  s = buffer.getvalue()
-  st.text(s)
-  st.write(f"Missing values per column:\n{nasa.isna().sum()}")
-  st.write(f"Number of duplicates: {nasa.duplicated().sum()}")
-  st.write(f"Unique years: {nasa['Year'].unique()}")
-  st.write(nasa.describe())
+  with st.expander("Basic Data Information"):
+      st.write("**Size of the DataFrame:**", nasa.shape)
+      buffer = io.StringIO()
+      nasa.info(buf=buffer)
+      s = buffer.getvalue()
+      st.text(s)
+      st.write("**Missing values per column:**", nasa.isna().sum())
+      st.write("**Number of duplicates:**", nasa.duplicated().sum())
+      st.write("**Unique years:**", nasa['Year'].unique())
+      st.write("**Data Description:**")
+      st.write(nasa.describe())
+
 
   # Boxplot for distribution of variables
   st.subheader('Temperature Anomalies - Box-and-Whisker Plot')
