@@ -457,7 +457,7 @@ if page ==  "Exploration Analysis - OWID":
      sta = load_data()
 
       # Show the data
-      if st.checkbox('Show raw data'):
+     if st.checkbox('Show raw data'):
         st.subheader('Raw data')
         st.write(sta)
 
