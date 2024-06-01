@@ -293,7 +293,6 @@ if page == "Exploration Analysis - OWID":
 
 #Plots
 #Barplot of different categories of C02 emissions
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
