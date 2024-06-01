@@ -73,7 +73,7 @@ if page ==  "Exploration Analysis - NASA":
 # Title of the app
   st.title('Exploration Analysis - NASA')
 # Display the logo
-  st.image("nasa_x2.png", caption="", use_column_width=True)
+  st.image("nasa_x2.png", caption="", use_column_width=80)
 
 # Introduction Section 
   st.markdown(
