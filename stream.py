@@ -349,17 +349,17 @@ if page ==  "Exploration Analysis - OWID":
  st.markdown("***")
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
-st.markdown("### Description of the CO2 Emissions Distribution")
-st.write("""
-- **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
-- **Land Use Change CO2** follows closely, accounting for **14.8%** of the total emissions, indicating the significant impact of land use practices on CO2 levels.
-- **Total GHG (Total Greenhouse Gases)** contribute **16.1%** to the emissions, emphasizing the collective impact of all greenhouse gases.
-- **Coal CO2** is a significant contributor at **12.6%**, indicating the role of coal in CO2 emissions from energy production.
-- **Oil CO2** accounts for **9.1%** of emissions, highlighting the contribution of oil-based activities.
-- **Gas CO2** represents **4.1%** of emissions, indicating the contribution of gas-related activities.
-- While categories like **Flaring CO2** and **Other Industry CO2** individually contribute smaller percentages, they still contribute to the overall emissions profile.
-- The bar chart underscores the diverse sources of CO2 emissions and the importance of addressing each category in mitigation strategies.
-""")
+  st.markdown("### Description of the CO2 Emissions Distribution")
+  st.write("""
+  - **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
+  - **Land Use Change CO2** follows closely, accounting for **14.8%** of the total emissions, indicating the significant impact of land use practices on CO2 levels.
+  - **Total GHG (Total Greenhouse Gases)** contribute **16.1%** to the emissions, emphasizing the collective impact of all greenhouse gases.
+  - **Coal CO2** is a significant contributor at **12.6%**, indicating the role of coal in CO2 emissions from energy production.
+  - **Oil CO2** accounts for **9.1%** of emissions, highlighting the contribution of oil-based activities.
+  - **Gas CO2** represents **4.1%** of emissions, indicating the contribution of gas-related activities.
+  - While categories like **Flaring CO2** and **Other Industry CO2** individually contribute smaller percentages, they still contribute to the overall emissions profile.
+  - The bar chart underscores the diverse sources of CO2 emissions and the importance of addressing each category in mitigation strategies.
+  """)
 
 #Line plot for Global Co2 emissions by emission sources 
 # Convert the 'year' column to an integer
