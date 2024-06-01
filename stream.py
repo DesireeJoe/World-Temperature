@@ -672,11 +672,11 @@ if page == "Exploration Analysis - FAO" :
 
     return FAO_Continent, FAO_global
 
-  FAO_Continent,FAO_global = load_data()
+  FAO_Continent, FAO_global = load_data()
 
     
   with st.expander("Full description of data"):
-    st.markdown("""
+     st.markdown("""
                 **Data description:**
 The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
 The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
@@ -692,6 +692,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
  \n\n
 **Base period:** 1951-1980
 """)
+
 st.dataframe(FAO_global, height=400)
 
 fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
