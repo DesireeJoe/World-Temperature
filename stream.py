@@ -9,7 +9,6 @@ import io
 
 
 
-
 # Seitenleiste
 st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
 # st.sidebar.write('<font color="black">Main Menu</font>', unsafe_allow_html=True)
