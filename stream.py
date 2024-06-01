@@ -576,7 +576,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 
    for country in top_countries:
        country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-       plt.plot(country_data['Year'], country_data['Temp Anomaly (C)'], label=country)
+       plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
    plt.xlabel('Year')
    plt.ylabel('Surface Temperature Anomaly')
    plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
