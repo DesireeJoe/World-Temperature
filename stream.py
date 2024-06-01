@@ -568,15 +568,15 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
 
     # Title and Introduction
-   st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly in Top 5 Countries (1880-2017)</h2>", unsafe_allow_html=True)
+   st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly in Top 5 Countries </h2>", unsafe_allow_html=True)
    st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
 
     # Plotting
    plt.figure(figsize=(10, 6))
 
    for country in top_countries:
-       country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-       plt.plot(country_data['Year'], country_data['Temp Anomaly (C)'], label=country)
+        country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
+        plt.plot(sta['Year'], sta['Surface Temperature Anomaly'], label=country)
 
    plt.xlabel('Year')
    plt.ylabel('Surface Temperature Anomaly')
