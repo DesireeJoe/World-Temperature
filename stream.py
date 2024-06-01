@@ -53,7 +53,7 @@ st.markdown(
 )
 if page == 'Introduction':
 
-   st.write("## World Temperature: Effects of Greenhouse Gasses on Gobal Temperatures")
+   st.write("## World Temperature: Effects of Greenhouse Gases on Gobal Temperatures")
    st.markdown("""
 Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change. 
 
@@ -347,10 +347,10 @@ if page ==  "Exploration Analysis - OWID":
 # Display the plot in Streamlit
  st.pyplot(plt)
  st.markdown("***")
- if page ==  "Exploration Analysis - OWID":
+if page ==  "Exploration Analysis - OWID":
 # Description of the plot
- st.markdown("### Description of the CO2 Emissions Distribution")
- st.write("""
+st.markdown("### Description of the CO2 Emissions Distribution")
+st.write("""
 - **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
 - **Land Use Change CO2** follows closely, accounting for **14.8%** of the total emissions, indicating the significant impact of land use practices on CO2 levels.
 - **Total GHG (Total Greenhouse Gases)** contribute **16.1%** to the emissions, emphasizing the collective impact of all greenhouse gases.
