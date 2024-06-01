@@ -144,9 +144,10 @@ if page ==  "Exploration Analysis - NASA":
       st.write(nasa.describe())
 
   # Boxplot for distribution of variables
+  st.markdown("#### Box-and-Whisker Plot")
+  st.write('The following graph shows box-whisker plots for temperature anomalies in the different regions of the NASA data set. The analysis is essential to gain a better understanding of the distribution and dispersion of these data. Box-whisker plots provide a compact and informative representation of the statistical distribution and allow important aspects of the data to be grasped at a glance.')
   st.subheader('Temperature Anomalies - Box-and-Whisker Plot')
   columns = ['Glob', 'NHem', 'SHem', "24N-90N", "24S-24N", "90S-24S", "64N-90N", "44N-64N", "24N-44N","EQU-24N", "24S-EQU", "44S-24S", "64S-44S", "90S-64S"]
-  
   fig, ax = plt.subplots(figsize=(10, 6))
   nasa[columns].boxplot(ax=ax)
   ax.set_title('Temperature Anomalies - Box-and-Whisker Plot')
@@ -154,6 +155,9 @@ if page ==  "Exploration Analysis - NASA":
   ax.set_ylabel('Temperature Anomaly')
   plt.xticks(rotation=45)
   st.pyplot(fig)
+  st.write('As a brief summary of the Box-and-Whisker Plot Observations and descriptive statistics in general it can be stated that the range of data (min-max) for most variables falls between -1 and 1. Only two variables (64N-90N, 90S-64S) exceed these boundaries. For 10 variables, the standard deviation is less than 0.5,  less than 1.0 for 3 variables, and less than 1.5 °C for 1 variable. In most variables, the mean and median values are closely aligned, indicating a low impact of extreme values on the mean. This is consistent with the box and whisker plot, where outliers are visible for 'Glob,' 'NHem,' '24-90N,' '64N-90N,' '24N-44N,' '24S-EQU,' and '90S-64S.' For all other variables, the box-whisker plot does not show extreme values. For most variables (except '90S-64S'), the spread from maximum to Q2 is larger than from minimum to Q2. Since Q2 is very close to 0 °C, this suggests that there are more temperature changes above average for that specific year. In the North Pole region (‘64N-90N’), a greater variability in temperature change is observed. Anomaly values extend upwards to over +2 degrees Celsius (and sometimes even over +3 degrees Celsius), while the box extends downward to about -1.8 degrees Celsius')
+
+
   
   # Line plot for global temperature anomalies
   st.subheader('Global Temperature Anomalies (1880-2023)')
