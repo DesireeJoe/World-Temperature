@@ -698,7 +698,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
      fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
 # Filter for 5 continents
-fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
+     fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
 
 # Slider for year range selection (placed above the plots)
 st.write("#### Temperature changes from 1961 - 2019")
