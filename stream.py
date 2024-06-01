@@ -600,9 +600,9 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    - An interesting observation is the falling trend in surface temperature anomaly for Afghanistan around 2017, indicating a deviation from the overall increasing trend observed in other countries.
    - This anomaly might warrant further investigation into the factors influencing temperature patterns in Afghanistan.
     """)     
-st.markdown("***")
+ st.markdown("***")
 
- if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    sns.set_style("whitegrid")
 
 # Title and Plot Title Description
