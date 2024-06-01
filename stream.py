@@ -422,27 +422,27 @@ if page ==  "Exploration Analysis - OWID":
   
 if page ==  "Exploration Analysis - OWID":
   # Convert the 'year' column to an integer
-  Co2_OWID['year'] = Co2_OWID['year'].astype(int)
+   Co2_OWID['year'] = Co2_OWID['year'].astype(int)
 
-  Co2_OWID = Co2_OWID[~Co2_OWID['country'].isin(excluded_entries)]
+   Co2_OWID = Co2_OWID[~Co2_OWID['country'].isin(excluded_entries)]
 
 # Calculate total methane emissions for each country
-  country_methane_emissions = Co2_OWID.groupby('country')['methane'].sum()
+   country_methane_emissions = Co2_OWID.groupby('country')['methane'].sum()
 
 # Sort countries based on methane emissions and select top 5
-  top_5_countries_methane = country_methane_emissions.nlargest(5)
+   top_5_countries_methane = country_methane_emissions.nlargest(5)
 
 # Extract data for the top 5 countries
-  top_5_countries_data = Co2_OWID[Co2_OWID['country'].isin(top_5_countries_methane.index)]
+   top_5_countries_data = Co2_OWID[Co2_OWID['country'].isin(top_5_countries_methane.index)]
 
 # Title and Introduction
-  st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
-  st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
+   st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
+   st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
 
 # Plotting
-  plt.figure(figsize=(12, 6))
+   plt.figure(figsize=(12, 6))
 
-  for country in top_5_countries_methane.index:
+ for country in top_5_countries_methane.index:
       country_data = top_5_countries_data[top_5_countries_data['country'] == country]
       plt.plot(country_data['year'], country_data['methane'], label=country)
 
