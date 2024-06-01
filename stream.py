@@ -605,11 +605,11 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       sns.set_style("whitegrid")
       
-    @st.cache
+      @st.cache
       def load_data():
         merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
         return merged_data
-      
+      merged_data = load_data()    
   
 # Title and Plot Title Description
    st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
