@@ -97,7 +97,7 @@ if page ==  "Exploration Analysis - NASA":
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 150px; /* Adjust the size as needed */
+            width: 150px; 
         }
         </style>
         <div class="intro-box">
