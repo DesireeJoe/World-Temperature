@@ -418,6 +418,53 @@ if page ==  "Exploration Analysis - OWID":
   - The sudden decline can also be attributed to missing values that have not yet been addressed.
   - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
   """)
+  st.markdown("***")
+  
+if page ==  "Exploration Analysis - OWID":
+  # Convert the 'year' column to an integer
+  Co2_OWID['year'] = Co2_OWID['year'].astype(int)
+
+  Co2_OWID = Co2_OWID[~Co2_OWID['country'].isin(excluded_entries)]
+
+# Calculate total methane emissions for each country
+  country_methane_emissions = Co2_OWID.groupby('country')['methane'].sum()
+
+# Sort countries based on methane emissions and select top 5
+  top_5_countries_methane = country_methane_emissions.nlargest(5)
+
+# Extract data for the top 5 countries
+  top_5_countries_data = Co2_OWID[Co2_OWID['country'].isin(top_5_countries_methane.index)]
+
+# Title and Introduction
+  st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
+  st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
+
+# Plotting
+  plt.figure(figsize=(12, 6))
+
+  for country in top_5_countries_methane.index:
+      country_data = top_5_countries_data[top_5_countries_data['country'] == country]
+      plt.plot(country_data['year'], country_data['methane'], label=country)
+
+  plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
+  plt.xlabel('Year', fontsize=12)
+  plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
+  plt.legend()
+  plt.grid(True)
+  plt.tight_layout()
+
+# Display the plot in Streamlit
+st.pyplot(plt)
+
+# Description of the plot
+st.markdown("### Description of Methane Emissions Distribution")
+st.write("""
+- China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
+- The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
+- India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
+- Russia's methane emissions may stem from various sources such as natural gas production, agricultural activities, and landfills, reflecting the country's vast territory and resource-intensive industries.
+- The European Union, representing a collective of countries, demonstrates efforts to curb methane emissions over time, possibly driven by regulatory measures, technological advancements, and increased awareness of environmental issues.
+""")
 #####################################################################################################################################################################
  
 if page ==  "Exploration Analysis - Surface Temperature Anomaly":
