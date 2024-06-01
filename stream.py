@@ -72,6 +72,8 @@ if page ==  "Exploration Analysis - NASA":
 
 # Title of the app
   st.title('Exploration Analysis - NASA')
+# Display the logo
+  st.image("nasa_x2.png", caption="", use_column_width=True)
 
 # Introduction Section 
   st.markdown(
@@ -98,11 +100,7 @@ if page ==  "Exploration Analysis - NASA":
             line-height: 1.6;
             flex: 1;
         }
-        .intro-image {
-            margin-left: 20px;
-            width: 50px; 
-            height: auto;
-        }
+    
         </style>
         <div class="intro-box">
             <div class="intro-text">
@@ -113,10 +111,6 @@ if page ==  "Exploration Analysis - NASA":
         """,
         unsafe_allow_html=True
     )
-  
-
-    # Display the image
-  st.image("nasa_x2.png", caption="", use_column_width=True)
   
 # Load data
   @st.cache
