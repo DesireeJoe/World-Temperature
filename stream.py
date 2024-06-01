@@ -618,18 +618,15 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Create a figure and axis object
    fig, ax1 = plt.subplots(figsize=(12, 6))
 
-# Filter data based on selected years
-   filtered_data = merged_data[(merged_data['Year'] >= selected_years[0]) & (merged_data['Year'] <= selected_years[1])]
-
 # Plot CO2 emissions on the primary y-axis
-   sns.lineplot(data=filtered_data, x='year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+   sns.lineplot(data=merged_data, x='year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
 
 # Set the y-label for CO2 emissions
    ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
 
 # Create a secondary y-axis for Surface Temperature Anomaly
    ax2 = ax1.twinx()
-   sns.lineplot(data=filtered_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
+   sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
 
 # Set the y-label for Surface Temperature Anomaly
    ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
