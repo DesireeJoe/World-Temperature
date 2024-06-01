@@ -700,7 +700,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
      fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
 
     # Slider for year range selection
-    st.write("#### Temperature changes from 1961 - 2019")
+  st.write("#### Temperature changes from 1961 - 2019")
     year_range = st.slider(
         "Select the year range",
         int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),
