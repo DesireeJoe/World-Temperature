@@ -293,9 +293,6 @@ if page == "Exploration Analysis - OWID":
 if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
- import streamlit as st
- import pandas as pd
- import matplotlib.pyplot as plt
 
 # CO2 categories
  categories = [
@@ -422,6 +419,7 @@ if page ==  "Exploration Analysis - OWID":
   - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
   """)
 #####################################################################################################################################################################
+ 
   if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Title of the app
      st.title('Exploration Analysis - Surface Temperature Anomaly')
