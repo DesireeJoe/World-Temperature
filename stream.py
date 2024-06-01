@@ -704,9 +704,9 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
 st.write("#### Temperature changes from 1961 - 2019")
 year_range = st.slider(
     "Select the year range",
-    int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),
-    (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
-    step=1
+     int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),
+     (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
+     step=1
 )
 
 # Filter the data based on the selected year range
