@@ -110,7 +110,7 @@ if page ==  "Exploration Analysis - NASA":
           """,
           unsafe_allow_html=True
       )
-      st.image("nasa_x2.png", width=150, use_column_width=True)
+  st.image("nasa_x2.png", width=150, use_column_width=True)
   
   
 # Load data
