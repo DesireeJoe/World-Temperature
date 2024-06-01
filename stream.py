@@ -695,7 +695,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
 
      st.dataframe(FAO_global, height=400)
 
-fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
+     fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
 # Filter for 5 continents
 fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
