@@ -619,7 +619,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    fig, ax1 = plt.subplots(figsize=(12, 6))
 
 # Plot CO2 emissions on the primary y-axis
-   sns.lineplot(data=merged_data, x='year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+   sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
 
 # Set the y-label for CO2 emissions
    ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
