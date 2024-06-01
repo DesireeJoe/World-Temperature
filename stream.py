@@ -290,6 +290,76 @@ if page == "Exploration Analysis - OWID":
     st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
     st.markdown("***")
+
+#Plots
+#Barplot of different categories of C02 emissions
+
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# CO2 categories
+categories = [
+    'CO2',
+    'Flaring CO2',
+    'Other Industry CO2',
+    'Methane',
+    'Nitrous Oxide',
+    'Oil CO2',
+    'Gas CO2',
+    'Coal CO2',
+    'Cement CO2',
+    'Total GHG',
+    'Land Use Change CO2'
+]
+
+# Corresponding sum values for the selected categories
+co2_values = [
+    11858676.647999998,
+    90882.134,
+    45375.86899999999,
+    956622.5999999999,
+    342210.54,
+    2835551.222,
+    1286208.5720000002,
+    3935870.717,
+    216475.77999999997,
+    5022398.451,
+    4609805.573
+]
+
+# Calculate percentages
+total_co2 = sum(co2_values)
+percentages = [(value / total_co2) * 100 for value in co2_values]
+
+# Streamlit Title
+st.markdown("<h2 style='text-align: center;'>Barplot Representing the Distribution of CO2 Emissions Across Different Categories</h2>", unsafe_allow_html=True)
+st.write("This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions.")
+
+# Create bar plot with percentages
+plt.figure(figsize=(12, 8))
+plt.bar(categories, percentages, color='skyblue')
+plt.title('CO2 Emissions by Category', fontsize=14)
+plt.xlabel('Category', fontsize=12)
+plt.ylabel('Percentage of Total CO2 Emissions', fontsize=12)
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+
+# Display the plot in Streamlit
+st.pyplot(plt)
+
+# Description of the plot
+st.markdown("### Description of the CO2 Emissions Distribution")
+st.write("""
+- **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
+- **Land Use Change CO2** follows closely, accounting for **14.8%** of the total emissions, indicating the significant impact of land use practices on CO2 levels.
+- **Total GHG (Total Greenhouse Gases)** contribute **16.1%** to the emissions, emphasizing the collective impact of all greenhouse gases.
+- **Coal CO2** is a significant contributor at **12.6%**, indicating the role of coal in CO2 emissions from energy production.
+- **Oil CO2** accounts for **9.1%** of emissions, highlighting the contribution of oil-based activities.
+- **Gas CO2** represents **4.1%** of emissions, indicating the contribution of gas-related activities.
+- While categories like **Flaring CO2** and **Other Industry CO2** individually contribute smaller percentages, they still contribute to the overall emissions profile.
+- The bar chart underscores the diverse sources of CO2 emissions and the importance of addressing each category in mitigation strategies.
+""")
 #
 #####################################################################################################################################################################
 if page ==  "Exploration Analysis - Surface Temperature Anomaly":
