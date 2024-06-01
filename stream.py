@@ -776,8 +776,8 @@ st.plotly_chart(fig)
 ###
 ###########################################################################################################################################################################################################################
 
-if page ==  "Machine Learning Models":
-# Title of the app
+  if page ==  "Machine Learning Models":
+  # Title of the app
      st.title('Machine Learning Models')
      st.markdown(
         """
