@@ -452,19 +452,19 @@ if page ==  "Exploration Analysis - OWID":
         country_data = top_5_countries_data[top_5_countries_data['country'] == country]
         plt.plot(country_data['year'], country_data['methane'], label=country)
 
-        plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
-        plt.xlabel('Year', fontsize=12)
-        plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
-        plt.legend()
-        plt.grid(True)
-        plt.tight_layout()
+     plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
+     plt.xlabel('Year', fontsize=12)
+     plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
+     plt.legend()
+     plt.grid(True)
+     plt.tight_layout()
 
 # Display the plot in Streamlit
-        st.pyplot(plt)
+     st.pyplot(plt)
 
 # Description of the plot
-        st.markdown("### Description of Methane Emissions Distribution")
-        st.write("""
+     st.markdown("### Description of Methane Emissions Distribution")
+     st.write("""
         - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
         - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
         - India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
