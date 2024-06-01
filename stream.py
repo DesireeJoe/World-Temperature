@@ -739,8 +739,8 @@ if page == 'Credits':
         unsafe_allow_html=True,
     )
 
-  st.markdown('<h1 class="centered-title">Credits</h1>', unsafe_allow_html=True)
-  st.markdown("<br><br>", unsafe_allow_html=True)
+     st.markdown('<h1 class="centered-title">Credits</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
 
      col1, col2, col3 = st.columns(3)
    
