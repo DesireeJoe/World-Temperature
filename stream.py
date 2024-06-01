@@ -454,7 +454,7 @@ if page ==  "Exploration Analysis - OWID":
        sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
        return sta
 
-     sta = load_data()
+       sta = load_data()
 
       # Show the data
      if st.checkbox('Show raw data'):
