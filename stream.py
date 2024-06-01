@@ -99,8 +99,8 @@ if page ==  "Exploration Analysis - NASA":
             flex: 1;
         }
         .intro-image {
-            margin-left: 15px;
-            width: 100px; 
+            margin-left: 20px;
+            width: 50px; 
             height: auto;
         }
         </style>
