@@ -614,8 +614,6 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Title and Plot Title Description
    st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
    st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
-# Use Slider    
-   selected_years = st.slider("Select years range", min_value=1850, max_value=2022, value=(1880, 2022))
 
 # Create a figure and axis object
    fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -640,7 +638,8 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Show legend
    lines1, labels1 = ax1.get_legend_handles_labels()
    lines2, labels2 = ax2.get_legend_handles_labels()
-   ax1.legend(lines1 + lines2, labels1 + labels2, loc='upper left')
+   ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
+   ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
 
 # Rotate x-axis labels for better readability
    plt.xticks(rotation=45)
