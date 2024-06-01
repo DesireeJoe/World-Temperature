@@ -602,7 +602,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     """)     
 st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    sns.set_style("whitegrid")
 
 # Title and Plot Title Description
