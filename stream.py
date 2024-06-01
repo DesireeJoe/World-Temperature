@@ -410,19 +410,19 @@ if page ==  "Exploration Analysis - OWID":
   st.pyplot(plt)
 
 # Description of the plot
- st.markdown("### Description of the CO2 Emissions Distribution")
- st.write("""
- - The contributions of different emission sources to the total CO2 emissions vary over time.
- - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
- - Certain emission sources, such as coal, oil, and gas, might stand out as major contributors to CO2 emissions due to their relatively higher emission levels.
- - The plot might unveil temporal patterns or anomalies in CO2 emissions from specific sources over time, indicating potential shifts in energy usage, industrial activities, or environmental policies.
- - Land use change CO2 emissions show distinct patterns, reflecting alterations in land use practices like deforestation, afforestation, or changes in agricultural land management.
- - The plot includes a line for total greenhouse gas emissions, which provides an overview of the cumulative impact of all emission sources considered, with an initial steady rise and then a sudden rise from around the 1990s till the 2020s, followed by a sudden decline.
- - The sudden decline can also be attributed to missing values that have not yet been addressed.
- - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
- """)
+  st.markdown("### Description of the CO2 Emissions Distribution")
+  st.write("""
+  - The contributions of different emission sources to the total CO2 emissions vary over time.
+  - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
+  - Certain emission sources, such as coal, oil, and gas, might stand out as major contributors to CO2 emissions due to their relatively higher emission levels.
+  - The plot might unveil temporal patterns or anomalies in CO2 emissions from specific sources over time, indicating potential shifts in energy usage, industrial activities, or environmental policies.
+  - Land use change CO2 emissions show distinct patterns, reflecting alterations in land use practices like deforestation, afforestation, or changes in agricultural land management.
+  - The plot includes a line for total greenhouse gas emissions, which provides an overview of the cumulative impact of all emission sources considered, with an initial steady rise and then a sudden rise from around the 1990s till the 2020s, followed by a sudden decline.
+  - The sudden decline can also be attributed to missing values that have not yet been addressed.
+  - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
+  """)
 #####################################################################################################################################################################
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+  if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Title of the app
      st.title('Exploration Analysis - Surface Temperature Anomaly')
      st.markdown(
