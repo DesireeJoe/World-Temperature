@@ -699,13 +699,14 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
 # Filter for 5 continents
      fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
 
-st.write("#### Temperature changes from 1961 - 2019")
+    # Slider for year range selection
+    st.write("#### Temperature changes from 1961 - 2019")
     year_range = st.slider(
-      "Select the year range",
-       int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),
-       (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
-       step=1
-   )
+        "Select the year range",
+        int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),
+        (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
+        step=1
+    )
 
 # Filter the data based on the selected year range
 filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
