@@ -778,7 +778,28 @@ st.plotly_chart(fig)
 #Credits#
 #########################################################################################################################################################
 
-if page ==  "Credits" :
+if page ==  "Machine Learning Models":
+# Title of the app
+     st.title('Machine Learning Models')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+
+############################################################################################################################################################3
+if page ==  "Credits":
    st.markdown(
         """
         <style>
