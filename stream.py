@@ -290,7 +290,7 @@ if page == "Exploration Analysis - OWID":
     st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
     st.markdown("***")
-
+if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
 import streamlit as st
@@ -346,7 +346,8 @@ plt.tight_layout()
 
 # Display the plot in Streamlit
 st.pyplot(plt)
-
+st.markdown("***")
+if page ==  "Exploration Analysis - OWID":
 # Description of the plot
 st.markdown("### Description of the CO2 Emissions Distribution")
 st.write("""
