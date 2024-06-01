@@ -424,8 +424,6 @@ if page ==  "Exploration Analysis - OWID":
   # Convert the 'year' column to an integer
     Co2['year'] = Co2['year'].astype(int)
 
-    Co2 = Co2[~Co2['country'].isin(excluded_entries)]
-
 # Calculate total methane emissions for each country
     country_methane_emissions = Co2.groupby('country')['methane'].sum()
 
