@@ -777,8 +777,8 @@ st.plotly_chart(fig)
 #Credits#
 #########################################################################################################################################################
 
-if page == 'Credits':
-   st.markdown(
+     if page == 'Credits':
+       st.markdown(
         """
         <style>
         .centered-title {
