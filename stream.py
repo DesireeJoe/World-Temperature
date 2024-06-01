@@ -72,8 +72,9 @@ if page ==  "Exploration Analysis - NASA":
 
 # Title of the app
   st.title('Exploration Analysis - NASA')
-    # Introduction Section with Styled Box
-    st.markdown(
+
+  #Introduction
+  st.markdown(
         """
         <style>
         .intro-box {
