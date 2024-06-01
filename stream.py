@@ -134,10 +134,8 @@ if page ==  "Exploration Analysis - NASA":
       st.text(s)
       st.write("**Missing values per column:**", nasa.isna().sum())
       st.write("**Number of duplicates:**", nasa.duplicated().sum())
-      st.write("**Unique years:**", nasa['Year'].unique())
       st.write("**Data Description:**")
       st.write(nasa.describe())
-
 
   # Boxplot for distribution of variables
   st.subheader('Temperature Anomalies - Box-and-Whisker Plot')
