@@ -452,7 +452,7 @@ if page ==  "Exploration Analysis - OWID":
      @st.cache
      def load_data():
        sta = pd.read_csv("hadcrut-surface-temperature-anomaly.csv", encoding='latin1')
-      return sta
+       return sta
 
      sta = load_data()
 
