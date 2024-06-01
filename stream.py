@@ -364,19 +364,19 @@ if page ==  "Exploration Analysis - OWID":
 
 #Line plot for Global Co2 emissions by emission sources 
 # Convert the 'year' column to an integer
- Co2['year'] = Co2['year'].astype(int)
+  Co2['year'] = Co2['year'].astype(int)
 
 # Filter data for years from 1880 onwards
- Co2 = Co2[Co2['year'] >= 1880]
+  Co2 = Co2[Co2['year'] >= 1880]
 # Select relevant columns for CO2 emissions by different sources
- emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
+  emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
                     'oil_co2', 'gas_co2', 'coal_co2', 'cement_co2', 'total_ghg', 'land_use_change_co2']
 
 # Aggregate data by summing over years
- emission_data = Co2.groupby('year')[emission_sources].sum()
+  emission_data = Co2.groupby('year')[emission_sources].sum()
 
 # Mapping variable names to custom legend labels
- legend_labels = {
+  legend_labels = {
     'flaring_co2': 'Flaring CO2',
     'other_industry_co2': 'Other Industry CO2',
     'methane': 'Methane',
@@ -387,27 +387,27 @@ if page ==  "Exploration Analysis - OWID":
     'cement_co2': 'Cement CO2',
     'total_ghg': 'Total GHG',
     'land_use_change_co2': 'Land Use Change CO2'
-}
+  }
 
 # Title and Introduction
- st.markdown("<h2 style='text-align: center;'>Global CO2 Emissions by Emission Sources</h2>", unsafe_allow_html=True)
- st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
+  st.markdown("<h2 style='text-align: center;'>Global CO2 Emissions by Emission Sources</h2>", unsafe_allow_html=True)
+  st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
 # Plotting
- plt.figure(figsize=(12, 6))
+  plt.figure(figsize=(12, 6))
 
- for source in emission_sources:
-    plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
+  for source in emission_sources:
+     plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
 
- plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
- plt.xlabel('Year', fontsize=12)
- plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
- plt.legend()
- plt.grid(True)
- plt.tight_layout()  # Adjust layout to prevent overlapping elements
+  plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
+  plt.xlabel('Year', fontsize=12)
+  plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
+  plt.legend()
+  plt.grid(True)
+  plt.tight_layout()  # Adjust layout to prevent overlapping elements
 
 # Display the plot in Streamlit
- st.pyplot(plt)
+  st.pyplot(plt)
 
 # Description of the plot
  st.markdown("### Description of the CO2 Emissions Distribution")
