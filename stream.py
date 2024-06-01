@@ -709,7 +709,7 @@ i.e., temperature change with respect to a baseline climatology, corresponding t
     )
 
 # Filter the data based on the selected year range
-filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
+  filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
 
 # Create subplots
 fig, axs = plt.subplots(5, 1, figsize=(10, 20))
