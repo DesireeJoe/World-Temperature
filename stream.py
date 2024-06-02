@@ -842,20 +842,31 @@ In the initial stage of our machine learning models, we began by preparing our d
 The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
 """)
 if page ==  "Machine Learning Models":  
-  data = {
+  with st.expander("Linear Regression and Decision Tree Models"):
+    # Initial paragraph
+    st.markdown("""
+    Initially, the linear regression and decision tree models were used to compare and test the predictive performance. 
+    The linear regression model showed limited predictive performance, as indicated by its relatively low R² scores on both the training and test sets, suggesting it struggles to capture the underlying relationship in the data. 
+    On the other hand, the decision tree model can capture non-linear relationships and interactions between variables, potentially offering improved predictive accuracy and better handling of complex data structures. 
+    However, the observed R² scores on the training and test sets for the decision tree model (Training R2 Score: 1.0, Test R2 Score: 0.061) suggested that it also struggles to capture the relationship effectively. Therefore, further analysis with different max depth values was conducted.
+
+    The max_depth analysis of 5, 10, 15, and 20 was decided to investigate the impact of tree complexity on model performance and to mitigate overfitting observed. 
+    By limiting the depth, we aimed to find a balance where the model generalizes better to unseen data, potentially improving the R² score on the test set while avoiding perfect but misleading performance on the training set.
+    """)
+    data = {
     "Model": ["Linear Regression", "Decision Tree", "Max Depth = 5", "Max Depth = 10", "Max Depth = 15", "Max Depth = 20"],
     "R² Train": [0.17, 1.0, 0.45, 0.85, 0.99, 0.99],
     "R² Test": [0.19, 0.06, 0.36, 0.19, 0.09, 0.071],
     "MAE": [0.40, 0.42, 0.36, 0.39, 0.41, 0.42],
     "MSE": [0.26, 0.30, 0.20, 0.25, 0.29, 0.30],
     "RMSE": [0.51, 0.55, 0.45, 0.50, 0.54, 0.54]
-  }
+    }
 
 # Create a DataFrame
-  df = pd.DataFrame(data)
+    df = pd.DataFrame(data)
 
 # Display the table
-  st.table(df)
+   st.table(df)
 if page ==  "Machine Learning Models":  
   # Title Description
   st.markdown("<h2 style='text-align: center;'>Comparison of the Max Depth Values for the Decision Tree Models</h2>", unsafe_allow_html=True)
