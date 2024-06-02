@@ -714,7 +714,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     import pandas as pd
 
     st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomalies Over Years in different countries</h2>", unsafe_allow_html=True)
-    st.write("The plot surface temperature anomaly over the years from 1850 to 2017 across different countries")
+    st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
     # Sort the values of Year Column
     sta = sta.sort_values(by='Year')
     # Plotly Choropleth Map with a different color scale
