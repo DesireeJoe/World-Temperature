@@ -917,11 +917,11 @@ import matplotlib.pyplot as plt
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import statsmodels.api as sm
-if page ==  "Time-series modeling with SARIMA":
+if page ==  "Time-series modeling with SARIMA" :
+  
   # Title of the app
      st.title('Time-series modeling with SARIMA')
-  
-  # Load and preprocess data
+   # Load and preprocess data
   df = pd.read_csv('nasa_zonal_mon.csv', dtype={'Year': str})
   df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
   df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -1020,7 +1020,8 @@ if page ==  "Time-series modeling with SARIMA":
   baseline_rmse = np.sqrt(baseline_mse)
   st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
   st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-  st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
+  st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
+
 
   
 ########################################################################################################################################################################################################################
