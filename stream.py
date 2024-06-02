@@ -713,6 +713,8 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     import plotly.express as px
     import pandas as pd
 
+    st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomalies Over Years in different countries</h2>", unsafe_allow_html=True)
+    st.write("The plot surface temperature anomaly over the years from 1850 to 2017 across different countries")
 
     # Plotly Choropleth Map with a different color scale
     fig = px.choropleth(
