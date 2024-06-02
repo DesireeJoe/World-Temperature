@@ -663,40 +663,40 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
 # Create a figure and axis object
-   fig, ax1 = plt.subplots(figsize=(12, 6))
+      fig, ax1 = plt.subplots(figsize=(12, 6))
 
 # Plot CO2 emissions on the primary y-axis
-   sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+      sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
 
 # Set the y-label for CO2 emissions
-   ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
-
+      ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
+ 
 # Create a secondary y-axis for Surface Temperature Anomaly
-   ax2 = ax1.twinx()
-   sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
+      ax2 = ax1.twinx()
+      sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
 
 # Set the y-label for Surface Temperature Anomaly
-   ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
+      ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
 
 # Set labels and title
-   ax1.set_xlabel('Year')
-   plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
+      ax1.set_xlabel('Year')
+      plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
 
 # Show legend
-   lines1, labels1 = ax1.get_legend_handles_labels()
-   lines2, labels2 = ax2.get_legend_handles_labels()
-   ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
-   ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
+      lines1, labels1 = ax1.get_legend_handles_labels()
+      lines2, labels2 = ax2.get_legend_handles_labels()
+      ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
+      ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
 
 # Rotate x-axis labels for better readability
-   plt.xticks(rotation=45)
+      plt.xticks(rotation=45)
 
 # Show the plot
-   st.pyplot(fig)
+      st.pyplot(fig)
 
 # Description of the plot
-   st.markdown("### Description of CO2 Emissions and Surface Temperature Anomalies Trends")
-   st.write("""                                                                                                                                  
+      st.markdown("### Description of CO2 Emissions and Surface Temperature Anomalies Trends")
+      st.write("""                                                                                                                                  
     - Both line plots show an overall increasing trend over the respective time periods.
     - The surface temperature anomaly exhibits a steady increase from 1850 to 2017, while CO2 emissions show a rising trend from 1880 to 2022.
     - Despite the general upward trajectory, both plots also exhibit periods of fluctuations and variability.
