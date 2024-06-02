@@ -737,8 +737,8 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     coloraxis_colorbar_thickness=25,
     coloraxis_colorbar_len=0.5,
     autosize=False,
-    width=1200,
-    height=800,
+    width=1000,
+    height=600,
     xaxis=dict(range=[1850, 2017])
     )
 
