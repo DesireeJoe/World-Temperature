@@ -982,31 +982,32 @@ if page ==  "Credits" :
      st.write("[OWID CO2 Data](https://github.com/owid/co2-data)")
      st.write("[Surface Temperature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
      st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
-if page ==  "Credits" :        
+    
   with col3:     
-     linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
+        linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
 
-     st.markdown(
-        f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
-        f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
-        f'</a>', 
-        unsafe_allow_html=True
+        st.markdown(
+            f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
+            f'</a>', 
+            unsafe_allow_html=True
+            )
+
+
+        st.markdown(
+            f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+            f'</a>', 
+            unsafe_allow_html=True
         )
 
+        st.markdown(
+            f'<a href="https://https://www.linkedin.com/in/fionamurphy90/" target="_blank">'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+            f'</a>', 
+            unsafe_allow_html=True
+        )
 
-     st.markdown(
-         f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
-         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
-         f'</a>', 
-         unsafe_allow_html=True
-         )
-
-     st.markdown(
-         f'<a href="https://www.linkedin.com/in/fionamurphy90//" target="_blank">'
-         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
-         f'</a>', 
-         unsafe_allow_html=True
-         )
 if page ==  "Credits" :  
      st.markdown("<br><br>", unsafe_allow_html=True)
      st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
