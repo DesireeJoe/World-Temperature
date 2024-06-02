@@ -17,7 +17,7 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Exploration Analysis - OWID",
                               "Exploration Analysis - Surface Temperature Anomaly",
                               "Exploration Analysis - FAO",
-                              "Modeling preparation",
+                              "Modelling Preparation",
                               "Machine Learning Models",
                               "Time-series modeling with SARIMA",
                               "Conclusion", "Credits"])
@@ -745,7 +745,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Display the map in Streamlit
     st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
-if page ==  "Modeling preparation ":
+if page ==  "Modelling Preparation ":
   # Title of the app
      st.title('Modelling Preparation')
      st.markdown(
