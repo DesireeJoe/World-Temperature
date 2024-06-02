@@ -798,13 +798,10 @@ def load_data():
      return datas_pre_processed
 
       # Load the dataset
-      datas_pre_processed = load_data()
+datas_pre_processed = load_data()
 
-      # Display a message confirming data loading
-      st.write("Pre-processed data loaded successfully.")
-
-      # Display the dataset (optional)
-      st.dataframe(datas_pre_processed)
+# Display the dataset (optional)
+st.dataframe(datas_pre_processed)
 ########################################################################################################################################################################################################################
 
 if page ==  "Machine Learning Models":
