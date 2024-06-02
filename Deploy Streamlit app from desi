@@ -3,7 +3,7 @@ name: Deploy Streamlit app from desi
 on:
   push:
     branches:
-      - desi
+      - main
 
 jobs:
   deploy:
