@@ -799,7 +799,6 @@ if page ==  "Modelling Preparation":
  # Display the dataset (optional)
  st.dataframe(datas_pre_processed)
 
-
 ###
 ########################################################################################################################################################################################################################
 
@@ -858,6 +857,11 @@ if page ==  "Machine Learning Models":
 # Display the table
   st.table(df)
 if page ==  "Machine Learning Models":  
+  # Title Description
+  st.markdown("<h2 style='text-align: center;'>Comparison of the Max Depth Values for the Decision Tree Models</h2>", unsafe_allow_html=True)
+  
+  st.markdown("Line Plot illustrates a better understanding of the R² values represented at different max depth levels of 5, 10, 15, and 20 respectively.")
+
   max_depth_values = [5, 10, 15, 20]
 
 # Define the R2 scores for training and test sets
@@ -877,8 +881,6 @@ if page ==  "Machine Learning Models":
   st.set_option('deprecation.showPyplotGlobalUse', False)
   st.pyplot()
 
-# Title Description
-  st.markdown("Line Plot illustrates a better understanding of the R² values represented at different max depth levels of 5, 10, 15, and 20 respectively.")
 
 # Plot description
   st.markdown("""
