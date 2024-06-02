@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import linregress
 import math
 import io
+import plotly.express as px
 
 
 
@@ -1017,119 +1018,114 @@ if page ==  "Credits" :
 # linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
 
 ########################################################################################################################################################################################################################
-if page == "Exploration Analysis - FAO" : 
-  st.write("### Exploration of FAO Datasets")
-  st.write("##### Food and Agriculture Orginization of the United Nations")
 
-# Load data
-  @st.cache
-  def load_data():
-    FAO_Continent = pd.read_csv("FAO_merged.csv", sep=',', encoding='latin1')
-    FAO_global = pd.read_csv("FAO_Global.csv", sep=',', encoding='latin1')
+if page == "Exploration Analysis - FAO":
+    st.write("### Exploration of FAO Datasets")
+    st.write("##### Food and Agriculture Organization of the United Nations")
 
-    return FAO_Continent, FAO_global
+    # Load data
+    @st.cache
+    def load_data():
+        FAO_Continent = pd.read_csv("FAO_merged.csv", sep=',', encoding='latin1')
+        FAO_global = pd.read_csv("FAO_Global.csv", sep=',', encoding='latin1')
+        return FAO_Continent, FAO_global
 
-  FAO_Continent, FAO_global = load_data()
+    FAO_Continent, FAO_global = load_data()
 
-    
-  with st.expander("Full description of data"):
-     st.markdown("""
-                **Data description:**
-The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
-The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
-i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
-                The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
-\n\n
-**Statistical concepts and definitions:**    Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
- \n\n
-  **Reference area:**    Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories.&nbsp; | Code - reference area: FAOSTAT, M49, ISO2 and ISO3 (https://www.fao.org/faostat/en/#definitions).CHAR(13)CHAR(10)CHAR(13)CHAR(10)FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
- \n\n
+    with st.expander("Full description of data"):
+        st.markdown("""
+            **Data description:**
+            The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
+            The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
+            i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
+            The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
+            \n\n
+            **Statistical concepts and definitions:** Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
+            \n\n
+            **Reference area:** Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
+            FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
+            \n\n
+            **Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
+            \n\n
+            **Base period:** 1951-1980
+        """)
 
-**Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
- \n\n
-**Base period:** 1951-1980
-""")
+    st.dataframe(FAO_global, height=400)
 
-     st.dataframe(FAO_global, height=400)
+    # Check if 'Months' column exists
+    if 'Months' in FAO_Continent.columns:
+        fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
-     fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
+        # Filter for 5 continents
+        fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
 
-# Filter for 5 continents
-     fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
+        # Slider for year range selection
+        st.write("#### Temperature changes from 1961 - 2019")
+        year_range = st.slider(
+            "Select the year range",
+            int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()), 
+            (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
+            step=1
+        )
 
-    # Slider for year range selection
-  st.write("#### Temperature changes from 1961 - 2019")
-  year_range = st.slider(
-    "Select the year range",
-    int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()), 
-   (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
-        step=1
-    )
+        # Filter the data based on yr range
+        filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
 
-# Filter the data based on the selected year range
-  filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
+        fig, axs = plt.subplots(5, 1, figsize=(10, 20))
 
-# Create subplots
-fig, axs = plt.subplots(5, 1, figsize=(10, 20))
+        # Plot temp /years for each area
+        for i, area in enumerate(filtered_data['Area'].unique()):
+            area_data = filtered_data[filtered_data['Area'] == area]
+            axs[i].plot(area_data['Year'], area_data['Temperature change'], marker='o', label=area)
+            axs[i].set_xlabel('Years')
+            axs[i].set_ylabel('Temperature (°C)')
+            axs[i].set_title(f'Temperature change (°C) for {area}')
+            axs[i].legend()
+            axs[i].grid(True)
+            axs[i].set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
 
-# Plot temperature against years for each area
-for i, area in enumerate(filtered_data['Area'].unique()):
-    area_data = filtered_data[filtered_data['Area'] == area]
-    axs[i].plot(area_data['Year'], area_data['Temperature change'], marker='o', label=area)
-    axs[i].set_xlabel('Years')
-    axs[i].set_ylabel('Temperature (°C)')
-    axs[i].set_title(f'Temperature change (°C) for {area}')
-    axs[i].legend()
-    axs[i].grid(True)
-    axs[i].set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
+        fig.tight_layout(pad=3.0)
 
-# Adjust layout to prevent overlap
-fig.tight_layout(pad=3.0)
+        st.pyplot(fig)
 
-st.pyplot(fig)
+        # All continents graph
+        fig, ax = plt.subplots()
 
-#All continents graph
-fig, ax = plt.subplots()
+        ax.plot(FAO_Continent.query("Area == 'Europe'")['Year'], FAO_Continent.query("Area == 'Europe'")['Temperature change'], marker='o', color='blue', label='Europe')
+        ax.plot(FAO_Continent.query("Area == 'Asia'")['Year'], FAO_Continent.query("Area == 'Asia'")['Temperature change'], marker='x', color='green', label='Asia')
+        ax.plot(FAO_Continent.query("Area == 'Africa'")['Year'], FAO_Continent.query("Area == 'Africa'")['Temperature change'], marker='s', color='red', label='Africa')
+        ax.plot(FAO_Continent.query("Area == 'Americas'")['Year'], FAO_Continent.query("Area == 'Americas'")['Temperature change'], marker='^', color='orange', label='Americas')
+        ax.plot(FAO_Continent.query("Area == 'Oceania'")['Year'], FAO_Continent.query("Area == 'Oceania'")['Temperature change'], marker='D', color='purple', label='Oceania')
 
-ax.plot(FAO_Continent.query("Area == 'Europe'")['Year'], FAO_Continent.query("Area == 'Europe'")['Temperature change'], marker='o', color='blue', label='Europe')
-ax.plot(FAO_Continent.query("Area == 'Asia'")['Year'], FAO_Continent.query("Area == 'Asia'")['Temperature change'], marker='x', color='green', label='Asia')
-ax.plot(FAO_Continent.query("Area == 'Africa'")['Year'], FAO_Continent.query("Area == 'Africa'")['Temperature change'], marker='s', color='red', label='Africa')
-ax.plot(FAO_Continent.query("Area == 'Americas'")['Year'], FAO_Continent.query("Area == 'Americas'")['Temperature change'], marker='^', color='orange', label='Americas')
-ax.plot(FAO_Continent.query("Area == 'Oceania'")['Year'], FAO_Continent.query("Area == 'Oceania'")['Temperature change'], marker='D', color='purple', label='Oceania')
+        ax.set_xlabel('Years')
+        ax.set_ylabel('Temperature')
+        ax.set_title('Temperature Variation for Different Continents')
+        ax.legend()
+        ax.grid(True)
 
-ax.set_xlabel('Years')
-ax.set_ylabel('Temperature')
-ax.set_title('Temperature Variation for Different Continents')
-ax.legend()
-ax.grid(True)
+        st.pyplot(fig)
 
-st.pyplot(fig)
+        # Choropleth Map with color scale
+        fig = px.choropleth(
+            FAO_global,
+            locations='ISO3 Code',
+            color='Temperature change',
+            hover_name='Area',
+            animation_frame='Year',
+            projection='natural earth',
+            title='Temperature Change Over Time',
+            color_continuous_scale='Viridis'
+        )
 
-import plotly.express as px
+        fig.update_layout(
+            coloraxis_colorbar=dict(
+                title='Temperature Change (°C)'
+            ),
+            coloraxis_colorbar_thickness=25,
+            coloraxis_colorbar_len=0.5
+        )
 
-# Plotly Choropleth Map with a different color scale
-fig = px.choropleth(
-    FAO_global,
-    locations='ISO3 Code',
-    color='Temperature change',
-    hover_name='Area',
-    animation_frame='Year',
-    projection='natural earth',
-    title='Temperature Change Over Time',
-    color_continuous_scale='Viridis'  # Change the color scale to Viridis
-)
-
-# Customize the layout
-fig.update_layout(
-    coloraxis_colorbar=dict(
-        title='Temperature Change (°C)'
-    ),
-    coloraxis_colorbar_thickness=25,
-    coloraxis_colorbar_len=0.5
-)
-
-# Display the map in Streamlit
-st.plotly_chart(fig)
+        st.plotly_chart(fig)
 
 ###
 
