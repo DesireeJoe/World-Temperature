@@ -984,26 +984,26 @@ if page ==  "Credits" :
      st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
     
   with col3:     
-        linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
+     linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
 
-        st.markdown(
+     st.markdown(
             f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
-            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="40" height="40" />'
             f'</a>', 
             unsafe_allow_html=True
             )
 
 
-        st.markdown(
+     st.markdown(
             f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
-            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="40" height="40" />'
             f'</a>', 
             unsafe_allow_html=True
         )
 
-        st.markdown(
+     st.markdown(
             f'<a href="https://https://www.linkedin.com/in/fionamurphy90/" target="_blank">'
-            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="40" height="40" />'
             f'</a>', 
             unsafe_allow_html=True
         )
