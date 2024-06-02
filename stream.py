@@ -988,7 +988,7 @@ if page ==  "Credits" :
 
      st.markdown(
             f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
-            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="40" height="40" />'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="20" height="20" />'
             f'</a>', 
             unsafe_allow_html=True
             )
@@ -996,14 +996,14 @@ if page ==  "Credits" :
 
      st.markdown(
             f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
-            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="40" height="40" />'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="20" height="20" />'
             f'</a>', 
             unsafe_allow_html=True
         )
 
      st.markdown(
             f'<a href="https://https://www.linkedin.com/in/fionamurphy90/" target="_blank">'
-            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="40" height="40" />'
+            f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="20" height="20" />'
             f'</a>', 
             unsafe_allow_html=True
         )
