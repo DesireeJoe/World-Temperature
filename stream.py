@@ -328,9 +328,9 @@ if page == "Exploration Analysis - OWID":
     st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
     st.markdown('  * The amount of missing values varies a great deal across variables,')
     st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
-    st.markdown('  * while others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
-   
-    st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
+    st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
+    
+    st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
     st.markdown("***")
 if page ==  "Exploration Analysis - OWID":
@@ -558,6 +558,9 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
      # Expandable section for descriptive statistics
      with st.expander("Descriptive statistics of the Surface Temperature Anomaly dataset"):
           st.dataframe(sta.describe())
+          st.markdown('* The Entity is the country variable and the code is the country codes')
+          st.markdown('* The Year variables is from 1850-2017 and the surface temperature anomaly is measured for every country every year'
+          st.markdown('* The Surface temperature anomaly dataframe in total has 4 columns')
 
      with st.expander("Properties of the Surface Temperature Anomaly dataset"):
           st.markdown("###### Dimensions")
@@ -565,16 +568,16 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
                       f"- Number of Columns: {sta.shape[1]}\n")
           st.markdown("")
           st.markdown("###### Data types")
-          st.markdown("- 71 variables are of data type float\n"
+          st.markdown("- 1 variables are of data type float\n"
                       "- 1 variable is of dtype integer\n"
                       "- 2 variables are of dtype object\n")
           st.markdown("")
           st.markdown("###### Missing values")
-          st.markdown("- Exist in almost all of the variables in the dataset\n"
-                      "- Vary greatly in share of total entries among variables\n")
+          st.markdown("- Exist in only the "Code" variables in the dataset\n")
+                      
           st.markdown("")
           st.markdown("###### Variables")
-          st.markdown("- The dataset consists only 4 columns: The Year from 1880-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
+          st.markdown("- The dataset consists only 4 columns: The Year from 1850-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
                       "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
 
           st.markdown("***")
@@ -598,11 +601,13 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 
     # Display the missing values table using Streamlit
           st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
-          st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
+          st.write("Below is the table showing the count and percentage of missing values for each column in the Surface temperature anomaly dataset:")
           st.dataframe(mis_val_table_ren_columns)
     
           st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-          st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
+          st.markdown('  * The column of Code had missing values of 164 about 0.55%')
+          st.markdown('  * But when checked it was observed that there was an entry Micronesia in the code column')
+          st.markdown('  * So we removed this entry and now the dataset has no missing values for the further computation and analysis')
          
           st.markdown("***")
 
