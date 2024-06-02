@@ -916,7 +916,7 @@ import statsmodels.api as sm
 if page ==  "Time-series modeling with SARIMA":
   st.title('Time-series modeling with SARIMA')
   # Load and preprocess data
-    df = pd.read_csv('nasa_zonal_mon.csv')
+   df = pd.read_csv('nasa_zonal_mon.csv')
     df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
     df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       var_name='Month', value_name='TemperatureAnomaly')
@@ -1014,7 +1014,7 @@ if page ==  "Time-series modeling with SARIMA":
     baseline_rmse = np.sqrt(baseline_mse)
     st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
     st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
+    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
     
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
