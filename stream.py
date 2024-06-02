@@ -738,7 +738,8 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     coloraxis_colorbar_len=0.5,
     autosize=False,
     width=1000,
-    height=600
+    height=900,
+    xaxis=dict(range=[1850, 2017])
     )
 
 # Display the map in Streamlit
