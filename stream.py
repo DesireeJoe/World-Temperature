@@ -1000,7 +1000,26 @@ if page == "Time-series modeling with SARIMA":
 
     # Display forecast plot
     st.subheader('SARIMA Model Forecast')
-    fig, ax = plt.subplots(figsize=(12, 
+    fig, ax = plt.subplots(figsize=(12, 6))
+    ax.plot(ts.index, ts, label='Observed')
+    ax.plot(forecast_index, forecast_values, color='red', label='Forecast')
+    ax.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
+    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Temperature Anomaly')
+    ax.set_title('SARIMA Model Forecast')
+    ax.grid(True)
+    st.pyplot(fig)
+    
+    # Display baseline model evaluation
+    st.subheader('Baseline Model Evaluation')
+    baseline_forecast = [ts.mean()] * len(ts)
+    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
+    baseline_mse = np.mean((ts - baseline_forecast)**2)
+    baseline_rmse = np.sqrt(baseline_mse)
+    st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
+    st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
+    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
 
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
