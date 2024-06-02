@@ -908,7 +908,35 @@ When comparing the performance metrics of the Decision Tree Regressor with vario
 the max depth of 5 for the Decision Tree emerges as the best choice.
     """)
 ########################################################################################################################################################################################################################
-
+if page == "Conclusion":
+    st.markdown("""
+    ## Comparison of all Models & Conclusion
+    
+    The following table presents the performance metrics of various machine learning models tested on the datas_preprocessed dataset, alongside the SARIMA time series model applied to the NASA dataset. These metrics include R² scores for both training and test sets, Mean Absolute Error (MAE), Mean Squared Error (MSE), and Root Mean Squared Error (RMSE).
+    """)
+    
+    # Define the data for the table
+    model_metrics = {
+        "Model/Metric": ["Linear Regression", "Decision Tree", "Lasso", "Ridge", "Random Forest", "Gradient Boost", "SARIMA"],
+        "R² Score Train": [0.17, 0.45, 0.17, 0.18, 0.92, 0.75, "-"],
+        "R² Score Test": [0.19, 0.36, 0.17, 0.18, 0.40, 0.45, 0.09],
+        "MAE (Mean Absolute Error)": [0.40, 0.36, 0.41, 0.41, 0.36, 0.34, "-"],
+        "MSE (Mean Squared Error)": [0.26, 0.20, 0.26, 0.26, 0.20, 0.18, 0.01],
+        "RMSE (Root Mean Squared Error)": [0.51, 0.45, 0.51, 0.51, 0.44, 0.42, 0.12]
+    }
+    
+    # Create the table
+    st.table(model_metrics)
+    
+    st.markdown("""
+    The results from the machine learning models on the datas_preprocessed dataset and the time series analysis using the SARIMA model on the NASA dataset provide insightful conclusions regarding the surface temperature anomaly. 
+    The Gradient Boosting model stands out as the best performer among the machine learning models with an R² score of 0.45 on the test set, indicating its superior ability to explain the variance in the data. 
+    The SARIMA model for time series forecasting on the NASA dataset shows excellent performance with low MAE (0.09), MSE (0.01), and RMSE (0.12), indicating its robustness in predicting temperature anomalies.
+    
+    These results align with the project's aim of assessing the surface temperature anomaly, which is increasing over the years. By integrating datasets from GISTEMP v4, CO2 and Greenhouse Gas Emissions, and FAOSTAT, a comprehensive analysis was conducted. 
+    This integration helps in understanding the multi-faceted aspects of temperature anomalies, influenced by global surface temperature changes, CO2 emissions, and greenhouse gas concentrations.
+    """)
+########################################################################################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
   st.write("##### Food and Agriculture Orginization of the United Nations")
