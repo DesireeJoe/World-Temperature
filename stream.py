@@ -744,7 +744,102 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 
 # Display the map in Streamlit
     st.plotly_chart(fig)
-#########################################################################################################################################################
+########################################################################################################################################################################################################################
+  if page ==  "Machine Learning Models":
+  # Title of the app
+     st.title('Machine Learning Models')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+########################################################################################################################################################################################################################
+if page ==  "Credits":
+   st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        .linkedin-logo {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+st.markdown('<h1 class="centered-title">Credits</h1>', unsafe_allow_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns(3)
+   
+with col1:
+     st.write("**Members of the project team:**")
+     st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
+     st.write("**Resources:**")
+     st.markdown("<br><br><br><br><br><br><br>", unsafe_allow_html=True)
+     #st.write("**Project report: uploaden?**") # upload report
+   
+with col2:
+     st.write("Manasi Deshpande")
+     st.write("Desireé Jörke")
+     st.write("Fiona Murphy")
+     st.markdown("<br>", unsafe_allow_html=True)
+     st.write("Tarik Anour (Tutor)")
+     st.markdown("<br>", unsafe_allow_html=True)
+     st.write("[NASA GISTEMP Data](https://data.giss.nasa.gov/gistemp/)")
+     st.write("[OWID CO2 Data](https://github.com/owid/co2-data)")
+     st.write("[Surface Temperature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
+     st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
+        
+with col3:     
+     linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
+
+     st.markdown(
+        f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
+        f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
+        f'</a>', 
+        unsafe_allow_html=True
+        )
+
+
+st.markdown(
+         f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
+         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+         f'</a>', 
+         unsafe_allow_html=True
+         )
+
+st.markdown(
+         f'<a href="https://www.linkedin.com/in/fionamurphy90//" target="_blank">'
+         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+         f'</a>', 
+         unsafe_allow_html=True
+         )
+
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
+
+# linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
+# linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
+########################################################################################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
   st.write("##### Food and Agriculture Orginization of the United Nations")
@@ -862,99 +957,8 @@ st.plotly_chart(fig)
 ###
 ###########################################################################################################################################################################################################################
 
-if page ==  "Machine Learning Models":
-  # Title of the app
-     st.title('Machine Learning Models')
-     st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-     )
-     st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
+
 
 ############################################################################################################################################################################################################################
-if page ==  "Credits":
-   st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        .linkedin-logo {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-st.markdown('<h1 class="centered-title">Credits</h1>', unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True)
 
-col1, col2, col3 = st.columns(3)
-   
-with col1:
-     st.write("**Members of the project team:**")
-     st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
-     st.write("**Resources:**")
-     st.markdown("<br><br><br><br><br><br><br>", unsafe_allow_html=True)
-     #st.write("**Project report: uploaden?**") # upload report
-   
-with col2:
-     st.write("Manasi Deshpande")
-     st.write("Desireé Jörke")
-     st.write("Fiona Murphy")
-     st.markdown("<br>", unsafe_allow_html=True)
-     st.write("Tarik Anour (Tutor)")
-     st.markdown("<br>", unsafe_allow_html=True)
-     st.write("[NASA GISTEMP Data](https://data.giss.nasa.gov/gistemp/)")
-     st.write("[OWID CO2 Data](https://github.com/owid/co2-data)")
-     st.write("[Surface Temperature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
-     st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
-        
-with col3:     
-     linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
-
-     st.markdown(
-        f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
-        f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
-        f'</a>', 
-        unsafe_allow_html=True
-        )
-
-
-st.markdown(
-         f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
-         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
-         f'</a>', 
-         unsafe_allow_html=True
-         )
-
-st.markdown(
-         f'<a href="https://www.linkedin.com/in/fionamurphy90//" target="_blank">'
-         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
-         f'</a>', 
-         unsafe_allow_html=True
-         )
-
-st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
-
-# linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
-# linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
 
