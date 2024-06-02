@@ -765,9 +765,6 @@ if page ==  "Modelling Preparation":
      )
      st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
      st.markdown("<br><br>", unsafe_allow_html=True)
-     st.markdown("***")
-
-     st.title("Pre-processing and Merging Datasets")
 
      # Description in short points
      st.markdown("""
