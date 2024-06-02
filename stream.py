@@ -649,7 +649,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     """)     
    st.markdown("***")
 
-   if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       sns.set_style("whitegrid")
       
       @st.cache
@@ -706,6 +706,37 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     - In recent years, there appears to be a steeper increase in both surface temperature anomaly and CO2 emissions.
     - This observation suggests a potential acceleration in global warming and underscores the urgency of addressing climate change mitigation efforts. 
     """)
+    st.markdown("***")
+
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+    import streamlit as st
+    import plotly.express as px
+    import pandas as pd
+
+
+    # Plotly Choropleth Map with a different color scale
+    fig = px.choropleth(
+          sta,
+          locations='Entity',
+          color='Surface temperature anomaly',
+          hover_name='Entity',
+          animation_frame='Year',
+          projection='natural earth',
+          title='Surface Temperature Anomaly Over Time',
+          color_continuous_scale='Viridis'  # Change the color scale to Viridis
+     )
+
+    # Customize the layout
+    fig.update_layout(
+        coloraxis_colorbar=dict(
+        title='Surface Temperature Anomaly (°C)'
+    ),
+    coloraxis_colorbar_thickness=25,
+    coloraxis_colorbar_len=0.5
+    )
+
+# Display the map in Streamlit
+    st.plotly_chart(fig)
 #########################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
