@@ -842,7 +842,21 @@ In the initial stage of our machine learning models, we began by preparing our d
 
 The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
 """)
+if page ==  "Machine Learning Models":  
+  data = {
+    "Model": ["Linear Regression", "Decision Tree", "Max Depth = 5", "Max Depth = 10", "Max Depth = 15", "Max Depth = 20"],
+    "R² Train": [0.17, 1.0, 0.45, 0.85, 0.99, 0.99],
+    "R² Test": [0.19, 0.06, 0.36, 0.19, 0.09, 0.071],
+    "MAE": [0.40, 0.42, 0.36, 0.39, 0.41, 0.42],
+    "MSE": [0.26, 0.30, 0.20, 0.25, 0.29, 0.30],
+    "RMSE": [0.51, 0.55, 0.45, 0.50, 0.54, 0.54]
+  }
 
+# Create a DataFrame
+  df = pd.DataFrame(data)
+
+# Display the table
+  st.table(df)
 ########################################################################################################################################################################################################################
 
 if page == "Exploration Analysis - FAO" : 
