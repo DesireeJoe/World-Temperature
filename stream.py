@@ -867,47 +867,46 @@ if page ==  "Machine Learning Models":
 
 # Display the table
     st.table(df)
-if page ==  "Machine Learning Models":  
   # Title Description
-  st.markdown("<h2 style='text-align: center;'>Comparison of the Max Depth Values for the Decision Tree Models</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Comparison of the Max Depth Values for the Decision Tree Models</h2>", unsafe_allow_html=True)
   
-  st.markdown("Line Plot illustrates a better understanding of the R² values represented at different max depth levels of 5, 10, 15, and 20 respectively.")
+    st.markdown("Line Plot illustrates a better understanding of the R² values represented at different max depth levels of 5, 10, 15, and 20 respectively.")
 
-  max_depth_values = [5, 10, 15, 20]
+    max_depth_values = [5, 10, 15, 20]
 
 # Define the R2 scores for training and test sets
-  training_r2_scores = [0.46, 0.86, 0.98, 0.99]
-  test_r2_scores = [0.38, 0.24, 0.10, 0.16]
+    training_r2_scores = [0.46, 0.86, 0.98, 0.99]
+    test_r2_scores = [0.38, 0.24, 0.10, 0.16]
 
 # Plotting the R2 scores
-  plt.figure(figsize=(10, 6))
-  plt.plot(max_depth_values, training_r2_scores, marker='o', label='Training R2 Score')
-  plt.plot(max_depth_values, test_r2_scores, marker='o', label='Test R2 Score')
-  plt.title('Comparison of the Max Depth Values for the Decision Tree Models')
-  plt.xlabel('max_depth')
-  plt.ylabel('R2 Score')
-  plt.xticks(max_depth_values)
-  plt.legend()
-  plt.grid(True)
-  st.set_option('deprecation.showPyplotGlobalUse', False)
-  st.pyplot()
+    plt.figure(figsize=(10, 6))
+    plt.plot(max_depth_values, training_r2_scores, marker='o', label='Training R2 Score')
+    plt.plot(max_depth_values, test_r2_scores, marker='o', label='Test R2 Score')
+    plt.title('Comparison of the Max Depth Values for the Decision Tree Models')
+    plt.xlabel('max_depth')
+    plt.ylabel('R2 Score')
+    plt.xticks(max_depth_values)
+    plt.legend()
+    plt.grid(True)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot()
 
 
 # Plot description
-  st.markdown("""
+    st.markdown("""
 The plot illustrates the relationship between the maximum depth (max_depth) of a Decision Tree regressor and the R² scores for both the training and test sets. 
 As the max_depth increases from 5 to 20, the training R² score improves significantly, reaching almost perfect values (0.99) at depths 15 and 20. 
 This indicates that the model increasingly captures the patterns in the training data, eventually overfitting it. 
 Conversely, the test R² score is highest at a max_depth of 5 (0.36) and decreases with deeper trees, falling to 0.07 at a max_depth of 20. 
 This trend suggests that as the model complexity increases, its performance on the test data diminishes due to overfitting.
-""")
+    """)
 
 # Last st.markdown
-  st.markdown("""
+    st.markdown("""
 The Decision Tree with a max depth of 5 achieves a Test R² score of 0.36, closely aligning with the Random Forest's Test R² score of 0.39. 
 When comparing the performance metrics of the Decision Tree Regressor with various maximum depths and a Random Forest Regressor, 
 the max depth of 5 for the Decision Tree emerges as the best choice.
-""")
+    """)
 ########################################################################################################################################################################################################################
 
 if page == "Exploration Analysis - FAO" : 
