@@ -956,8 +956,10 @@ if page == "Conclusion":
     These results align with the project's aim of assessing the surface temperature anomaly, which is increasing over the years. By integrating datasets from GISTEMP v4, CO2 and Greenhouse Gas Emissions, and FAOSTAT, a comprehensive analysis was conducted. 
     This integration helps in understanding the multi-faceted aspects of temperature anomalies, influenced by global surface temperature changes, CO2 emissions, and greenhouse gas concentrations.
     """)
+  ###
 ########################################################################################################################################################################################################################
-if page ==  "Credits" :
+
+if page ==   "Credits" :
    st.markdown(
         """
         <style>
