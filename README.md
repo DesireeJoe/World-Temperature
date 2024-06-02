@@ -1,5 +1,7 @@
 Datascientest_DA_Project_World_Temperature
-# Streamlit App
-[![Streamlit](https://world-temperature-3tqkeojh8xsihmjzgvhfok.streamlit.app/)
+https://world-temperature-3tqkeojh8xsihmjzgvhfok.streamlit.app/
 
-You can view the live app [here](https://share.streamlit.io/DesireeJoe/your-repo/desi/stream.py).
+# World Temperature Analysis
+This is a Streamlit app for visualizing world temperature data.
+[![Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/DesireeJoe/world-temperature/desi/stream.py)
+You can view the live app [here](https://share.streamlit.io/DesireeJoe/world-temperature/desi/stream.py).
