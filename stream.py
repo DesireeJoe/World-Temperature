@@ -719,7 +719,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     # Plotly Choropleth Map with a different color scale
     fig = px.choropleth(
           sta,
-          locations='Entity',
+          locations='Code',
           color='Surface temperature anomaly',
           hover_name='Entity',
           animation_frame='Year',
