@@ -746,7 +746,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
-if page ==  "Modelling Preparation ":
+if page ==  [6]:
   # Title of the app
      st.title('Modelling Preparation')
      st.markdown(
