@@ -908,6 +908,25 @@ When comparing the performance metrics of the Decision Tree Regressor with vario
 the max depth of 5 for the Decision Tree emerges as the best choice.
     """)
 ########################################################################################################################################################################################################################
+if page ==  "Conclusion":
+  # Title of the app
+     st.title('Conclusion')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Conclusion</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
 if page == "Conclusion":
     st.markdown("""
     ## Comparison of all Models & Conclusion
