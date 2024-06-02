@@ -745,7 +745,27 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Display the map in Streamlit
     st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
-
+if page ==  "Modeling preparation ":
+  # Title of the app
+     st.title('Modelling Preparation')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+     st.markdown("***")
+########################################################################################################################################################################################################################
 if page ==  "Machine Learning Models":
   # Title of the app
      st.title('Machine Learning Models')
