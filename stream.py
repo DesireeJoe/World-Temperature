@@ -600,7 +600,6 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
           mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-          st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
           st.write("Below is the table showing the count and percentage of missing values for each column in the Surface temperature anomaly dataset:")
           st.dataframe(mis_val_table_ren_columns)
     
