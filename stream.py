@@ -822,7 +822,26 @@ if page ==  "Machine Learning Models":
      )
      st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
      st.markdown("<br><br>", unsafe_allow_html=True)
-     st.markdown("***")
+     st.markdown("""
+### Dataset Preparation and Initial Splitting for Machine Learning Models
+
+In the initial stage of our machine learning models, we began by preparing our dataset for analysis. The dataset comprised several variables:
+
+- **country_id**: Unique identifier for each country
+- **year**: Year of the record
+- **gdp**: Gross Domestic Product
+- **population**: Population count
+- **co2**: Total CO2 emissions
+- **coal_co2**: CO2 emissions from coal
+- **flaring_co2**: CO2 emissions from gas flaring
+- **gas_co2**: CO2 emissions from gas
+- **methane**: Methane emissions
+- **nitrous_oxide**: Nitrous oxide emissions
+- **oil_co2**: CO2 emissions from oil
+- **sta**: Surface temperature anomaly (target variable)
+
+The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
+""")
 
 ########################################################################################################################################################################################################################
 
