@@ -6,3 +6,4 @@ scipy
 streamlit
 plotly
 statsmodels
+scikit-learn
