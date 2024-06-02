@@ -842,7 +842,7 @@ In the initial stage of our machine learning models, we began by preparing our d
 The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
 """)
 if page ==  "Machine Learning Models":  
-  with st.expander("Linear Regression and Decision Tree Models"):
+  with st.expander("**Linear Regression and Decision Tree Models**"):
     # Initial paragraph
     st.markdown("""
     Initially, the linear regression and decision tree models were used to compare and test the predictive performance. 
