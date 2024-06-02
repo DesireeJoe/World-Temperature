@@ -866,7 +866,7 @@ if page ==  "Machine Learning Models":
     df = pd.DataFrame(data)
 
 # Display the table
-   st.table(df)
+    st.table(df)
 if page ==  "Machine Learning Models":  
   # Title Description
   st.markdown("<h2 style='text-align: center;'>Comparison of the Max Depth Values for the Decision Tree Models</h2>", unsafe_allow_html=True)
