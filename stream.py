@@ -328,7 +328,7 @@ if page == "Exploration Analysis - OWID":
     st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
     st.markdown('  * The amount of missing values varies a great deal across variables,')
     st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
-    st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
+    st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2)')
     
     st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
@@ -559,7 +559,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
      with st.expander("Descriptive statistics of the Surface Temperature Anomaly dataset"):
           st.dataframe(sta.describe())
           st.markdown('* The Entity is the country variable and the code is the country codes')
-          st.markdown('* The Year variables is from 1850-2017 and the surface temperature anomaly is measured for every country every year'
+          st.markdown('* The Year variables is from 1850-2017 and the surface temperature anomaly is measured for every country every year')
           st.markdown('* The Surface temperature anomaly dataframe in total has 4 columns')
 
      with st.expander("Properties of the Surface Temperature Anomaly dataset"):
