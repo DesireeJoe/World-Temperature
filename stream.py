@@ -1025,7 +1025,7 @@ if page ==  "Credits" :
          f'</a>', 
          unsafe_allow_html=True
          )
-
+if page ==  "Credits" :  
      st.markdown("<br><br>", unsafe_allow_html=True)
      st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
 
