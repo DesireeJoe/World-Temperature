@@ -913,6 +913,12 @@ the max depth of 5 for the Decision Tree emerges as the best choice.
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import statsmodels.api as sm
+
+import matplotlib.pyplot as plt
+from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import statsmodels.api as sm
+
 if page ==  "Time-series modeling with SARIMA":
   st.title('Time-series modeling with SARIMA')
   # Load and preprocess data
