@@ -715,7 +715,8 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 
     st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomalies Over Years in different countries</h2>", unsafe_allow_html=True)
     st.write("The plot surface temperature anomaly over the years from 1850 to 2017 across different countries")
-
+    # Sort the values of Year Column
+    sta = sta.sort_values(by='Year')
     # Plotly Choropleth Map with a different color scale
     fig = px.choropleth(
           sta,
@@ -734,7 +735,10 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
         title='Surface Temperature Anomaly (°C)'
     ),
     coloraxis_colorbar_thickness=25,
-    coloraxis_colorbar_len=0.5
+    coloraxis_colorbar_len=0.5,
+    autosize=False,
+    width=1000,
+    height=600
     )
 
 # Display the map in Streamlit
