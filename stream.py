@@ -1013,7 +1013,6 @@ def display_sarima_model():
     sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
     st.pyplot(fig)
 
-# Streamlit code
 page = "Time-series modeling with SARIMA" 
 if page == "Time-series modeling with SARIMA":
     st.title('Time-series modeling with SARIMA')
