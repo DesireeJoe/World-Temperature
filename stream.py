@@ -659,8 +659,8 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       merged_data = load_data()    
   
 # Title and Plot Title Description
- st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
- st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
+  st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
+  st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
 # Create a figure and axis object
    fig, ax1 = plt.subplots(figsize=(12, 6))
