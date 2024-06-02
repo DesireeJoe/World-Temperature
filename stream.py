@@ -922,32 +922,38 @@ import statsmodels.api as sm
 # Function to display the SARIMA model results
 def display_sarima_model():
     df = pd.read_csv('nasa_zonal_mon.csv')
+    st.write("First few rows of the dataset:")
+    st.write(df.head())
+
     df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
-    
+
     # DataFrame in Long Format
     df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       var_name='Month', value_name='TemperatureAnomaly')
-    
+
     # Convert month names to numbers
     month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
     df_long['Month'] = df_long['Month'].map(month_map)
-    
+
     # Create datetime column
     df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
-    
+
     # Sort by date
     df_long = df_long.sort_values('Date').reset_index(drop=True)
-    
+
     # Drop missing values
     df_long = df_long.dropna(subset=['TemperatureAnomaly'])
-    
+
+    st.write("First few rows of the transformed dataset:")
+    st.write(df_long.head())
+
     # Prepare time series data
     ts = df_long.set_index('Date')['TemperatureAnomaly']
-    
+
     # Split data into training and testing sets
     train_size = int(len(ts) * 0.8)
     train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
-    
+
     # Define SARIMA model parameters
     p = 1  # Autoregressive order
     d = 1  # Differencing order
@@ -956,14 +962,14 @@ def display_sarima_model():
     D = 1  # Seasonal differencing order
     Q = 1  # Seasonal moving average order
     s = 12  # Seasonal period (monthly data)
-    
+
     # Fit SARIMA model
     sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
     sarima_model_fit = sarima_model.fit()
-    
+
     # Print model summary
     st.text(sarima_model_fit.summary())
-    
+
     # Model evaluation
     predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
     mae = mean_absolute_error(test_data, predictions)
@@ -972,13 +978,13 @@ def display_sarima_model():
     st.write(f'Mean Absolute Error: {mae}')
     st.write(f'Mean Squared Error: {mse}')
     st.write(f'Root Mean Squared Error: {rmse}')
-    
+
     # Forecasting
     forecast_steps = 36  # Forecasting 3 years ahead (for monthly data)
     forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
     confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
     forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
-    
+
     # Plotting
     plt.figure(figsize=(12, 6))
     plt.plot(ts.index, ts, label='Observed')
@@ -990,7 +996,7 @@ def display_sarima_model():
     plt.title('SARIMA Model Forecast')
     plt.grid(True)
     st.pyplot(plt)
-    
+
     # Plot residuals
     residuals = sarima_model_fit.resid
     plt.figure(figsize=(12, 6))
@@ -1000,7 +1006,7 @@ def display_sarima_model():
     plt.ylabel('Residuals')
     plt.grid(True)
     st.pyplot(plt)
-    
+
     # Plot ACF and PACF of residuals
     fig, ax = plt.subplots(2, 1, figsize=(12, 8))
     sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
@@ -1008,6 +1014,8 @@ def display_sarima_model():
     st.pyplot(fig)
 
 # Streamlit code
+page = "Time-series modeling with SARIMA"  # Replace with actual page variable logic
+
 if page == "Time-series modeling with SARIMA":
     st.title('Time-series modeling with SARIMA')
     display_sarima_model()
