@@ -929,92 +929,92 @@ if page ==  "Time-series modeling with SARIMA":
   train_size = int(len(ts) * 0.8)
   train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
     
-    # SARIMA model parameters
-    p = 1
-    d = 1
-    q = 1
-    P = 1
-    D = 1
-    Q = 1
-    s = 12
-    
-    # Fit SARIMA model
-    sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
-    sarima_model_fit = sarima_model.fit()
-    
-    # Model Evaluation
-    predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
-    mae = mean_absolute_error(test_data, predictions)
-    mse = mean_squared_error(test_data, predictions)
-    rmse = np.sqrt(mse)
-    
-    # Forecasting
-    forecast_steps = 36
-    forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
-    confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
-    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
-    
-    # Streamlit app
-    st.title('Time-series modeling with SARIMA')
-    
-    # Display dataset
-    st.subheader('Dataset')
-    st.write(df.head())
-    
-    # Display time series plot
-    st.subheader('Time Series Plot')
-    st.line_chart(ts)
-    
-    # Display SARIMA model summary
-    st.subheader('SARIMA Model Summary')
-    st.text(sarima_model_fit.summary())
-    
-    # Display model evaluation metrics
-    st.subheader('Model Evaluation')
-    st.write(f'Mean Absolute Error: {mae:.4f}')
-    st.write(f'Mean Squared Error: {mse:.4f}')
-    st.write(f'Root Mean Squared Error: {rmse:.4f}')
-    
-    # Display residuals plot
-    st.subheader('Residuals of SARIMA Model')
-    residuals = sarima_model_fit.resid
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(residuals)
-    ax.set_title('Residuals of SARIMA Model')
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Residuals')
-    ax.grid(True)
-    st.pyplot(fig)
-    
-    # Display ACF and PACF of residuals
-    st.subheader('ACF and PACF of Residuals')
-    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
-    sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
-    sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
-    st.pyplot(fig)
-    
-    # Display forecast plot
-    st.subheader('SARIMA Model Forecast')
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(ts.index, ts, label='Observed')
-    ax.plot(forecast_index, forecast_values, color='red', label='Forecast')
-    ax.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Temperature Anomaly')
-    ax.set_title('SARIMA Model Forecast')
-    ax.grid(True)
-    st.pyplot(fig)
-    
-    # Display baseline model evaluation
-    st.subheader('Baseline Model Evaluation')
-    baseline_forecast = [ts.mean()] * len(ts)
-    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
-    baseline_mse = np.mean((ts - baseline_forecast)**2)
-    baseline_rmse = np.sqrt(baseline_mse)
-    st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
-    st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
+  # SARIMA model parameters
+p = 1
+d = 1
+q = 1
+P = 1
+D = 1
+Q = 1
+s = 12
+
+# Fit SARIMA model
+sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
+sarima_model_fit = sarima_model.fit()
+
+# Model Evaluation
+predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
+mae = mean_absolute_error(test_data, predictions)
+mse = mean_squared_error(test_data, predictions)
+rmse = np.sqrt(mse)
+
+# Forecasting
+forecast_steps = 36
+forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
+confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
+forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+
+# Streamlit app
+st.title('Time-series modeling with SARIMA')
+
+# Display dataset
+st.subheader('Dataset')
+st.write(df.head())
+
+# Display time series plot
+st.subheader('Time Series Plot')
+st.line_chart(ts)
+
+# Display SARIMA model summary
+st.subheader('SARIMA Model Summary')
+st.text(sarima_model_fit.summary())
+
+# Display model evaluation metrics
+st.subheader('Model Evaluation')
+st.write(f'Mean Absolute Error: {mae:.4f}')
+st.write(f'Mean Squared Error: {mse:.4f}')
+st.write(f'Root Mean Squared Error: {rmse:.4f}')
+
+# Display residuals plot
+st.subheader('Residuals of SARIMA Model')
+residuals = sarima_model_fit.resid
+fig, ax = plt.subplots(figsize=(12, 6))
+ax.plot(residuals)
+ax.set_title('Residuals of SARIMA Model')
+ax.set_xlabel('Time')
+ax.set_ylabel('Residuals')
+ax.grid(True)
+st.pyplot(fig)
+
+# Display ACF and PACF of residuals
+st.subheader('ACF and PACF of Residuals')
+fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
+sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
+st.pyplot(fig)
+
+# Display forecast plot
+st.subheader('SARIMA Model Forecast')
+fig, ax = plt.subplots(figsize=(12, 6))
+ax.plot(ts.index, ts, label='Observed')
+ax.plot(forecast_index, forecast_values, color='red', label='Forecast')
+ax.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
+ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+ax.set_xlabel('Time')
+ax.set_ylabel('Temperature Anomaly')
+ax.set_title('SARIMA Model Forecast')
+ax.grid(True)
+st.pyplot(fig)
+
+# Display baseline model evaluation
+st.subheader('Baseline Model Evaluation')
+baseline_forecast = [ts.mean()] * len(ts)
+baseline_mae = np.mean(np.abs(ts - baseline_forecast))
+baseline_mse = np.mean((ts - baseline_forecast)**2)
+baseline_rmse = np.sqrt(baseline_mse)
+st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
+st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
+st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')     
     
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
