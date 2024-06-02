@@ -766,6 +766,8 @@ if page ==  "Modelling Preparation":
      st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
      st.markdown("<br><br>", unsafe_allow_html=True)
 
+     # Display the dataset (optional)
+     st.dataframe(datas_pre_processed)
      # Description in short points
      st.markdown("""
      ### Steps in Pre-processing and Merging Datasets
@@ -797,8 +799,7 @@ def load_data():
       # Load the dataset
 datas_pre_processed = load_data()
 
-# Display the dataset (optional)
-st.dataframe(datas_pre_processed)
+
 ###
 ########################################################################################################################################################################################################################
 
