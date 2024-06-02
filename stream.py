@@ -17,7 +17,7 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Exploration Analysis - OWID",
                               "Exploration Analysis - Surface Temperature Anomaly",
                               "Exploration Analysis - FAO",
-                              "Modeling preparation",
+                              "Modelling Preparation",
                               "Machine Learning Models",
                               "Time-series modeling with SARIMA",
                               "Conclusion", "Credits"])
@@ -167,11 +167,12 @@ if page ==  "Exploration Analysis - NASA":
   ax.set_xlabel('Year')
   ax.set_ylabel('Temperature Anomaly (°C)')
   st.pyplot(fig)
-  st.write('The Lineplot shows an increasing negative temperature change until 1910 (approx.) and increasing positive temperature change from approx. 1910 onwards until present. The graph indicates that temperature changes have been steadily increasing on average in recent years. This suggests that it is getting warmer on a global scale. Comparing temperature anomalies between the Northern and the Southern hemisphere shows that, especially since the year 2000, the temperature anomalies have been more positive in the Northern Hemisphere than in the Southern one. So the Temperature anomalies have been more positive in the Northern Hemisphere. This observation aligns with the overall understanding of climate change, as the Northern Hemisphere has been shown to experience more pronounced warming trends compared to the Southern Hemisphere. It could be attributed to various factors, including differences in land distribution, ocean currents, atmospheric circulation patterns, and human activities concentrated in the Northern Hemisphere. However, it's important to note that this interpretation is based on the assumption that the temperature anomalies are reliable and accurately represent the actual temperature changes in each hemisphere. Additionally, further analysis and examination of the data would be necessary to confirm the consistency and significance of these observed differences.')
+  st.write("""The Lineplot shows an increasing negative temperature change until 1910 (approx.) and increasing positive temperature change from approx. 1910 onwards until present. The graph indicates that temperature changes have been steadily increasing on average in recent years. This suggests that it is getting warmer on a global scale. Comparing temperature anomalies between the Northern and the Southern hemisphere shows that, especially since the year 2000, the temperature anomalies have been more positive in the Northern Hemisphere than in the Southern one. So the Temperature anomalies have been more positive in the Northern Hemisphere. This observation aligns with the overall understanding of climate change, as the Northern Hemisphere has been shown to experience more pronounced warming trends compared to the Southern Hemisphere. It could be attributed to various factors, including differences in land distribution, ocean currents, atmospheric circulation patterns, and human activities concentrated in the Northern Hemisphere. However, it is important to note that this interpretation is based on the assumption that the temperature anomalies are reliable and accurately represent the actual temperature changes in each hemisphere. Additionally, further analysis and examination of the data would be necessary to confirm the consistency and significance of these observed differences.""")
 
   # Climatic development with segmented color map
-  st.markdown("#### Climatic Development Over Years - Data Stripes')
-  st.write('The next data visualisation contains data stripes, which provide an intuitive way to visualise climate change and temperature trends. They offer a quick and clear representation of Earth's warming, making it easy to identify long-term temperature trends and point out differences between the earth zones/ latitudes.')
+  from matplotlib.colors import LinearSegmentedColormap
+  st.markdown("#### Climatic Development Over Years - Data Stripes")
+  st.write("""The next data visualisation contains data stripes, which provide an intuitive way to visualise climate change and temperature trends. They offer a quick and clear representation of Earth's warming, making it easy to identify long-term temperature trends and point out differences between the earth zones/ latitudes.""")
   cmap = LinearSegmentedColormap.from_list('climate_stripes', ['turquoise', 'white', 'red'], N=256)
   years = nasa['Year']
   
@@ -195,7 +196,7 @@ if page ==  "Exploration Analysis - NASA":
   st.write('It appears that in recent decades, the majority of regions around the world have experienced predominantly positive temperature anomalies, especially since the 1980s / 1990s. However, there is an exception for the ‘90S-64S’ (South Pole) regions, where greater temperature variance is evident. Also the temperate zone in the south (64S-44S) shows earlier larger temperature changes since around 1970.')
   
   # Scatter plots with linear regression
-  st.markdown("#### Relationship between years and temperature anomalies for different latitudes - Scatterplots')
+  st.markdown("#### Relationship between years and temperature anomalies for different latitudes - Scatterplots")
   st.write('Another way of visualising the data is to use a scatter plot. These Scatter plots with linear regression lines provide visual insight into the relationship between years and temperature anomalies for different latitudes.')
   num_cols = len(nasa.columns) - 1
   num_rows = math.ceil(num_cols / 3)
@@ -272,28 +273,36 @@ if page == "Exploration Analysis - OWID":
      # Expandable section for descriptive statistics
     with st.expander("Descriptive statistics of the OWID dataset"):
          st.dataframe(Co2.describe())
+         st.markdown('**Looking at the OWID data set, the summary statistics indicate various things:**')
+         st.markdown('*  In various variables, the mean and median value differ substantially (e.g. co2: 379.98 mean vs 3.10 median. This mismatch could 1) indicate the presence of outliers skewing the value distribution')
+         st.markdown('*  A high number of missing values denoted as "0", skewing the distribution')
+         st.markdown('*  The large difference between the Q3 and Q4 and the max value in various variables (e.g. co2, total_ghg) indicates the existence of very high outlier values')
+
 
     with st.expander("Properties of the OWID dataset"):
          st.markdown("###### Dimensions")
          st.markdown(f"- Number of Rows: {Co2.shape[0]}\n"
-                    f"- Number of Columns: {Co2.shape[1]}\n")
+                     f"- Number of Columns: {Co2.shape[1]}\n")
          st.markdown("")
          st.markdown("###### Data types")
          st.markdown("- 71 variables are of data type float\n"
                     "- 1 variable is of dtype integer\n"
-                    "- 2 variables are of dtype object\n")
+                    "- 2 variables are of dtype object\n"
+                    "- This dataset is basically from the year 1880-2022 and shows the year wise values of CO2 emissions across different countries for every year\n")
+
          st.markdown("")
          st.markdown("###### Missing values")
-         st.markdown("- Exist in almost all of the variables in the dataset\n"
-                    "- Vary greatly in share of total entries among variables\n")
+         st.markdown("- There are missing values in almost every variable of the dataset\n"
+                     "-  There are almost 31 columns with more than 50% of missing values\n")
          st.markdown("")
          st.markdown("###### Variables")
          st.markdown("- The dataset consists mainly of numerical variables on CO2 emissions with different scopes like emissions per emission source and the scope of aggregation (like total, shared, cumulative, per capita)\n"
                     "- Other context metrics like year, population, country and GDP\n"
+                    "- Total countries in the dataset is around 231\n"
+                    "- The values of carbon dioxide emissions are calculated in million tonnes\n"
                     "- For an in-detail description see [OWID CO2 Data GitHub](https://github.com/owid/co2-data)\n")
 
          st.markdown("***")
-         st.markdown("#### Missing values")
 
     # Total missing values
          mis_val = Co2.isnull().sum()
@@ -319,9 +328,9 @@ if page == "Exploration Analysis - OWID":
     st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
     st.markdown('  * The amount of missing values varies a great deal across variables,')
     st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
-    st.markdown('  * while others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2).')
-   
-    st.write('The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
+    st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2)')
+    
+    st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
     st.markdown("***")
 if page ==  "Exploration Analysis - OWID":
@@ -549,6 +558,9 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
      # Expandable section for descriptive statistics
      with st.expander("Descriptive statistics of the Surface Temperature Anomaly dataset"):
           st.dataframe(sta.describe())
+          st.markdown('* The Entity is the country variable and the code is the country codes')
+          st.markdown('* The Year variables is from 1850-2017 and the surface temperature anomaly is measured for every country every year')
+          st.markdown('* The Surface temperature anomaly dataframe in total has 4 columns')
 
      with st.expander("Properties of the Surface Temperature Anomaly dataset"):
           st.markdown("###### Dimensions")
@@ -556,16 +568,16 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
                       f"- Number of Columns: {sta.shape[1]}\n")
           st.markdown("")
           st.markdown("###### Data types")
-          st.markdown("- 71 variables are of data type float\n"
+          st.markdown("- 1 variables are of data type float\n"
                       "- 1 variable is of dtype integer\n"
                       "- 2 variables are of dtype object\n")
           st.markdown("")
           st.markdown("###### Missing values")
-          st.markdown("- Exist in almost all of the variables in the dataset\n"
-                      "- Vary greatly in share of total entries among variables\n")
+          st.markdown("- Exist only in the Code variable in the dataset\n")
+                      
           st.markdown("")
           st.markdown("###### Variables")
-          st.markdown("- The dataset consists only 4 columns: The Year from 1880-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
+          st.markdown("- The dataset consists only 4 columns: The Year from 1850-2017, the surface temeprature measured in different countries every year over the mentioned time period and the country codes\n"
                       "- For an in-detail description see [Surface Temeprature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)\n")
 
           st.markdown("***")
@@ -588,12 +600,13 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
           mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-          st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
-          st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
+          st.write("Below is the table showing the count and percentage of missing values for each column in the Surface temperature anomaly dataset:")
           st.dataframe(mis_val_table_ren_columns)
     
           st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-          st.markdown('  * There is a large amount of missing values in the code section of the dataset.')
+          st.markdown('  * The column of Code had missing values of 164 about 0.55%')
+          st.markdown('  * But when checked it was observed that there was an entry Micronesia in the code column')
+          st.markdown('  * So we removed this entry and now the dataset has no missing values for the further computation and analysis')
          
           st.markdown("***")
 
@@ -636,7 +649,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     """)     
    st.markdown("***")
 
-   if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       sns.set_style("whitegrid")
       
       @st.cache
@@ -646,44 +659,44 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       merged_data = load_data()    
   
 # Title and Plot Title Description
-   st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
-   st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
+      st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
+      st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
 # Create a figure and axis object
-   fig, ax1 = plt.subplots(figsize=(12, 6))
+      fig, ax1 = plt.subplots(figsize=(12, 6))
 
 # Plot CO2 emissions on the primary y-axis
-   sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+      sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
 
 # Set the y-label for CO2 emissions
-   ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
-
+      ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
+ 
 # Create a secondary y-axis for Surface Temperature Anomaly
-   ax2 = ax1.twinx()
-   sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
+      ax2 = ax1.twinx()
+      sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
 
 # Set the y-label for Surface Temperature Anomaly
-   ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
+      ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
 
 # Set labels and title
-   ax1.set_xlabel('Year')
-   plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
+      ax1.set_xlabel('Year')
+      plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
 
 # Show legend
-   lines1, labels1 = ax1.get_legend_handles_labels()
-   lines2, labels2 = ax2.get_legend_handles_labels()
-   ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
-   ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
+      lines1, labels1 = ax1.get_legend_handles_labels()
+      lines2, labels2 = ax2.get_legend_handles_labels()
+      ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
+      ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
 
 # Rotate x-axis labels for better readability
-   plt.xticks(rotation=45)
+      plt.xticks(rotation=45)
 
 # Show the plot
-   st.pyplot(fig)
+      st.pyplot(fig)
 
 # Description of the plot
-   st.markdown("### Description of CO2 Emissions and Surface Temperature Anomalies Trends")
-   st.write("""                                                                                                                                  
+      st.markdown("### Description of CO2 Emissions and Surface Temperature Anomalies Trends")
+      st.write("""                                                                                                                                  
     - Both line plots show an overall increasing trend over the respective time periods.
     - The surface temperature anomaly exhibits a steady increase from 1850 to 2017, while CO2 emissions show a rising trend from 1880 to 2022.
     - Despite the general upward trajectory, both plots also exhibit periods of fluctuations and variability.
@@ -693,7 +706,316 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     - In recent years, there appears to be a steeper increase in both surface temperature anomaly and CO2 emissions.
     - This observation suggests a potential acceleration in global warming and underscores the urgency of addressing climate change mitigation efforts. 
     """)
-#########################################################################################################################################################
+      st.markdown("***")
+
+if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+    import streamlit as st
+    import plotly.express as px
+    import pandas as pd
+
+    st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomalies Over Years in different countries</h2>", unsafe_allow_html=True)
+    st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
+    # Sort the values of Year Column
+    sta = sta.sort_values(by='Year')
+    # Plotly Choropleth Map with a different color scale
+    fig = px.choropleth(
+          sta,
+          locations='Code',
+          color='Surface temperature anomaly',
+          hover_name='Entity',
+          animation_frame='Year',
+          projection='natural earth',
+          title='Surface Temperature Anomaly Over Time',
+          color_continuous_scale='Viridis'  # Change the color scale to Viridis
+     )
+
+    # Customize the layout
+    fig.update_layout(
+        coloraxis_colorbar=dict(
+        title='Surface Temperature Anomaly (°C)'
+    ),
+    coloraxis_colorbar_thickness=25,
+    coloraxis_colorbar_len=0.5,
+    autosize=False,
+    width=1000,
+    height=600,
+    xaxis=dict(range=[1850, 2017])
+    )
+
+# Display the map in Streamlit
+    st.plotly_chart(fig)
+########################################################################################################################################################################################################################
+
+if page ==  "Modelling Preparation":
+  # Title of the app
+     st.title('Modelling Preparation')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+
+     # Description in short points
+     st.markdown("""
+     ### Steps in Pre-processing and Merging Datasets
+
+     - **Objective:** Clean and prepare data for exploration and modeling, ensuring quality and consistency.
+     - **Datasets:** CO2 emissions data (OWID) and surface temperature anomaly data (HadCRUT).
+     - **Renaming Columns:** Standardized column names, converting to lowercase and renaming for clarity.
+     - **Handling Missing Values:** Identified and removed rows with missing values.
+     - Deleted 46,181 rows from the OWID dataset.
+     - Deleted 346 rows from the Surface Temperature Anomaly dataset.
+     - The final dataset has no missing values
+     - **Removing Duplicates:** Ensured no duplicate records exist.
+     - **Outlier Detection and Removal:** Used Z-score method to identify and remove outliers from the surface temperature anomaly column.
+     - **Merging Datasets:** Merged datasets based on country, iso_code, and year, integrating temperature anomaly and CO2 emissions data.
+     - **Feature Selection:** Selected columns relevant to analysis, including the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population.
+     - **Further Cleaning and Formatting:** Removed unnecessary columns and ensured appropriate data types.
+     - Converted float64 columns to int64 for standardization.
+     - **Final Data Checks:** Ensured no remaining missing values and verified data types.
+
+      This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
+      """)
+if page ==  "Modelling Preparation":
+# Load data function
+ @st.cache
+ def load_data():
+     datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
+     return datas_pre_processed
+
+ # Load the dataset
+ datas_pre_processed = load_data()
+ # Display the dataset (optional)
+ st.dataframe(datas_pre_processed)
+
+###
+########################################################################################################################################################################################################################
+
+if page ==  "Machine Learning Models":
+  # Title of the app
+     st.title('Machine Learning Models')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+     st.markdown("""
+### Dataset Preparation and Initial Splitting for Machine Learning Models
+
+In the initial stage of our machine learning models, we began by preparing our dataset for analysis. The dataset comprised several variables:
+
+- **country_id**: Unique identifier for each country
+- **year**: Year of the record
+- **gdp**: Gross Domestic Product
+- **population**: Population count
+- **co2**: Total CO2 emissions
+- **coal_co2**: CO2 emissions from coal
+- **flaring_co2**: CO2 emissions from gas flaring
+- **gas_co2**: CO2 emissions from gas
+- **methane**: Methane emissions
+- **nitrous_oxide**: Nitrous oxide emissions
+- **oil_co2**: CO2 emissions from oil
+- **sta**: Surface temperature anomaly (target variable)
+
+The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
+""")
+if page ==  "Machine Learning Models":  
+  with st.expander("**Linear Regression and Decision Tree Models**"):
+    # Initial paragraph
+    st.markdown("""
+    Initially, the linear regression and decision tree models were used to compare and test the predictive performance. 
+    The linear regression model showed limited predictive performance, as indicated by its relatively low R² scores on both the training and test sets, suggesting it struggles to capture the underlying relationship in the data. 
+    On the other hand, the decision tree model can capture non-linear relationships and interactions between variables, potentially offering improved predictive accuracy and better handling of complex data structures. 
+    However, the observed R² scores on the training and test sets for the decision tree model (Training R2 Score: 1.0, Test R2 Score: 0.061) suggested that it also struggles to capture the relationship effectively. Therefore, further analysis with different max depth values was conducted.
+
+    The max_depth analysis of 5, 10, 15, and 20 was decided to investigate the impact of tree complexity on model performance and to mitigate overfitting observed. 
+    By limiting the depth, we aimed to find a balance where the model generalizes better to unseen data, potentially improving the R² score on the test set while avoiding perfect but misleading performance on the training set.
+    """)
+    data = {
+    "Model": ["Linear Regression", "Decision Tree", "Max Depth = 5", "Max Depth = 10", "Max Depth = 15", "Max Depth = 20"],
+    "R² Train": [0.17, 1.0, 0.45, 0.85, 0.99, 0.99],
+    "R² Test": [0.19, 0.06, 0.36, 0.19, 0.09, 0.071],
+    "MAE": [0.40, 0.42, 0.36, 0.39, 0.41, 0.42],
+    "MSE": [0.26, 0.30, 0.20, 0.25, 0.29, 0.30],
+    "RMSE": [0.51, 0.55, 0.45, 0.50, 0.54, 0.54]
+    }
+
+# Create a DataFrame
+    df = pd.DataFrame(data)
+
+# Display the table
+    st.table(df)
+  # Title Description
+    st.markdown("<h2 style='text-align: center;'>Comparison of the Max Depth Values for the Decision Tree Models</h2>", unsafe_allow_html=True)
+  
+    st.markdown("Line Plot illustrates a better understanding of the R² values represented at different max depth levels of 5, 10, 15, and 20 respectively.")
+
+    max_depth_values = [5, 10, 15, 20]
+
+# Define the R2 scores for training and test sets
+    training_r2_scores = [0.46, 0.86, 0.98, 0.99]
+    test_r2_scores = [0.38, 0.24, 0.10, 0.16]
+
+# Plotting the R2 scores
+    plt.figure(figsize=(10, 6))
+    plt.plot(max_depth_values, training_r2_scores, marker='o', label='Training R2 Score')
+    plt.plot(max_depth_values, test_r2_scores, marker='o', label='Test R2 Score')
+    plt.title('Comparison of the Max Depth Values for the Decision Tree Models')
+    plt.xlabel('max_depth')
+    plt.ylabel('R2 Score')
+    plt.xticks(max_depth_values)
+    plt.legend()
+    plt.grid(True)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot()
+
+
+# Plot description
+    st.markdown("""
+The plot illustrates the relationship between the maximum depth (max_depth) of a Decision Tree regressor and the R² scores for both the training and test sets. 
+As the max_depth increases from 5 to 20, the training R² score improves significantly, reaching almost perfect values (0.99) at depths 15 and 20. 
+This indicates that the model increasingly captures the patterns in the training data, eventually overfitting it. 
+Conversely, the test R² score is highest at a max_depth of 5 (0.36) and decreases with deeper trees, falling to 0.07 at a max_depth of 20. 
+This trend suggests that as the model complexity increases, its performance on the test data diminishes due to overfitting.
+    """)
+
+# Last st.markdown
+    st.markdown("""
+The Decision Tree with a max depth of 5 achieves a Test R² score of 0.36, closely aligning with the Random Forest's Test R² score of 0.39. 
+When comparing the performance metrics of the Decision Tree Regressor with various maximum depths and a Random Forest Regressor, 
+the max depth of 5 for the Decision Tree emerges as the best choice.
+    """)
+########################################################################################################################################################################################################################
+if page ==  "Conclusion":
+  # Title of the app
+     st.title('Conclusion')
+     st.markdown(
+        """
+        <style>
+        .centered-title {
+            font-size: 28px;
+            text-align: center;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 10px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+     )
+     st.markdown('<h1 class="centered-title">Conclusion</h1>', unsafe_allow_html=True)
+     st.markdown("<br><br>", unsafe_allow_html=True)
+if page == "Conclusion":
+    st.markdown("""
+    ## Comparison of all Models & Conclusion
+    
+    The following table presents the performance metrics of various machine learning models tested on the datas_preprocessed dataset, alongside the SARIMA time series model applied to the NASA dataset. These metrics include R² scores for both training and test sets, Mean Absolute Error (MAE), Mean Squared Error (MSE), and Root Mean Squared Error (RMSE).
+    """)
+    
+    # Define the data for the table
+    model_metrics = {
+       "Model/Metric": ["Machine Learning models on the datas_preprocessed dataset", "Linear Regression", "Decision Tree", "Lasso", "Ridge", "Random Forest", "Gradient Boost", "Time Series Model on the NASA dataset", "SARIMA"],
+        "R² Score Train": ["-", 0.17, 0.45, 0.17, 0.18, 0.92, 0.75, "-", "-"],
+        "R² Score Test": ["-", 0.19, 0.36, 0.17, 0.18, 0.40, 0.45, "-", 0.09],
+        "MAE (Mean Absolute Error)": ["-", 0.40, 0.36, 0.41, 0.41, 0.36, 0.34, "-", 0.09],
+        "MSE (Mean Squared Error)": ["-", 0.26, 0.20, 0.26, 0.26, 0.20, 0.18, "-", 0.01],
+        "RMSE (Root Mean Squared Error)": ["-", 0.51, 0.45, 0.51, 0.51, 0.44, 0.42, "-", 0.12]
+    }
+    
+    
+    # Create the table
+    st.table(model_metrics)
+    
+    st.markdown("""
+    The results from the machine learning models on the datas_preprocessed dataset and the time series analysis using the SARIMA model on the NASA dataset provide insightful conclusions regarding the surface temperature anomaly. 
+    The Gradient Boosting model stands out as the best performer among the machine learning models with an R² score of 0.45 on the test set, indicating its superior ability to explain the variance in the data. 
+    The SARIMA model for time series forecasting on the NASA dataset shows excellent performance with low MAE (0.09), MSE (0.01), and RMSE (0.12), indicating its robustness in predicting temperature anomalies.
+    
+    These results align with the project's aim of assessing the surface temperature anomaly, which is increasing over the years. By integrating datasets from GISTEMP v4, CO2 and Greenhouse Gas Emissions, and FAOSTAT, a comprehensive analysis was conducted. 
+    This integration helps in understanding the multi-faceted aspects of temperature anomalies, influenced by global surface temperature changes, CO2 emissions, and greenhouse gas concentrations.
+    """)
+  ###
+########################################################################################################################################################################################################################
+
+if page ==   "Credits" :
+   st.title('Credits')
+
+   col1, col2, col3 = st.columns(3)
+if page ==  "Credits" :   
+  with col1:
+     st.write("**Members of the project team:**")
+     st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
+     st.write("**Resources:**")
+     st.markdown("<br><br><br><br><br><br><br>", unsafe_allow_html=True)
+     #st.write("**Project report: uploaden?**") # upload report
+if page ==  "Credits" :   
+  with col2:
+     st.write("Manasi Deshpande")
+     st.write("Desireé Jörke")
+     st.write("Fiona Murphy")
+     st.markdown("<br>", unsafe_allow_html=True)
+     st.write("Tarik Anour (Tutor)")
+     st.markdown("<br>", unsafe_allow_html=True)
+     st.write("[NASA GISTEMP Data](https://data.giss.nasa.gov/gistemp/)")
+     st.write("[OWID CO2 Data](https://github.com/owid/co2-data)")
+     st.write("[Surface Temperature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
+     st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
+if page ==  "Credits" :        
+  with col3:     
+     linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
+
+     st.markdown(
+        f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
+        f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
+        f'</a>', 
+        unsafe_allow_html=True
+        )
+
+
+     st.markdown(
+         f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
+         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+         f'</a>', 
+         unsafe_allow_html=True
+         )
+
+     st.markdown(
+         f'<a href="https://www.linkedin.com/in/fionamurphy90//" target="_blank">'
+         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
+         f'</a>', 
+         unsafe_allow_html=True
+         )
+if page ==  "Credits" :  
+     st.markdown("<br><br>", unsafe_allow_html=True)
+     st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
+
+
+# linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
+# linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
+
+########################################################################################################################################################################################################################
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
   st.write("##### Food and Agriculture Orginization of the United Nations")
@@ -809,101 +1131,6 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 ###
-###########################################################################################################################################################################################################################
-
-if page ==  "Machine Learning Models":
-  # Title of the app
-     st.title('Machine Learning Models')
-     st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-     )
-     st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
-
-############################################################################################################################################################################################################################
-if page ==  "Credits":
-   st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        .linkedin-logo {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-st.markdown('<h1 class="centered-title">Credits</h1>', unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True)
-
-col1, col2, col3 = st.columns(3)
-   
-with col1:
-     st.write("**Members of the project team:**")
-     st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
-     st.write("**Resources:**")
-     st.markdown("<br><br><br><br><br><br><br>", unsafe_allow_html=True)
-     #st.write("**Project report: uploaden?**") # upload report
-   
-with col2:
-     st.write("Manasi Deshpande")
-     st.write("Desireé Jörke")
-     st.write("Fiona Murphy")
-     st.markdown("<br>", unsafe_allow_html=True)
-     st.write("Tarik Anour (Tutor)")
-     st.markdown("<br>", unsafe_allow_html=True)
-     st.write("[NASA GISTEMP Data](https://data.giss.nasa.gov/gistemp/)")
-     st.write("[OWID CO2 Data](https://github.com/owid/co2-data)")
-     st.write("[Surface Temperature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
-     st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
-        
-with col3:     
-     linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
-
-     st.markdown(
-        f'<a href="https://www.linkedin.com/in/manasi-deshpande-b68730191/" target="_blank">'
-        f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" width="100" height="100" />'
-        f'</a>', 
-        unsafe_allow_html=True
-        )
 
 
-st.markdown(
-         f'<a href="https://www.linkedin.com/in/desireé-jörke-7ba6321a3/" target="_blank">'
-         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
-         f'</a>', 
-         unsafe_allow_html=True
-         )
-
-st.markdown(
-         f'<a href="https://www.linkedin.com/in/fionamurphy90//" target="_blank">'
-         f'<img class="linkedin-logo" src="{linkedin_icon}" alt="LinkedIn" />'
-         f'</a>', 
-         unsafe_allow_html=True
-         )
-
-st.markdown("<br><br>", unsafe_allow_html=True)
-st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
-
-# linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
-# linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
 
