@@ -874,6 +874,7 @@ if page ==  "Machine Learning Models":
   plt.xticks(max_depth_values)
   plt.legend()
   plt.grid(True)
+  st.set_option('deprecation.showPyplotGlobalUse', False)
   st.pyplot()
 
 # Title Description
