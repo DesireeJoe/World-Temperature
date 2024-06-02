@@ -917,13 +917,14 @@ if page == "Conclusion":
     
     # Define the data for the table
     model_metrics = {
-        "Model/Metric": ["Linear Regression", "Decision Tree", "Lasso", "Ridge", "Random Forest", "Gradient Boost", "SARIMA"],
-        "R² Score Train": [0.17, 0.45, 0.17, 0.18, 0.92, 0.75, "-"],
-        "R² Score Test": [0.19, 0.36, 0.17, 0.18, 0.40, 0.45, 0.09],
-        "MAE (Mean Absolute Error)": [0.40, 0.36, 0.41, 0.41, 0.36, 0.34, "-"],
-        "MSE (Mean Squared Error)": [0.26, 0.20, 0.26, 0.26, 0.20, 0.18, 0.01],
-        "RMSE (Root Mean Squared Error)": [0.51, 0.45, 0.51, 0.51, 0.44, 0.42, 0.12]
+       "Model/Metric": ["Machine Learning models on the datas_preprocessed dataset", "Linear Regression", "Decision Tree", "Lasso", "Ridge", "Random Forest", "Gradient Boost", "Time Series Model on the NASA dataset", "SARIMA"],
+        "R² Score Train": ["-", 0.17, 0.45, 0.17, 0.18, 0.92, 0.75, "-", "-"],
+        "R² Score Test": ["-", 0.19, 0.36, 0.17, 0.18, 0.40, 0.45, "-", 0.09],
+        "MAE (Mean Absolute Error)": ["-", 0.40, 0.36, 0.41, 0.41, 0.36, 0.34, "-", 0.09],
+        "MSE (Mean Squared Error)": ["-", 0.26, 0.20, 0.26, 0.26, 0.20, 0.18, "-", 0.01],
+        "RMSE (Root Mean Squared Error)": ["-", 0.51, 0.45, 0.51, 0.51, 0.44, 0.42, "-", 0.12]
     }
+    
     
     # Create the table
     st.table(model_metrics)
