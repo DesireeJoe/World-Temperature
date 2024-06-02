@@ -765,15 +765,7 @@ if page ==  "Modelling Preparation":
      )
      st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
      st.markdown("<br><br>", unsafe_allow_html=True)
-@st.cache
-def load_data():
-     datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
-     return datas_pre_processed
 
-      # Load the dataset
-     datas_pre_processed = load_data()
-     # Display the dataset (optional)
-     st.dataframe(datas_pre_processed)
      # Description in short points
      st.markdown("""
      ### Steps in Pre-processing and Merging Datasets
@@ -795,9 +787,17 @@ def load_data():
 
       This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
       """)
+if page ==  "Modelling Preparation":
+# Load data function
+@st.cache
+def load_data():
+     datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
+     return datas_pre_processed
 
-      # Load data function
-
+# Load the dataset
+datas_pre_processed = load_data()
+# Display the dataset (optional)
+st.dataframe(datas_pre_processed)
 
 
 ###
