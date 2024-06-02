@@ -920,7 +920,7 @@ if page ==  "Time-series modeling with SARIMA":
   df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
   df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       var_name='Month', value_name='TemperatureAnomaly')
-    month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
+  month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
   df_long['Month'] = df_long['Month'].map(month_map)
   df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
   df_long = df_long.sort_values('Date').reset_index(drop=True)
