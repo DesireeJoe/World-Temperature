@@ -960,29 +960,9 @@ if page == "Conclusion":
 ########################################################################################################################################################################################################################
 
 if page ==   "Credits" :
-   st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        .linkedin-logo {
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
-st.markdown('<h1 class="centered-title">Credits</h1>', unsafe_allow_html=True)
-st.markdown("<br><br>", unsafe_allow_html=True)
+   st.title('Credits')
 
-col1, col2, col3 = st.columns(3)
+   col1, col2, col3 = st.columns(3)
 if page ==  "Credits" :   
   with col1:
      st.write("**Members of the project team:**")
