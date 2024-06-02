@@ -573,7 +573,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
                       "- 2 variables are of dtype object\n")
           st.markdown("")
           st.markdown("###### Missing values")
-          st.markdown("- Exist in only the "Code" variables in the dataset\n")
+          st.markdown("- Exist only in the Code variable in the dataset\n")
                       
           st.markdown("")
           st.markdown("###### Variables")
