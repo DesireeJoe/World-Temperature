@@ -144,9 +144,8 @@ if page ==  "Exploration Analysis - NASA":
       st.write(nasa.describe())
 
   # Boxplot for distribution of variables
-  st.markdown("#### Box-and-Whisker Plot")
+  st.markdown("#### Temperature anomalies in the different regions - Box-and-Whisker Plot")
   st.write('The following graph shows box-whisker plots for temperature anomalies in the different regions of the NASA data set. The analysis is essential to gain a better understanding of the distribution and dispersion of these data. Box-whisker plots provide a compact and informative representation of the statistical distribution and allow important aspects of the data to be grasped at a glance.')
-  st.subheader('Temperature Anomalies - Box-and-Whisker Plot')
   columns = ['Glob', 'NHem', 'SHem', "24N-90N", "24S-24N", "90S-24S", "64N-90N", "44N-64N", "24N-44N","EQU-24N", "24S-EQU", "44S-24S", "64S-44S", "90S-64S"]
   fig, ax = plt.subplots(figsize=(10, 6))
   nasa[columns].boxplot(ax=ax)
@@ -156,20 +155,10 @@ if page ==  "Exploration Analysis - NASA":
   plt.xticks(rotation=45)
   st.pyplot(fig)
   st.write('As a brief summary of the Box-and-Whisker Plot Observations and descriptive statistics in general it can be stated that the range of data (min-max) for most variables falls between -1 and 1. Only two variables (64N-90N, 90S-64S) exceed these boundaries. For 10 variables, the standard deviation is less than 0.5,  less than 1.0 for 3 variables, and less than 1.5 °C for 1 variable. In most variables, the mean and median values are closely aligned, indicating a low impact of extreme values on the mean. This is consistent with the box and whisker plot, where outliers are visible for Glob, NHem, 24-90N, 64N-90N, 24N-44N, 24S-EQU, and 90S-64S. For all other variables, the box-whisker plot does not show extreme values. For most variables (except 90S-64S), the spread from maximum to Q2 is larger than from minimum to Q2. Since Q2 is very close to 0 °C, this suggests that there are more temperature changes above average for that specific year. In the North Pole region (64N-90N), a greater variability in temperature change is observed. Anomaly values extend upwards to over +2 degrees Celsius (and sometimes even over +3 degrees Celsius), while the box extends downward to about -1.8 degrees Celsius')
-
-
   
   # Line plot for global temperature anomalies
-  st.subheader('Global Temperature Anomalies (1880-2023)')
-  fig, ax = plt.subplots(figsize=(12, 6))
-  sns.lineplot(data=nasa, x='Year', y='Glob', label='Glob', color='darkgreen', ax=ax)
-  ax.set_title('Global Temperature Anomalies (1880-2023)')
-  ax.set_xlabel('Year')
-  ax.set_ylabel('Temperature Anomaly (°C)')
-  st.pyplot(fig)
-  
-  # Line plot for hemispheric temperature anomalies
-  st.subheader('Hemispheric Temperature Anomalies (1880-2023)')
+  st.markdown("#### Global and Hemispheric Temperature Anomalies (1880-2023) - Lineplot")
+  st.write('Visualising time series data with a line chart provide a clear view of the historical development of temperature anomalies on a global level and also in different geographic regions (here the north and the south Hemisphere). By visualising these data, we can see changes over time, identify seasonal variations, and analyse potential long-term trends.')
   fig, ax = plt.subplots(figsize=(12, 6))
   sns.lineplot(data=nasa, x='Year', y='Glob', label='Global', ax=ax)
   sns.lineplot(data=nasa, x='Year', y='NHem', label='North Hemisphere', ax=ax)
@@ -178,17 +167,11 @@ if page ==  "Exploration Analysis - NASA":
   ax.set_xlabel('Year')
   ax.set_ylabel('Temperature Anomaly (°C)')
   st.pyplot(fig)
-  
-  # Correlation heatmap
-  st.subheader('Correlation Heatmap of Temperature Anomalies')
-  correlation_matrix = nasa[columns].corr()
-  fig, ax = plt.subplots(figsize=(8, 6))
-  sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1, ax=ax)
-  ax.set_title('Correlation Heatmap of Temperature Anomalies')
-  st.pyplot(fig)
-  
+  st.write('The Lineplot shows an increasing negative temperature change until 1910 (approx.) and increasing positive temperature change from approx. 1910 onwards until present. The graph indicates that temperature changes have been steadily increasing on average in recent years. This suggests that it is getting warmer on a global scale. Comparing temperature anomalies between the Northern and the Southern hemisphere shows that, especially since the year 2000, the temperature anomalies have been more positive in the Northern Hemisphere than in the Southern one. So the Temperature anomalies have been more positive in the Northern Hemisphere. This observation aligns with the overall understanding of climate change, as the Northern Hemisphere has been shown to experience more pronounced warming trends compared to the Southern Hemisphere. It could be attributed to various factors, including differences in land distribution, ocean currents, atmospheric circulation patterns, and human activities concentrated in the Northern Hemisphere. However, it's important to note that this interpretation is based on the assumption that the temperature anomalies are reliable and accurately represent the actual temperature changes in each hemisphere. Additionally, further analysis and examination of the data would be necessary to confirm the consistency and significance of these observed differences.')
+
   # Climatic development with segmented color map
-  st.subheader('Climatic Development Over Years')
+  st.markdown("#### Climatic Development Over Years - Data Stripes')
+  st.write('The next data visualisation contains data stripes, which provide an intuitive way to visualise climate change and temperature trends. They offer a quick and clear representation of Earth's warming, making it easy to identify long-term temperature trends and point out differences between the earth zones/ latitudes.')
   cmap = LinearSegmentedColormap.from_list('climate_stripes', ['turquoise', 'white', 'red'], N=256)
   years = nasa['Year']
   
@@ -209,13 +192,14 @@ if page ==  "Exploration Analysis - NASA":
       cbar.set_label(f'Color for {column}')
       ax.set_title(f'Climatic development {column}')
       st.pyplot(fig)
+  st.write('It appears that in recent decades, the majority of regions around the world have experienced predominantly positive temperature anomalies, especially since the 1980s / 1990s. However, there is an exception for the ‘90S-64S’ (South Pole) regions, where greater temperature variance is evident. Also the temperate zone in the south (64S-44S) shows earlier larger temperature changes since around 1970.')
   
   # Scatter plots with linear regression
-  st.subheader('Scatter Plots with Linear Regression')
+  st.markdown("#### Relationship between years and temperature anomalies for different latitudes - Scatterplots')
+  st.write('Another way of visualising the data is to use a scatter plot. These Scatter plots with linear regression lines provide visual insight into the relationship between years and temperature anomalies for different latitudes.')
   num_cols = len(nasa.columns) - 1
   num_rows = math.ceil(num_cols / 3)
   num_cols_subplot = min(num_cols, 3)
-  
   fig, axes = plt.subplots(num_rows, num_cols_subplot, figsize=(15, 4 * num_rows))
   
   for i, column in enumerate(nasa.columns[1:]):
@@ -236,9 +220,11 @@ if page ==  "Exploration Analysis - NASA":
           fig.delaxes(axes[row_idx, i])
   
   st.pyplot(fig)
+  st.write('These graphs make it possible to identify trends, patterns, and correlations in temperature data. The linear regressions help quantify the direction and strength of these relationships and provide important insights into how climate has evolved in different regions over the years. To obtain a more profound comprehension of temperature variations over time across various latitudinal bands, a Pearson correlation analysis was performed for each latitude. Additionally, scatter plots were created to visualise the relationship between temperature change and the corresponding year. The plots reveal a consistent temperature increase over time, as all linear regression trends are positive. For the latitude 90S-64S (South Pole) plot, there is significant scatter, showing a more weak correlation. This suggests that while the South Pole has seen varied temperatures, using just the year is not enough to predict these anomalies. An also noticeable temperature dip occurred in approx. 1910 / 1920s and from the 1950s to 1980s (except in regions like SHem, 24S-24N, and 90S-64S). This non-uniform decrease hints at regional influences on temperature shifts, warranting further study.')
+  
   ####
 
-#############################################################################################################################################################################################
+################################################################################################################################################################################################
 
 if page ==  "Exploration Analysis - OWID":
 # Title of the app
