@@ -745,6 +745,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
 # Display the map in Streamlit
     st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
+
 if page ==  "Machine Learning Models":
   # Title of the app
      st.title('Machine Learning Models')
@@ -764,8 +765,9 @@ if page ==  "Machine Learning Models":
      )
      st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
      st.markdown("<br><br>", unsafe_allow_html=True)
-     
+     st.markdown("***")
 ########################################################################################################################################################################################################################
+
 if page ==  'Credits':
    st.markdown(
         """
@@ -840,8 +842,10 @@ st.markdown("<span style='font-size: 12px;'>\*For each member of the group, spec
 
 # linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
 # linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
+st.markdown("***")
 
 ########################################################################################################################################################################################################################
+
 if page == "Exploration Analysis - FAO" : 
   st.write("### Exploration of FAO Datasets")
   st.write("##### Food and Agriculture Orginization of the United Nations")
@@ -957,10 +961,6 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 ###
-###########################################################################################################################################################################################################################
 
-
-
-############################################################################################################################################################################################################################
 
 
