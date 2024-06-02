@@ -921,7 +921,7 @@ import statsmodels.api as sm
 
 # Function to display the SARIMA model results
 def display_sarima_model():
-    df = pd.read_csv('nasa_zonal_mon.csv')
+    df = pd.read_csv('nasa_zonal_mon.csv', dtype={'Year': str})
     st.write("First few rows of the dataset:")
     st.write(df.head())
 
