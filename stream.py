@@ -273,28 +273,36 @@ if page == "Exploration Analysis - OWID":
      # Expandable section for descriptive statistics
     with st.expander("Descriptive statistics of the OWID dataset"):
          st.dataframe(Co2.describe())
+         st.markdown('**Looking at the OWID data set, the summary statistics indicate various things:**')
+         st.markdown('*  In various variables, the mean and median value differ substantially (e.g. co2: 379.98 mean vs 3.10 median. This mismatch could 1) indicate the presence of outliers skewing the value distribution')
+         st.markdown('*  A high number of missing values denoted as "0", skewing the distribution')
+         st.markdown('*  The large difference between the Q3 and Q4 and the max value in various variables (e.g. co2, total_ghg) indicates the existence of very high outlier values')
+
 
     with st.expander("Properties of the OWID dataset"):
          st.markdown("###### Dimensions")
          st.markdown(f"- Number of Rows: {Co2.shape[0]}\n"
-                    f"- Number of Columns: {Co2.shape[1]}\n")
+                     f"- Number of Columns: {Co2.shape[1]}\n")
          st.markdown("")
          st.markdown("###### Data types")
          st.markdown("- 71 variables are of data type float\n"
                     "- 1 variable is of dtype integer\n"
-                    "- 2 variables are of dtype object\n")
+                    "- 2 variables are of dtype object\n"
+                    "- This dataset is basically from the year 1880-2022 and shows the year wise values of CO2 emissions across different countries for every year\n")
+
          st.markdown("")
          st.markdown("###### Missing values")
-         st.markdown("- Exist in almost all of the variables in the dataset\n"
-                    "- Vary greatly in share of total entries among variables\n")
+         st.markdown("- There are missing values in almost every variable of the dataset\n"
+                     "-  There are almost 31 columns with more than 50% of missing values\n")
          st.markdown("")
          st.markdown("###### Variables")
          st.markdown("- The dataset consists mainly of numerical variables on CO2 emissions with different scopes like emissions per emission source and the scope of aggregation (like total, shared, cumulative, per capita)\n"
                     "- Other context metrics like year, population, country and GDP\n"
+                    "- Total countries in the dataset is around 231\n"
+                    "- The values of carbon dioxide emissions are calculated in million tonnes\n"
                     "- For an in-detail description see [OWID CO2 Data GitHub](https://github.com/owid/co2-data)\n")
 
          st.markdown("***")
-         st.markdown("#### Missing values")
 
     # Total missing values
          mis_val = Co2.isnull().sum()
