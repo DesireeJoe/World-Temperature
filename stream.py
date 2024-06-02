@@ -1014,8 +1014,7 @@ def display_sarima_model():
     st.pyplot(fig)
 
 # Streamlit code
-page = "Time-series modeling with SARIMA"  # Replace with actual page variable logic
-
+page = "Time-series modeling with SARIMA" 
 if page == "Time-series modeling with SARIMA":
     st.title('Time-series modeling with SARIMA')
     display_sarima_model()
