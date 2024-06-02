@@ -792,8 +792,8 @@ if page ==  "Modelling Preparation":
       """)
 
       # Load data function
-  @st.cache
-  def load_data():
+@st.cache
+def load_data():
      datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
      return datas_pre_processed
 
