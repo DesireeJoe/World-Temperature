@@ -370,7 +370,7 @@ if page ==  "Exploration Analysis - OWID":
     5022398.45,
     4609805.57
  ]
-
+  
 # Calculate percentages
  total_co2 = sum(co2_values)
  percentages = [(value / total_co2) * 100 for value in co2_values]
