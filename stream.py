@@ -16,7 +16,7 @@ st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', 
 page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Exploration Analysis - NASA",
                               "Exploration Analysis - OWID",
-                              "Exploration Analysis - Surface Temperature Anomaly",
+                              "Exploration Analysis - STA",
                               "Exploration Analysis - FAO",
                               "Modelling Preparation",
                               "Machine Learning Models",
@@ -517,7 +517,7 @@ if page ==  "Exploration Analysis - OWID":
       """)
 #####################################################################################################################################################################
  
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
 # Title of the app
      st.title('Exploration Analysis - Surface Temperature Anomaly')
      st.markdown(
@@ -611,7 +611,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
          
           st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
    top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
    surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
 
@@ -650,7 +650,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     """)     
    st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
       sns.set_style("whitegrid")
       
       @st.cache
@@ -709,7 +709,7 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     """)
       st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
     import streamlit as st
     import plotly.express as px
     import pandas as pd
