@@ -21,6 +21,7 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Modelling Preparation",
                               "Machine Learning Models",
                               "Time-series modeling with SARIMA",
+                              "Prediction",
                               "Conclusion", "Credits"])
 
 
