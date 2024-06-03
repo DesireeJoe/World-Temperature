@@ -375,19 +375,36 @@ if page ==  "Exploration Analysis - OWID":
  total_co2 = sum(co2_values)
  percentages = [(value / total_co2) * 100 for value in co2_values]
 
+# Create a DataFrame
+ df_bar = pd.DataFrame({
+    'Category': categories,
+    'Percentage': percentages
+ })
+
 # Streamlit Title
  st.markdown("<h2 style='text-align: center;'>Barplot Representing the Distribution of CO2 Emissions Across Different Categories</h2>", unsafe_allow_html=True)
  st.write("This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions.")
 
-# Create bar plot with percentages
- plt.figure(figsize=(12, 8))
- plt.bar(categories, percentages, color='skyblue')
- plt.title('CO2 Emissions by Category', fontsize=14)
- plt.xlabel('Category', fontsize=12)
- plt.ylabel('Percentage of Total CO2 Emissions', fontsize=12)
- plt.xticks(rotation=45, ha='right')
- plt.tight_layout()
+# Create bar plot with Plotly
+ fig = px.bar(
+    df_bar,
+    x='Category',
+    y='Percentage',
+    title='CO2 Emissions by Category',
+    labels={'Percentage': 'Percentage of Total CO2 Emissions'},
+    text='Percentage',
+    color='Category'
+ )
 
+# Update layout for better visualization
+ fig.update_layout(
+    xaxis_title='Category',
+    yaxis_title='Percentage of Total CO2 Emissions',
+    xaxis_tickangle=-45,
+    title_font_size=14,
+    xaxis_title_font_size=12,
+    yaxis_title_font_size=12
+ )
 # Display the plot in Streamlit
  st.pyplot(plt)
  st.markdown("***")
