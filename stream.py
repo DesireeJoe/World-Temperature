@@ -25,7 +25,7 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
 
 
 
-#####
+#########################################################################################################################################################################################################################
 if page == 'Home':
   
   
@@ -51,6 +51,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+#########################################################################################################################################################################################################################
 if page == 'Introduction':
 
    st.write("## World Temperature: Effects of Greenhouse Gases on Gobal Temperatures")
@@ -66,7 +67,7 @@ We want to understand how global warming has evolved over centuries and decades.
 
 Using data from FAO, NASA and ‘Our World In Data”, This project explores historical temperature records to try to uncover trends and patterns. We will highlight this data exploration in further detail in the next steps.
     """)
-#################################################################################################################################
+####################################################################################################################################################################################################################
 
 #Nasa Exploration#
 if page ==  "Exploration Analysis - NASA":
@@ -519,7 +520,7 @@ if page ==  "Exploration Analysis - OWID":
  
 if page ==  "Exploration Analysis - STA":
 # Title of the app
-     st.title('Exploration Analysis - Surface Temperature Anomaly')
+     st.title('Exploration Analysis - STA')
      st.markdown(
         """
         <style>
