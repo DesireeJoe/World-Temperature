@@ -377,7 +377,7 @@ if page ==  "Exploration Analysis - OWID":
 
 # Create a DataFrame
  df_bar = pd.DataFrame({
-    'Category': total_co2,
+    'Category': categories,
     'Percentage': percentages
  })
 
