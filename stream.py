@@ -51,8 +51,7 @@ if page == 'Home':
     """,
     unsafe_allow_html=True
  )
-   st.markdown('<p style="text-align: center; color: white;">ORAL DEFENSE: 11/06/2024</p>', unsafe_allow_html=True)
-   st.markdown('<p style="text-align: center; color: white;">Manasi-Fiona-Desiree</p>', unsafe_allow_html=True)
+   
 #########################################################################################################################################################################################################################
 if page == 'Introduction':
 
