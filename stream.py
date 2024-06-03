@@ -37,7 +37,7 @@ if page == 'Home':
 
 
 # Inject custom CSS
-st.markdown(
+  st.markdown(
     """
     <style>
     .reportview-container {
@@ -50,7 +50,9 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-)
+ )
+   st.markdown('<p style="text-align: center; color: white;">ORAL DEFENSE: 11/06/2024</p>', unsafe_allow_html=True)
+   st.markdown('<p style="text-align: center; color: white;">Manasi-Fiona-Desiree</p>', unsafe_allow_html=True)
 #########################################################################################################################################################################################################################
 if page == 'Introduction':
 
