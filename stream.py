@@ -406,7 +406,7 @@ if page ==  "Exploration Analysis - OWID":
     yaxis_title_font_size=12
  )
 # Display the plot in Streamlit
- st.pyplot(plt)
+ st.plotly_chart(fig)
  st.markdown("***")
 
 if page ==  "Exploration Analysis - OWID":
