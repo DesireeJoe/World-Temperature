@@ -967,9 +967,17 @@ import statsmodels.api as sm
 file_id = '1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'  # Replace with your actual file ID
 gdrive_url = f'https://drive.google.com/uc?id={file_id}'
 
+import os
+import sys
+
+# Suppress stderr
+sys.stderr = open(os.devnull, 'w')
+
 # Download the file using gdown
-output = 'sarima_model.pkl.gz'
 gdown.download(gdrive_url, output, quiet=False)
+
+# Restore stderr
+sys.stderr = sys.__stderr__
 
 # Load the SARIMA model from the gzip file
 with gzip.open(output, 'rb') as f:
