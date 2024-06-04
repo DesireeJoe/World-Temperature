@@ -736,13 +736,13 @@ with st.expander("Surface Temperature Anomalies Over Years in different countrie
           color='Surface temperature anomaly',
           hover_name='Entity',
           animation_frame='Year',
-          projection='natural earth',
+          projection='natural earth', 
           title='Surface Temperature Anomaly Over Time',
           color_continuous_scale='Viridis'  # Change the color scale to Viridis
       )
 
     # Customize the layout
-       fig.update_layout(
+      fig.update_layout(
           coloraxis_colorbar=dict(
           title='Surface Temperature Anomaly (°C)'
        ),
