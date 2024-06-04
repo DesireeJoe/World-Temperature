@@ -341,7 +341,7 @@ if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
  with st.expander("Barplot Representing the Distribution of CO2 Emissions Across Different Categories"):
-      
+      st.write(" This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions ")
 # CO2 categories
       categories = [
     'CO2',
@@ -443,7 +443,7 @@ if page ==  "Exploration Analysis - OWID":
   }
 
 # Title and Introduction
-  st.expander("### Global CO2 Emissions by Emission Sources", expanded=True)
+  st.expander("Global CO2 Emissions by Emission Sources:")
   st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
 # Plotting
