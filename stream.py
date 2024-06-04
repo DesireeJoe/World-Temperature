@@ -417,8 +417,7 @@ if page ==  "Exploration Analysis - OWID":
   """)
 
 #Line plot for Global Co2 emissions by emission sources 
-with st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
-     st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
+
 # Convert the 'year' column to an integer
      Co2['year'] = Co2['year'].astype(int)
 
@@ -460,7 +459,8 @@ with st.expander("Line plot representing Global CO2 Emissions by Emission Source
 
 # Display the plot in Streamlit
        st.pyplot(plt)
-
+with st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
+     st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 # Description of the plot
 with st.expander("### Description of the Global CO2 Emissions by Emission Sources"):
        st.write("""
