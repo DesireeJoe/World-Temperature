@@ -359,7 +359,7 @@ if page ==  "Exploration Analysis - OWID":
        ]
 
 # Corresponding sum values for the selected categories
-       co2_values = [
+      co2_values = [
        11858676.64,
        90882.13,
        45375.86,
@@ -374,32 +374,32 @@ if page ==  "Exploration Analysis - OWID":
         ]
   
 # Calculate percentages
-       total_co2 = sum(co2_values)
-       percentages = [(value / total_co2) * 100 for value in co2_values]
+      total_co2 = sum(co2_values)
+      percentages = [(value / total_co2) * 100 for value in co2_values]
 
 # Create a DataFrame
-       df_bar = pd.DataFrame({
+      df_bar = pd.DataFrame({
                   'Category': categories,
                   'Percentage': percentages
                   })
  
 
 # Create bar plot with Plotly
-        fig = px.bar(df_bar, x='Category', y='Percentage', title='CO2 Emissions by Category',
+      fig = px.bar(df_bar, x='Category', y='Percentage', title='CO2 Emissions by Category',
               labels={'Percentage': 'Percentage of Total CO2 Emissions'},
               color='Percentage',
               color_continuous_scale='Viridis')
 
 # Update layout for better visualization
-         fig.update_layout(
+      fig.update_layout(
              xaxis_title='Category',
              yaxis_title='Percentage of Total CO2 Emissions',
              title={'text': 'CO2 Emissions by Category', 'x':0.5},
              xaxis_tickangle=-45
             )
 # Display the plot in Streamlit
-         st.plotly_chart(fig)
-         st.markdown("***")
+      st.plotly_chart(fig)
+      st.markdown("***")
 
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
