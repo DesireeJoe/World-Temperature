@@ -1069,18 +1069,8 @@ if page ==  "Machine Learning Models":
   # Add headline
   st.subheader("Comparison of Gradient Boosting Models with Different Estimators")
   
-  # Create columns layout for side-by-side display
-  col1, col2, col3 = st.columns(3)
-  
-  # Display bar charts side by side
-  with col1:
-      st.bar_chart(comparison_df[['Gradient Boosting (100 estimators)']])
-  
-  with col2:
-      st.bar_chart(comparison_df[['Gradient Boosting (200 estimators)']])
-  
-  with col3:
-      st.bar_chart(comparison_df[['Gradient Boosting (300 estimators)']])
+  # Display bar chart
+  st.bar_chart(comparison_df)
 
 
 ###################################################################################################################
