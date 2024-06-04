@@ -953,7 +953,7 @@ if page ==  "Machine Learning Models":
 ###################################################################################################################
 
 import streamlit as st
-import gdown
+import requests
 import gzip
 import pickle
 import pandas as pd
@@ -963,24 +963,21 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import statsmodels.api as sm
 
-# Google Drive file ID and URL
-file_id = '1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'  # Replace with your actual file ID
-gdrive_url = f'https://drive.google.com/uc?id={file_id}'
+# Google Drive file URL
+file_url = 'https://drive.google.com/uc?id=1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'
 
-import os
-import sys
+# Function to download the file from Google Drive
+def download_file_from_google_drive(url, output_file):
+    response = requests.get(url)
+    with open(output_file, 'wb') as f:
+        f.write(response.content)
 
-# Suppress stderr
-sys.stderr = open(os.devnull, 'w')
-
-# Download the file using gdown
-gdown.download(gdrive_url, output, quiet=False)
-
-# Restore stderr
-sys.stderr = sys.__stderr__
+# Download the file
+output_file = 'sarima_model.pkl.gz'
+download_file_from_google_drive(file_url, output_file)
 
 # Load the SARIMA model from the gzip file
-with gzip.open(output, 'rb') as f:
+with gzip.open(output_file, 'rb') as f:
     loaded_model = pickle.load(f)
 
 st.write("Model loaded from sarima_model.pkl.gz")
@@ -1083,7 +1080,6 @@ plt.ylabel('Temperature Anomaly')
 plt.title('SARIMA Model Forecast')
 plt.grid(True)
 st.pyplot(plt)
-
 
 
 ########################################################################################################################################################################################################################
