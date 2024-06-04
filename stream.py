@@ -417,6 +417,8 @@ if page ==  "Exploration Analysis - OWID":
   """)
 
 #Line plot for Global Co2 emissions by emission sources 
+with st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
+     st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 # Convert the 'year' column to an integer
   Co2['year'] = Co2['year'].astype(int)
 
@@ -442,10 +444,6 @@ if page ==  "Exploration Analysis - OWID":
     'total_ghg': 'Total GHG',
     'land_use_change_co2': 'Land Use Change CO2'
   }
-
-# Title and Introduction
-  with  st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
-      st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
 # Plotting
   plt.figure(figsize=(12, 6))
