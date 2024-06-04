@@ -501,7 +501,7 @@ if page ==  "Exploration Analysis - OWID":
         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
 
 #pivot the values 
-         methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
+        methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
    
 
 # Plotting
