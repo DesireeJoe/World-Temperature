@@ -742,20 +742,20 @@ with st.expander("Surface Temperature Anomalies Over Years in different countrie
       )
 
     # Customize the layout
-      fig.update_layout(
-          coloraxis_colorbar=dict(
-          title='Surface Temperature Anomaly (°C)'
+    fig.update_layout(
+        coloraxis_colorbar=dict(
+        title='Surface Temperature Anomaly (°C)'
        ),
-       coloraxis_colorbar_thickness=25,
-       coloraxis_colorbar_len=0.5,
-       autosize=False,
-       width=1000,
-       height=600,
-       xaxis=dict(range=[1850, 2017])
-       )
+        coloraxis_colorbar_thickness=25,
+        coloraxis_colorbar_len=0.5,
+        autosize=False,
+        width=1000,
+        height=600,
+        xaxis=dict(range=[1850, 2017])
+        )
 
 # Display the map in Streamlit
-      st.plotly_chart(fig)
+    st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
 if page ==  "Modelling Preparation":
