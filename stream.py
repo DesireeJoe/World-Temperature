@@ -1071,6 +1071,11 @@ if page ==  "Machine Learning Models":
   
   # Display bar chart
   st.bar_chart(comparison_df)
+  # Labeling the bars
+  for i in range(len(comparison_df)):
+      row_data = comparison_df.iloc[i]
+      for col, value in zip(row_data.index, row_data.values):
+          bar_chart.add_rows_label([f"{col}: {value:.2f}"], [i], 'right')
 
 
 ###################################################################################################################
