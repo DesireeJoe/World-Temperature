@@ -386,24 +386,17 @@ if page ==  "Exploration Analysis - OWID":
  st.write("This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions.")
 
 # Create bar plot with Plotly
- fig = px.bar(
-    df_bar,
-    x='Category',
-    y='Percentage',
-    title='CO2 Emissions by Category',
-    labels={'Percentage': 'Percentage of Total CO2 Emissions'},
-    text='Percentage',
-    color='Category'
- )
+ fig = px.bar(df, x='Category', y='Percentage', title='CO2 Emissions by Category',
+             labels={'Percentage': 'Percentage of Total CO2 Emissions'},
+             color='Percentage',
+             color_continuous_scale='Viridis')
 
 # Update layout for better visualization
  fig.update_layout(
     xaxis_title='Category',
     yaxis_title='Percentage of Total CO2 Emissions',
-    xaxis_tickangle=-45,
-    title_font_size=14,
-    xaxis_title_font_size=12,
-    yaxis_title_font_size=12
+    title={'text': 'CO2 Emissions by Category', 'x':0.5},
+    xaxis_tickangle=-45
  )
 # Display the plot in Streamlit
  st.plotly_chart(fig)
