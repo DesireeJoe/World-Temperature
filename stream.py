@@ -463,7 +463,7 @@ if page ==  "Exploration Analysis - OWID":
             st.pyplot(plt)
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
-with st.expander("### Description of the Global CO2 Emissions by Emission Sources"):
+ with st.expander("Description of the Global CO2 Emissions by Emission Sources"):
        st.write("""
   - The contributions of different emission sources to the total CO2 emissions vary over time.
   - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
