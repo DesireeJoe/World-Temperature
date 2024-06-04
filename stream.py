@@ -646,9 +646,9 @@ with st.expander("Surface Temperature Anomaly in Top 5 countries"):
     # Display the plot in Streamlit
          st.pyplot(plt)
 
-    # Description of the plot
- with st.expander("Description of Surface Temperature Anomaly Trends"):
-      st.write("""
+    # Description of the plot 
+with st.expander("Description of Surface Temperature Anomaly Trends"):
+     st.write("""
    - The plot allows for a visual comparison of surface temperature anomalies across the top 5 countries over the available time period.
    - Each country's data spans a different time period: Afghanistan from 1947 to 2017, Chad from 1946 to 2017, Uganda from 1901 to 2017, and Romania and Belarus from 1850 to 2017.
    - There have been significant fluctuations in temperature anomaly trends over the centuries.
