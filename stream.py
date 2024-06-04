@@ -627,28 +627,28 @@ if page ==  "Exploration Analysis - STA":
    surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
 
    # Title and Introduction
-   st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly in Top 5 Countries </h2>", unsafe_allow_html=True)
-   st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
+  with st.expander("Surface Temperature Anomaly in Top 5 countries"):
+       st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
 
     # Plotting
-   plt.figure(figsize=(10, 6))
+       plt.figure(figsize=(10, 6))
 
-   for country in top_countries:
-       country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-       plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
-   plt.xlabel('Year')
-   plt.ylabel('Surface Temperature Anomaly')
-   plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
-   plt.legend()
-   plt.grid(True)
-   plt.tight_layout()
+       for country in top_countries:
+           country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
+           plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
+       plt.xlabel('Year')
+       plt.ylabel('Surface Temperature Anomaly')
+       plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
+       plt.legend()
+       plt.grid(True)
+       plt.tight_layout()
 
     # Display the plot in Streamlit
-   st.pyplot(plt)
+       st.pyplot(plt)
 
     # Description of the plot
-   st.markdown("### Description of Surface Temperature Anomaly Trends")
-   st.write("""
+ with st.expander("Description of Surface Temperature Anomaly Trends"):
+      st.write("""
    - The plot allows for a visual comparison of surface temperature anomalies across the top 5 countries over the available time period.
    - Each country's data spans a different time period: Afghanistan from 1947 to 2017, Chad from 1946 to 2017, Uganda from 1901 to 2017, and Romania and Belarus from 1850 to 2017.
    - There have been significant fluctuations in temperature anomaly trends over the centuries.
@@ -659,7 +659,7 @@ if page ==  "Exploration Analysis - STA":
    - An interesting observation is the falling trend in surface temperature anomaly for Afghanistan around 2017, indicating a deviation from the overall increasing trend observed in other countries.
    - This anomaly might warrant further investigation into the factors influencing temperature patterns in Afghanistan.
     """)     
-   st.markdown("***")
+       st.markdown("***")
 
 if page ==  "Exploration Analysis - STA":
       sns.set_style("whitegrid")
