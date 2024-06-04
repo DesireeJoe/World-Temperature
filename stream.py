@@ -443,7 +443,7 @@ if page ==  "Exploration Analysis - OWID":
   }
 
 # Title and Introduction
-  st.markdown("<h2 style='text-align: center;'>Global CO2 Emissions by Emission Sources</h2>", unsafe_allow_html=True)
+  st.expander("<h2 style='text-align: center;'>Global CO2 Emissions by Emission Sources</h2>", unsafe_allow_html=True)
   st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
 # Plotting
