@@ -1069,14 +1069,34 @@ if page ==  "Machine Learning Models":
   # Add headline
   st.subheader("Comparison of Gradient Boosting Models with Different Estimators")
   
-  # Display bar chart
-  st.bar_chart(comparison_df)
-  # Labeling the bars
-  for i in range(len(comparison_df)):
-      row_data = comparison_df.iloc[i]
-      for col, value in zip(row_data.index, row_data.values):
-          bar_chart.add_rows_label([f"{col}: {value:.2f}"], [i], 'right')
-
+  # Create a bar chart using Matplotlib
+  fig, ax = plt.subplots(figsize=(10, 6))
+  
+  models = comparison_df.index
+  metrics = comparison_df.columns
+  
+  x = np.arange(len(models))
+  bar_width = 0.2
+  
+  for i, metric in enumerate(metrics):
+      ax.bar(x + i * bar_width, comparison_df[metric], width=bar_width, label=metric)
+  
+  ax.set_xticks(x + (len(metrics) - 1) * bar_width / 2)
+  ax.set_xticklabels(models, rotation=45, ha="right")
+  ax.legend()
+  
+  # Add annotations to each bar
+  for i in range(len(models)):
+      for j, metric in enumerate(metrics):
+          value = comparison_df.iloc[i][metric]
+          ax.text(i + j * bar_width, value + 0.05, f'{value:.2f}', ha='center', va='bottom')
+  
+  ax.set_ylabel('Metrics')
+  ax.set_title('Comparison of Gradient Boosting Models with Different Estimators')
+  ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)
+  
+  # Display the plot
+  st.pyplot(fig)
 
 ###################################################################################################################
 
