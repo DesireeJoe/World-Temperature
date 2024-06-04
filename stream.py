@@ -462,7 +462,7 @@ with st.expander("Line plot representing Global CO2 Emissions by Emission Source
        st.pyplot(plt)
 
 # Description of the plot
-  with st.expander("### Description of the Global CO2 Emissions by Emission Sources"):
+with st.expander("### Description of the Global CO2 Emissions by Emission Sources"):
        st.write("""
   - The contributions of different emission sources to the total CO2 emissions vary over time.
   - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
