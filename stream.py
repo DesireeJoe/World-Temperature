@@ -324,7 +324,7 @@ if page == "Exploration Analysis - OWID":
          mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-    st.markdown("<h2 style='text-align: center;'>CO2 Dataset Missing Values Analysis</h2>", unsafe_follow=True)
+    st.markdown("<h2 style='text-align: center;'>CO2 Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
     st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
     st.dataframe(mis_val_table_ren_columns)
     
@@ -341,7 +341,7 @@ if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
  with st.expander("Barplot Representing the Distribution of CO2 Emissions Across Different Categories"):
-      st.markdown('** This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions **')
+      
 # CO2 categories
       categories = [
     'CO2',
