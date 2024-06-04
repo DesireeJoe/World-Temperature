@@ -1001,15 +1001,27 @@ if page ==  "Machine Learning Models":
   metrics_df = pd.DataFrame(metrics_data)
   st.table(metrics_df)
   
-  # Plot predictions vs actuals
-  st.subheader("Predictions vs Actuals")
+  # Calculate the absolute errors
+  absolute_errors_gb = np.abs(y_test - y_pred_gb)
+  
+  # Define a threshold for highlighting large errors
+  error_threshold = 0.4
+  
+  # Define colors based on the absolute errors
+  colors_gb = np.where(absolute_errors_gb <= error_threshold, 'blue', 'red')
+  
+  # Create a scatter plot with colors
   plt.figure(figsize=(8, 6))
-  plt.scatter(y_test, y_pred_gb, alpha=0.5)
+  plt.scatter(y_test, y_pred_gb, c=colors_gb, alpha=0.5)
   plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='gray', linestyle='--')
   plt.xlabel('Actual Temperature Anomaly')
   plt.ylabel('Predicted Temperature Anomaly')
   plt.title('Gradient Boosting - Actual vs. Predicted Temperature Anomaly')
-  plt.legend(['Ideal Prediction'], loc='upper left')
+  
+  # Add legend for colors
+  plt.legend(['Ideal Prediction', f'Absolute Error <= {error_threshold}', f'Absolute Error > {error_threshold}'], loc='upper left')
+  
+  # Display plot
   st.pyplot(plt)
 
     
