@@ -489,16 +489,16 @@ if page ==  "Exploration Analysis - OWID":
                     'Low-income countries', 'Lower-middle-income countries', 
                     'Upper-middle-income countries']
 
-         Co2 = Co2[~Co2['country'].isin(excluded_entries)]
+        Co2 = Co2[~Co2['country'].isin(excluded_entries)]
 
 # Calculate total methane emissions for each country
-         country_methane_emissions = Co2.groupby('country')['methane'].sum()
+        country_methane_emissions = Co2.groupby('country')['methane'].sum()
   
 # Sort countries based on methane emissions and select top 5
-         top_5_countries_methane = country_methane_emissions.nlargest(5)
+        top_5_countries_methane = country_methane_emissions.nlargest(5)
 
 # Extract data for the top 5 countries
-         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
+        top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
 
 #pivot the values 
          methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
