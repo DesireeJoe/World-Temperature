@@ -16,16 +16,17 @@ st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', 
 page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Exploration Analysis - NASA",
                               "Exploration Analysis - OWID",
-                              "Exploration Analysis - Surface Temperature Anomaly",
+                              "Exploration Analysis - STA",
                               "Exploration Analysis - FAO",
                               "Modelling Preparation",
                               "Machine Learning Models",
                               "Time-series modeling with SARIMA",
+                              "Prediction",
                               "Conclusion", "Credits"])
 
 
 
-#####
+#########################################################################################################################################################################################################################
 if page == 'Home':
   
   
@@ -37,7 +38,7 @@ if page == 'Home':
 
 
 # Inject custom CSS
-st.markdown(
+  st.markdown(
     """
     <style>
     .reportview-container {
@@ -50,7 +51,9 @@ st.markdown(
     </style>
     """,
     unsafe_allow_html=True
-)
+ )
+   
+#########################################################################################################################################################################################################################
 if page == 'Introduction':
 
    st.write("## World Temperature: Effects of Greenhouse Gases on Gobal Temperatures")
@@ -66,7 +69,7 @@ We want to understand how global warming has evolved over centuries and decades.
 
 Using data from FAO, NASA and ‘Our World In Data”, This project explores historical temperature records to try to uncover trends and patterns. We will highlight this data exploration in further detail in the next steps.
     """)
-#################################################################################################################################
+####################################################################################################################################################################################################################
 
 #Nasa Exploration#
 if page ==  "Exploration Analysis - NASA":
@@ -305,6 +308,8 @@ if page == "Exploration Analysis - OWID":
 
          st.markdown("***")
 
+    with st.expander("CO2 Dataset Missing Values Analysis"):
+         st.markdown("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset")
     # Total missing values
          mis_val = Co2.isnull().sum()
     
@@ -321,78 +326,86 @@ if page == "Exploration Analysis - OWID":
          mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-    st.markdown("<h2 style='text-align: center;'>CO2 Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
-    st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
-    st.dataframe(mis_val_table_ren_columns)
     
-    st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-    st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
-    st.markdown('  * The amount of missing values varies a great deal across variables,')
-    st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
-    st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2)')
+         st.dataframe(mis_val_table_ren_columns)
     
-    st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
+         st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+         st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
+         st.markdown('  * The amount of missing values varies a great deal across variables,')
+         st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
+         st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2)')
+    
+         st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
-    st.markdown("***")
+         st.markdown("***")
 if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
-
+ with st.expander("Barplot Representing the Distribution of CO2 Emissions Across Different Categories"):
+      st.write(" This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions")
 # CO2 categories
- categories = [
-    'CO2',
-    'Flaring CO2',
-    'Other Industry CO2',
-    'Methane',
-    'Nitrous Oxide',
-    'Oil CO2',
-    'Gas CO2',
-    'Coal CO2',
-    'Cement CO2',
-    'Total GHG',
-    'Land Use Change CO2'
- ]
+      categories = [
+      'CO2',
+      'Flaring CO2',
+      'Other Industry CO2',
+      'Methane',
+      'Nitrous Oxide',
+      'Oil CO2',
+      'Gas CO2',
+      'Coal CO2',
+      'Cement CO2',
+      'Total GHG',
+      'Land Use Change CO2'
+       ]
 
 # Corresponding sum values for the selected categories
- co2_values = [
-    11858676.647999998,
-    90882.134,
-    45375.86899999999,
-    956622.5999999999,
-    342210.54,
-    2835551.222,
-    1286208.5720000002,
-    3935870.717,
-    216475.77999999997,
-    5022398.451,
-    4609805.573
- ]
-
+      co2_values = [
+       11858676.64,
+       90882.13,
+       45375.86,
+       956622.59,
+       342210.54,
+       2835551.22,
+       1286208.57,
+       3935870.71,
+       216475.7,
+       5022398.45,
+       4609805.57
+        ]
+  
 # Calculate percentages
- total_co2 = sum(co2_values)
- percentages = [(value / total_co2) * 100 for value in co2_values]
+      total_co2 = sum(co2_values)
+      percentages = [(value / total_co2) * 100 for value in co2_values]
 
-# Streamlit Title
- st.markdown("<h2 style='text-align: center;'>Barplot Representing the Distribution of CO2 Emissions Across Different Categories</h2>", unsafe_allow_html=True)
- st.write("This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions.")
+# Create a DataFrame
+      df_bar = pd.DataFrame({
+                  'Category': categories,
+                  'Percentage': percentages
+                  })
+ 
 
-# Create bar plot with percentages
- plt.figure(figsize=(12, 8))
- plt.bar(categories, percentages, color='skyblue')
- plt.title('CO2 Emissions by Category', fontsize=14)
- plt.xlabel('Category', fontsize=12)
- plt.ylabel('Percentage of Total CO2 Emissions', fontsize=12)
- plt.xticks(rotation=45, ha='right')
- plt.tight_layout()
+# Create bar plot with Plotly
+      fig = px.bar(df_bar, x='Category', y='Percentage', title='CO2 Emissions by Category',
+              labels={'Percentage': 'Percentage of Total CO2 Emissions'},
+              color='Percentage',
+              color_continuous_scale='Viridis')
 
+# Update layout for better visualization
+      fig.update_layout(
+             xaxis_title='Category',
+             yaxis_title='Percentage of Total CO2 Emissions',
+             title={'text': 'CO2 Emissions by Category', 'x':0.5},
+             xaxis_tickangle=-45
+            )
 # Display the plot in Streamlit
- st.pyplot(plt)
- st.markdown("***")
+      st.plotly_chart(fig)
+      st.markdown("***")
 
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
-  st.markdown("### Description of the CO2 Emissions Distribution")
-  st.write("""
+  with st.expander("### Description of the CO2 Emissions Distribution", expanded=True):
+       
+       st.write("""
   - **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
   - **Land Use Change CO2** follows closely, accounting for **14.8%** of the total emissions, indicating the significant impact of land use practices on CO2 levels.
   - **Total GHG (Total Greenhouse Gases)** contribute **16.1%** to the emissions, emphasizing the collective impact of all greenhouse gases.
@@ -404,55 +417,54 @@ if page ==  "Exploration Analysis - OWID":
   """)
 
 #Line plot for Global Co2 emissions by emission sources 
+if page ==  "Exploration Analysis - OWID":
+   with st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
+        st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 # Convert the 'year' column to an integer
-  Co2['year'] = Co2['year'].astype(int)
+        Co2['year'] = Co2['year'].astype(int)
 
 # Filter data for years from 1880 onwards
-  Co2 = Co2[Co2['year'] >= 1880]
+        Co2 = Co2[Co2['year'] >= 1880]
 # Select relevant columns for CO2 emissions by different sources
-  emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
+        emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
                     'oil_co2', 'gas_co2', 'coal_co2', 'cement_co2', 'total_ghg', 'land_use_change_co2']
 
 # Aggregate data by summing over years
-  emission_data = Co2.groupby('year')[emission_sources].sum()
-
+        emission_data = Co2.groupby('year')[emission_sources].sum()
+ 
 # Mapping variable names to custom legend labels
-  legend_labels = {
-    'flaring_co2': 'Flaring CO2',
-    'other_industry_co2': 'Other Industry CO2',
-    'methane': 'Methane',
-    'nitrous_oxide': 'Nitrous Oxide',
-    'oil_co2': 'Oil CO2',
-    'gas_co2': 'Gas CO2',
-    'coal_co2': 'Coal CO2',
-    'cement_co2': 'Cement CO2',
-    'total_ghg': 'Total GHG',
-    'land_use_change_co2': 'Land Use Change CO2'
-  }
-
-# Title and Introduction
-  st.markdown("<h2 style='text-align: center;'>Global CO2 Emissions by Emission Sources</h2>", unsafe_allow_html=True)
-  st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
+        legend_labels = {
+       'flaring_co2': 'Flaring CO2',
+       'other_industry_co2': 'Other Industry CO2',
+       'methane': 'Methane',
+       'nitrous_oxide': 'Nitrous Oxide',
+       'oil_co2': 'Oil CO2',
+       'gas_co2': 'Gas CO2',
+       'coal_co2': 'Coal CO2',
+       'cement_co2': 'Cement CO2',
+       'total_ghg': 'Total GHG',
+       'land_use_change_co2': 'Land Use Change CO2'
+         }
 
 # Plotting
-  plt.figure(figsize=(12, 6))
+        plt.figure(figsize=(12, 6))
 
-  for source in emission_sources:
-     plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
+        for source in emission_sources:
+            plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
 
-  plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
-  plt.xlabel('Year', fontsize=12)
-  plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
-  plt.legend()
-  plt.grid(True)
-  plt.tight_layout()  # Adjust layout to prevent overlapping elements
+            plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
+            plt.xlabel('Year', fontsize=12)
+            plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
+            plt.legend()
+            plt.grid(True)
+            plt.tight_layout()  # Adjust layout to prevent overlapping elements
 
 # Display the plot in Streamlit
-  st.pyplot(plt)
-
+            st.pyplot(plt)
+if page ==  "Exploration Analysis - OWID":
 # Description of the plot
-  st.markdown("### Description of the CO2 Emissions Distribution")
-  st.write("""
+ with st.expander("Description of the Global CO2 Emissions by Emission Sources"):
+       st.write("""
   - The contributions of different emission sources to the total CO2 emissions vary over time.
   - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
   - Certain emission sources, such as coal, oil, and gas, might stand out as major contributors to CO2 emissions due to their relatively higher emission levels.
@@ -462,53 +474,52 @@ if page ==  "Exploration Analysis - OWID":
   - The sudden decline can also be attributed to missing values that have not yet been addressed.
   - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
   """)
-  st.markdown("***")
+       st.markdown("***")
   
 if page ==  "Exploration Analysis - OWID":
+  with  st.expander("Top 5 Countries with Highest CO2 Emissions from Methane"):
+        st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
   # Convert the 'year' column to an integer
-    Co2['year'] = Co2['year'].astype(int)
+        Co2['year'] = Co2['year'].astype(int)
 
     # Filter data to exclude entries that are not individual countries
-    excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
+        excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
                     'North America', 'Oceania', 'South America', 'High-income countries', 
                     'Low-income countries', 'Lower-middle-income countries', 
                     'Upper-middle-income countries']
 
-    Co2 = Co2[~Co2['country'].isin(excluded_entries)]
+        Co2 = Co2[~Co2['country'].isin(excluded_entries)]
 
 # Calculate total methane emissions for each country
-    country_methane_emissions = Co2.groupby('country')['methane'].sum()
-
+        country_methane_emissions = Co2.groupby('country')['methane'].sum()
+  
 # Sort countries based on methane emissions and select top 5
-    top_5_countries_methane = country_methane_emissions.nlargest(5)
+        top_5_countries_methane = country_methane_emissions.nlargest(5)
 
 # Extract data for the top 5 countries
-    top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
+        top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
 
 #pivot the values 
-    methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
-
-# Title and Introduction
-    st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
-    st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
+        methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
+   
 
 # Plotting
-    plt.figure(figsize=(12, 6))
-    methane_pivot.plot()
+        plt.figure(figsize=(12, 6))
+        methane_pivot.plot()
 
-    plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
-    plt.xlabel('Year', fontsize=12)
-    plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
+        plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
+        plt.xlabel('Year', fontsize=12)
+        plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
 
 # Display the plot in Streamlit
-    st.pyplot(plt)
+        st.pyplot(plt)
 
 # Description of the plot
-    st.markdown("### Description of Methane Emissions Distribution")
-    st.write("""
+  with st.expander("Description of Methane Emissions Distribution"):
+        st.write("""
       - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
       - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
       - India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
@@ -517,9 +528,9 @@ if page ==  "Exploration Analysis - OWID":
       """)
 #####################################################################################################################################################################
  
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
 # Title of the app
-     st.title('Exploration Analysis - Surface Temperature Anomaly')
+     st.title('Exploration Analysis - STA')
      st.markdown(
         """
         <style>
@@ -611,33 +622,30 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
          
           st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
-   top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
-   surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
-
-   # Title and Introduction
-   st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomaly in Top 5 Countries </h2>", unsafe_allow_html=True)
-   st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
-
+if page ==  "Exploration Analysis - STA":
+ with st.expander("Surface Temperature Anomaly in Top 5 countries"):
+      st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
+      top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
+      surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
     # Plotting
-   plt.figure(figsize=(10, 6))
+      plt.figure(figsize=(10, 6))
 
-   for country in top_countries:
-       country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-       plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
-   plt.xlabel('Year')
-   plt.ylabel('Surface Temperature Anomaly')
-   plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
-   plt.legend()
-   plt.grid(True)
-   plt.tight_layout()
+      for country in top_countries:
+          country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
+          plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
+          plt.xlabel('Year')
+          plt.ylabel('Surface Temperature Anomaly')
+          plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
+          plt.legend()
+          plt.grid(True)
+          plt.tight_layout()
 
     # Display the plot in Streamlit
-   st.pyplot(plt)
+          st.pyplot(plt)
 
-    # Description of the plot
-   st.markdown("### Description of Surface Temperature Anomaly Trends")
-   st.write("""
+    # Description of the plot 
+with st.expander("Description of Surface Temperature Anomaly Trends"):
+     st.write("""
    - The plot allows for a visual comparison of surface temperature anomalies across the top 5 countries over the available time period.
    - Each country's data spans a different time period: Afghanistan from 1947 to 2017, Chad from 1946 to 2017, Uganda from 1901 to 2017, and Romania and Belarus from 1850 to 2017.
    - There have been significant fluctuations in temperature anomaly trends over the centuries.
@@ -648,9 +656,9 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
    - An interesting observation is the falling trend in surface temperature anomaly for Afghanistan around 2017, indicating a deviation from the overall increasing trend observed in other countries.
    - This anomaly might warrant further investigation into the factors influencing temperature patterns in Afghanistan.
     """)     
-   st.markdown("***")
+     st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
       sns.set_style("whitegrid")
       
       @st.cache
@@ -660,44 +668,44 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
       merged_data = load_data()    
   
 # Title and Plot Title Description
-      st.markdown("<h2 style='text-align: center;'>CO2 Emissions and Surface Temperature Anomalies Over Years</h2>", unsafe_allow_html=True)
-      st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
+with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
+     st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
 # Create a figure and axis object
-      fig, ax1 = plt.subplots(figsize=(12, 6))
+     fig, ax1 = plt.subplots(figsize=(12, 6))
 
 # Plot CO2 emissions on the primary y-axis
-      sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+     sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
 
 # Set the y-label for CO2 emissions
-      ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
+     ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
  
 # Create a secondary y-axis for Surface Temperature Anomaly
-      ax2 = ax1.twinx()
-      sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
+     ax2 = ax1.twinx()
+     sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
 
 # Set the y-label for Surface Temperature Anomaly
-      ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
+     ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
 
 # Set labels and title
-      ax1.set_xlabel('Year')
-      plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
+     ax1.set_xlabel('Year')
+     plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
 
 # Show legend
-      lines1, labels1 = ax1.get_legend_handles_labels()
-      lines2, labels2 = ax2.get_legend_handles_labels()
-      ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
-      ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
+     lines1, labels1 = ax1.get_legend_handles_labels()
+     lines2, labels2 = ax2.get_legend_handles_labels()
+     ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
+     ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
 
 # Rotate x-axis labels for better readability
-      plt.xticks(rotation=45)
+     plt.xticks(rotation=45)
 
 # Show the plot
-      st.pyplot(fig)
+     st.pyplot(fig)
 
 # Description of the plot
-      st.markdown("### Description of CO2 Emissions and Surface Temperature Anomalies Trends")
-      st.write("""                                                                                                                                  
+with st.expander("Description of CO2 Emissions and Surface Temperature Anomalies Trends"):
+     st.write("""                                                                                                                                  
     - Both line plots show an overall increasing trend over the respective time periods.
     - The surface temperature anomaly exhibits a steady increase from 1850 to 2017, while CO2 emissions show a rising trend from 1880 to 2022.
     - Despite the general upward trajectory, both plots also exhibit periods of fluctuations and variability.
@@ -707,44 +715,44 @@ if page ==  "Exploration Analysis - Surface Temperature Anomaly":
     - In recent years, there appears to be a steeper increase in both surface temperature anomaly and CO2 emissions.
     - This observation suggests a potential acceleration in global warming and underscores the urgency of addressing climate change mitigation efforts. 
     """)
-      st.markdown("***")
+     st.markdown("***")
 
-if page ==  "Exploration Analysis - Surface Temperature Anomaly":
+if page ==  "Exploration Analysis - STA":
     import streamlit as st
     import plotly.express as px
     import pandas as pd
 
-    st.markdown("<h2 style='text-align: center;'>Surface Temperature Anomalies Over Years in different countries</h2>", unsafe_allow_html=True)
-    st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
+with st.expander("Surface Temperature Anomalies Over Years in different countries"):
+     st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
     # Sort the values of Year Column
-    sta = sta.sort_values(by='Year')
+     sta = sta.sort_values(by='Year')
     # Plotly Choropleth Map with a different color scale
-    fig = px.choropleth(
+     fig = px.choropleth(
           sta,
           locations='Code',
           color='Surface temperature anomaly',
           hover_name='Entity',
           animation_frame='Year',
-          projection='natural earth',
+          projection='natural earth', 
           title='Surface Temperature Anomaly Over Time',
           color_continuous_scale='Viridis'  # Change the color scale to Viridis
-     )
+          )
 
     # Customize the layout
-    fig.update_layout(
-        coloraxis_colorbar=dict(
-        title='Surface Temperature Anomaly (°C)'
-    ),
-    coloraxis_colorbar_thickness=25,
-    coloraxis_colorbar_len=0.5,
-    autosize=False,
-    width=1000,
-    height=600,
-    xaxis=dict(range=[1850, 2017])
-    )
+fig.update_layout(
+              coloraxis_colorbar=dict(
+              title='Surface Temperature Anomaly (°C)'
+              ),
+              coloraxis_colorbar_thickness=25,
+              coloraxis_colorbar_len=0.5,
+              autosize=False,
+              width=1000,
+              height=600,
+              xaxis=dict(range=[1850, 2017])
+              )
 
 # Display the map in Streamlit
-    st.plotly_chart(fig)
+st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
 if page ==  "Modelling Preparation":
@@ -910,13 +918,18 @@ the max depth of 5 for the Decision Tree emerges as the best choice.
     """)
 
 ###################################################################################################################
+
+import matplotlib.pyplot as plt
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 import statsmodels.api as sm
-if page ==  "Time-series modeling with SARIMA":
-  st.title('Time-series modeling with SARIMA')
-  # Load and preprocess data
-    df = pd.read_csv('/content/nasa_zonal_mon.csv')
+
+if page == "Time-series modeling with SARIMA":
+    # Title of the app
+    st.title('Time-series modeling with SARIMA')
+
+    # Load and preprocess data
+    df = pd.read_csv('nasa_zonal_mon.csv', dtype={'Year': str})
     df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
     df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
                       var_name='Month', value_name='TemperatureAnomaly')
@@ -928,7 +941,7 @@ if page ==  "Time-series modeling with SARIMA":
     ts = df_long.set_index('Date')['TemperatureAnomaly']
     train_size = int(len(ts) * 0.8)
     train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
-    
+
     # SARIMA model parameters
     p = 1
     d = 1
@@ -937,44 +950,44 @@ if page ==  "Time-series modeling with SARIMA":
     D = 1
     Q = 1
     s = 12
-    
+
     # Fit SARIMA model
     sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
     sarima_model_fit = sarima_model.fit()
-    
+
     # Model Evaluation
     predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
     mae = mean_absolute_error(test_data, predictions)
     mse = mean_squared_error(test_data, predictions)
     rmse = np.sqrt(mse)
-    
+
     # Forecasting
     forecast_steps = 36
     forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
     confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
     forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
-    
+
     # Streamlit app
     st.title('Time-series modeling with SARIMA')
-    
+
     # Display dataset
     st.subheader('Dataset')
     st.write(df.head())
-    
+
     # Display time series plot
     st.subheader('Time Series Plot')
     st.line_chart(ts)
-    
+
     # Display SARIMA model summary
     st.subheader('SARIMA Model Summary')
     st.text(sarima_model_fit.summary())
-    
+
     # Display model evaluation metrics
     st.subheader('Model Evaluation')
     st.write(f'Mean Absolute Error: {mae:.4f}')
     st.write(f'Mean Squared Error: {mse:.4f}')
     st.write(f'Root Mean Squared Error: {rmse:.4f}')
-    
+
     # Display residuals plot
     st.subheader('Residuals of SARIMA Model')
     residuals = sarima_model_fit.resid
@@ -985,14 +998,14 @@ if page ==  "Time-series modeling with SARIMA":
     ax.set_ylabel('Residuals')
     ax.grid(True)
     st.pyplot(fig)
-    
+
     # Display ACF and PACF of residuals
     st.subheader('ACF and PACF of Residuals')
     fig, ax = plt.subplots(2, 1, figsize=(12, 8))
     sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
     sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
     st.pyplot(fig)
-    
+
     # Display forecast plot
     st.subheader('SARIMA Model Forecast')
     fig, ax = plt.subplots(figsize=(12, 6))
@@ -1014,8 +1027,8 @@ if page ==  "Time-series modeling with SARIMA":
     baseline_rmse = np.sqrt(baseline_mse)
     st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
     st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
-    
+    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
+
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
   # Title of the app
