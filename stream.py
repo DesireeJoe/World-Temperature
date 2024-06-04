@@ -974,9 +974,6 @@ if page == "Time-series modeling with SARIMA":
     confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
     forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
 
-    # Streamlit app
-    st.title('Time-series modeling with SARIMA')
-
     # Display dataset
     st.subheader('Dataset')
     st.write(df.head())
