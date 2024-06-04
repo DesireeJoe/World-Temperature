@@ -505,18 +505,18 @@ if page ==  "Exploration Analysis - OWID":
    
 
 # Plotting
-    plt.figure(figsize=(12, 6))
-    methane_pivot.plot()
+        plt.figure(figsize=(12, 6))
+        methane_pivot.plot()
 
-    plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
-    plt.xlabel('Year', fontsize=12)
-    plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
+        plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
+        plt.xlabel('Year', fontsize=12)
+        plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
 
 # Display the plot in Streamlit
-    st.pyplot(plt)
+        st.pyplot(plt)
 
 # Description of the plot
    with st.expander("Description of Methane Emissions Distribution"):
