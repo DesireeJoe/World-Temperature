@@ -1024,7 +1024,39 @@ if page ==  "Machine Learning Models":
   # Display plot
   st.pyplot(plt)
 
-    
+  # Initialize Gradient Boosting regressors with different n_estimators
+  gradient_boosting_100 = GradientBoostingRegressor(n_estimators=100, random_state=30)
+  gradient_boosting_200 = GradientBoostingRegressor(n_estimators=200, random_state=30)
+  
+  # Train the models
+  gradient_boosting_100.fit(X_train, y_train)
+  gradient_boosting_200.fit(X_train, y_train)
+  
+  # Make predictions on the test set
+  y_pred_gb_100 = gradient_boosting_100.predict(X_test)
+  y_pred_gb_200 = gradient_boosting_200.predict(X_test)
+  
+  # Calculate evaluation metrics for both models
+  r2_test_gb_100 = r2_score(y_test, y_pred_gb_100)
+  r2_test_gb_200 = r2_score(y_test, y_pred_gb_200)
+  mae_gb_100 = mean_absolute_error(y_test, y_pred_gb_100)
+  mae_gb_200 = mean_absolute_error(y_test, y_pred_gb_200)
+  mse_gb_100 = mean_squared_error(y_test, y_pred_gb_100)
+  mse_gb_200 = mean_squared_error(y_test, y_pred_gb_200)
+  rmse_gb_100 = np.sqrt(mse_gb_100)
+  rmse_gb_200 = np.sqrt(mse_gb_200)
+  
+  # Create a DataFrame for comparison
+  metrics_data = {
+      'Metric': ['R²', 'MAE', 'MSE', 'RMSE'],
+      'Gradient Boosting (100 estimators)': [r2_test_gb_100, mae_gb_100, mse_gb_100, rmse_gb_100],
+      'Gradient Boosting (200 estimators)': [r2_test_gb_200, mae_gb_200, mse_gb_200, rmse_gb_200]
+  }
+  comparison_df = pd.DataFrame(metrics_data)
+  comparison_df.set_index('Metric', inplace=True)
+  
+  # Plot comparison bar chart
+  st.bar_chart(comparison_df)  
 ###################################################################################################################
 
 import streamlit as st
