@@ -623,25 +623,25 @@ if page ==  "Exploration Analysis - STA":
           st.markdown("***")
 
 if page ==  "Exploration Analysis - STA":
-with st.expander("Surface Temperature Anomaly in Top 5 countries"):
-     st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
-     top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
-     surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
+ with st.expander("Surface Temperature Anomaly in Top 5 countries"):
+      st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
+      top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
+      surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
     # Plotting
-     plt.figure(figsize=(10, 6))
+      plt.figure(figsize=(10, 6))
 
-     for country in top_countries:
-         country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-         plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
-         plt.xlabel('Year')
-         plt.ylabel('Surface Temperature Anomaly')
-         plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
-         plt.legend()
-         plt.grid(True)
-         plt.tight_layout()
+      for country in top_countries:
+          country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
+          plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
+          plt.xlabel('Year')
+          plt.ylabel('Surface Temperature Anomaly')
+          plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
+          plt.legend()
+          plt.grid(True)
+          plt.tight_layout()
 
     # Display the plot in Streamlit
-         st.pyplot(plt)
+          st.pyplot(plt)
 
     # Description of the plot 
 with st.expander("Description of Surface Temperature Anomaly Trends"):
