@@ -1066,7 +1066,7 @@ if page ==  "Machine Learning Models":
   comparison_df = pd.DataFrame(metrics_data)
   comparison_df.set_index('Metric', inplace=True)
   
- st.markdown("<h3>Comparison of Gradient Boosting Models with different Estimators</h3>", unsafe_allow_html=True)
+st.markdown("<h3>Comparison of Gradient Boosting Models with different Estimators</h3>", unsafe_allow_html=True)
   
   # Create a bar chart using Matplotlib with custom colors
   fig, ax = plt.subplots(figsize=(10, 6))
