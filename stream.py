@@ -742,7 +742,7 @@ with st.expander("Surface Temperature Anomalies Over Years in different countrie
           )
 
     # Customize the layout
-          fig.update_layout(
+        fig.update_layout(
               coloraxis_colorbar=dict(
               title='Surface Temperature Anomaly (°C)'
               ),
