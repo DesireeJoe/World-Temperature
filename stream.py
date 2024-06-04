@@ -934,6 +934,7 @@ import statsmodels.api as sm
 if page == "Time-series modeling with SARIMA":
     # Title of the app
     st.title('Time-series modeling with SARIMA')
+    st.write("Time series data is all around us, like in this case as weather patterns to demand forecasting and seasonal trends. To predict future values, we turn to powerful models like the Seasonal Autoregressive Integrated Moving Average (SARIMA). This is a versatile and widely used time series forecasting model as an extension of the non-seasonal ARIMA model, designed to handle data with seasonal patterns. SARIMA captures both short-term and long-term dependencies within the data, making it a robust tool for forecasting. It combines the concepts of autoregressive (AR), integrated (I), and moving average (MA) models with seasonal components.")
 
     # Load and preprocess data
     df = pd.read_csv('nasa_zonal_mon.csv', dtype={'Year': str})
