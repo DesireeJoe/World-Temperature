@@ -340,7 +340,11 @@ if page == "Exploration Analysis - OWID":
 if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
-
+ with st.expander("<h2 style='text-align: center;'>Barplot Representing the Distribution of CO2 Emissions Across Different Categories</h2>", expanded=True):
+        st.markdown(
+            "<h2 style='text-align: center;'>Barplot Representing the Distribution of CO2 Emissions Across Different Categories</h2>", 
+            unsafe_allow_html=True
+        )
 # CO2 categories
  categories = [
     'CO2',
@@ -404,6 +408,7 @@ if page ==  "Exploration Analysis - OWID":
 
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
+  with st.expander("### Description of the CO2 Emissions Distribution", expanded=True):
   st.markdown("### Description of the CO2 Emissions Distribution")
   st.write("""
   - **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
