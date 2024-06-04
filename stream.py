@@ -461,7 +461,7 @@ if page ==  "Exploration Analysis - OWID":
 
 # Display the plot in Streamlit
             st.pyplot(plt)
-
+if page ==  "Exploration Analysis - OWID":
 # Description of the plot
 with st.expander("### Description of the Global CO2 Emissions by Emission Sources"):
        st.write("""
@@ -623,13 +623,10 @@ if page ==  "Exploration Analysis - STA":
           st.markdown("***")
 
 if page ==  "Exploration Analysis - STA":
-   top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
-   surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
-
-   # Title and Introduction
 with st.expander("Surface Temperature Anomaly in Top 5 countries"):
      st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
-
+     top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
+     surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
     # Plotting
      plt.figure(figsize=(10, 6))
 
