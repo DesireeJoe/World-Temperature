@@ -1025,43 +1025,43 @@ if page ==  "Machine Learning Models":
   st.pyplot(plt)
 
   # Initialize Gradient Boosting regressors with different n_estimators
-  gradient_boosting_100 = GradientBoostingRegressor(n_estimators=100, random_state=30)
+  gradient_boosting_50 = GradientBoostingRegressor(n_estimators=50, random_state=30)
   gradient_boosting_200 = GradientBoostingRegressor(n_estimators=200, random_state=30)
-  gradient_boosting_300 = GradientBoostingRegressor(n_estimators=300, random_state=30)
+  gradient_boosting_400 = GradientBoostingRegressor(n_estimators=400, random_state=30)
   
   # Train the models
-  gradient_boosting_100.fit(X_train, y_train)
+  gradient_boosting_50.fit(X_train, y_train)
   gradient_boosting_200.fit(X_train, y_train)
-  gradient_boosting_300.fit(X_train, y_train)
+  gradient_boosting_400.fit(X_train, y_train)
   
   # Make predictions on the test set
-  y_pred_gb_100 = gradient_boosting_100.predict(X_test)
+  y_pred_gb_50 = gradient_boosting_50.predict(X_test)
   y_pred_gb_200 = gradient_boosting_200.predict(X_test)
-  y_pred_gb_300 = gradient_boosting_300.predict(X_test)
+  y_pred_gb_400 = gradient_boosting_400.predict(X_test)
   
   # Calculate evaluation metrics for all models
-  r2_test_gb_100 = r2_score(y_test, y_pred_gb_100)
+  r2_test_gb_50 = r2_score(y_test, y_pred_gb_50)
   r2_test_gb_200 = r2_score(y_test, y_pred_gb_200)
-  r2_test_gb_300 = r2_score(y_test, y_pred_gb_300)
+  r2_test_gb_400 = r2_score(y_test, y_pred_gb_400)
   
-  mae_gb_100 = mean_absolute_error(y_test, y_pred_gb_100)
+  mae_gb_50 = mean_absolute_error(y_test, y_pred_gb_50)
   mae_gb_200 = mean_absolute_error(y_test, y_pred_gb_200)
-  mae_gb_300 = mean_absolute_error(y_test, y_pred_gb_300)
+  mae_gb_400 = mean_absolute_error(y_test, y_pred_gb_400)
   
-  mse_gb_100 = mean_squared_error(y_test, y_pred_gb_100)
+  mse_gb_50 = mean_squared_error(y_test, y_pred_gb_50)
   mse_gb_200 = mean_squared_error(y_test, y_pred_gb_200)
-  mse_gb_300 = mean_squared_error(y_test, y_pred_gb_300)
+  mse_gb_400 = mean_squared_error(y_test, y_pred_gb_400)
   
-  rmse_gb_100 = np.sqrt(mse_gb_100)
+  rmse_gb_50 = np.sqrt(mse_gb_50)
   rmse_gb_200 = np.sqrt(mse_gb_200)
-  rmse_gb_300 = np.sqrt(mse_gb_300)
+  rmse_gb_400 = np.sqrt(mse_gb_400)
   
   # Create a DataFrame for comparison
   metrics_data = {
       'Metric': ['R²', 'MAE', 'MSE', 'RMSE'],
-      'Gradient Boosting (100 estimators)': [r2_test_gb_100, mae_gb_100, mse_gb_100, rmse_gb_100],
+      'Gradient Boosting (50 estimators)': [r2_test_gb_50, mae_gb_50, mse_gb_50, rmse_gb_50],
       'Gradient Boosting (200 estimators)': [r2_test_gb_200, mae_gb_200, mse_gb_200, rmse_gb_200],
-      'Gradient Boosting (300 estimators)': [r2_test_gb_300, mae_gb_300, mse_gb_300, rmse_gb_300]
+      'Gradient Boosting (400 estimators)': [r2_test_gb_400, mae_gb_400, mse_gb_400, rmse_gb_400]
   }
   comparison_df = pd.DataFrame(metrics_data)
   comparison_df.set_index('Metric', inplace=True)
