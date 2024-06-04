@@ -449,17 +449,17 @@ with st.expander("Line plot representing Global CO2 Emissions by Emission Source
      plt.figure(figsize=(12, 6))
 
      for source in emission_sources:
-     plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
+       plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
 
-     plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
-     plt.xlabel('Year', fontsize=12)
-     plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
-     plt.legend()
-     plt.grid(True)
-     plt.tight_layout()  # Adjust layout to prevent overlapping elements
+       plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
+       plt.xlabel('Year', fontsize=12)
+       plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
+       plt.legend()
+       plt.grid(True)
+       plt.tight_layout()  # Adjust layout to prevent overlapping elements
 
 # Display the plot in Streamlit
-     st.pyplot(plt)
+       st.pyplot(plt)
 
 # Description of the plot
   with st.expander("### Description of the Global CO2 Emissions by Emission Sources"):
