@@ -952,115 +952,130 @@ if page ==  "Machine Learning Models":
     
 ###################################################################################################################
 
+import streamlit as st
+import gdown
+import gzip
+import pickle
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 import statsmodels.api as sm
 
-if page == "Time-series modeling with SARIMA":
-    # Title of the app
-    st.title('Time-series modeling with SARIMA')
-    st.write("Time series data is all around us, like in this case as weather patterns to demand forecasting and seasonal trends. To predict future values, we turn to powerful models like the Seasonal Autoregressive Integrated Moving Average (SARIMA). This is a versatile and widely used time series forecasting model as an extension of the non-seasonal ARIMA model, designed to handle data with seasonal patterns. SARIMA captures both short-term and long-term dependencies within the data, making it a robust tool for forecasting. It combines the concepts of autoregressive (AR), integrated (I), and moving average (MA) models with seasonal components.")
+# Google Drive file ID and URL
+file_id = '1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh' 
+gdrive_url = f'https://drive.google.com/uc?id={file_id}'
 
-    # Load and preprocess data
-    df = pd.read_csv('nasa_zonal_mon.csv', dtype={'Year': str})
-    df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
-    df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                      var_name='Month', value_name='TemperatureAnomaly')
-    month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-    df_long['Month'] = df_long['Month'].map(month_map)
-    df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
-    df_long = df_long.sort_values('Date').reset_index(drop=True)
-    df_long = df_long.dropna(subset=['TemperatureAnomaly'])
-    ts = df_long.set_index('Date')['TemperatureAnomaly']
-    train_size = int(len(ts) * 0.8)
-    train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
+# Download the file using gdown
+output = 'sarima_model.pkl.gz'
+gdown.download(gdrive_url, output, quiet=False)
 
-    # SARIMA model parameters
-    p = 1
-    d = 1
-    q = 1
-    P = 1
-    D = 1
-    Q = 1
-    s = 12
+# Load the SARIMA model from the gzip file
+with gzip.open('sarima_model.pkl.gz', 'rb') as f:
+    loaded_model = pickle.load(f)
 
-    # Fit SARIMA model
-    sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
-    sarima_model_fit = sarima_model.fit()
+st.write("Model loaded from sarima_model.pkl.gz")
 
-    # Model Evaluation
-    predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
-    mae = mean_absolute_error(test_data, predictions)
-    mse = mean_squared_error(test_data, predictions)
-    rmse = np.sqrt(mse)
+# Load the dataset
+df = pd.read_csv('nasa_zonal_mon.csv')
+st.write(df.head())
 
-    # Forecasting
-    forecast_steps = 36
-    forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
-    confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
-    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+# Drop unnecessary columns
+df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
+st.write(df.head())
 
-    # Display dataset
-    st.subheader('Dataset')
-    st.write(df.head())
+# DataFrame in Long Format
+df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                 var_name='Month', value_name='TemperatureAnomaly')
 
-    # Display time series plot
-    st.subheader('Time Series Plot')
-    st.line_chart(ts)
+# Map months to numbers
+month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
+df_long['Month'] = df_long['Month'].map(month_map)
 
-    # Display SARIMA model summary
-    st.subheader('SARIMA Model Summary')
-    st.text(sarima_model_fit.summary())
+# Create datetime format
+df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
 
-    # Display model evaluation metrics
-    st.subheader('Model Evaluation')
-    st.write(f'Mean Absolute Error: {mae:.4f}')
-    st.write(f'Mean Squared Error: {mse:.4f}')
-    st.write(f'Root Mean Squared Error: {rmse:.4f}')
+# Sort and reset index
+df_long = df_long.sort_values('Date').reset_index(drop=True)
 
-    # Display residuals plot
-    st.subheader('Residuals of SARIMA Model')
-    residuals = sarima_model_fit.resid
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(residuals)
-    ax.set_title('Residuals of SARIMA Model')
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Residuals')
-    ax.grid(True)
-    st.pyplot(fig)
+# Drop missing values
+df_long = df_long.dropna(subset=['TemperatureAnomaly'])
+st.write(df_long.head(30))
 
-    # Display ACF and PACF of residuals
-    st.subheader('ACF and PACF of Residuals')
-    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
-    sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
-    sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
-    st.pyplot(fig)
+# Prepare for ARIMA
+ts = df_long.set_index('Date')['TemperatureAnomaly']
 
-    # Display forecast plot
-    st.subheader('SARIMA Model Forecast')
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(ts.index, ts, label='Observed')
-    ax.plot(forecast_index, forecast_values, color='red', label='Forecast')
-    ax.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Temperature Anomaly')
-    ax.set_title('SARIMA Model Forecast')
-    ax.grid(True)
-    st.pyplot(fig)
-    
-    # Display baseline model evaluation
-    st.subheader('Baseline Model Evaluation')
-    baseline_forecast = [ts.mean()] * len(ts)
-    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
-    baseline_mse = np.mean((ts - baseline_forecast)**2)
-    baseline_rmse = np.sqrt(baseline_mse)
-    st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
-    st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
+# Split data into training and testing sets
+train_size = int(len(ts) * 0.8)
+train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
 
-    st.write("The analysis of the temperature anomaly data using the Seasonal Autoregressive Integrated Moving Average (SARIMA) model has yielded promising results. After fitting the SARIMA model to the historical temperature anomaly data, we achieved impressive accuracy metrics. These metrics indicate that the SARIMA model accurately captures the patterns and trends in the historical temperature anomaly data, significantly outperforming the baseline model (which had an MAE of 0.3128, MSE of 0.1535, and RMSE of 0.3918). The low error values suggest that the model is reliable in predicting future temperature anomalies. An analysis of the residuals confirmed that they resemble white noise, which validates the model's assumptions. The residuals exhibited no significant autocorrelation, indicating that the SARIMA model has effectively captured the underlying structure of the temperature anomaly data. Using the fitted SARIMA model, we forecasted the temperature anomalies for the next three years. The forecast indicates a continuing increase in temperature anomalies, suggesting that the trend of rising temperatures observed in the historical data is expected to persist. The increasing temperature anomalies forecasted by the SARIMA model align with broader climate change trends observed globally. These findings underscore the importance of continued monitoring and proactive measures to mitigate the impacts of climate change. The model's accuracy provides confidence in its predictions, making it a valuable tool for researchers and policymakers in planning and implementing climate-related strategies. In conclusion, the SARIMA model has proven to be a robust and reliable method for analysing and forecasting temperature anomalies.")
+# Model Evaluation
+predictions = loaded_model.predict(start=test_data.index[0], end=test_data.index[-1])
+mae = mean_absolute_error(test_data, predictions)
+mse = mean_squared_error(test_data, predictions)
+rmse = np.sqrt(mse)
+st.write(f'Mean Absolute Error: {mae}')
+st.write(f'Mean Squared Error: {mse}')
+st.write(f'Root Mean Squared Error: {rmse}')
+
+# Forecasting
+forecast = loaded_model.forecast(steps=len(test_data))  # Forecast for the test period
+prediction_interval = loaded_model.get_forecast(steps=len(test_data)).conf_int()
+
+# Model Interpretation
+# Print model summary
+st.write(loaded_model.summary())
+
+# Plot residuals
+residuals = loaded_model.resid
+
+plt.figure(figsize=(12, 6))
+plt.plot(residuals)
+plt.title('Residuals of SARIMA Model')
+plt.xlabel('Time')
+plt.ylabel('Residuals')
+plt.grid(True)
+st.pyplot(plt)
+
+# Plot ACF and PACF of residuals
+fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
+sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
+st.pyplot(fig)
+
+# Simple baseline: Use the mean of the training data as the forecast
+baseline_forecast = [ts.mean()] * len(ts)
+
+# Calculate baseline MAE, MSE, and RMSE
+baseline_mae = np.mean(np.abs(ts - baseline_forecast))
+baseline_mse = np.mean((ts - baseline_forecast)**2)
+baseline_rmse = np.sqrt(baseline_mse)
+
+st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
+st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
+st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
+
+# Forecasting future values
+forecast_steps = 36  # Forecasting 3 years ahead (for monthly data)
+forecast_values = loaded_model.get_forecast(steps=forecast_steps).predicted_mean
+confidence_intervals = loaded_model.get_forecast(steps=forecast_steps).conf_int()
+
+# Range for the forecast
+forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+
+# Plotting
+plt.figure(figsize=(12, 6))
+plt.plot(ts.index, ts, label='Observed')
+plt.plot(forecast_index, forecast_values, color='red', label='Forecast')
+plt.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.xlabel('Time')
+plt.ylabel('Temperature Anomaly')
+plt.title('SARIMA Model Forecast')
+plt.grid(True)
+st.pyplot(plt)
+
 
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
