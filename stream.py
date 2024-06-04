@@ -964,7 +964,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 import statsmodels.api as sm
 
 # Google Drive file ID and URL
-file_id = '1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh' 
+file_id = '1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'  # Replace with your actual file ID
 gdrive_url = f'https://drive.google.com/uc?id={file_id}'
 
 # Download the file using gdown
@@ -972,7 +972,7 @@ output = 'sarima_model.pkl.gz'
 gdown.download(gdrive_url, output, quiet=False)
 
 # Load the SARIMA model from the gzip file
-with gzip.open('sarima_model.pkl.gz', 'rb') as f:
+with gzip.open(output, 'rb') as f:
     loaded_model = pickle.load(f)
 
 st.write("Model loaded from sarima_model.pkl.gz")
@@ -1075,6 +1075,7 @@ plt.ylabel('Temperature Anomaly')
 plt.title('SARIMA Model Forecast')
 plt.grid(True)
 st.pyplot(plt)
+
 
 
 ########################################################################################################################################################################################################################
