@@ -481,27 +481,27 @@ if page ==  "Exploration Analysis - OWID":
   with  st.expander("Top 5 Countries with Highest CO2 Emissions from Methane"):
         st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
   # Convert the 'year' column to an integer
-    Co2['year'] = Co2['year'].astype(int)
+        Co2['year'] = Co2['year'].astype(int)
 
     # Filter data to exclude entries that are not individual countries
-    excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
+        excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
                     'North America', 'Oceania', 'South America', 'High-income countries', 
                     'Low-income countries', 'Lower-middle-income countries', 
                     'Upper-middle-income countries']
 
-    Co2 = Co2[~Co2['country'].isin(excluded_entries)]
+         Co2 = Co2[~Co2['country'].isin(excluded_entries)]
 
 # Calculate total methane emissions for each country
-    country_methane_emissions = Co2.groupby('country')['methane'].sum()
-
+         country_methane_emissions = Co2.groupby('country')['methane'].sum()
+  
 # Sort countries based on methane emissions and select top 5
-    top_5_countries_methane = country_methane_emissions.nlargest(5)
+         top_5_countries_methane = country_methane_emissions.nlargest(5)
 
 # Extract data for the top 5 countries
-    top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
+         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
 
 #pivot the values 
-    methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
+         methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
    
 
 # Plotting
