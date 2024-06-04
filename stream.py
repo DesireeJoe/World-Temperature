@@ -409,8 +409,8 @@ if page ==  "Exploration Analysis - OWID":
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
   with st.expander("### Description of the CO2 Emissions Distribution", expanded=True):
-  st.markdown("### Description of the CO2 Emissions Distribution")
-  st.write("""
+       st.markdown("### Description of the CO2 Emissions Distribution")
+       st.write("""
   - **CO2 emissions** constitute the largest portion, representing **38%** of the total emissions.
   - **Land Use Change CO2** follows closely, accounting for **14.8%** of the total emissions, indicating the significant impact of land use practices on CO2 levels.
   - **Total GHG (Total Greenhouse Gases)** contribute **16.1%** to the emissions, emphasizing the collective impact of all greenhouse gases.
