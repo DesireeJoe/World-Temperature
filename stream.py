@@ -295,7 +295,7 @@ if page == "Exploration Analysis - OWID":
                     "- This dataset is basically from the year 1880-2022 and shows the year wise values of CO2 emissions across different countries for every year\n")
 
          st.markdown("")
-         st.markdown("###### Missing values")
+         st.expander("###### Missing values")
          st.markdown("- There are missing values in almost every variable of the dataset\n"
                      "-  There are almost 31 columns with more than 50% of missing values\n")
          st.markdown("")
