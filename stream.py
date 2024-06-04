@@ -954,14 +954,20 @@ if page ==  "Machine Learning Models":
   from sklearn.ensemble import GradientBoostingRegressor
   from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
   import matplotlib.pyplot as plt
+  import seaborn as sns
   
   # Function to calculate RMSE
   def rmse(y_true, y_pred):
       return np.sqrt(mean_squared_error(y_true, y_pred))
   
   # Load the dataset
-  df = pd.read_csv("datas_pre_processed.csv", index_col=0)
-      
+  df = pd.read_csv("/content/datas_pre_processed.csv", index_col=0)
+  
+  # Display correlation matrix
+  st.subheader("Correlation Matrix")
+  correlation_matrix = df.corr()
+  st.write(correlation_matrix)
+  
   # Select relevant features
   selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
   X = df[selected_features]
@@ -999,15 +1005,13 @@ if page ==  "Machine Learning Models":
   st.subheader("Predictions vs Actuals")
   plt.figure(figsize=(8, 6))
   plt.scatter(y_test, y_pred_gb, alpha=0.5)
+  plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='gray', linestyle='--')
   plt.xlabel('Actual Temperature Anomaly')
   plt.ylabel('Predicted Temperature Anomaly')
   plt.title('Gradient Boosting - Actual vs. Predicted Temperature Anomaly')
   plt.legend(['Ideal Prediction'], loc='upper left')
   st.pyplot(plt)
 
-
-  
-  
     
 ###################################################################################################################
 
