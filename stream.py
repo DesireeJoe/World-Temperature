@@ -964,10 +964,10 @@ if page ==  "Machine Learning Models":
   df = pd.read_csv("datas_pre_processed.csv", index_col=0)
 
   # Display correlation matrix in a foldable section
-   correlation_matrix = df.corr()
-with st.beta_expander("Correlation Matrix"):
+  correlation_matrix = df.corr()
+  with st.beta_expander("Correlation Matrix"):
       st.write(correlation_matrix)
- 
+   
   
   # Select relevant features
   selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
