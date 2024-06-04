@@ -725,12 +725,13 @@ if page ==  "Exploration Analysis - STA":
     import plotly.express as px
     import pandas as pd
 
-with st.expander("Surface Temperature Anomalies Over Years in different countries"):
-     st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
+if page ==  "Exploration Analysis - STA":
+ with st.expander("Surface Temperature Anomalies Over Years in different countries"):
+      st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
     # Sort the values of Year Column
-     sta = sta.sort_values(by='Year')
+      sta = sta.sort_values(by='Year')
     # Plotly Choropleth Map with a different color scale
-     fig = px.choropleth(
+      fig = px.choropleth(
           sta,
           locations='Code',
           color='Surface temperature anomaly',
