@@ -478,6 +478,8 @@ if page ==  "Exploration Analysis - OWID":
        st.markdown("***")
   
 if page ==  "Exploration Analysis - OWID":
+  with  st.expander("Top 5 Countries with Highest CO2 Emissions from Methane"):
+        st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
   # Convert the 'year' column to an integer
     Co2['year'] = Co2['year'].astype(int)
 
@@ -500,10 +502,7 @@ if page ==  "Exploration Analysis - OWID":
 
 #pivot the values 
     methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
-
-# Title and Introduction
-    st.markdown("<h2 style='text-align: center;'>Top 5 Countries with Highest CO2 Emissions from Methane</h2>", unsafe_allow_html=True)
-    st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
+   
 
 # Plotting
     plt.figure(figsize=(12, 6))
@@ -520,8 +519,8 @@ if page ==  "Exploration Analysis - OWID":
     st.pyplot(plt)
 
 # Description of the plot
-    st.markdown("### Description of Methane Emissions Distribution")
-    st.write("""
+   with st.expander("Description of Methane Emissions Distribution"):
+        st.write("""
       - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
       - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
       - India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
