@@ -961,7 +961,7 @@ if page ==  "Machine Learning Models":
       return np.sqrt(mean_squared_error(y_true, y_pred))
   
   # Load the dataset
-  df = pd.read_csv("/content/datas_pre_processed.csv", index_col=0)
+  df = pd.read_csv("datas_pre_processed.csv", index_col=0)
   
   # Display correlation matrix
   st.subheader("Correlation Matrix")
