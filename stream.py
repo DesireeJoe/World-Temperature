@@ -743,7 +743,7 @@ if page ==  "Exploration Analysis - STA":
           )
 
     # Customize the layout
-fig.update_layout(
+      fig.update_layout(
               coloraxis_colorbar=dict(
               title='Surface Temperature Anomaly (°C)'
               ),
@@ -756,7 +756,7 @@ fig.update_layout(
               )
 
 # Display the map in Streamlit
-st.plotly_chart(fig)
+      st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
 if page ==  "Modelling Preparation":
