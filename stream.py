@@ -965,9 +965,8 @@ if page ==  "Machine Learning Models":
 
   # Display correlation matrix in a foldable section
   correlation_matrix = df.corr()
-  with st.beta_expander("Correlation Matrix"):
+  with st.expander("Correlation Matrix"):
       st.write(correlation_matrix)
-   
   
   # Select relevant features
   selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
