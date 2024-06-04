@@ -946,7 +946,66 @@ if page ==  "Machine Learning Models":
   st.markdown('<h1 class="centered-title">Gradient Boosting</h1>', unsafe_allow_html=True)
   st.markdown("<br><br>", unsafe_allow_html=True)
   st.markdown("""Gradient Boosting is also a powerful machine learning technique used for regression and classification tasks. It builds models sequentially, with each new model attempting to correct the errors made by the previous models. The method combines the predictions of multiple weak learners, typically decision trees, to produce a strong learner that delivers accurate predictions. Our goal is to initialise Gradient Boosting to improve predictive accuracy in comparison to the previous models. First, we initialise the Gradient Boosting Regressor with n_estimators=200. This parameter specifies the number of boosting stages (or weak learners) to be used. In this case, 200 decision trees will be built sequentially, each one correcting the errors of the previous ones.""")
-             
+
+  import streamlit as st
+  import pandas as pd
+  import numpy as np
+  from sklearn.model_selection import train_test_split
+  from sklearn.ensemble import GradientBoostingRegressor
+  from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+  import matplotlib.pyplot as plt
+  
+  # Function to calculate RMSE
+  def rmse(y_true, y_pred):
+      return np.sqrt(mean_squared_error(y_true, y_pred))
+  
+  # Load the dataset
+  df = pd.read_csv("/content/datas_pre_processed.csv", index_col=0)
+      
+  # Select relevant features
+  selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
+  X = df[selected_features]
+  y = df['sta']
+  
+  # Split data into training and testing sets
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  # Initialize the Gradient Boosting regressor
+  gradient_boosting = GradientBoostingRegressor(n_estimators=200, random_state=30)
+  
+  # Train the model
+  gradient_boosting.fit(X_train, y_train)
+  
+  # Make predictions on the test set
+  y_pred_gb = gradient_boosting.predict(X_test)
+  
+  # Calculate evaluation metrics
+  r2_train_gb = r2_score(y_train, gradient_boosting.predict(X_train))
+  r2_test_gb = r2_score(y_test, y_pred_gb)
+  mae_gb = mean_absolute_error(y_test, y_pred_gb)
+  mse_gb = mean_squared_error(y_test, y_pred_gb)
+  rmse_gb = rmse(y_test, y_pred_gb)
+  
+  # Display evaluation metrics in a table
+  st.subheader("Evaluation Metrics")
+  metrics_data = {
+      'Metric': ['R² (Train)', 'R² (Test)', 'MAE', 'MSE', 'RMSE'],
+      'Value': [r2_train_gb, r2_test_gb, mae_gb, mse_gb, rmse_gb]
+  }
+  metrics_df = pd.DataFrame(metrics_data)
+  st.table(metrics_df)
+  
+  # Plot predictions vs actuals
+  st.subheader("Predictions vs Actuals")
+  plt.figure(figsize=(8, 6))
+  plt.scatter(y_test, y_pred_gb, alpha=0.5)
+  plt.xlabel('Actual Temperature Anomaly')
+  plt.ylabel('Predicted Temperature Anomaly')
+  plt.title('Gradient Boosting - Actual vs. Predicted Temperature Anomaly')
+  plt.legend(['Ideal Prediction'], loc='upper left')
+  st.pyplot(plt)
+
+
   
   
     
