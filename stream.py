@@ -295,7 +295,7 @@ if page == "Exploration Analysis - OWID":
                     "- This dataset is basically from the year 1880-2022 and shows the year wise values of CO2 emissions across different countries for every year\n")
 
          st.markdown("")
-         st.expander("###### Missing values")
+         st.markdown("###### Missing values")
          st.markdown("- There are missing values in almost every variable of the dataset\n"
                      "-  There are almost 31 columns with more than 50% of missing values\n")
          st.markdown("")
@@ -324,7 +324,7 @@ if page == "Exploration Analysis - OWID":
          mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-    st.markdown("<h2 style='text-align: center;'>CO2 Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
+    st.expander("<h2 style='text-align: center;'>CO2 Dataset Missing Values Analysis</h2>", expanded=True)
     st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
     st.dataframe(mis_val_table_ren_columns)
     
