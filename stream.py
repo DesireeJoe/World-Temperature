@@ -960,7 +960,7 @@ if page ==  "Machine Learning Models":
       return np.sqrt(mean_squared_error(y_true, y_pred))
   
   # Load the dataset
-  df = pd.read_csv("/content/datas_pre_processed.csv", index_col=0)
+  df = pd.read_csv("datas_pre_processed.csv", index_col=0)
       
   # Select relevant features
   selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
