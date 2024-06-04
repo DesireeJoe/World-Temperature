@@ -340,7 +340,7 @@ if page == "Exploration Analysis - OWID":
 if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
- with st.expander("<h2 style='text-align: center;'>Barplot Representing the Distribution of CO2 Emissions Across Different Categories</h2>", expanded=True):
+ with st.expander("### Barplot Representing the Distribution of CO2 Emissions Across Different Categories", expanded=True):
       st.write("This barplot provides a graphical representation of the percentage contribution of each category to the total CO2 emissions.")
 # CO2 categories
  categories = [
