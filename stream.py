@@ -308,6 +308,8 @@ if page == "Exploration Analysis - OWID":
 
          st.markdown("***")
 
+    with st.expander("CO2 Dataset Missing Values Analysis")
+         st.markdown("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
     # Total missing values
          mis_val = Co2.isnull().sum()
     
@@ -324,19 +326,18 @@ if page == "Exploration Analysis - OWID":
          mis_val_table_ren_columns = mis_val_table_ren_columns[mis_val_table_ren_columns.iloc[:, 1] != 0].sort_values('% of Total Values', ascending=False).round(1)
 
     # Display the missing values table using Streamlit
-    st.markdown("<h2 style='text-align: center;'>CO2 Dataset Missing Values Analysis</h2>", unsafe_allow_html=True)
-    st.write("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
-    st.dataframe(mis_val_table_ren_columns)
     
-    st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
-    st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
-    st.markdown('  * The amount of missing values varies a great deal across variables,')
-    st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
-    st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2)')
+           st.dataframe(mis_val_table_ren_columns)
     
-    st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
+           st.write('**Having a more in detail look at the amount of missing values in the data set shows that:**')
+           st.markdown('  * There is a large amount of missing values in the data set, accumulating to 56,62% of all values in the data set.')
+           st.markdown('  * The amount of missing values varies a great deal across variables,')
+           st.markdown('  * Some variables have a comparably low percentage of missing values and are below 1/3 of all entries (e.g. share_global_luc_co2, co2),')
+           st.markdown('  * While others with amount of missing values exceed 90% of entries (e.g. consumption_co2, other_industry_co2)')
+    
+           st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
-    st.markdown("***")
+           st.markdown("***")
 if page ==  "Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
@@ -443,8 +444,8 @@ if page ==  "Exploration Analysis - OWID":
   }
 
 # Title and Introduction
-  st.expander("Global CO2 Emissions by Emission Sources:")
-  st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
+ with  st.expander("Global CO2 Emissions by Emission Sources:")
+       st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
 # Plotting
   plt.figure(figsize=(12, 6))
@@ -463,8 +464,8 @@ if page ==  "Exploration Analysis - OWID":
   st.pyplot(plt)
 
 # Description of the plot
-  st.markdown("### Description of the CO2 Emissions Distribution")
-  st.write("""
+  with st.expander("### Description of the CO2 Emissions Distribution")
+       st.write("""
   - The contributions of different emission sources to the total CO2 emissions vary over time.
   - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
   - Certain emission sources, such as coal, oil, and gas, might stand out as major contributors to CO2 emissions due to their relatively higher emission levels.
@@ -474,7 +475,7 @@ if page ==  "Exploration Analysis - OWID":
   - The sudden decline can also be attributed to missing values that have not yet been addressed.
   - Observing the lines collectively can help in understanding the interrelation between different emission sources and their combined effect on global CO2 levels.
   """)
-  st.markdown("***")
+       st.markdown("***")
   
 if page ==  "Exploration Analysis - OWID":
   # Convert the 'year' column to an integer
