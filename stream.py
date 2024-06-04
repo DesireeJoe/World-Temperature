@@ -1091,11 +1091,9 @@ for i in range(len(models)):
     for j, metric in enumerate(metrics):
         value = comparison_df.iloc[i][metric]
         ax.text(i + j * bar_width, value + 0.05, f'{value:.2f}', ha='center', va='bottom')
-  
- ax.set_ylabel('Metrics')
- ax.set_title('Comparison of Gradient Boosting Models')
- ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)
-  
+    ax.set_ylabel('Metrics')
+    ax.set_title('Comparison of Gradient Boosting Models')
+    ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)  
 # Display the plot
 st.pyplot(fig)  
   
