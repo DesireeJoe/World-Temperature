@@ -718,7 +718,7 @@ with st.expander("Description of CO2 Emissions and Surface Temperature Anomalies
     - In recent years, there appears to be a steeper increase in both surface temperature anomaly and CO2 emissions.
     - This observation suggests a potential acceleration in global warming and underscores the urgency of addressing climate change mitigation efforts. 
     """)
-      st.markdown("***")
+     st.markdown("***")
 
 if page ==  "Exploration Analysis - STA":
     import streamlit as st
