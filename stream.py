@@ -308,8 +308,8 @@ if page == "Exploration Analysis - OWID":
 
          st.markdown("***")
 
-    with st.expander("CO2 Dataset Missing Values Analysis")
-         st.markdown("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset:")
+    with st.expander("CO2 Dataset Missing Values Analysis"):
+         st.markdown("Below is the table showing the count and percentage of missing values for each column in the CO2 dataset")
     # Total missing values
          mis_val = Co2.isnull().sum()
     
@@ -444,7 +444,7 @@ if page ==  "Exploration Analysis - OWID":
   }
 
 # Title and Introduction
- with  st.expander("Global CO2 Emissions by Emission Sources:")
+ with  st.expander("Global CO2 Emissions by Emission Sources:"):
        st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
 # Plotting
@@ -464,7 +464,7 @@ if page ==  "Exploration Analysis - OWID":
   st.pyplot(plt)
 
 # Description of the plot
-  with st.expander("### Description of the CO2 Emissions Distribution")
+  with st.expander("### Description of the CO2 Emissions Distribution"):
        st.write("""
   - The contributions of different emission sources to the total CO2 emissions vary over time.
   - Some sources might show increasing trends, while others may exhibit fluctuations or decreasing patterns.
