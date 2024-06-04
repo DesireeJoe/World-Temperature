@@ -343,7 +343,7 @@ if page ==  "Exploration Analysis - OWID":
  with st.expander("### Barplot Representing the Distribution of CO2 Emissions Across Different Categories", expanded=True):
       
 # CO2 categories
- categories = [
+  categories = [
     'CO2',
     'Flaring CO2',
     'Other Industry CO2',
