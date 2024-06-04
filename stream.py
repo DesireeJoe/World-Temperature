@@ -946,121 +946,289 @@ if page ==  "Machine Learning Models":
   st.markdown('<h1 class="centered-title">Gradient Boosting</h1>', unsafe_allow_html=True)
   st.markdown("<br><br>", unsafe_allow_html=True)
   st.markdown("""Gradient Boosting is also a powerful machine learning technique used for regression and classification tasks. It builds models sequentially, with each new model attempting to correct the errors made by the previous models. The method combines the predictions of multiple weak learners, typically decision trees, to produce a strong learner that delivers accurate predictions. Our goal is to initialise Gradient Boosting to improve predictive accuracy in comparison to the previous models. First, we initialise the Gradient Boosting Regressor with n_estimators=200. This parameter specifies the number of boosting stages (or weak learners) to be used. In this case, 200 decision trees will be built sequentially, each one correcting the errors of the previous ones.""")
-             
+
+  import streamlit as st
+  import pandas as pd
+  import numpy as np
+  from sklearn.model_selection import train_test_split
+  from sklearn.ensemble import GradientBoostingRegressor
+  from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+  import matplotlib.pyplot as plt
+  import seaborn as sns
   
+  # Function to calculate RMSE
+  def rmse(y_true, y_pred):
+      return np.sqrt(mean_squared_error(y_true, y_pred))
   
-    
+  # Load the dataset
+  df = pd.read_csv("datas_pre_processed.csv", index_col=0)
+
+  # Display correlation matrix in a foldable section
+  correlation_matrix = df.corr()
+  with st.expander("Correlation Matrix"):
+      st.write(correlation_matrix)
+  
+  # Select relevant features
+  selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
+  X = df[selected_features]
+  y = df['sta']
+  
+  # Split data into training and testing sets
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  # Initialize the Gradient Boosting regressor
+  gradient_boosting = GradientBoostingRegressor(n_estimators=200, random_state=30)
+  
+  # Train the model
+  gradient_boosting.fit(X_train, y_train)
+  
+  # Make predictions on the test set
+  y_pred_gb = gradient_boosting.predict(X_test)
+  
+  # Calculate evaluation metrics
+  r2_train_gb = r2_score(y_train, gradient_boosting.predict(X_train))
+  r2_test_gb = r2_score(y_test, y_pred_gb)
+  mae_gb = mean_absolute_error(y_test, y_pred_gb)
+  mse_gb = mean_squared_error(y_test, y_pred_gb)
+  rmse_gb = rmse(y_test, y_pred_gb)
+  
+  # Display evaluation metrics in a table
+  st.subheader("Evaluation Metrics")
+  metrics_data = {
+      'Metric': ['R² (Train)', 'R² (Test)', 'MAE', 'MSE', 'RMSE'],
+      'Value': [r2_train_gb, r2_test_gb, mae_gb, mse_gb, rmse_gb]
+  }
+  metrics_df = pd.DataFrame(metrics_data)
+  st.table(metrics_df)
+  
+  # Calculate the absolute errors
+  absolute_errors_gb = np.abs(y_test - y_pred_gb)
+  
+  # Define a threshold for highlighting large errors
+  error_threshold = 0.4
+  
+  # Define colors based on the absolute errors
+  colors_gb = np.where(absolute_errors_gb <= error_threshold, 'blue', 'red')
+  
+  # Create a scatter plot with colors
+  plt.figure(figsize=(8, 6))
+  plt.scatter(y_test, y_pred_gb, c=colors_gb, alpha=0.5)
+  plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color='gray', linestyle='--')
+  plt.xlabel('Actual Temperature Anomaly')
+  plt.ylabel('Predicted Temperature Anomaly')
+  plt.title('Gradient Boosting - Actual vs. Predicted Temperature Anomaly')
+  
+  # Add legend for colors
+  plt.legend(['Ideal Prediction', f'Absolute Error <= {error_threshold}', f'Absolute Error > {error_threshold}'], loc='upper left')
+  
+  # Display plot
+  st.pyplot(plt)
+
+  # Initialize Gradient Boosting regressors with different n_estimators
+  gradient_boosting_100 = GradientBoostingRegressor(n_estimators=100, random_state=30)
+  gradient_boosting_200 = GradientBoostingRegressor(n_estimators=200, random_state=30)
+  gradient_boosting_300 = GradientBoostingRegressor(n_estimators=300, random_state=30)
+  
+  # Train the models
+  gradient_boosting_100.fit(X_train, y_train)
+  gradient_boosting_200.fit(X_train, y_train)
+  gradient_boosting_300.fit(X_train, y_train)
+  
+  # Make predictions on the test set
+  y_pred_gb_100 = gradient_boosting_100.predict(X_test)
+  y_pred_gb_200 = gradient_boosting_200.predict(X_test)
+  y_pred_gb_300 = gradient_boosting_300.predict(X_test)
+  
+  # Calculate evaluation metrics for all models
+  r2_test_gb_100 = r2_score(y_test, y_pred_gb_100)
+  r2_test_gb_200 = r2_score(y_test, y_pred_gb_200)
+  r2_test_gb_300 = r2_score(y_test, y_pred_gb_300)
+  
+  mae_gb_100 = mean_absolute_error(y_test, y_pred_gb_100)
+  mae_gb_200 = mean_absolute_error(y_test, y_pred_gb_200)
+  mae_gb_300 = mean_absolute_error(y_test, y_pred_gb_300)
+  
+  mse_gb_100 = mean_squared_error(y_test, y_pred_gb_100)
+  mse_gb_200 = mean_squared_error(y_test, y_pred_gb_200)
+  mse_gb_300 = mean_squared_error(y_test, y_pred_gb_300)
+  
+  rmse_gb_100 = np.sqrt(mse_gb_100)
+  rmse_gb_200 = np.sqrt(mse_gb_200)
+  rmse_gb_300 = np.sqrt(mse_gb_300)
+  
+  # Create a DataFrame for comparison
+  metrics_data = {
+      'Metric': ['R²', 'MAE', 'MSE', 'RMSE'],
+      'Gradient Boosting (100 estimators)': [r2_test_gb_100, mae_gb_100, mse_gb_100, rmse_gb_100],
+      'Gradient Boosting (200 estimators)': [r2_test_gb_200, mae_gb_200, mse_gb_200, rmse_gb_200],
+      'Gradient Boosting (300 estimators)': [r2_test_gb_300, mae_gb_300, mse_gb_300, rmse_gb_300]
+  }
+  comparison_df = pd.DataFrame(metrics_data)
+  comparison_df.set_index('Metric', inplace=True)
+  
+st.markdown("<h3>Comparison of Gradient Boosting Models with different Estimators</h3>", unsafe_allow_html=True)
+
+#Create a bar chart using Matplotlib with custom colors
+fig, ax = plt.subplots(figsize=(10, 6))
+  
+models = comparison_df.index
+metrics = comparison_df.columns
+  
+x = np.arange(len(models))
+bar_width = 0.2
+  
+colors = ['#4682B4', '#808080', '#A9A9A9', '#C0C0C0']  
+  
+for i, metric in enumerate(metrics):
+    ax.bar(x + i * bar_width, comparison_df[metric], width=bar_width, label=metric, color=colors[i])
+  
+ax.set_xticks(x + (len(metrics) - 1) * bar_width / 2)
+ax.set_xticklabels(models, rotation=45, ha="right")
+ax.legend()
+  
+# Add annotations to each bar
+for i in range(len(models)):
+    for j, metric in enumerate(metrics):
+        value = comparison_df.iloc[i][metric]
+        ax.text(i + j * bar_width, value + 0.05, f'{value:.2f}', ha='center', va='bottom')
+    ax.set_ylabel('Metrics')
+    ax.set_title('Comparison of Gradient Boosting Models')
+    ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)  
+# Display the plot
+st.pyplot(fig)  
+  
+
 ###################################################################################################################
 
+import streamlit as st
+import requests
+import gzip
+import pickle
+import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from statsmodels.tsa.statespace.sarimax import SARIMAX
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+from statsmodels.tsa.statespace.sarimax import SARIMAX
 import statsmodels.api as sm
 
-if page == "Time-series modeling with SARIMA":
-    # Title of the app
-    st.title('Time-series modeling with SARIMA')
-    st.write("Time series data is all around us, like in this case as weather patterns to demand forecasting and seasonal trends. To predict future values, we turn to powerful models like the Seasonal Autoregressive Integrated Moving Average (SARIMA). This is a versatile and widely used time series forecasting model as an extension of the non-seasonal ARIMA model, designed to handle data with seasonal patterns. SARIMA captures both short-term and long-term dependencies within the data, making it a robust tool for forecasting. It combines the concepts of autoregressive (AR), integrated (I), and moving average (MA) models with seasonal components.")
+# Google Drive file URL
+file_url = 'https://drive.google.com/uc?id=1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'
 
-    # Load and preprocess data
-    df = pd.read_csv('nasa_zonal_mon.csv', dtype={'Year': str})
-    df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
-    df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                      var_name='Month', value_name='TemperatureAnomaly')
-    month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-    df_long['Month'] = df_long['Month'].map(month_map)
-    df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
-    df_long = df_long.sort_values('Date').reset_index(drop=True)
-    df_long = df_long.dropna(subset=['TemperatureAnomaly'])
-    ts = df_long.set_index('Date')['TemperatureAnomaly']
-    train_size = int(len(ts) * 0.8)
-    train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
+# Function to download the file from Google Drive
+def download_file_from_google_drive(url, output_file):
+    response = requests.get(url)
+    with open(output_file, 'wb') as f:
+        f.write(response.content)
 
-    # SARIMA model parameters
-    p = 1
-    d = 1
-    q = 1
-    P = 1
-    D = 1
-    Q = 1
-    s = 12
+# Download the file
+output_file = 'sarima_model.pkl.gz'
+download_file_from_google_drive(file_url, output_file)
 
-    # Fit SARIMA model
-    sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
-    sarima_model_fit = sarima_model.fit()
+# Load the SARIMA model from the gzip file
+with gzip.open(output_file, 'rb') as f:
+    loaded_model = pickle.load(f)
 
-    # Model Evaluation
-    predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
-    mae = mean_absolute_error(test_data, predictions)
-    mse = mean_squared_error(test_data, predictions)
-    rmse = np.sqrt(mse)
+st.write("Model loaded from sarima_model.pkl.gz")
 
-    # Forecasting
-    forecast_steps = 36
-    forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
-    confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
-    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+# Load the dataset
+df = pd.read_csv('nasa_zonal_mon.csv')
+st.write(df.head())
 
-    # Display dataset
-    st.subheader('Dataset')
-    st.write(df.head())
+# Drop unnecessary columns
+df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
+st.write(df.head())
 
-    # Display time series plot
-    st.subheader('Time Series Plot')
-    st.line_chart(ts)
+# DataFrame in Long Format
+df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                 var_name='Month', value_name='TemperatureAnomaly')
 
-    # Display SARIMA model summary
-    st.subheader('SARIMA Model Summary')
-    st.text(sarima_model_fit.summary())
+# Map months to numbers
+month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
+df_long['Month'] = df_long['Month'].map(month_map)
 
-    # Display model evaluation metrics
-    st.subheader('Model Evaluation')
-    st.write(f'Mean Absolute Error: {mae:.4f}')
-    st.write(f'Mean Squared Error: {mse:.4f}')
-    st.write(f'Root Mean Squared Error: {rmse:.4f}')
+# Create datetime format
+df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
 
-    # Display residuals plot
-    st.subheader('Residuals of SARIMA Model')
-    residuals = sarima_model_fit.resid
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(residuals)
-    ax.set_title('Residuals of SARIMA Model')
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Residuals')
-    ax.grid(True)
-    st.pyplot(fig)
+# Sort and reset index
+df_long = df_long.sort_values('Date').reset_index(drop=True)
 
-    # Display ACF and PACF of residuals
-    st.subheader('ACF and PACF of Residuals')
-    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
-    sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
-    sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
-    st.pyplot(fig)
+# Drop missing values
+df_long = df_long.dropna(subset=['TemperatureAnomaly'])
+st.write(df_long.head(30))
 
-    # Display forecast plot
-    st.subheader('SARIMA Model Forecast')
-    fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(ts.index, ts, label='Observed')
-    ax.plot(forecast_index, forecast_values, color='red', label='Forecast')
-    ax.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    ax.set_xlabel('Time')
-    ax.set_ylabel('Temperature Anomaly')
-    ax.set_title('SARIMA Model Forecast')
-    ax.grid(True)
-    st.pyplot(fig)
-    
-    # Display baseline model evaluation
-    st.subheader('Baseline Model Evaluation')
-    baseline_forecast = [ts.mean()] * len(ts)
-    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
-    baseline_mse = np.mean((ts - baseline_forecast)**2)
-    baseline_rmse = np.sqrt(baseline_mse)
-    st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
-    st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}') 
+# Prepare for ARIMA
+ts = df_long.set_index('Date')['TemperatureAnomaly']
 
-    st.write("The analysis of the temperature anomaly data using the Seasonal Autoregressive Integrated Moving Average (SARIMA) model has yielded promising results. After fitting the SARIMA model to the historical temperature anomaly data, we achieved impressive accuracy metrics. These metrics indicate that the SARIMA model accurately captures the patterns and trends in the historical temperature anomaly data, significantly outperforming the baseline model (which had an MAE of 0.3128, MSE of 0.1535, and RMSE of 0.3918). The low error values suggest that the model is reliable in predicting future temperature anomalies. An analysis of the residuals confirmed that they resemble white noise, which validates the model's assumptions. The residuals exhibited no significant autocorrelation, indicating that the SARIMA model has effectively captured the underlying structure of the temperature anomaly data. Using the fitted SARIMA model, we forecasted the temperature anomalies for the next three years. The forecast indicates a continuing increase in temperature anomalies, suggesting that the trend of rising temperatures observed in the historical data is expected to persist. The increasing temperature anomalies forecasted by the SARIMA model align with broader climate change trends observed globally. These findings underscore the importance of continued monitoring and proactive measures to mitigate the impacts of climate change. The model's accuracy provides confidence in its predictions, making it a valuable tool for researchers and policymakers in planning and implementing climate-related strategies. In conclusion, the SARIMA model has proven to be a robust and reliable method for analysing and forecasting temperature anomalies.")
+# Split data into training and testing sets
+train_size = int(len(ts) * 0.8)
+train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
+
+# Model Evaluation
+predictions = loaded_model.predict(start=test_data.index[0], end=test_data.index[-1])
+mae = mean_absolute_error(test_data, predictions)
+mse = mean_squared_error(test_data, predictions)
+rmse = np.sqrt(mse)
+st.write(f'Mean Absolute Error: {mae}')
+st.write(f'Mean Squared Error: {mse}')
+st.write(f'Root Mean Squared Error: {rmse}')
+
+# Forecasting
+forecast = loaded_model.forecast(steps=len(test_data))  # Forecast for the test period
+prediction_interval = loaded_model.get_forecast(steps=len(test_data)).conf_int()
+
+# Model Interpretation
+# Print model summary
+st.write(loaded_model.summary())
+
+# Plot residuals
+residuals = loaded_model.resid
+
+plt.figure(figsize=(12, 6))
+plt.plot(residuals)
+plt.title('Residuals of SARIMA Model')
+plt.xlabel('Time')
+plt.ylabel('Residuals')
+plt.grid(True)
+st.pyplot(plt)
+
+# Plot ACF and PACF of residuals
+fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
+sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
+st.pyplot(fig)
+
+# Simple baseline: Use the mean of the training data as the forecast
+baseline_forecast = [ts.mean()] * len(ts)
+
+# Calculate baseline MAE, MSE, and RMSE
+baseline_mae = np.mean(np.abs(ts - baseline_forecast))
+baseline_mse = np.mean((ts - baseline_forecast)**2)
+baseline_rmse = np.sqrt(baseline_mse)
+
+st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
+st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
+st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
+
+# Forecasting future values
+forecast_steps = 36  # Forecasting 3 years ahead (for monthly data)
+forecast_values = loaded_model.get_forecast(steps=forecast_steps).predicted_mean
+confidence_intervals = loaded_model.get_forecast(steps=forecast_steps).conf_int()
+
+# Range for the forecast
+forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+
+# Plotting
+plt.figure(figsize=(12, 6))
+plt.plot(ts.index, ts, label='Observed')
+plt.plot(forecast_index, forecast_values, color='red', label='Forecast')
+plt.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.xlabel('Time')
+plt.ylabel('Temperature Anomaly')
+plt.title('SARIMA Model Forecast')
+plt.grid(True)
+st.pyplot(plt)
+
 
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
