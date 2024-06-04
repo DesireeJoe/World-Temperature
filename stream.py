@@ -857,7 +857,7 @@ In the initial stage of our machine learning models, we began by preparing our d
 
 The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
 """)
-if page ==  "Machine Learning Models":  
+if page ==  "Machine Learning Models":
   with st.expander("**Linear Regression and Decision Tree Models**"):
     # Initial paragraph
     st.markdown("""
@@ -928,7 +928,8 @@ the max depth of 5 for the Decision Tree emerges as the best choice.
   with st.expander("**Random Forest**"):
     st.markdown("""In the field of predictive analytics and data science, Random Forest modelling stands out as a powerful and versatile machine learning technique, where multiple decision trees are trained and aggregated to improve the overall predictive performance and robustness of the model. Those models are particularly well-suited for handling complex datasets with numerous features and intricate relationships. 
 """)
-      st.markdown(
+if page ==  "Machine Learning Models":
+  st.markdown(
                 """
                 <style>
                 .centered-title {
@@ -947,6 +948,8 @@ the max depth of 5 for the Decision Tree emerges as the best choice.
              st.markdown("""
             Gradient Boosting is also a powerful machine learning technique used for regression and classification tasks. It builds models sequentially, with each new model attempting to correct the errors made by the previous models. The method combines the predictions of multiple weak learners, typically decision trees, to produce a strong learner that delivers accurate predictions. Our goal is to initialise Gradient Boosting to improve predictive accuracy in comparison to the previous models. First, we initialise the Gradient Boosting Regressor with n_estimators=200. This parameter specifies the number of boosting stages (or weak learners) to be used. In this case, 200 decision trees will be built sequentially, each one correcting the errors of the previous ones.
             """)
+  
+  
     
 ###################################################################################################################
 
