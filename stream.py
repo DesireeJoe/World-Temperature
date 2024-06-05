@@ -513,7 +513,7 @@ if page ==  "Exploration Analysis - OWID":
         fig_emissions.update_layout(xaxis_title='Country', yaxis_title='Cumulative CO2 Emissions by Fuel', width=800, height=600, legend_title_text='', legend=dict(y=1, x=0.68, bgcolor='rgba(255,255,255,0)'))
 
         # Streamlit select box for choosing the graph
-        select_graph = st.selectbox('Select a figure to visualize', ['CO2 Emissions', 'CH4 Emissions', 'N2O Emissions'])
+        select_graph = st.selectbox('Select a figure to visualize', ['CO2 Emissions', 'CH4 Emissions', 'N2O Emissions','Distribution of CO2 Emissions by Fuel'])
         if select_graph == 'CO2 Emissions':
             st.plotly_chart(fig_co2)
         elif select_graph == 'CH4 Emissions':
