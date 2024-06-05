@@ -1513,57 +1513,53 @@ if page == "Exploration Analysis - FAO":
     st.dataframe(FAO_global, height=400)
 
     # Check if 'Months' column exists
-    if 'Months' in FAO_Continent.columns:
-        fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
+if 'Months' in FAO_Continent.columns:
+    fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
-        # Filter for 5 continents
-        fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
+    # Filter for 5 continents
+    fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
 
-        # Slider for year range selection
-        st.write("#### Temperature changes from 1961 - 2019")
-        year_range = st.slider(
-            "Select the year range",
-            int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()), 
-            (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
-            step=1
-        )
+    # Add 'world' option to the list of continents
+    continents = ['world'] + list(fao_merged_filt['Area'].unique())
 
-        # Filter the data based on yr range
+    # Slider for year range selection
+    st.write("#### Temperature changes from 1961 - 2019")
+    year_range = st.slider(
+        "Select the year range",
+        int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()), 
+        (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
+        step=1
+    )
+
+    # Dropdown for continent selection
+    selected_continent = st.selectbox("Select continent", continents)
+
+    # Filter the data based on selected continent and year range
+    if selected_continent == 'world':
+        # Compute average temperature change for all continents
+        filtered_data = fao_merged_filt.groupby('Year')['Temperature change'].mean().reset_index()
+    else:
         filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
+        filtered_data = filtered_data[filtered_data['Area'] == selected_continent]
 
-        fig, axs = plt.subplots(5, 1, figsize=(10, 20))
-
-        # Plot temp /years for each area
-        for i, area in enumerate(filtered_data['Area'].unique()):
-            area_data = filtered_data[filtered_data['Area'] == area]
-            axs[i].plot(area_data['Year'], area_data['Temperature change'], marker='o', label=area)
-            axs[i].set_xlabel('Years')
-            axs[i].set_ylabel('Temperature (°C)')
-            axs[i].set_title(f'Temperature change (°C) for {area}')
-            axs[i].legend()
-            axs[i].grid(True)
-            axs[i].set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
-
-        fig.tight_layout(pad=3.0)
-
-        st.pyplot(fig)
-
-        # All continents graph
-        fig, ax = plt.subplots()
-
-        ax.plot(FAO_Continent.query("Area == 'Europe'")['Year'], FAO_Continent.query("Area == 'Europe'")['Temperature change'], marker='o', color='blue', label='Europe')
-        ax.plot(FAO_Continent.query("Area == 'Asia'")['Year'], FAO_Continent.query("Area == 'Asia'")['Temperature change'], marker='x', color='green', label='Asia')
-        ax.plot(FAO_Continent.query("Area == 'Africa'")['Year'], FAO_Continent.query("Area == 'Africa'")['Temperature change'], marker='s', color='red', label='Africa')
-        ax.plot(FAO_Continent.query("Area == 'Americas'")['Year'], FAO_Continent.query("Area == 'Americas'")['Temperature change'], marker='^', color='orange', label='Americas')
-        ax.plot(FAO_Continent.query("Area == 'Oceania'")['Year'], FAO_Continent.query("Area == 'Oceania'")['Temperature change'], marker='D', color='purple', label='Oceania')
-
+    if not filtered_data.empty:
+        # Plot temperature change
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(filtered_data['Year'], filtered_data['Temperature change'], marker='o')
         ax.set_xlabel('Years')
-        ax.set_ylabel('Temperature')
-        ax.set_title('Temperature Variation for Different Continents')
-        ax.legend()
+        ax.set_ylabel('Temperature (°C)')
+        if selected_continent == 'world':
+            ax.set_title('Temperature change (°C) for the world')
+        else:
+            ax.set_title(f'Temperature change (°C) for {selected_continent}')
         ax.grid(True)
+        ax.set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
 
         st.pyplot(fig)
+    else:
+        st.write("No data available for the selected continent and year range.")
+
+    
 
         # Choropleth Map with color scale
         fig = px.choropleth(
