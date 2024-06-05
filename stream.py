@@ -1206,61 +1206,65 @@ from scipy import stats
 
 if page == "Prediction":
     st.title('Prediction with Gradient Boosting')
-  
-def prediction():
-      def load_model():
-          # Decompress the model file
-          with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
-              model = pickle.load(f)
-          return model
     
-      def get_features(year, coal_co2, population, gdp, co2):
-          features = np.array([year, coal_co2, population, gdp, co2])
-          return features.reshape(1, -1)
-      
-      def predict_surface_temperature(features):
-          model = load_model()
-          prediction = model.predict(features)
-          return np.round(prediction, 3)
-      
-      def prediction():
-          st.header("Prediction")
-          st.subheader('Prediction Simulation with Gradient Boosting')
-          
-          # Load the DataFrame
-          data = pd.read_csv("datas_pre_processed.csv")
-          df3 = data.copy()
-          
-          # Get the minimum and maximum values for each feature from the DataFrame
-          year_min, year_max = df3['year'].min(), df3['year'].max()
-          coal_co2_min, coal_co2_max = df3['coal_co2'].min(), df3['coal_co2'].max()
-          population_min, population_max = df3['population'].min(), df3['population'].max()
-          gdp_min, gdp_max = df3['gdp'].min(), df3['gdp'].max()
-          co2_min, co2_max = df3['co2'].min(), df3['co2'].max()
-          
-          year_value = df3['year'].max()
-          coal_co2_value = df3['coal_co2'].mean()
-          population_value = df3['population'].mean()
-          gdp_value = df3['gdp'].mean()
-          co2_value = df3['co2'].mean()
-          
-          # Feature inputs
-          col1, col2 = st.columns(2)
-          
-          with col1:
-              year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
-              coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
-          
-          with col2:
-              population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
-              gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
-              co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
-          
-          # Add a button for prediction
-          if st.button("Predict"):
-              features = get_features(year, coal_co2, population, gdp, co2)
-              prediction = predict_surface_temperature(features)
-              st.write(f"The prediction of the surface temperature anomaly is: {prediction[0]} °C")
+    # Define the prediction function
+    def prediction():
+        def load_model():
+            # Decompress the model file
+            with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
+                model = pickle.load(f)
+            return model
+        
+        def get_features(year, coal_co2, population, gdp, co2):
+            features = np.array([year, coal_co2, population, gdp, co2])
+            return features.reshape(1, -1)
+        
+        def predict_surface_temperature(features):
+            model = load_model()
+            prediction = model.predict(features)
+            return np.round(prediction, 3)
+        
+        st.header("Prediction")
+        st.subheader('Prediction Simulation with Gradient Boosting')
+        
+        # Load the DataFrame
+        data = pd.read_csv("datas_pre_processed.csv")
+        df3 = data.copy()
+        
+        # Get the minimum and maximum values for each feature from the DataFrame
+        year_min, year_max = df3['year'].min(), df3['year'].max()
+        coal_co2_min, coal_co2_max = df3['coal_co2'].min(), df3['coal_co2'].max()
+        population_min, population_max = df3['population'].min(), df3['population'].max()
+        gdp_min, gdp_max = df3['gdp'].min(), df3['gdp'].max()
+        co2_min, co2_max = df3['co2'].min(), df3['co2'].max()
+        
+        year_value = df3['year'].max()
+        coal_co2_value = df3['coal_co2'].mean()
+        population_value = df3['population'].mean()
+        gdp_value = df3['gdp'].mean()
+        co2_value = df3['co2'].mean()
+        
+        # Feature inputs
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
+            coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
+        
+        with col2:
+            population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
+            gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
+            co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
+        
+        # Add a button for prediction
+        if st.button("Predict"):
+            features = get_features(year, coal_co2, population, gdp, co2)
+            prediction = predict_surface_temperature(features)
+            st.write("Predicted Surface Temperature:", prediction)
+    
+    # Call the prediction function
+    prediction()
+
   
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
