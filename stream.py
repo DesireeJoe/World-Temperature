@@ -677,8 +677,7 @@ if page ==  "Exploration Analysis - STA":
       def load_data():
           merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
           return merged_data
-          
-      merged_data = load_data()  
+        
 # Title and Plot Title Description
 if page ==  "Exploration Analysis - STA":
  with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
