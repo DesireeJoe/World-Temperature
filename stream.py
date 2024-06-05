@@ -676,8 +676,6 @@ if page ==  "Exploration Analysis - STA":
       @st.cache
       def load_data():
           merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
-          merged_data['Year'] = pd.to_datetime(merged_data['Year'], format='%Y')
-          merged_data.set_index('Year', inplace=True)  # Set 'Year' as index
           return merged_data
       merged_data = load_data()
         
