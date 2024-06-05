@@ -6,6 +6,6 @@ scipy
 streamlit
 plotly
 statsmodels
-scikit-learn
+scikit-learn==1.2.2
 gdown
 requests
