@@ -505,11 +505,11 @@ if page ==  "Exploration Analysis - OWID":
         fig_n2o = px.line(df_top_recent[df_top_recent['year'] >= 1990], x='year', y='nitrous_oxide', color='country', width=800, height=600)
 
         # Add 'Other sources' column and rename columns
-        country_top_recent['Other sources'] = country_top_recent['cumulative_flaring_co2'] + country_top_recent['cumulative_other_co2'].copy()
-        country_top_recent = country_top_recent.rename(columns={'cumulative_gas_co2': 'Natural Gas Combustion', 'cumulative_oil_co2': 'Petroleum Combustion', 'cumulative_coal_co2': 'Coal Combustion'})
+        df_top_recent['Other sources'] = df_top_recent['cumulative_flaring_co2'] + df_top_recent['cumulative_other_co2'].copy()
+        df_top_recent = df_top_recent.rename(columns={'cumulative_gas_co2': 'Natural Gas Combustion', 'cumulative_oil_co2': 'Petroleum Combustion', 'cumulative_coal_co2': 'Coal Combustion'})
 
         # Create a histogram plot
-        fig_emissions = px.histogram(country_top_recent, x='country', y=['Natural Gas Combustion', 'Petroleum Combustion', 'Coal Combustion', 'Other sources']).update_xaxes(categoryorder='total descending')
+        fig_emissions = px.histogram(df_top_recent, x='country', y=['Natural Gas Combustion', 'Petroleum Combustion', 'Coal Combustion', 'Other sources']).update_xaxes(categoryorder='total descending')
         fig_emissions.update_layout(xaxis_title='Country', yaxis_title='Cumulative CO2 Emissions by Fuel', width=800, height=600, legend_title_text='', legend=dict(y=1, x=0.68, bgcolor='rgba(255,255,255,0)'))
 
         # Streamlit select box for choosing the graph
