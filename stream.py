@@ -925,6 +925,105 @@ the max depth of 5 for the Decision Tree emerges as the best choice.
   with st.expander("**Random Forest**"):
     st.markdown("""In the field of predictive analytics and data science, Random Forest modelling stands out as a powerful and versatile machine learning technique, where multiple decision trees are trained and aggregated to improve the overall predictive performance and robustness of the model. Those models are particularly well-suited for handling complex datasets with numerous features and intricate relationships. 
 """)
+
+import streamlit as st
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+   
+  # Title and Description
+  st.title("Random Forest Model for Temperature Anomaly Prediction")
+  st.write("""
+      This application uses a Random Forest model to predict temperature anomalies based on various features such as year, GDP, population, coal CO2, and overall CO2 emissions. 
+      Adjust the model parameters and visualize the results interactively.
+  """)
+  
+  # Load dataset
+  @st.cache
+  def load_data():
+      return pd.read_csv("datas_pre_processed.csv", index_col=0)
+  
+  df = load_data()
+  st.write("### Data Preview")
+  st.write(df.head())
+  
+  # Show correlation matrix
+  if st.checkbox("Show Correlation Matrix"):
+      correlation_matrix = df.corr()
+      plt.figure(figsize=(10, 6))
+      sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
+      st.pyplot(plt)
+  
+  # Feature Selection based on Correlation
+  st.write("### Feature Selection")
+  correlation_with_target = df.corr()['sta'].abs().sort_values(ascending=False)
+  selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
+  st.write("Selected Features:", selected_features)
+  
+  # Split the data
+  X = df[selected_features]
+  y = df['sta']
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  
+  # Model Training
+  st.write("### Model Training")
+  n_estimators = st.slider("Number of Estimators", min_value=10, max_value=200, value=100, step=10)
+  random_forest = RandomForestRegressor(n_estimators=n_estimators, random_state=42)
+  random_forest.fit(X_train, y_train)
+  
+  # Predictions and Evaluation
+  y_pred = random_forest.predict(X_test)
+  mse = mean_squared_error(y_test, y_pred)
+  mae = mean_absolute_error(y_test, y_pred)
+  r2 = r2_score(y_test, y_pred)
+  
+  st.write("### Model Evaluation")
+  metrics_df = pd.DataFrame({
+      'Metric': ['Mean Squared Error', 'Mean Absolute Error', 'R² Score'],
+      'Value': [mse, mae, r2]
+  })
+  st.write(metrics_df)
+  
+  # Feature Importance
+  st.write("### Feature Importance")
+  feature_importance = random_forest.feature_importances_
+  feature_importance_df = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importance})
+  feature_importance_df = feature_importance_df.sort_values(by='Importance', ascending=False)
+  
+  plt.figure(figsize=(8, 6))
+  sns.barplot(x="Importance", y="Feature", data=feature_importance_df)
+  plt.title("Feature Importance")
+  st.pyplot(plt)
+  
+  # Prediction Plot
+  st.write("### Prediction Plot")
+  min_val = min(y_test.min(), y_pred.min())
+  max_val = max(y_test.max(), y_pred.max())
+  line = np.linspace(min_val, max_val, 100)
+  
+  # Calculate the distance from the correlation line
+  distances = np.abs(y_test - y_pred)
+  threshold = np.percentile(distances, 75)
+  far_from_line = distances > threshold
+  near_to_line = ~far_from_line
+  
+  plt.figure(figsize=(8, 6))
+  plt.scatter(y_test[near_to_line], y_pred[near_to_line], alpha=0.5, label='Ideal Predictions', color='blue')
+  plt.scatter(y_test[far_from_line], y_pred[far_from_line], alpha=0.5, color='red', label='Inaccurate Predictions')
+  plt.plot(line, line, color='green', linestyle='--', label='Correlation Line')
+  
+  plt.xlabel('Actual Temperature Anomaly')
+  plt.ylabel('Predicted Temperature Anomaly')
+  plt.title('Actual vs. Predicted Temperature Anomaly (Random Forest)')
+  plt.legend()
+  st.pyplot(plt)
+ 
+
+
 if page ==  "Machine Learning Models":
   st.markdown(
                 """
