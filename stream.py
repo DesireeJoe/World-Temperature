@@ -431,7 +431,9 @@ if page ==  "Exploration Analysis - OWID":
 # Select relevant columns for CO2 emissions by different sources
         emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
                     'oil_co2', 'gas_co2', 'coal_co2', 'cement_co2', 'total_ghg', 'land_use_change_co2']
-
+        if 'year' not in Co2.columns:
+            st.error("The 'year' column is missing in the DataFrame.")
+            st.stop()
 # Aggregate data by summing over years
         emission_data = Co2.groupby('year')[emission_sources].sum()
         st.write("Data columns:", emission_data.columns.tolist())
