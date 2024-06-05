@@ -1243,25 +1243,173 @@ if page == "Conclusion":
     """)
   ###
 ########################################################################################################################################################################################################################
+import streamlit as st
+import pandas as pd
+import numpy as np
+import pickle
+import gzip
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.ensemble import GradientBoostingRegressor
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
 
 if page == 'Prediction':
-    # Decompress the downloaded file
-    def load_model():
-        with gzip.open("gradient_bossting.pkl.gz", "rb") as f:
-            model = pickle.load(f)
-        return model
+def load_model():
+    # Decompress the model file
+    with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
+        model = pickle.load(f)
+    return model
 
-    def get_features(year, coal_co2, population, gdp, co2):
-        features = np.array([year, coal_co2, population, gdp, co2year, coal_co2, population, gdp, co2])
-        return features.reshape(1, -1)
+def get_features(year, coal_co2, population, gdp, co2):
+    features = np.array([year, coal_co2, population, gdp, co2])
+    return features.reshape(1, -1)
 
-    def predict_surface_temperature(features):
-        model = load_model()
-        prediction = model.predict(features)
-        return np.round(prediction, 3)
+def predict_surface_temperature(features):
+    model = load_model()
+    prediction = model.predict(features)
+    return np.round(prediction, 3)
 
+def prediction():
     st.header("Prediction")
     st.subheader('Prediction Simulation with Gradient Boosting')
+    
+    # Load the DataFrame
+    data = pd.read_csv("datas_preprocessed.csv")
+    df3 = data.copy()
+    
+    # Get the minimum and maximum values for each feature from the DataFrame
+    year_min, year_max = df3['year'].min(), df3['year'].max()
+    coal_co2_min, coal_co2_max = df3['coal_co2'].min(), df3['coal_co2'].max()
+    population_min, population_max = df3['population'].min(), df3['population'].max()
+    gdp_min, gdp_max = df3['gdp'].min(), df3['gdp'].max()
+    co2_min, co2_max = df3['co2'].min(), df3['co2'].max()
+    
+    year_value = df3['year'].max()
+    coal_co2_value = df3['coal_co2'].mean()
+    population_value = df3['population'].mean()
+    gdp_value = df3['gdp'].mean()
+    co2_value = df3['co2'].mean()
+    
+    # Feature inputs
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
+        coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
+    
+    with col2:
+        population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
+        gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
+        co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
+    
+    # Add a button for prediction
+    if st.button("Predict"):
+        features = get_features(year, coal_co2, population, gdp, co2)
+        prediction = predict_surface_temperature(features)
+        st.write(f"The prediction of the surface temperature anomaly is: {prediction[0]} °C")
+
+def modeling():
+    st.title("Modeling")
+    
+    st.header("Gradient Boosting Regressor Model")
+    
+    # Load data
+    df3 = pd.read_csv("datas_preprocessed.csv")
+    
+    # Split data into features and target
+    X = df3[['year', 'coal_co2', 'population', 'gdp', 'co2']]
+    y = df3['Surface temperature anomaly']
+    
+    # Split data into train and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    
+    # Initialize and train the model
+    gbr = GradientBoostingRegressor(random_state=42)
+    gbr.fit(X_train, y_train)
+    
+    # Make predictions
+    y_train_pred = gbr.predict(X_train)
+    y_test_pred = gbr.predict(X_test)
+    y_pred = gbr.predict(X)
+    
+    # Calculate evaluation metrics
+    r2_train = r2_score(y_train, y_train_pred)
+    r2_test = r2_score(y_test, y_test_pred)
+    mae_train = mean_absolute_error(y_train, y_train_pred)
+    mse_train = mean_squared_error(y_train, y_train_pred)
+    rmse_train = np.sqrt(mse_train)
+    mae_test = mean_absolute_error(y_test, y_test_pred)
+    mse_test = mean_squared_error(y_test, y_test_pred)
+    rmse_test = np.sqrt(mse_test)
+    
+    # Display model results
+    st.write("Gradient Boosting Regressor Model Results:")
+    st.write(f"R^2 (Train): {r2_train:.4f}")
+    st.write(f"R^2 (Test): {r2_test:.4f}")
+    st.write(f"MAE Train: {mae_train:.4f}")
+    st.write(f"MSE Train: {mse_train:.4f}")
+    st.write(f"RMSE Train: {rmse_train:.4f}")
+    st.write(f"MAE Test: {mae_test:.4f}")
+    st.write(f"MSE Test: {mse_test:.4f}")
+    st.write(f"RMSE Test: {rmse_test:.4f}")
+    
+    # Plot feature importances
+    feature_importances = gbr.feature_importances_
+    sorted_indices = np.argsort(feature_importances)[::-1]
+    sorted_features = X.columns[sorted_indices]
+    sorted_importances = feature_importances[sorted_indices]
+    
+    fig, ax = plt.subplots(figsize=(5, 4))
+    ax.barh(sorted_features, sorted_importances)
+    ax.set_xlabel('Importance')
+    ax.set_title('Feature Importances')
+    ax.invert_yaxis()
+    st.pyplot(fig)
+    
+    # Calculate residuals
+    residuals = y_test - y_test_pred
+    
+    # Create a 2x2 subplot
+    fig, axes = plt.subplots(nrows=2, ncols=2, figsize=(12, 10))
+    
+    # Residuals dispersion plot
+    sns.scatterplot(x=y_test_pred, y=residuals, ax=axes[0, 0])
+    axes[0, 0].axhline(y=0, color='r', linestyle='--')
+    axes[0, 0].set_title("Residuals Dispersion Plot")
+    axes[0, 0].set_xlabel("Predictions")
+    axes[0, 0].set_ylabel("Residuals")
+    axes[0, 0].grid(True)
+    
+    # Histogram of residuals
+    sns.histplot(residuals, kde=True, ax=axes[0, 1])
+    axes[0, 1].set_title("Histogram of Residuals")
+    axes[0, 1].set_xlabel("Residuals")
+    axes[0, 1].set_ylabel("Frequency")
+    axes[0, 1].grid(True)
+    
+    # Actual vs. predicted values
+    sns.scatterplot(x=y_test, y=y_test_pred, ax=axes[1, 0])
+    axes[1, 0].plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], linestyle='--', color='red')
+    axes[1, 0].set_title("Comparison of Actual vs. Predicted Values")
+    axes[1, 0].set_xlabel("Actual Values")
+    axes[1, 0].set_ylabel("Predictions")
+    axes[1, 0].grid(True)
+    
+    # Q-Q plot of residuals
+    stats.probplot(residuals, plot=axes[1, 1])
+    axes[1, 1].set_title("QQ Plot of Residuals")
+    axes[1, 1].set_xlabel("Theoretical Quantiles")
+    axes[1, 1].set_ylabel("Sample Quantiles")
+    axes[1, 1].grid(True)
+    
+    # Adjust layout to prevent overlap
+    plt.tight_layout()
+    
+    # Show the plot
+    st.pyplot(fig)
+
 
 ##############################################################
 if page ==   "Credits" :
