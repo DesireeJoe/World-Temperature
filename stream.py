@@ -531,7 +531,7 @@ if page ==  "Exploration Analysis - OWID":
             legend_title_text='Country'
             )
 # Display the plot in Streamlit
-         st.pyplot(plt)
+          st.pyplot(plt)
 
 # Description of the plot
   with st.expander("Description of Methane Emissions Distribution"):
