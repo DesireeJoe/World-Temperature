@@ -431,10 +431,13 @@ if page ==  "Exploration Analysis - OWID":
 # Select relevant columns for CO2 emissions by different sources
         emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
                     'oil_co2', 'gas_co2', 'coal_co2', 'cement_co2', 'total_ghg', 'land_use_change_co2']
-
+        if 'year' not in Co2.columns:
+            st.error("The 'year' column is missing in the DataFrame.")
+            st.stop()
 # Aggregate data by summing over years
         emission_data = Co2.groupby('year')[emission_sources].sum()
- 
+        st.write("Data columns:", emission_data.columns.tolist())
+
 # Mapping variable names to custom legend labels
         legend_labels = {
        'flaring_co2': 'Flaring CO2',
@@ -449,21 +452,37 @@ if page ==  "Exploration Analysis - OWID":
        'land_use_change_co2': 'Land Use Change CO2'
          }
 
-# Plotting
+# Plotting'
+        try:
+           emission_data_melted = emission_data.melt(id_vars=['year'], 
+                                                  value_vars=emission_sources, 
+                                                  var_name='source', 
+                                                  value_name='emissions')
+        except KeyError as e:
+           st.error(f"KeyError: {e}")
+           st.stop()
+        emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
         plt.figure(figsize=(12, 6))
+        emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
+        # Create the line plot with Plotly
+        fig = px.line(emission_data_melted, 
+                      x='year', 
+                      y='emissions', 
+                      color='source', 
+                      title='Global CO2 Emissions by Emission Sources',
+                      labels={'emissions': 'CO2 Emissions (million tonnes)', 'year': 'Year'},
+                      template='plotly_white')
+        fig.update_layout(
+            xaxis_title='Year',
+            yaxis_title='CO2 Emissions (million tonnes)',
+            title={'text': 'Global CO2 Emissions by Emission Sources', 'x':0.5},
+            legend_title_text='Emission Source',
+            xaxis=dict(tickmode='linear', tick0=1880, dtick=10)
+        )
 
-        for source in emission_sources:
-            plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
-
-            plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
-            plt.xlabel('Year', fontsize=12)
-            plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
-            plt.legend()
-            plt.grid(True)
-            plt.tight_layout()  # Adjust layout to prevent overlapping elements
-
-# Display the plot in Streamlit
-            st.pyplot(plt)
+        # Display the plot in Streamlit
+        st.plotly_chart(fig)
+       
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
  with st.expander("Description of the Global CO2 Emissions by Emission Sources"):
@@ -1025,43 +1044,43 @@ if page ==  "Machine Learning Models":
   st.pyplot(plt)
 
   # Initialize Gradient Boosting regressors with different n_estimators
-  gradient_boosting_100 = GradientBoostingRegressor(n_estimators=100, random_state=30)
+  gradient_boosting_50 = GradientBoostingRegressor(n_estimators=50, random_state=30)
   gradient_boosting_200 = GradientBoostingRegressor(n_estimators=200, random_state=30)
-  gradient_boosting_300 = GradientBoostingRegressor(n_estimators=300, random_state=30)
+  gradient_boosting_400 = GradientBoostingRegressor(n_estimators=400, random_state=30)
   
   # Train the models
-  gradient_boosting_100.fit(X_train, y_train)
+  gradient_boosting_50.fit(X_train, y_train)
   gradient_boosting_200.fit(X_train, y_train)
-  gradient_boosting_300.fit(X_train, y_train)
+  gradient_boosting_400.fit(X_train, y_train)
   
   # Make predictions on the test set
-  y_pred_gb_100 = gradient_boosting_100.predict(X_test)
+  y_pred_gb_50 = gradient_boosting_50.predict(X_test)
   y_pred_gb_200 = gradient_boosting_200.predict(X_test)
-  y_pred_gb_300 = gradient_boosting_300.predict(X_test)
+  y_pred_gb_400 = gradient_boosting_400.predict(X_test)
   
   # Calculate evaluation metrics for all models
-  r2_test_gb_100 = r2_score(y_test, y_pred_gb_100)
+  r2_test_gb_50 = r2_score(y_test, y_pred_gb_50)
   r2_test_gb_200 = r2_score(y_test, y_pred_gb_200)
-  r2_test_gb_300 = r2_score(y_test, y_pred_gb_300)
+  r2_test_gb_400 = r2_score(y_test, y_pred_gb_400)
   
-  mae_gb_100 = mean_absolute_error(y_test, y_pred_gb_100)
+  mae_gb_50 = mean_absolute_error(y_test, y_pred_gb_50)
   mae_gb_200 = mean_absolute_error(y_test, y_pred_gb_200)
-  mae_gb_300 = mean_absolute_error(y_test, y_pred_gb_300)
+  mae_gb_400 = mean_absolute_error(y_test, y_pred_gb_400)
   
-  mse_gb_100 = mean_squared_error(y_test, y_pred_gb_100)
+  mse_gb_50 = mean_squared_error(y_test, y_pred_gb_50)
   mse_gb_200 = mean_squared_error(y_test, y_pred_gb_200)
-  mse_gb_300 = mean_squared_error(y_test, y_pred_gb_300)
+  mse_gb_400 = mean_squared_error(y_test, y_pred_gb_400)
   
-  rmse_gb_100 = np.sqrt(mse_gb_100)
+  rmse_gb_50 = np.sqrt(mse_gb_50)
   rmse_gb_200 = np.sqrt(mse_gb_200)
-  rmse_gb_300 = np.sqrt(mse_gb_300)
+  rmse_gb_400 = np.sqrt(mse_gb_400)
   
   # Create a DataFrame for comparison
   metrics_data = {
       'Metric': ['R²', 'MAE', 'MSE', 'RMSE'],
-      'Gradient Boosting (100 estimators)': [r2_test_gb_100, mae_gb_100, mse_gb_100, rmse_gb_100],
+      'Gradient Boosting (50 estimators)': [r2_test_gb_50, mae_gb_50, mse_gb_50, rmse_gb_50],
       'Gradient Boosting (200 estimators)': [r2_test_gb_200, mae_gb_200, mse_gb_200, rmse_gb_200],
-      'Gradient Boosting (300 estimators)': [r2_test_gb_300, mae_gb_300, mse_gb_300, rmse_gb_300]
+      'Gradient Boosting (400 estimators)': [r2_test_gb_400, mae_gb_400, mse_gb_400, rmse_gb_400]
   }
   comparison_df = pd.DataFrame(metrics_data)
   comparison_df.set_index('Metric', inplace=True)
