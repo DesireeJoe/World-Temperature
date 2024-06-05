@@ -1195,7 +1195,7 @@ if page == "Time-series modeling with SARIMA":
     plt.grid(True)
     st.pyplot(plt)
 ###########################################################################################
-pip install scikit-learn==0.24.2
+
 import pickle
 import gzip
 from sklearn.model_selection import train_test_split
