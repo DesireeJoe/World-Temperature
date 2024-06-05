@@ -672,7 +672,6 @@ if page ==  "Exploration Analysis - STA":
 
 if page ==  "Exploration Analysis - STA":
    sns.set_style("whitegrid")
-
    @st.cache
    def load_data():
        merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
