@@ -1207,7 +1207,7 @@ from scipy import stats
 if page == "Prediction":
     st.title('Prediction with Gradient Boosting')
   
-  def prediction():
+def prediction():
       def load_model():
           # Decompress the model file
           with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
