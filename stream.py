@@ -1256,7 +1256,7 @@ import seaborn as sns
 from scipy import stats
 
 if page == 'Prediction':
-def load_model():
+  def load_model():
     # Decompress the model file
     with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
         model = pickle.load(f)
