@@ -512,6 +512,7 @@ if page ==  "Exploration Analysis - OWID":
 
 # Extract data for the top 5 countries
         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
+        top_5_countries_data = top_5_countries_data[top_5_countries_data['year'] >= 1880]
 #Pivoting the values 
         methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
 
