@@ -672,7 +672,6 @@ if page ==  "Exploration Analysis - STA":
 if page ==  "Exploration Analysis - STA":
  with st.expander("Surface Temperature Anomaly over the years in all Continents"):
       st.write("The plot illustrates the surface temperature anomaly trends in all the continents over the years.")
-      sta['year'] = pd.to_datetime(sta['year'], format='%Y').dt.year.apply(lambda x: '{:0}'.format(x))
 
       group_continent_year = sta.groupby(['Continent', 'year'])['Surface temperature anomaly'].mean().reset_index()
       group_year_temp = sta.groupby('year')['Surface temperature anomaly'].mean().reset_index()
