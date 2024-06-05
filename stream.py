@@ -512,13 +512,15 @@ if page ==  "Exploration Analysis - OWID":
 
 # Extract data for the top 5 countries
         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
-        top_5_countries_data = top_5_countries_data[top_5_countries_data['year'] >= 1880]
+        
 #Pivoting the values 
         methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
 
         fig = go.Figure()
-        for country in methane_pivot.columns:
-            fig.add_trace(go.Scatter(x=methane_pivot.index, y=methane_pivot[country], mode='lines', name=country))
+        for country in top_5_countries_methane.index:
+            country_data = top_5_countries_data[top_5_countries_data['country'] == country]
+            fig.add_trace(go.Scatter(x=country_data['year'], y=country_data['methane'], mode='lines', name=country))
+
 # Plotting
         
         
