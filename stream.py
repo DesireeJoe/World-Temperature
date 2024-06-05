@@ -453,7 +453,8 @@ if page ==  "Exploration Analysis - OWID":
         emission_data_melted = emission_data.melt(id_vars=['year'], 
                                                   value_vars=emission_sources, 
                                                   var_name='source', 
-                                                  value_name='emissions')plt.figure(figsize=(12, 6))
+                                                  value_name='emissions')
+        plt.figure(figsize=(12, 6))
         emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
         fig = px.line(emission_data_melted, 
                       x='year', 
