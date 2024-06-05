@@ -492,8 +492,8 @@ if page ==  "Exploration Analysis - OWID":
 if page ==  "Exploration Analysis - OWID":
   with  st.expander("Top 5 Countries with Highest CO2 Emissions from Methane"):
         st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
-  # Convert the 'year' column to an integer
-        Co2['year'] = Co2['year'].astype(int)
+  
+      
 
     # Filter data to exclude entries that are not individual countries
         excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
@@ -511,24 +511,27 @@ if page ==  "Exploration Analysis - OWID":
 
 # Extract data for the top 5 countries
         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
-
-#pivot the values 
-        methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
-   
-
 # Plotting
-        plt.figure(figsize=(12, 6))
-        methane_pivot.plot()
-
-        plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
-        plt.xlabel('Year', fontsize=12)
-        plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
-        plt.legend()
-        plt.grid(True)
-        plt.tight_layout()
-
+        fig = px.line(
+              top_5_countries_data,
+              x='year',
+              y='methane',
+              color='country',
+              title='Methane Emissions for Top 5 Countries'
+         )
+        
+        fig.update_layout(
+            xaxis_title='Year',
+            yaxis_title='Methane Emissions (million tonnes)',
+            title={
+                'text': 'Methane Emissions for Top 5 Countries',
+                'x': 0.5,
+                'xanchor': 'center'
+            },
+            legend_title_text='Country'
+            )
 # Display the plot in Streamlit
-        st.pyplot(plt)
+         st.pyplot(plt)
 
 # Description of the plot
   with st.expander("Description of Methane Emissions Distribution"):
