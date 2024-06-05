@@ -1196,6 +1196,7 @@ if page == "Time-series modeling with SARIMA":
     st.pyplot(plt)
 ###########################################################################################
 
+
 import joblib
 import numpy as np
 import pandas as pd
@@ -1204,7 +1205,21 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 if page == "Prediction":
     st.title('Prediction with Gradient Boosting')
+import joblib
 
+    def load_model():
+        try:
+            # Decompress the model file and load it using joblib
+            with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
+                model = joblib.load(f)
+            st.write("Model loaded successfully.")
+            return model
+        except FileNotFoundError:
+            st.error("Model file not found. Please check the file path.")
+            return None
+        except Exception as e:
+            st.error(f"An unexpected error occurred: {e}")
+            return None
     def load_model():
         try:
             # Load the model file using joblib
