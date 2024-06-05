@@ -504,20 +504,42 @@ if page ==  "Exploration Analysis - OWID":
         fig_ch4 = px.line(df_top_recent[df_top_recent['year'] >= 1990], x='year', y='methane', color='country', width=800, height=600)
         fig_n2o = px.line(df_top_recent[df_top_recent['year'] >= 1990], x='year', y='nitrous_oxide', color='country', width=800, height=600)
 
+        # Add 'Other sources' column and rename columns
+        df_top_recent['Other sources'] = df_top_recent['cumulative_flaring_co2'] + df_top_recent['cumulative_other_co2'].copy()
+        df_top_recent = df_top_recent.rename(columns={'cumulative_gas_co2': 'Natural Gas Combustion', 'cumulative_oil_co2': 'Petroleum Combustion', 'cumulative_coal_co2': 'Coal Combustion'})
+
+        # Create a histogram plot
+        fig_emissions = px.histogram(df_top_recent, x='country', y=['Natural Gas Combustion', 'Petroleum Combustion', 'Coal Combustion', 'Other sources']).update_xaxes(categoryorder='total descending')
+        fig_emissions.update_layout(xaxis_title='Country', yaxis_title='Cumulative CO2 Emissions by Fuel', width=800, height=600, legend_title_text='', legend=dict(y=1, x=0.68, bgcolor='rgba(255,255,255,0)'))
+
         # Streamlit select box for choosing the graph
-        select_graph = st.selectbox('Select a figure to visualize', ['CO2 Emissions', 'CH4 Emissions', 'N2O Emissions'])
+        select_graph = st.selectbox('Select a figure to visualize', ['CO2 Emissions', 'CH4 Emissions', 'N2O Emissions','Distribution of CO2 Emissions by Fuel'])
         if select_graph == 'CO2 Emissions':
             st.plotly_chart(fig_co2)
         elif select_graph == 'CH4 Emissions':
             st.plotly_chart(fig_ch4)
-        else:
+        elif select_graph == 'N2O Emissions':
             st.plotly_chart(fig_n2o)
+        else:
+            st.plotly_chart(fig_emissions)
   
 # Description of the plot
-  with st.expander("Description of Methane Emissions Distribution"):
+  with st.expander("Description of Global Co2 Emissions Distribution in the Top 15 countries"):
         st.write("""
+      - The analysis is based on recent data focusing on the top 15 countries with significant CO2 emissions, excluding the 'World' entry and considering years from 1950 onwards.
+      - China emerges as the largest CO2 emitter, with a noticeable increase from around 2,000 tonnes in the 1970s to approximately 11,500 tonnes in recent years.
+      - The United States ranks second in CO2 emissions, showing fluctuations over the years. After a peak of around 8,200 tonnes in 2004, emissions have seen a slight reduction, indicating possible mitigation measures.
+      - India exhibits a significant increase in CO2 emissions, reaching around 2,500 tonnes presently, suggesting a rising trend.
+      - Russia experienced a surge in CO2 emissions around 1990, peaking at approximately 2,200 tonnes, but has since decreased to around 1,800 tonnes as of 2022, indicating efforts towards emission reduction.
+      - Other countries like Japan, the UK, and Ukraine show varying levels of CO2 emissions, with values generally below 1,500 tonnes.
+      - In terms of methane emissions, China leads with around 1,100 tonnes, followed by the United States, India, Russia, and Mexico, with emissions ranging from 750 to 170 tonnes.
+      - A similar pattern is observed for nitrous oxide emissions, with China, the United States, India, and Russia being the top emitters.
+      - The distribution of CO2 emissions by fuel type reveals that the United States has the highest emissions from coal combustion, followed by petroleum and natural gas, totaling around 17 million tonnes.
+      - China follows with approximately 4.2 million tonnes, predominantly from coal combustion. Germany and the UK also exhibit significant emissions from coal, petroleum, and natural gas.
+      - Russia's emissions, around 4.1 million tonnes, are evenly distributed among coal, petroleum, and natural gas.
+      - Japan and France follow with notable emissions, while South Korea has the lowest emissions across all categories.
       - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
-      - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
+      - The United States also shows a notable presence in emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
       - India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
       - Russia's methane emissions may stem from various sources such as natural gas production, agricultural activities, and landfills, reflecting the country's vast territory and resource-intensive industries.
       - The European Union, representing a collective of countries, demonstrates efforts to curb methane emissions over time, possibly driven by regulatory measures, technological advancements, and increased awareness of environmental issues.
@@ -624,20 +646,13 @@ if page ==  "Exploration Analysis - STA":
       top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
       surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
     # Plotting
-      plt.figure(figsize=(10, 6))
+      fig = px.line(surface_temp_top_countries, x='Year', y='Surface temperature anomaly', color='Entity', 
+              title='Surface Temperature Anomaly in Top 5 Countries (1880-2017)',
+              labels={'Year': 'Year', 'Surface temperature anomaly': 'Surface Temperature Anomaly'})
 
-      for country in top_countries:
-          country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-          plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
-          plt.xlabel('Year')
-          plt.ylabel('Surface Temperature Anomaly')
-          plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
-          plt.legend()
-          plt.grid(True)
-          plt.tight_layout()
-
+      fig.update_layout(xaxis_title='Year', yaxis_title='Surface Temperature Anomaly', legend_title='Country')
     # Display the plot in Streamlit
-          st.pyplot(plt)
+      st.plotly_chart(fig)
 
     # Description of the plot 
 if page ==  "Exploration Analysis - STA":
@@ -653,54 +668,43 @@ if page ==  "Exploration Analysis - STA":
    - An interesting observation is the falling trend in surface temperature anomaly for Afghanistan around 2017, indicating a deviation from the overall increasing trend observed in other countries.
    - This anomaly might warrant further investigation into the factors influencing temperature patterns in Afghanistan.
     """)     
-      st.markdown("***")
+      st.markdown("***") 
 
 if page ==  "Exploration Analysis - STA":
-      sns.set_style("whitegrid")
-      
-      @st.cache
-      def load_data():
-        merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
-        return merged_data
-      merged_data = load_data()    
-  
-# Title and Plot Title Description
-if page ==  "Exploration Analysis - STA":
- with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
-      st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
+   sns.set_style("whitegrid")
+   @st.cache
+   def load_data():
+       merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
+       return merged_data
+   merged_data = load_data()
+        
+if page ==  "Exploration Analysis - STA":  
+  with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
+       st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
-# Create a figure and axis object
-      fig, ax1 = plt.subplots(figsize=(12, 6))
-
-# Plot CO2 emissions on the primary y-axis
-      sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
-
-# Set the y-label for CO2 emissions
-      ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
- 
-# Create a secondary y-axis for Surface Temperature Anomaly
-      ax2 = ax1.twinx()
-      sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
-
-# Set the y-label for Surface Temperature Anomaly
-      ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
-
-# Set labels and title
-      ax1.set_xlabel('Year')
-      plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
-
-# Show legend
-      lines1, labels1 = ax1.get_legend_handles_labels()
-      lines2, labels2 = ax2.get_legend_handles_labels()
-      ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
-      ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
-
-# Rotate x-axis labels for better readability
-      plt.xticks(rotation=45)
-
-# Show the plot
-      st.pyplot(fig)
-
+      # Create a figure and axis object
+       fig, ax1 = plt.subplots(figsize=(12, 6))
+      # Plot CO2 emissions on the primary y-axis
+       sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+      # Set the y-label for CO2 emissions
+       ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
+      # Create a secondary y-axis for Surface Temperature Anomaly
+       ax2 = ax1.twinx()
+       sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
+      # Set the y-label for Surface Temperature Anomaly
+       ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
+      # Set labels and title
+       ax1.set_xlabel('Year')
+       plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
+      # Show legend
+       lines1, labels1 = ax1.get_legend_handles_labels()
+       lines2, labels2 = ax2.get_legend_handles_labels()
+       ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
+       ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
+      # Rotate x-axis labels for better readability
+       plt.xticks(rotation=45)
+      # Show the plot
+       st.pyplot(fig)
 # Description of the plot
 if page ==  "Exploration Analysis - STA":
  with st.expander("Description of CO2 Emissions and Surface Temperature Anomalies Trends"):
@@ -1482,6 +1486,11 @@ if page == "Exploration Analysis - FAO":
         return FAO_Continent, FAO_global
 
     FAO_Continent, FAO_global = load_data()
+    st.markdown("""
+    The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
+
+ Before we explored more datasets and analysing the greenhouse gasses we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gasses on our planet's climate. A more detailed description of the dataset can be found in the dropdown below. 
+""")
 
     with st.expander("Full description of data"):
         st.markdown("""
