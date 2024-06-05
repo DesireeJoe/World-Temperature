@@ -1130,8 +1130,6 @@ def download_file_from_google_drive(url, output_file):
         f.write(response.content)
 
 # SARIMA section
-if st.sidebar.selectbox("Select Page", ["Gradient Boosting", "SARIMA"]) == "SARIMA":
-    st.markdown("<h3>SARIMA Model</h3>", unsafe_allow_html=True)
 
     file_url = 'https://drive.google.com/uc?id=1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'
     output_file = 'sarima_model.pkl.gz'
