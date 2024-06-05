@@ -646,20 +646,13 @@ if page ==  "Exploration Analysis - STA":
       top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
       surface_temp_top_countries = sta[sta['Entity'].isin(top_countries)]
     # Plotting
-      plt.figure(figsize=(10, 6))
+      fig = px.line(surface_temp_top_countries, x='Year', y='Surface temperature anomaly', color='Entity', 
+              title='Surface Temperature Anomaly in Top 5 Countries (1880-2017)',
+              labels={'Year': 'Year', 'Surface temperature anomaly': 'Surface Temperature Anomaly'})
 
-      for country in top_countries:
-          country_data = surface_temp_top_countries[surface_temp_top_countries['Entity'] == country]
-          plt.plot(country_data['Year'], country_data['Surface temperature anomaly'], label=country)
-          plt.xlabel('Year')
-          plt.ylabel('Surface Temperature Anomaly')
-          plt.title('Surface Temperature Anomaly in Top 5 Countries (1880-2017)')
-          plt.legend()
-          plt.grid(True)
-          plt.tight_layout()
-
+      fig.update_layout(xaxis_title='Year', yaxis_title='Surface Temperature Anomaly', legend_title='Country')
     # Display the plot in Streamlit
-          st.pyplot(plt)
+      st.plotly_chart(fig)
 
     # Description of the plot 
 if page ==  "Exploration Analysis - STA":
