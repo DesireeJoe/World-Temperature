@@ -668,22 +668,21 @@ if page ==  "Exploration Analysis - STA":
    - An interesting observation is the falling trend in surface temperature anomaly for Afghanistan around 2017, indicating a deviation from the overall increasing trend observed in other countries.
    - This anomaly might warrant further investigation into the factors influencing temperature patterns in Afghanistan.
     """)     
-      st.markdown("***")
-
-if page ==  "Exploration Analysis - STA":
-      sns.set_style("whitegrid")
-      
-      @st.cache
-      def load_data():
-        merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
-        return merged_data
-      merged_data = load_data()    
+      st.markdown("***") 
   
 # Title and Plot Title Description
 if page ==  "Exploration Analysis - STA":
  with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
       st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
+      sns.set_style("whitegrid")
+      
+      @st.cache
+      def load_data():
+        merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
+        return merged_data
+      merged_data = load_data()    \
+   
       fig, ax1 = plt.subplots(figsize=(12, 6))
       # Plot CO2 emissions on the primary y-axis
       sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
