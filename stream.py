@@ -7,6 +7,7 @@ from scipy.stats import linregress
 import math
 import io
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 
@@ -490,46 +491,28 @@ if page ==  "Exploration Analysis - OWID":
        st.markdown("***")
   
 if page ==  "Exploration Analysis - OWID":
-  with  st.expander("Top 5 Countries with Highest CO2 Emissions from Methane"):
-        st.write("The line plot illustrates the trend of methane emissions over time for the top 5 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 5 countries, namely China, the United States, India, Russia, and the European Union. The plot enables a comparative analysis of methane emission patterns among these nations, offering insights into their respective contributions to global methane emissions.")
-  # Convert the 'year' column to an integer
-        Co2['year'] = Co2['year'].astype(int)
+  with  st.expander("Top 15 Countries with Highest CO2 Emissions"):
+        st.write("The line plot illustrates the trend of methane emissions over time for the top 15 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 15 countries")
 
-    # Filter data to exclude entries that are not individual countries
-        excluded_entries = ['World', 'Asia', 'Africa', 'Europe', 
-                    'North America', 'Oceania', 'South America', 'High-income countries', 
-                    'Low-income countries', 'Lower-middle-income countries', 
-                    'Upper-middle-income countries']
+        # Filter top 15 countries and recent years
+        top15_countries = ['United States', 'China', 'Russia', 'Germany', 'Japan', 'India', 'United Kingdom', 'Canada', 'France', 'Italy', 'Poland', 'South Africa', 'Mexico', 'South Korea', 'Ukraine', 'World']
+        df_top15 = Co2[Co2['country'].isin(top15_countries)].copy()
+        df_top_recent = df_top15.loc[(df_top15["year"] >= 1950) & (df_top15.country != 'World')]
+      
+        # Create Plotly Express line plots for CO2, CH4, and N2O emissions
+        fig_co2 = px.line(df_top_recent, x='year', y='co2', color='country', width=800, height=600)
+        fig_ch4 = px.line(df_top_recent[df_top_recent['year'] >= 1990], x='year', y='methane', color='country', width=800, height=600)
+        fig_n2o = px.line(df_top_recent[df_top_recent['year'] >= 1990], x='year', y='nitrous_oxide', color='country', width=800, height=600)
 
-        Co2 = Co2[~Co2['country'].isin(excluded_entries)]
-
-# Calculate total methane emissions for each country
-        country_methane_emissions = Co2.groupby('country')['methane'].sum()
+        # Streamlit select box for choosing the graph
+        select_graph = st.selectbox('Select a figure to visualize', ['CO2 Emissions', 'CH4 Emissions', 'N2O Emissions'])
+        if select_graph == 'CO2 Emissions':
+            st.plotly_chart(fig_co2)
+        elif select_graph == 'CH4 Emissions':
+            st.plotly_chart(fig_ch4)
+        else:
+            st.plotly_chart(fig_n2o)
   
-# Sort countries based on methane emissions and select top 5
-        top_5_countries_methane = country_methane_emissions.nlargest(5)
-
-# Extract data for the top 5 countries
-        top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
-
-#pivot the values 
-        methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
-   
-
-# Plotting
-        plt.figure(figsize=(12, 6))
-        methane_pivot.plot()
-
-        plt.title('Methane Emissions for Top 5 Countries', fontsize=14)
-        plt.xlabel('Year', fontsize=12)
-        plt.ylabel('Methane Emissions (million tonnes)', fontsize=12)
-        plt.legend()
-        plt.grid(True)
-        plt.tight_layout()
-
-# Display the plot in Streamlit
-        st.pyplot(plt)
-
 # Description of the plot
   with st.expander("Description of Methane Emissions Distribution"):
         st.write("""
