@@ -1384,78 +1384,84 @@ if page == "Exploration Analysis - FAO":
         return FAO_Continent, FAO_global
 
     FAO_Continent, FAO_global = load_data()
-    st.markdown("""
-    The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
- Before we explored more datasets and analysing the greenhouse gasses we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gasses on our planet's climate. A more detailed description of the dataset can be found in the dropdown below. 
-""")
-
-    with st.expander("Full description of data"):
-        st.markdown("""
-            **Data description:**
-            The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
-            The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
-            i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
-            The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
-            \n\n
-            **Statistical concepts and definitions:** Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
-            \n\n
-            **Reference area:** Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
-            FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
-            \n\n
-            **Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
-            \n\n
-            **Base period:** 1951-1980
-        """)
-
-    st.dataframe(FAO_global, height=400)
+  
 
     # Check if 'Months' column exists
-if 'Months' in FAO_Continent.columns:
-    fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
+    if isinstance(FAO_Continent, pd.DataFrame) and 'Months' in FAO_Continent.columns:
+        st.markdown("""
+        The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
-    # Filter for 5 continents
-    fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
+        Before we explored more datasets and analysing the greenhouse gasses we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gasses on our planet's climate. A more detailed description of the dataset can be found in the dropdown below. 
+        """)
 
-    # Add 'world' option to the list of continents
-    continents = ['world'] + list(fao_merged_filt['Area'].unique())
+        with st.expander("Full description of data"):
+            st.markdown("""
+                **Data description:**
+                The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
+                The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
+                i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
+                The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
+                \n\n
+                **Statistical concepts and definitions:** Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
+                \n\n
+                **Reference area:** Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
+                FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
+                \n\n
+                **Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
+                \n\n
+                **Base period:** 1951-1980
+            """)
 
-    # Slider for year range selection
-    st.write("#### Temperature changes from 1961 - 2019")
-    year_range = st.slider(
-        "Select the year range",
-        int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()), 
-        (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
-        step=1
-    )
+        st.dataframe(FAO_global, height=400)
 
-    # Dropdown for continent selection
-    selected_continent = st.selectbox("Select continent", continents)
+        # Check if 'Months' column exists
+        if 'Months' in FAO_Continent.columns:
+            fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
 
-    # Filter the data based on selected continent and year range
-    if selected_continent == 'world':
-        # Compute average temperature change for all continents
-        filtered_data = fao_merged_filt.groupby('Year')['Temperature change'].mean().reset_index()
+            # Filter for 5 continents
+            fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
+
+            # Add 'world' option to the list of continents
+            continents = ['world'] + list(fao_merged_filt['Area'].unique())
+
+            # Slider for year range selection
+            st.write("#### Temperature changes from 1961 - 2019")
+            year_range = st.slider(
+                "Select the year range",
+                int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),                (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
+                step=1
+            )
+
+            # Dropdown for continent selection
+            selected_continent = st.selectbox("Select continent", continents)
+
+            # Filter the data based on selected continent and year range
+            if selected_continent == 'world':
+                # Compute average temperature change for all continents
+                filtered_data = fao_merged_filt.groupby('Year')['Temperature change'].mean().reset_index()
+            else:
+                filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
+                filtered_data = filtered_data[filtered_data['Area'] == selected_continent]
+
+            if not filtered_data.empty:
+                # Plot temperature change
+                fig, ax = plt.subplots(figsize=(10, 6))
+                ax.plot(filtered_data['Year'], filtered_data['Temperature change'], marker='o')
+                ax.set_xlabel('Years')
+                ax.set_ylabel('Temperature (°C)')
+                if selected_continent == 'world':
+                    ax.set_title('Temperature change (°C) for the world')
+                else:
+                    ax.set_title(f'Temperature change (°C) for {selected_continent}')
+                ax.grid(True)
+                ax.set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
+
+                st.pyplot(fig)
+            else:
+                st.write("No data available for the selected continent and year range.")
     else:
-        filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
-        filtered_data = filtered_data[filtered_data['Area'] == selected_continent]
-
-    if not filtered_data.empty:
-        # Plot temperature change
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.plot(filtered_data['Year'], filtered_data['Temperature change'], marker='o')
-        ax.set_xlabel('Years')
-        ax.set_ylabel('Temperature (°C)')
-        if selected_continent == 'world':
-            ax.set_title('Temperature change (°C) for the world')
-        else:
-            ax.set_title(f'Temperature change (°C) for {selected_continent}')
-        ax.grid(True)
-        ax.set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
-
-        st.pyplot(fig)
-    else:
-        st.write("No data available for the selected continent and year range.")
+        st.write("Data for exploration is not available.")
 
     
 
