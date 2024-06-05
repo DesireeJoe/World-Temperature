@@ -511,14 +511,14 @@ if page ==  "Exploration Analysis - OWID":
 
 # Extract data for the top 5 countries
         top_5_countries_data = Co2[Co2['country'].isin(top_5_countries_methane.index)]
+#Pivoting the values 
+        methane_pivot = top_5_countries_data.pivot(index='year', columns='country', values='methane')
+
+        fig = go.Figure()
+        for country in methane_pivot.columns:
+            fig.add_trace(go.Scatter(x=methane_pivot.index, y=methane_pivot[country], mode='lines', name=country))
 # Plotting
-        fig = px.line(
-              top_5_countries_data,
-              x='year',
-              y='methane',
-              color='country',
-              title='Methane Emissions for Top 5 Countries'
-         )
+        
         
         fig.update_layout(
             xaxis_title='Year',
@@ -528,7 +528,8 @@ if page ==  "Exploration Analysis - OWID":
                 'x': 0.5,
                 'xanchor': 'center'
             },
-            legend_title_text='Country'
+            legend_title_text='Country',
+            template='plotly_white'
             )
 # Display the plot in Streamlit
         st.plotly_chart(fig)
