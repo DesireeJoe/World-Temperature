@@ -1319,7 +1319,7 @@ if page == "Exploration Analysis - FAO":
         return FAO_Continent, FAO_global
 
     FAO_Continent, FAO_global = load_data()
-      st.markdown("""
+    st.markdown("""
     The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
  Before we explored more datasets and analysing the greenhouse gasses we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gasses on our planet's climate. A more detailed description of the dataset can be found in the dropdown below. 
