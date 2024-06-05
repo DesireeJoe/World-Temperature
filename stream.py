@@ -688,7 +688,8 @@ if page ==  "Exploration Analysis - STA":
       return f'background-color: rgb({255 - color}, {255 - color}, 255)'
 
       group_continent_year = group_continent_year.set_index(['year', 'Continent'])
-    	fig = px.line(group_continent_year.reset_index(), x='year', y='Surface temperature anomaly', color='Continent', 
+    	
+      fig = px.line(group_continent_year.reset_index(), x='year', y='Surface temperature anomaly', color='Continent', 
               title='Surface Temperature Anomaly by Continent Over Time')
 
       # Set the layout parameters
