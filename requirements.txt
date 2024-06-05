@@ -8,3 +8,4 @@ plotly
 statsmodels
 scikit-learn
 gdown
+requests
