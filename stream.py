@@ -680,7 +680,7 @@ if page ==  "Exploration Analysis - STA":
       pivot_data = group_continent_year.pivot(index='Year', columns='Continent', values='Surface temperature anomaly')
       pivot_data = pivot_data.round(2)
       pivot_data = pivot_data.sort_index()
-
+   
       def color_map(val):
           if pd.isnull(val):
              return 'color: white'
