@@ -673,10 +673,11 @@ if page ==  "Exploration Analysis - STA":
  with st.expander("Surface Temperature Anomaly over the years in all Continents"):
       st.write("The plot illustrates the surface temperature anomaly trends in all the continents over the years.")
 
-      group_continent_year = sta.groupby(['Continent', 'year'])['Surface temperature anomaly'].mean().reset_index()
-      group_year_temp = sta.groupby('year')['Surface temperature anomaly'].mean().reset_index()
+      sta['Year'] = pd.to_datetime(sta['Year'], format='%Y').dt.year.apply(lambda x: '{:0}'.format(x))
+      group_continent_year = sta.groupby(['Continent', 'Year'])['Surface temperature anomaly'].mean().reset_index()
+      group_year_temp = sta.groupby('Year')['Surface temperature anomaly'].mean().reset_index()
 
-      pivot_data = group_continent_year.pivot(index='year', columns='Continent', values='Surface temperature anomaly')
+      pivot_data = group_continent_year.pivot(index='Year', columns='Continent', values='Surface temperature anomaly')
       pivot_data = pivot_data.round(2)
       pivot_data = pivot_data.sort_index()
 
@@ -686,9 +687,9 @@ if page ==  "Exploration Analysis - STA":
           color = int((val - pivot_data.min().min()) / (pivot_data.max().max() - pivot_data.min().min()) * 255)
           return f'background-color: rgb({255 - color}, {255 - color}, 255)'
 
-      group_continent_year = group_continent_year.set_index(['year', 'Continent'])
+      group_continent_year = group_continent_year.set_index(['Year', 'Continent'])
     	
-      fig = px.line(group_continent_year.reset_index(), x='year', y='Surface temperature anomaly', color='Continent', 
+      fig = px.line(group_continent_year.reset_index(), x='Year', y='Surface temperature anomaly', color='Continent', 
               title='Surface Temperature Anomaly by Continent Over Time')
 
       # Set the layout parameters
