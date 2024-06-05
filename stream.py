@@ -671,13 +671,13 @@ if page ==  "Exploration Analysis - STA":
       st.markdown("***") 
 
 if page ==  "Exploration Analysis - STA":
-      sns.set_style("whitegrid")
+   sns.set_style("whitegrid")
 
-      @st.cache
-      def load_data():
-          merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
-          return merged_data
-      merged_data = load_data()
+   @st.cache
+   def load_data():
+       merged_data = pd.read_csv("merged_data.csv", encoding='latin1')
+       return merged_data
+   merged_data = load_data()
         
 if page ==  "Exploration Analysis - STA":  
   with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
