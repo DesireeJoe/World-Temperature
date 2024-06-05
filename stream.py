@@ -1191,8 +1191,6 @@ if page == "Time-series modeling with SARIMA":
     plt.grid(True)
     st.pyplot(plt)
 ###########################################################################################
-
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -1204,7 +1202,8 @@ from sklearn.ensemble import GradientBoostingRegressor
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
-
+if page == "Prediction":
+    st.title('Prediction with Gradient Boosting')
 def load_model():
     # Decompress the model file
     with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
