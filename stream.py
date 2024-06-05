@@ -450,20 +450,29 @@ if page ==  "Exploration Analysis - OWID":
          }
 
 # Plotting
-        plt.figure(figsize=(12, 6))
+        emission_data_melted = emission_data.melt(id_vars=['year'], 
+                                                  value_vars=emission_sources, 
+                                                  var_name='source', 
+                                                  value_name='emissions')plt.figure(figsize=(12, 6))
+        emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
+        fig = px.line(emission_data_melted, 
+                      x='year', 
+                      y='emissions', 
+                      color='source', 
+                      title='Global CO2 Emissions by Emission Sources',
+                      labels={'emissions': 'CO2 Emissions (million tonnes)', 'year': 'Year'},
+                      template='plotly_white')
+        fig.update_layout(
+            xaxis_title='Year',
+            yaxis_title='CO2 Emissions (million tonnes)',
+            title={'text': 'Global CO2 Emissions by Emission Sources', 'x':0.5},
+            legend_title_text='Emission Source',
+            xaxis=dict(tickmode='linear', tick0=1880, dtick=10)
+        )
 
-        for source in emission_sources:
-            plt.plot(emission_data.index, emission_data[source], label=legend_labels[source])
-
-            plt.title('Global CO2 Emissions by Emission Sources', fontsize=14)
-            plt.xlabel('Year', fontsize=12)
-            plt.ylabel('CO2 Emissions (million tonnes)', fontsize=12)
-            plt.legend()
-            plt.grid(True)
-            plt.tight_layout()  # Adjust layout to prevent overlapping elements
-
-# Display the plot in Streamlit
-            st.pyplot(plt)
+        # Display the plot in Streamlit
+        st.plotly_chart(fig)
+       
 if page ==  "Exploration Analysis - OWID":
 # Description of the plot
  with st.expander("Description of the Global CO2 Emissions by Emission Sources"):
