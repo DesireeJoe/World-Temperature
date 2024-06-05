@@ -524,10 +524,22 @@ if page ==  "Exploration Analysis - OWID":
             st.plotly_chart(fig_emissions)
   
 # Description of the plot
-  with st.expander("Description of Methane Emissions Distribution"):
+  with st.expander("Description of Global Co2 Emissions Distribution in the Top 15 countries"):
         st.write("""
+      - The analysis is based on recent data focusing on the top 15 countries with significant CO2 emissions, excluding the 'World' entry and considering years from 1950 onwards.
+      - China emerges as the largest CO2 emitter, with a noticeable increase from around 2,000 tonnes in the 1970s to approximately 11,500 tonnes in recent years.
+      - The United States ranks second in CO2 emissions, showing fluctuations over the years. After a peak of around 8,200 tonnes in 2004, emissions have seen a slight reduction, indicating possible mitigation measures.
+      - India exhibits a significant increase in CO2 emissions, reaching around 2,500 tonnes presently, suggesting a rising trend.
+      - Russia experienced a surge in CO2 emissions around 1990, peaking at approximately 2,200 tonnes, but has since decreased to around 1,800 tonnes as of 2022, indicating efforts towards emission reduction.
+      - Other countries like Japan, the UK, and Ukraine show varying levels of CO2 emissions, with values generally below 1,500 tonnes.
+      - In terms of methane emissions, China leads with around 1,100 tonnes, followed by the United States, India, Russia, and Mexico, with emissions ranging from 750 to 170 tonnes.
+      - A similar pattern is observed for nitrous oxide emissions, with China, the United States, India, and Russia being the top emitters.
+      - The distribution of CO2 emissions by fuel type reveals that the United States has the highest emissions from coal combustion, followed by petroleum and natural gas, totaling around 17 million tonnes.
+      - China follows with approximately 4.2 million tonnes, predominantly from coal combustion. Germany and the UK also exhibit significant emissions from coal, petroleum, and natural gas.
+      - Russia's emissions, around 4.1 million tonnes, are evenly distributed among coal, petroleum, and natural gas.
+      - Japan and France follow with notable emissions, while South Korea has the lowest emissions across all categories.
       - China consistently exhibits high levels of methane emissions over the years, likely due to its extensive agricultural activities, coal mining, and rapidly growing industrial sector.
-      - The United States also shows a notable presence in methane emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
+      - The United States also shows a notable presence in emissions, attributed to its diverse economy, including agriculture, oil and gas production, and waste management practices.
       - India's methane emissions exhibit an upward trend, reflecting its growing population, agricultural practices, and expanding industrial base, which heavily relies on coal for energy production.
       - Russia's methane emissions may stem from various sources such as natural gas production, agricultural activities, and landfills, reflecting the country's vast territory and resource-intensive industries.
       - The European Union, representing a collective of countries, demonstrates efforts to curb methane emissions over time, possibly driven by regulatory measures, technological advancements, and increased awareness of environmental issues.
