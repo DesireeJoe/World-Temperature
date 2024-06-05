@@ -1210,10 +1210,21 @@ if page == "Prediction":
     # Define the prediction function
     def prediction():
         def load_model():
-            # Decompress the model file
-            with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
-                model = pickle.load(f)
-            return model
+            try:
+                # Decompress the model file
+                with gzip.open("gradient_boosting.pkl.gz", "rb") as f:
+                    model = pickle.load(f)
+                st.write("Model loaded successfully.")
+                return model
+            except FileNotFoundError:
+                st.error("Model file not found. Please check the file path.")
+                return None
+            except pickle.UnpicklingError:
+                st.error("Error unpickling the model file. The file might be corrupted.")
+                return None
+            except Exception as e:
+                st.error(f"An unexpected error occurred: {e}")
+                return None
         
         def get_features(year, coal_co2, population, gdp, co2):
             features = np.array([year, coal_co2, population, gdp, co2])
@@ -1221,17 +1232,19 @@ if page == "Prediction":
         
         def predict_surface_temperature(features):
             model = load_model()
-            prediction = model.predict(features)
-            return np.round(prediction, 3)
+            if model is not None:
+                prediction = model.predict(features)
+                return np.round(prediction, 3)
+            else:
+                return None
         
         st.header("Prediction")
         st.subheader('Prediction Simulation with Gradient Boosting')
         
-        # Load the DataFrame
         data = pd.read_csv("datas_pre_processed.csv")
         df3 = data.copy()
         
-        # Get the minimum and maximum values for each feature from the DataFrame
+        # Get the minimum and maximum values
         year_min, year_max = df3['year'].min(), df3['year'].max()
         coal_co2_min, coal_co2_max = df3['coal_co2'].min(), df3['coal_co2'].max()
         population_min, population_max = df3['population'].min(), df3['population'].max()
@@ -1260,10 +1273,13 @@ if page == "Prediction":
         if st.button("Predict"):
             features = get_features(year, coal_co2, population, gdp, co2)
             prediction = predict_surface_temperature(features)
-            st.write("Predicted Surface Temperature:", prediction)
+            if prediction is not None:
+                st.write("Predicted Surface Temperature:", prediction)
+            else:
+                st.write("Prediction could not be made due to an error in loading the model.")
     
-    # Call the prediction function
     prediction()
+
 
   
 ########################################################################################################################################################################################################################
