@@ -434,7 +434,8 @@ if page ==  "Exploration Analysis - OWID":
 
 # Aggregate data by summing over years
         emission_data = Co2.groupby('year')[emission_sources].sum()
- 
+        st.write("Data columns:", emission_data.columns.tolist())
+
 # Mapping variable names to custom legend labels
         legend_labels = {
        'flaring_co2': 'Flaring CO2',
@@ -449,13 +450,19 @@ if page ==  "Exploration Analysis - OWID":
        'land_use_change_co2': 'Land Use Change CO2'
          }
 
-# Plotting
-        emission_data_melted = emission_data.melt(id_vars=['year'], 
+# Plotting'
+        try:
+           emission_data_melted = emission_data.melt(id_vars=['year'], 
                                                   value_vars=emission_sources, 
                                                   var_name='source', 
                                                   value_name='emissions')
+        except KeyError as e:
+           st.error(f"KeyError: {e}")
+           st.stop()
+        emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
         plt.figure(figsize=(12, 6))
         emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
+        # Create the line plot with Plotly
         fig = px.line(emission_data_melted, 
                       x='year', 
                       y='emissions', 
