@@ -423,20 +423,13 @@ if page ==  "Exploration Analysis - OWID":
 if page ==  "Exploration Analysis - OWID":
    with st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
         st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
-# Convert the 'year' column to an integer
-        Co2['year'] = Co2['year'].astype(int)
 
-# Filter data for years from 1880 onwards
-        Co2 = Co2[Co2['year'] >= 1880]
 # Select relevant columns for CO2 emissions by different sources
         emission_sources = ['flaring_co2', 'other_industry_co2', 'methane', 'nitrous_oxide',
                     'oil_co2', 'gas_co2', 'coal_co2', 'cement_co2', 'total_ghg', 'land_use_change_co2']
-        if 'year' not in Co2.columns:
-            st.error("The 'year' column is missing in the DataFrame.")
-            st.stop()
+        
 # Aggregate data by summing over years
-        emission_data = Co2.groupby('year')[emission_sources].sum()
-        st.write("Data columns:", emission_data.columns.tolist())
+        emission_data = Co2.groupby('year')[emission_sources].sum().reset_index()
 
 # Mapping variable names to custom legend labels
         legend_labels = {
@@ -453,16 +446,14 @@ if page ==  "Exploration Analysis - OWID":
          }
 
 # Plotting'
-        try:
-           emission_data_melted = emission_data.melt(id_vars=['year'], 
+    
+        emission_data_melted = emission_data.melt(id_vars=['year'], 
                                                   value_vars=emission_sources, 
                                                   var_name='source', 
                                                   value_name='emissions')
-        except KeyError as e:
-           st.error(f"KeyError: {e}")
-           st.stop()
+        
         emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
-        plt.figure(figsize=(12, 6))
+        
         emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
         # Create the line plot with Plotly
         fig = px.line(emission_data_melted, 
