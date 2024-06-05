@@ -681,8 +681,8 @@ if page ==  "Exploration Analysis - STA":
         return merged_data
         merged_data = load_data()  
   
-   with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
-        st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
+    with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
+       st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
       # Create a figure and axis object
         fig, ax1 = plt.subplots(figsize=(12, 6))
