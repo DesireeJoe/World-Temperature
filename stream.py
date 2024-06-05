@@ -685,7 +685,7 @@ if page ==  "Exploration Analysis - STA":
           if pd.isnull(val):
              return 'color: white'
       color = int((val - pivot_data.min().min()) / (pivot_data.max().max() - pivot_data.min().min()) * 255)
-              return f'background-color: rgb({255 - color}, {255 - color}, 255)'
+      return f'background-color: rgb({255 - color}, {255 - color}, 255)'
 
       group_continent_year = group_continent_year.set_index(['year', 'Continent'])
     	
