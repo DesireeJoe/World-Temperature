@@ -669,46 +669,6 @@ if page ==  "Exploration Analysis - STA":
    - This anomaly might warrant further investigation into the factors influencing temperature patterns in Afghanistan.
     """)     
       st.markdown("***")
-if page ==  "Exploration Analysis - STA":
- with st.expander("Surface Temperature Anomaly over the years in all Continents"):
-      st.write("The plot illustrates the surface temperature anomaly trends in all the continents over the years.")
-
-      sta['Year'] = pd.to_datetime(sta['Year'], format='%Y').dt.year.apply(lambda x: '{:0}'.format(x))
-      group_continent_year = sta.groupby(['Continent', 'Year'])['Surface temperature anomaly'].mean().reset_index()
-      group_year_temp = sta.groupby('Year')['Surface temperature anomaly'].mean().reset_index()
-
-      pivot_data = group_continent_year.pivot(index='Year', columns='Continent', values='Surface temperature anomaly')
-      pivot_data = pivot_data.round(2)
-      pivot_data = pivot_data.sort_index()
-   
-      def color_map(val):
-          if pd.isnull(val):
-             return 'color: white'
-          color = int((val - pivot_data.min().min()) / (pivot_data.max().max() - pivot_data.min().min()) * 255)
-          return f'background-color: rgb({255 - color}, {255 - color}, 255)'
-
-      group_continent_year = group_continent_year.set_index(['Year', 'Continent'])
-    	
-      fig = px.line(group_continent_year.reset_index(), x='Year', y='Surface temperature anomaly', color='Continent', 
-              title='Surface Temperature Anomaly by Continent Over Time')
-
-      # Set the layout parameters
-      fig.update_layout(xaxis_title='Year', yaxis_title='Surface Temperature Anomaly', legend_title='Continent')
-
-      # Show the plot
-      st.plotly_chart(fig)
-    # Description of the plot 
-if page ==  "Exploration Analysis - STA":
- with st.expander("Description of Surface Temperature Anomaly Trends over continents"):
-      st.write("""
-   - The plot allows for a visual comparison of surface temperature anomalies across all the continents over the available time period.
-   - North America shows the highest trend with increasing Surface Temperature Anomaly.It started from 0.2 in 1990 and reached 1.6 in 2017
-   - Europe also follows a trend of increasing surface temperature anomaly. The anomaly values have been increasing steadily over the years.
-   - South America exhibits a decreasing trend in surface temperature anomaly by 2017.
-   - Oceania shows a decreasing trend in surface temperature anomaly similar to South America
-   - Asia indicates an increasing trend in surface temperature anomaly. Although the increase is notable, the values are comparatively lower than North America and Europe.
-    """)     
-      st.markdown("***")
 
 if page ==  "Exploration Analysis - STA":
       sns.set_style("whitegrid")
@@ -759,6 +719,46 @@ if page ==  "Exploration Analysis - STA":
     - In recent years, there appears to be a steeper increase in both surface temperature anomaly and CO2 emissions.
     - This observation suggests a potential acceleration in global warming and underscores the urgency of addressing climate change mitigation efforts. 
     """)
+      st.markdown("***")
+if page ==  "Exploration Analysis - STA":
+ with st.expander("Surface Temperature Anomaly over the years in all Continents"):
+      st.write("The plot illustrates the surface temperature anomaly trends in all the continents over the years.")
+
+      merged_data['Year'] = pd.to_datetime(sta['Year'], format='%Y').dt.year.apply(lambda x: '{:0}'.format(x))
+      group_continent_year = merged_data.groupby(['Continent', 'Year'])['Surface temperature anomaly'].mean().reset_index()
+      group_year_temp = merged_data.groupby('Year')['Surface temperature anomaly'].mean().reset_index()
+
+      pivot_data = group_continent_year.pivot(index='Year', columns='Continent', values='Surface temperature anomaly')
+      pivot_data = pivot_data.round(2)
+      pivot_data = pivot_data.sort_index()
+   
+      def color_map(val):
+          if pd.isnull(val):
+             return 'color: white'
+          color = int((val - pivot_data.min().min()) / (pivot_data.max().max() - pivot_data.min().min()) * 255)
+          return f'background-color: rgb({255 - color}, {255 - color}, 255)'
+
+      group_continent_year = group_continent_year.set_index(['Year', 'Continent'])
+    	
+      fig = px.line(group_continent_year.reset_index(), x='Year', y='Surface temperature anomaly', color='Continent', 
+              title='Surface Temperature Anomaly by Continent Over Time')
+
+      # Set the layout parameters
+      fig.update_layout(xaxis_title='Year', yaxis_title='Surface Temperature Anomaly', legend_title='Continent')
+
+      # Show the plot
+      st.plotly_chart(fig)
+    # Description of the plot 
+if page ==  "Exploration Analysis - STA":
+ with st.expander("Description of Surface Temperature Anomaly Trends over continents"):
+      st.write("""
+   - The plot allows for a visual comparison of surface temperature anomalies across all the continents over the available time period.
+   - North America shows the highest trend with increasing Surface Temperature Anomaly.It started from 0.2 in 1990 and reached 1.6 in 2017
+   - Europe also follows a trend of increasing surface temperature anomaly. The anomaly values have been increasing steadily over the years.
+   - South America exhibits a decreasing trend in surface temperature anomaly by 2017.
+   - Oceania shows a decreasing trend in surface temperature anomaly similar to South America
+   - Asia indicates an increasing trend in surface temperature anomaly. Although the increase is notable, the values are comparatively lower than North America and Europe.
+    """)     
       st.markdown("***")
 
 if page ==  "Exploration Analysis - STA":
