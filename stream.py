@@ -684,37 +684,22 @@ if page ==  "Exploration Analysis - STA":
  with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
       st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
-# Create a figure and axis object
-      fig, ax1 = plt.subplots(figsize=(12, 6))
+      # Create Plotly figure
+      fig = go.Figure()
 
-# Plot CO2 emissions on the primary y-axis
-      sns.lineplot(data=merged_data, x='Year', y='co2', color='red', ax=ax1, label='CO2 Emissions')
+      # Add CO2 emissions trace to the figure
+      fig.add_trace(go.Scatter(x=merged_data['Year'], y=merged_data['co2'], mode='lines', name='CO2 Emissions', line=dict(color='red')))
 
-# Set the y-label for CO2 emissions
-      ax1.set_ylabel('CO2 Emissions (Tonnes)', color='red')
- 
-# Create a secondary y-axis for Surface Temperature Anomaly
-      ax2 = ax1.twinx()
-      sns.lineplot(data=merged_data, x='Year', y='Surface temperature anomaly', color='blue', ax=ax2, label='Surface Temperature Anomaly')
+      #update layout
+      fig.update_layout(yaxis=dict(title='CO2 Emissions (Tonnes)', color='red', titlefont=dict(color='red')),
+                  yaxis2=dict(title='Surface Temperature Anomaly (°C)', color='blue', overlaying='y', side='right', titlefont=dict(color='blue')),
+                  xaxis=dict(title='Year'),
+                  title='CO2 Emissions and Surface Temperature Anomaly Over Years')
+      # Rotate x-axis labels for better readability
+      fig.update_xaxes(tickangle=45)
 
-# Set the y-label for Surface Temperature Anomaly
-      ax2.set_ylabel('Surface Temperature Anomaly (°C)', color='blue')
-
-# Set labels and title
-      ax1.set_xlabel('Year')
-      plt.title('CO2 Emissions and Surface Temperature Anomaly Over Years')
-
-# Show legend
-      lines1, labels1 = ax1.get_legend_handles_labels()
-      lines2, labels2 = ax2.get_legend_handles_labels()
-      ax1.legend(lines1, ['CO2 Emissions'], loc='upper left')
-      ax2.legend(lines2, ['Surface Temperature Anomaly'], loc='upper right') 
-
-# Rotate x-axis labels for better readability
-      plt.xticks(rotation=45)
-
-# Show the plot
-      st.pyplot(fig)
+      # Show the plot in Streamlit
+      st.plotly_chart(fig)
 
 # Description of the plot
 if page ==  "Exploration Analysis - STA":
