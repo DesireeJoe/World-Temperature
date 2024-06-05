@@ -1244,6 +1244,25 @@ if page == "Conclusion":
   ###
 ########################################################################################################################################################################################################################
 
+if page == 'Prediction':
+  # Decompress the downloaded file
+  def load_model():
+		 with gzip.open("gradient_bossting.pkl.gz", "rb") as f:
+			model = pickle.load(model_file)
+		return model
+
+	def get_features(year, coal_co2, population, gdp, co2):
+		features = np.array([year, coal_co2, population, gdp, co2year, coal_co2, population, gdp, co2])
+		return features.reshape(1, -1)
+
+	def predict_surface_temperature(features):
+		model = load_model()
+		prediction = model.predict(features)
+		return np.round(prediction, 3)
+
+	st.header("Prediction")
+	st.subheader('Prediction Simulation with Gradient Boosting')
+##############################################################
 if page ==   "Credits" :
    st.title('Credits')
 
