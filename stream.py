@@ -1225,7 +1225,7 @@ def prediction():
     st.subheader('Prediction Simulation with Gradient Boosting')
     
     # Load the DataFrame
-    data = pd.read_csv("datas_preprocessed.csv")
+    data = pd.read_csv("datas_pre_processed.csv")
     df3 = data.copy()
     
     # Get the minimum and maximum values for each feature from the DataFrame
@@ -1359,18 +1359,6 @@ def modeling():
     # Show the plot
     st.pyplot(fig)
 
-# Streamlit app layout
-def main():
-    st.sidebar.title("Navigation")
-    page = st.sidebar.radio("Go to", ["Prediction", "Modeling"])
-    
-    if page == "Prediction":
-        prediction()
-    elif page == "Modeling":
-        modeling()
-
-if __name__ == "__main__":
-    main()
 
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
