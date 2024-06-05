@@ -454,7 +454,7 @@ if page ==  "Exploration Analysis - OWID":
         
         emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
         
-        emission_data_melted['source'] = emission_data_melted['source'].map(legend_labels)
+        emission_data_melted.dropna(subset=['source'], inplace=True)
         # Create the line plot with Plotly
         fig = px.line(emission_data_melted, 
                       x='year', 
