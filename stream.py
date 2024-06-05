@@ -1106,7 +1106,6 @@ if page ==  "Machine Learning Models":
       ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)  
   # Display the plot
   st.pyplot(fig)  
-  
 
 ###################################################################################################################
 import numpy as np
@@ -1208,6 +1207,7 @@ if page == "Time-series modeling with SARIMA":
     plt.title('SARIMA Model Forecast')
     plt.grid(True)
     st.pyplot(plt)
+
 
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
