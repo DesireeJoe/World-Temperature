@@ -1200,6 +1200,7 @@ import gzip
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
