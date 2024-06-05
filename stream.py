@@ -7,6 +7,7 @@ from scipy.stats import linregress
 import math
 import io
 import plotly.express as px
+import plotly.graph_objects as go
 
 
 
