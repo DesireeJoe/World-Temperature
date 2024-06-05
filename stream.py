@@ -930,43 +930,37 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-# Title and Description
-st.title("Temperature Anomaly Prediction Models")
-st.write("""
-    This application compares the performance of Random Forest and Gradient Boosting models in predicting temperature anomalies based on various features such as year, GDP, population, coal CO2, and overall CO2 emissions. 
-    Adjust the model parameters and visualize the results interactively.
-""")
 
-# Load dataset
-@st.cache
-def load_data():
-    return pd.read_csv("datas_pre_processed.csv", index_col=0)
-
-df = load_data()
-st.write("### Data Preview")
-st.write(df.head())
-
-# Show correlation matrix
-if st.checkbox("Show Correlation Matrix"):
-    correlation_matrix = df.corr()
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
-    st.pyplot(plt)
-
-# Feature Selection based on Correlation
-st.write("### Feature Selection")
-correlation_with_target = df.corr()['sta'].abs().sort_values(ascending=False)
-selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
-st.write("Selected Features:", selected_features)
-
-# Split the data
-X = df[selected_features]
-y = df['sta']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Random Forest Model Expander
 with st.expander("Random Forest Model"):
-    # Model Training
+# Load dataset
+    @st.cache
+    def load_data():
+        return pd.read_csv("datas_pre_processed.csv", index_col=0)
+    
+    df = load_data()
+    st.write("### Data Preview")
+    st.write(df.head())
+    
+    # Show correlation matrix
+    if st.checkbox("Show Correlation Matrix"):
+        correlation_matrix = df.corr()
+        plt.figure(figsize=(10, 6))
+        sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', center=0)
+        st.pyplot(plt)
+    
+    # Feature Selection based on Correlation
+    st.write("### Feature Selection")
+    correlation_with_target = df.corr()['sta'].abs().sort_values(ascending=False)
+    selected_features = ['year', 'gdp', 'population', 'coal_co2', 'co2']
+    st.write("Selected Features:", selected_features)
+    
+    # Split the data
+    X = df[selected_features]
+    y = df['sta']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Model Training
     st.write("In the field of predictive analytics and data science, Random Forest modelling stands out as a powerful and versatile machine learning technique, where multiple decision trees are trained and aggregated to improve the overall predictive performance and robustness of the model. Those models are particularly well-suited for handling complex datasets with numerous features and intricate relationships.")
     st.write("###Model Training")
     n_estimators = st.slider("Number of Estimators", min_value=10, max_value=200, value=100, step=10)
@@ -1018,7 +1012,6 @@ with st.expander("Random Forest Model"):
     plt.title('Actual vs. Predicted Temperature Anomaly (Random Forest)')
     plt.legend()
     st.pyplot(plt)
-
 
 if page ==  "Machine Learning Models":
   st.markdown(
