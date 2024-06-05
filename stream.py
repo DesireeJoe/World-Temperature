@@ -466,7 +466,7 @@ if page ==  "Exploration Analysis - OWID":
         fig.update_layout(
             xaxis_title='Year',
             yaxis_title='CO2 Emissions (million tonnes)',
-            title={'text': 'Global CO2 Emissions by Emission Sources', 'x':0.5},
+            title={'text': 'Global CO2 Emissions by Emission Sources', 'x':0.5,'xanchor': 'center'},
             legend_title_text='Emission Source',
             xaxis=dict(tickmode='linear', tick0=1880, dtick=10)
         )
