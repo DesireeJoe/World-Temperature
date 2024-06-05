@@ -1110,105 +1110,99 @@ if page ==  "Machine Learning Models":
 
 ###################################################################################################################
 
-import streamlit as st
-import requests
-import gzip
-import pickle
-import pandas as pd
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+
+ts = pd.read_csv('ts.csv')
+
+#split data into training and testing sets
+train_size = int(len(ts) * 0.8)
+train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
+
 from statsmodels.tsa.statespace.sarimax import SARIMAX
+
+#define SARIMA model parameters
+p = 1  # Autoregressive order
+d = 1  # Differencing order
+q = 1  # Moving average order
+P = 1  # Seasonal autoregressive order
+D = 1  # Seasonal differencing order
+Q = 1  # Seasonal moving average order
+s = 12  # Seasonal period (monthly data)
+#Fit
+sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
+sarima_model_fit = sarima_model.fit()
+#Print model summary
+print(sarima_model_fit.summary())
+
+#Model Evaluation
+predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
+mae = mean_absolute_error(test_data, predictions)
+mse = mean_squared_error(test_data, predictions)
+rmse = np.sqrt(mse)
+print(f'Mean Absolute Error: {mae}')
+print(f'Mean Squared Error: {mse}')
+print(f'Root Mean Squared Error: {rmse}')
+
+#Forecasting
+forecast = sarima_model_fit.forecast(steps=len(test_data))  # Forecast for the test period
+prediction_interval = sarima_model_fit.get_forecast(steps=len(test_data)).conf_int()
+
+#Model Interpretation
+#Print model summary
+print(sarima_model_fit.summary())
+
 import statsmodels.api as sm
 
-# Function to download the file from Google Drive
-def download_file_from_google_drive(url, output_file):
-    response = requests.get(url)
-    with open(output_file, 'wb') as f:
-        f.write(response.content)
+#Plot residuals
+residuals = sarima_model_fit.resid
 
-# SARIMA section
+plt.figure(figsize=(12, 6))
+plt.plot(residuals)
+plt.title('Residuals of SARIMA Model')
+plt.xlabel('Time')
+plt.ylabel('Residuals')
+plt.grid(True)
+plt.show()
 
-    file_url = 'https://drive.google.com/uc?id=1CITpx2Fd1kuaqV8ez8u47FBUnA7qkNNh'
-    output_file = 'sarima_model.pkl.gz'
-    download_file_from_google_drive(file_url, output_file)
+#Plot ACF and PACF of residuals
+fig, ax = plt.subplots(2, 1, figsize=(12, 8))
+sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
+sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
+plt.show()
 
-    with gzip.open(output_file, 'rb') as f:
-        loaded_model = pickle.load(f)
+#Simple baseline: Use the mean of the training data as the forecast
+baseline_forecast = [ts.mean()] * len(ts)
 
-    st.write("Model loaded from sarima_model.pkl.gz")
+#Calculate baseline MAE, MSE, and RMSE
+baseline_mae = np.mean(np.abs(ts - baseline_forecast))
+baseline_mse = np.mean((ts - baseline_forecast)**2)
+baseline_rmse = np.sqrt(baseline_mse)
 
-    # Load the dataset
-    df = pd.read_csv('nasa_zonal_mon.csv')
-    df.drop(columns=['Glob', 'NHem', 'SHem'], inplace=True)
+print(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
+print(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
+print(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
 
-    df_long = df.melt(id_vars=['Year'], value_vars=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                      var_name='Month', value_name='TemperatureAnomaly')
-    month_map = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6, 'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
-    df_long['Month'] = df_long['Month'].map(month_map)
-    df_long['Date'] = pd.to_datetime(df_long[['Year', 'Month']].assign(DAY=1))
-    df_long = df_long.sort_values('Date').reset_index(drop=True)
-    df_long = df_long.dropna(subset=['TemperatureAnomaly'])
-
-    ts = df_long.set_index('Date')['TemperatureAnomaly']
-    train_size = int(len(ts) * 0.8)
-    train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
-
-    predictions = loaded_model.predict(start=test_data.index[0], end=test_data.index[-1])
-    mae = mean_absolute_error(test_data, predictions)
-    mse = mean_squared_error(test_data, predictions)
-    rmse = np.sqrt(mse)
-
-    st.write(f'Mean Absolute Error: {mae}')
-    st.write(f'Mean Squared Error: {mse}')
-    st.write(f'Root Mean Squared Error: {rmse}')
-
-    forecast = loaded_model.forecast(steps=len(test_data))
-    prediction_interval = loaded_model.get_forecast(steps=len(test_data)).conf_int()
-
-    st.write(loaded_model.summary())
-
-    residuals = loaded_model.resid
-    plt.figure(figsize=(12, 6))
-    plt.plot(residuals)
-    plt.title('Residuals of SARIMA Model')
-    plt.xlabel('Time')
-    plt.ylabel('Residuals')
-    plt.grid(True)
-    st.pyplot(plt)
-
-    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
-    sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
-    sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
-    st.pyplot(fig)
-
-    baseline_forecast = [ts.mean()] * len(ts)
-    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
-    baseline_mse = np.mean((ts - baseline_forecast)**2)
-    baseline_rmse = np.sqrt(baseline_mse)
-
-    st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
-    st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
-
-    forecast_steps = 36
-    forecast_values = loaded_model.get_forecast(steps=forecast_steps).predicted_mean
-    confidence_intervals = loaded_model.get_forecast(steps=forecast_steps).conf_int()
-    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
-
-    plt.figure(figsize=(12, 6))
-    plt.plot(ts.index, ts, label='Observed')
-    plt.plot(forecast_index, forecast_values, color='red', label='Forecast')
-    plt.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
-    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.xlabel('Time')
-    plt.ylabel('Temperature Anomaly')
-    plt.title('SARIMA Model Forecast')
-    plt.grid(True)
-    st.pyplot(plt)
-
+#forecasting future values
+forecast_steps = 36  # Forecasting 3 years ahead (for monthly data)
+forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
+confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
+#range for the forecast
+forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+#plotting
+plt.figure(figsize=(12, 6))
+plt.plot(ts.index, ts, label='Observed')
+plt.plot(forecast_index, forecast_values, color='red', label='Forecast')
+plt.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.xlabel('Time')
+plt.ylabel('Temperature Anomaly')
+plt.title('SARIMA Model Forecast')
+plt.grid(True)
+plt.show()
 
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
