@@ -1085,36 +1085,36 @@ if page ==  "Machine Learning Models":
   comparison_df = pd.DataFrame(metrics_data)
   comparison_df.set_index('Metric', inplace=True)
   
-st.markdown("<h3>Comparison of Gradient Boosting Models with different Estimators</h3>", unsafe_allow_html=True)
+  st.markdown("<h3>Comparison of Gradient Boosting Models with different Estimators</h3>", unsafe_allow_html=True)
 
-#Create a bar chart using Matplotlib with custom colors
-fig, ax = plt.subplots(figsize=(10, 6))
-  
-models = comparison_df.index
-metrics = comparison_df.columns
-  
-x = np.arange(len(models))
-bar_width = 0.2
-  
-colors = ['#4682B4', '#808080', '#A9A9A9', '#C0C0C0']  
-  
-for i, metric in enumerate(metrics):
-    ax.bar(x + i * bar_width, comparison_df[metric], width=bar_width, label=metric, color=colors[i])
-  
-ax.set_xticks(x + (len(metrics) - 1) * bar_width / 2)
-ax.set_xticklabels(models, rotation=45, ha="right")
-ax.legend()
-  
-# Add annotations to each bar
-for i in range(len(models)):
-    for j, metric in enumerate(metrics):
-        value = comparison_df.iloc[i][metric]
-        ax.text(i + j * bar_width, value + 0.05, f'{value:.2f}', ha='center', va='bottom')
-    ax.set_ylabel('Metrics')
-    ax.set_title('Comparison of Gradient Boosting Models')
-    ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)  
-# Display the plot
-st.pyplot(fig)  
+  #Create a bar chart using Matplotlib with custom colors
+  fig, ax = plt.subplots(figsize=(10, 6))
+    
+  models = comparison_df.index
+  metrics = comparison_df.columns
+    
+  x = np.arange(len(models))
+  bar_width = 0.2
+    
+  colors = ['#4682B4', '#808080', '#A9A9A9', '#C0C0C0']  
+    
+  for i, metric in enumerate(metrics):
+      ax.bar(x + i * bar_width, comparison_df[metric], width=bar_width, label=metric, color=colors[i])
+    
+  ax.set_xticks(x + (len(metrics) - 1) * bar_width / 2)
+  ax.set_xticklabels(models, rotation=45, ha="right")
+  ax.legend()
+    
+  # Add annotations to each bar
+  for i in range(len(models)):
+      for j, metric in enumerate(metrics):
+          value = comparison_df.iloc[i][metric]
+          ax.text(i + j * bar_width, value + 0.05, f'{value:.2f}', ha='center', va='bottom')
+      ax.set_ylabel('Metrics')
+      ax.set_title('Comparison of Gradient Boosting Models')
+      ax.set_ylim(0, max(comparison_df.values.max(axis=1)) + 0.2)  
+  # Display the plot
+  st.pyplot(fig)  
   
 
 ###################################################################################################################
