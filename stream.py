@@ -934,8 +934,8 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 # Random Forest Model Expander
 with st.expander("**Random Forest Model**"):
-
-    st.write("In the field of predictive analytics and data science, Random Forest modelling stands out as a powerful and versatile machine learning technique, where multiple decision trees are trained and aggregated to improve the overall predictive performance and robustness of the model. Those models are particularly well-suited for handling complex datasets with numerous features and intricate relationships.")@st.cache
+    st.write("In the field of predictive analytics and data science, Random Forest modelling stands out as a powerful and versatile machine learning technique, where multiple decision trees are trained and aggregated to improve the overall predictive performance and robustness of the model. Those models are particularly well-suited for handling complex datasets with numerous features and intricate relationships.")
+    @st.cache
     def load_data():
         return pd.read_csv("datas_pre_processed.csv", index_col=0)
     
