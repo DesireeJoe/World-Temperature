@@ -1363,7 +1363,7 @@ if page == "Prediction":
         if st.button("Predict"):
             features = get_features(year, coal_co2, population, gdp, co2)
             prediction = predict_surface_temperature(features)
-            st.write(f"The prediction of the surface temperature anomaly is: {prediction[0]}")
+            st.write(f"The prediction of the surface temperature anomaly is:",prediction)
 
 
   
