@@ -1192,96 +1192,97 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import streamlit as st
 
+# Define the page for Streamlit
 if page == 'Time-series modeling with SARIMA':
-  # Load and prepare the data
-  ts = pd.read_csv('ts_final.csv')
-  
-  # Ensure the first column is in datetime format
-  ts['Date'] = pd.to_datetime(ts['Date'])
-  
-  # Set the date column as the index
-  ts.set_index('Date', inplace=True)
-  
-  # Extract the time series data
-  ts_data = ts['TemperatureAnomaly']
-  
-  # Split data into training and testing sets
-  train_size = int(len(ts_data) * 0.97)
-  train_data, test_data = ts_data.iloc[:train_size], ts_data.iloc[train_size:]
-  
-  # Define SARIMA model parameters
-  p, d, q = 1, 1, 1
-  P, D, Q, s = 1, 1, 1, 12
-  
-  # Fit SARIMA model
-  sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
-  sarima_model_fit = sarima_model.fit(disp=False)
-  
-  # Streamlit layout
-  st.title('Time-series Modeling with SARIMA')
-  st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
-  
-  # Model summary
-  st.subheader("Model Summary")
-  st.write(sarima_model_fit.summary())
-  
-  # Model Evaluation
-  predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
-  mae = mean_absolute_error(test_data, predictions)
-  mse = mean_squared_error(test_data, predictions)
-  rmse = np.sqrt(mse)
-  st.subheader("Model Evaluation")
-  st.write(f'Mean Absolute Error: {mae:.4f}')
-  st.write(f'Mean Squared Error: {mse:.4f}')
-  st.write(f'Root Mean Squared Error: {rmse:.4f}')
-  
-  # Forecasting
-  forecast_steps = len(test_data)
-  forecast = sarima_model_fit.get_forecast(steps=forecast_steps)
-  forecast_values = forecast.predicted_mean
-  confidence_intervals = forecast.conf_int()
-  
-  # Plot residuals
-  residuals = sarima_model_fit.resid
-  st.subheader("Residuals of SARIMA Model")
-  fig_residuals = px.line(residuals, title='Residuals of SARIMA Model')
-  st.plotly_chart(fig_residuals)
-  
-  # Plot ACF and PACF of residuals
-  st.subheader("ACF and PACF of Residuals")
-  fig_acf_pacf = plt.figure(figsize=(12, 8))
-  ax1 = fig_acf_pacf.add_subplot(211)
-  sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax1)
-  ax2 = fig_acf_pacf.add_subplot(212)
-  sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax2)
-  st.pyplot(fig_acf_pacf)
-  
-  # Baseline forecast
-  baseline_forecast = [train_data.mean()] * len(test_data)
-  baseline_mae = mean_absolute_error(test_data, baseline_forecast)
-  baseline_mse = mean_squared_error(test_data, baseline_forecast)
-  baseline_rmse = np.sqrt(baseline_mse)
-  
-  # Forecasting future values
-  future_steps = 36
-  future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
-  future_forecast_values = future_forecast.predicted_mean
-  future_confidence_intervals = future_forecast.conf_int()
-  
-  forecast_index = pd.date_range(start=ts_data.index[-1] + pd.DateOffset(months=1), periods=future_steps, freq='M')
-  
-  # Plotting
-  st.subheader("SARIMA Model Forecast")
-  fig_forecast = go.Figure()
-  
-  fig_forecast.add_trace(go.Scatter(x=ts_data.index, y=ts_data, mode='lines', name='Observed'))
-  fig_forecast.add_trace(go.Scatter(x=test_data.index, y=predictions, mode='lines', name='Predicted', line=dict(color='red')))
-  fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_forecast_values, mode='lines', name='Forecast', line=dict(color='green')))
-  fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 0], fill=None, mode='lines', line=dict(color='lightgreen'), showlegend=False))
-  fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 1], fill='tonexty', mode='lines', line=dict(color='lightgreen'), name='Confidence Interval'))
-  
-  fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
-  st.plotly_chart(fig_forecast)
+    # Load and prepare the data
+    ts = pd.read_csv('ts_final.csv')
+    
+    # Ensure the first column is in datetime format
+    ts['Date'] = pd.to_datetime(ts['Date'])
+    
+    # Set the date column as the index
+    ts.set_index('Date', inplace=True)
+    
+    # Extract the time series data
+    ts_data = ts['TemperatureAnomaly']
+    
+    # Split data into training and testing sets
+    train_size = int(len(ts_data) * 0.97)
+    train_data, test_data = ts_data.iloc[:train_size], ts_data.iloc[train_size:]
+    
+    # Define SARIMA model parameters
+    p, d, q = 1, 1, 1
+    P, D, Q, s = 1, 1, 1, 12
+    
+    # Fit SARIMA model
+    sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
+    sarima_model_fit = sarima_model.fit(disp=False)
+    
+    # Streamlit layout
+    st.title('Time-series Modeling with SARIMA')
+    st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
+    
+    # Model summary
+    st.subheader("Model Summary")
+    st.write(sarima_model_fit.summary())
+    
+    # Model Evaluation
+    predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
+    mae = mean_absolute_error(test_data, predictions)
+    mse = mean_squared_error(test_data, predictions)
+    rmse = np.sqrt(mse)
+    st.subheader("Model Evaluation")
+    st.write(f'Mean Absolute Error: {mae:.4f}')
+    st.write(f'Mean Squared Error: {mse:.4f}')
+    st.write(f'Root Mean Squared Error: {rmse:.4f}')
+    
+    # Forecasting
+    forecast_steps = len(test_data)
+    forecast = sarima_model_fit.get_forecast(steps=forecast_steps)
+    forecast_values = forecast.predicted_mean
+    confidence_intervals = forecast.conf_int()
+    
+    # Plot residuals
+    residuals = sarima_model_fit.resid
+    st.subheader("Residuals of SARIMA Model")
+    fig_residuals = px.line(residuals, title='Residuals of SARIMA Model')
+    st.plotly_chart(fig_residuals)
+    
+    # Plot ACF and PACF of residuals
+    st.subheader("ACF and PACF of Residuals")
+    fig_acf_pacf = plt.figure(figsize=(12, 8))
+    ax1 = fig_acf_pacf.add_subplot(211)
+    sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax1)
+    ax2 = fig_acf_pacf.add_subplot(212)
+    sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax2)
+    st.pyplot(fig_acf_pacf)
+    
+    # Baseline forecast
+    baseline_forecast = [train_data.mean()] * len(test_data)
+    baseline_mae = mean_absolute_error(test_data, baseline_forecast)
+    baseline_mse = mean_squared_error(test_data, baseline_forecast)
+    baseline_rmse = np.sqrt(baseline_mse)
+    
+    # Forecasting future values
+    future_steps = 36
+    future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
+    future_forecast_values = future_forecast.predicted_mean
+    future_confidence_intervals = future_forecast.conf_int()
+    
+    forecast_index = pd.date_range(start=ts_data.index[-1] + pd.DateOffset(months=1), periods=future_steps, freq='M')
+    
+    # Plotting
+    st.subheader("SARIMA Model Forecast")
+    fig_forecast = go.Figure()
+    
+    fig_forecast.add_trace(go.Scatter(x=ts_data.index, y=ts_data, mode='lines', name='Observed'))
+    fig_forecast.add_trace(go.Scatter(x=test_data.index, y=predictions, mode='lines', name='Predicted', line=dict(color='red')))
+    fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_forecast_values, mode='lines', name='Forecast', line=dict(color='green')))
+    fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 0], fill=None, mode='lines', line=dict(color='lightgreen'), showlegend=False))
+    fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 1], fill='tonexty', mode='lines', line=dict(color='lightgreen'), name='Confidence Interval'))
+    
+    fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
+    st.plotly_chart(fig_forecast)
 
 ###########################################################################################
 
