@@ -1636,16 +1636,7 @@ if page == "Exploration Analysis - FAO":
             st.write("### Overall change in global temperature by continent")
             st.write(results_df)
 
-# Define list of regions
-regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-# Function to filter data based on selected region
-def filter_data(region, year):
-    if region == "World":
-        region_data = ETC.groupby('Year').mean().reset_index()
-    else:
-        region_data = ETC[(ETC['Area'] == region) & (ETC['Year'] <= year)]
-    return region_data
 
 
                
