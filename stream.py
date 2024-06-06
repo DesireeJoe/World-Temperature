@@ -1667,8 +1667,10 @@ if page == "Exploration Analysis - FAO":
 
     # Line chart
     st.write("### Temperature Change Over Time")
+    # Convert 'Year' column to datetime type
+    filtered_data['Year'] = pd.to_datetime(filtered_data['Year'], format='%Y')
+    # Line chart
     st.line_chart(filtered_data.set_index('Year')['Temp Change'])
-
 
 
 ###
