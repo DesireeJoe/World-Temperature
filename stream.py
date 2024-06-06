@@ -1336,7 +1336,7 @@ features = [[year, coal_co2, population, gdp, co2]]
 model = load_model
 predict = model.predict(features)
 st.markdown( f"<p style='font -size:24px; font-weight:bold;'>The Surface Temperature Anomaly is: {prediction[ 0 ]} </p>" , unsafe_allow_html= True )
-streamlit run stream.py
+
   
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
