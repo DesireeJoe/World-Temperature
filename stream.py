@@ -1327,13 +1327,13 @@ if page == "Prediction":
                 return None
         
         def get_features(year, coal_co2, population, gdp, co2):
-            features = np.array([year, coal_co2, population, gdp, co2])
-            return features.reshape(1, -1)
+            selected_features = np.array([year, coal_co2, population, gdp, co2])
+            return selected_features.reshape(1, -1)
         
         def predict_surface_temperature(features):
             model = load_model()
             if model is not None:
-                prediction = model.predict(features)
+                prediction = model.predict(selected_features)
                 return np.round(prediction, 3)
             else:
                 return None
@@ -1371,8 +1371,8 @@ if page == "Prediction":
         
         # Add a button for prediction
         if st.button("Predict"):
-            features = get_features(year, coal_co2, population, gdp, co2)
-            prediction = predict_surface_temperature(features)
+            selected_features = get_features(year, coal_co2, population, gdp, co2)
+            prediction = predict_surface_temperature(selected_features)
             if prediction is not None:
                 st.write("Predicted Surface Temperature:", prediction)
             else:
