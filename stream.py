@@ -1330,7 +1330,7 @@ if page == "Prediction":
             selected_features = np.array([year, coal_co2, population, gdp, co2])
             return selected_features.reshape(1, -1)
         
-        def predict_surface_temperature(features):
+        def sta (features):
             model = load_model()
             if model is not None:
                 prediction = model.predict(selected_features)
@@ -1374,7 +1374,7 @@ if page == "Prediction":
             selected_features = get_features(year, coal_co2, population, gdp, co2)
             prediction = sta
             if prediction is not None:
-                st.write("Predicted Surface Temperature(sta):", prediction)
+                st.write("Predicted Surface Temperature:", prediction)
             else:
                 st.write("Prediction could not be made due to an error in loading the model.")
     
