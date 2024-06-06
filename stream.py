@@ -1261,11 +1261,6 @@ baseline_mae = mean_absolute_error(test_data, baseline_forecast)
 baseline_mse = mean_squared_error(test_data, baseline_forecast)
 baseline_rmse = np.sqrt(baseline_mse)
 
-st.subheader("Baseline Model Evaluation")
-st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
-st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
-
 # Forecasting future values
 future_steps = 36
 future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
@@ -1286,8 +1281,6 @@ fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_interval
 
 fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
 st.plotly_chart(fig_forecast)
-
-
 
 ###########################################################################################
 
