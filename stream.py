@@ -1643,13 +1643,15 @@ if page == "Exploration Analysis - FAO":
 
     # Function to filter data based on selected region and year range
     def filter_data(region, start_year, end_year):
-        if region == "World":
-            region_data = ETC_cleaned.groupby('Year').mean().reset_index()
-        else:
-            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
-                                      (ETC_cleaned['Year'] >= start_year) & 
-                                      (ETC_cleaned['Year'] <= end_year)]
-        return region_data
+      if region == "World":
+          # Calculate overall temperature change by year
+          region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
+      else:
+        # Filter data for the selected region and year range
+          region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
+                                  (ETC_cleaned['Year'] >= start_year) & 
+                                  (ETC_cleaned['Year'] <= end_year)]
+      return region_data
 
     # UI
     st.write("##### Regional temperature change over time")
