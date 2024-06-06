@@ -1489,43 +1489,43 @@ if page == "Exploration Analysis - FAO":
     st.write("### Exploration of FAO Datasets")
     st.write("##### Food and Agriculture Organization of the United Nations")
     
-  # Load data
+    # Load data
     @st.cache
     def load_data():
         ETC_all = pd.read_csv('Environment_Temperature_change_E_All_Data.csv', encoding='latin1')
         ETC_all_noflag = pd.read_csv('Environment_Temperature_change_E_All_Data_NOFLAG.csv', encoding='latin1')
         ETC_all_area_codes = pd.read_csv('Environment_Temperature_change_E_AreaCodes.csv', encoding='latin1')
         ETC_all_area_flags = pd.read_csv('Environment_Temperature_change_E_Flags.csv', encoding='latin1')
-        ETC_cleaned= pd.read_csv('ETC.csv', encoding='latin1')
-        return ETC_all, ETC_all_noflag,ETC_all_area_codes,ETC_all_area_flags,ETC_cleaned
+        ETC_cleaned = pd.read_csv('ETC.csv', encoding='latin1')
+        return ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned
 
-    ETC_all, ETC_all_noflag,ETC_all_area_codes,ETC_all_area_flags,ETC_cleaned = load_data()
+    ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
         
     st.markdown("""
         The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
-        Before we explored more datasets and analysing the greenhouse gasses we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gasses on our planet's climate. A more detailed description of the dataset can be found in the dropdown below. 
-        """)
+        Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below. 
+    """)
 
     with st.expander("Full description of data"):
         st.markdown("""
-                **Data description:**
-                The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
-                The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
-                i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
-                The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
-                \n\n
-                **Statistical concepts and definitions:** Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
-                \n\n
-                **Reference area:** Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
-                FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
-                \n\n
-                **Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
-                \n\n
-                **Base period:** 1951-1980
-            """)
+            **Data description:**
+            The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
+            The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
+            i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
+            The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
+            \n\n
+            **Statistical concepts and definitions:** Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
+            \n\n
+            **Reference area:** Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
+            FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
+            \n\n
+            **Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
+            \n\n
+            **Base period:** 1951-1980
+        """)
 
-        # Toggle button to show/hide checkboxes and dataframes
+    # Toggle button to show/hide checkboxes and dataframes
     if 'show_data' not in st.session_state:
         st.session_state.show_data = False
 
@@ -1593,8 +1593,6 @@ if page == "Exploration Analysis - FAO":
 
             for region in regions:
                 region_data = ETC_cleaned[ETC_cleaned['Area'] == region].copy()
-
-                # Filter data for 1961 and 2023
                 temp_1961 = region_data[region_data['Year'] == 1961]['Temp Change'].values[0]
                 temp_2023 = region_data[region_data['Year'] == 2023]['Temp Change'].values[0]
 
@@ -1628,9 +1626,21 @@ if page == "Exploration Analysis - FAO":
 
             # Display statistics table
             st.write("### Overall change in global temperature by continent")
-            st.write(results_df)  
+            st.write(results_df)
 
-       
+# Define list of regions
+regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
+
+# Function to filter data based on selected region
+def filter_data(region, year):
+    if region == "World":
+        region_data = ETC.groupby('Year').mean().reset_index()
+    else:
+        region_data = ETC[(ETC['Area'] == region) & (ETC['Year'] <= year)]
+    return region_data
+
+
+               
 
 ###
 
