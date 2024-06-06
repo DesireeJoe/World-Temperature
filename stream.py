@@ -69,6 +69,11 @@ We want to understand how global warming has evolved over centuries and decades.
 
 Using data from FAO, NASA and ‘Our World In Data”, This project explores historical temperature records to try to uncover trends and patterns. We will highlight this data exploration in further detail in the next steps.
     """)
+
+#print the gif
+  st.markdown("![Global Temperature Anomaly](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29hNGFibnZuZzhqOWZvcTFhbnJlemZha2k1OGZhcTBubTVldGRmcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OBWPNNz0xLm3daysZS/giphy-downsized-large.gif)")
+
+
 ####################################################################################################################################################################################################################
 
 #Nasa Exploration#
@@ -241,9 +246,7 @@ if page ==  "Exploration Analysis - NASA":
   st.pyplot(fig)
   st.write('These graphs make it possible to identify trends, patterns, and correlations in temperature data. The linear regressions help quantify the direction and strength of these relationships and provide important insights into how climate has evolved in different regions over the years. To obtain a more profound comprehension of temperature variations over time across various latitudinal bands, a Pearson correlation analysis was performed for each latitude. Additionally, scatter plots were created to visualise the relationship between temperature change and the corresponding year. The plots reveal a consistent temperature increase over time, as all linear regression trends are positive. For the latitude 90S-64S (South Pole) plot, there is significant scatter, showing a more weak correlation. This suggests that while the South Pole has seen varied temperatures, using just the year is not enough to predict these anomalies. An also noticeable temperature dip occurred in approx. 1910 / 1920s and from the 1950s to 1980s (except in regions like SHem, 24S-24N, and 90S-64S). This non-uniform decrease hints at regional influences on temperature shifts, warranting further study.')
 
-  #print the gif
-  st.markdown("![Global Temperature Anomaly](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29hNGFibnZuZzhqOWZvcTFhbnJlemZha2k1OGZhcTBubTVldGRmcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OBWPNNz0xLm3daysZS/giphy-downsized-large.gif)")
-
+  
   ####
 
 ################################################################################################################################################################################################
