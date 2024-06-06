@@ -1333,8 +1333,8 @@ if page == "Prediction":
         def sta(features):
             model = load_model()
             if model is not None:
-                prediction = model.predict(features)
-                return np.round(prediction, 3)
+                prediction_result = model.predict(features)
+                return np.round(prediction_result, 3)
             else:
                 return None
         
@@ -1372,9 +1372,9 @@ if page == "Prediction":
         # Add a button for prediction
         if st.button("Predict"):
             selected_features = get_features(year, coal_co2, population, gdp, co2)
-            prediction = sta(selected_features)
-            if prediction is not None:
-                st.write("Predicted Surface Temperature:", prediction)
+            prediction_result = sta(selected_features)
+            if prediction_result is not None:
+                st.write("Predicted Surface Temperature:", prediction_result)
             else:
                 st.write("Prediction could not be made due to an error in loading the model.")
     
