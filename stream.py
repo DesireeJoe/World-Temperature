@@ -1641,16 +1641,15 @@ if page == "Exploration Analysis - FAO":
 regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
 # Function to filter data based on selected region
-def filter_data(region, start_year, end_year):
+def filter_data(region, year):
     if region == "World":
         region_data = ETC_cleaned.groupby('Year').mean().reset_index()
     else:
-        region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & (ETC_cleaned['Year'].astype(int) >= start_year) & (ETC_cleaned['Year'].astype(int) <= end_year)]
+        region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & (ETC_cleaned['Year'] <= year)]
     return region_data
 
 # UI
-st.write("### Exploration of FAO Datasets")
-st.write("##### Food and Agriculture Organization of the United Nations")
+st.write("#####Regional temperature change over time")
 
 # Range slider for selecting start and end year
 start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
@@ -1659,12 +1658,11 @@ start_year, end_year = st.slider("Select range of years", min_value=1961, max_va
 selected_continent = st.selectbox("Select continent or world view", regions)
 
 # Filter data based on selected continent and range of years
-filtered_data = filter_data(selected_continent, start_year, end_year)
+filtered_data = filter_data(selected_continent, end_year)
 
 # Line chart
 st.write("### Temperature Change Over Time")
-st.line_chart(filtered_data.set_index('Year')['Temp Change'])
-
+st.line_chart(filtered_data.set_index('Year').loc[start_year:end_year, 'Temp Change'])
 ###
 
 
