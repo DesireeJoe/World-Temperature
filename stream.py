@@ -1674,42 +1674,38 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     fig.update_xaxes(title_text='Year')
     fig.update_yaxes(title_text='Temperature Change (°C)')
     st.plotly_chart(fig)
-    
-    # Function to filter data based on selected region and year range
-    def filter_data_for_boxplot(region, start_year, end_year):
+
+# Prepare data for the boxplot
+    boxplot_data = []
+    for region in regions:
         if region == "World":
-        # Calculate overall temperature change by year for the world
-            region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
+            boxplot_data.append(ETC_cleaned)
         else:
-        # Filter data for the selected region and year range
-            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
-                                      (ETC_cleaned['Year'] >= start_year) & 
-                                      (ETC_cleaned['Year'] <= end_year)]
-        return region_data
+            boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
 
-# UI
-    st.write("##### Temperature Anomalies Box Plot")
+    # Create Box plot
+    fig_boxplot = go.Figure()
 
-# Filter data based on selected continent and year range for both the continent and the world
-    filtered_data_continent = filter_data_for_boxplot(selected_continent, start_year, end_year)
-    filtered_data_world = filter_data_for_boxplot("World", start_year, end_year)
+    for i, region_data in enumerate(boxplot_data):
+        fig_boxplot.add_trace(go.Box(
+            y=region_data['Temp Change'],
+            name=regions[i],
+            boxmean='sd',
+            marker=dict(color=px.colors.qualitative.Plotly[i]),
+            boxpoints='all'
+        ))
 
-# Concatenate dataframes for the continent and the world
-    filtered_data_concat = pd.concat([filtered_data_continent, filtered_data_world])
+    # Update layout for better visualization
+    fig_boxplot.update_layout(
+        title="Surface Temperature Anomalies by Continent",
+        xaxis=dict(title='Continent'),
+        yaxis=dict(title='Temperature Change (°C)'),
+        boxmode='group',  # group boxes of different traces
+        showlegend=True,
+        legend=dict(title='Continent')
+    )    
 
-# Add a column to distinguish between the continent and the world
-    filtered_data_concat['Region'] = filtered_data_concat.apply(lambda row: selected_continent if row['Area'] != "World" else "World", axis=1)
-
-# Create box plot of temperature anomalies for selected region and the world
-    fig_boxplot = px.box(filtered_data_concat, x='Region', y='Temp Change', 
-                         title=f'Temperature Anomalies Box Plot - {selected_continent} vs World',
-                         labels={'Temp Change': 'Temperature Anomalies (°C)', 'Region': 'Region'})
-
-# Add styling and layout options for better visualization
-    fig_boxplot.update_traces(marker=dict(size=6, opacity=0.7))
-    fig_boxplot.update_layout(yaxis_title='Temperature Anomalies (°C)', xaxis_title='')
-
-# Show the box plot
+# Show the plot
     st.plotly_chart(fig_boxplot)
 
 ###
