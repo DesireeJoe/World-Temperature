@@ -1640,48 +1640,46 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
             st.write(results_df)
 
     # Define list of regions
-regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
+    regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-# Function to filter data based on selected region and year range
-def filter_data(region, start_year, end_year):
-    if region == "World":
+    # Function to filter data based on selected region and year range
+    def filter_data(region, start_year, end_year):
+        if region == "World":
         # Calculate overall temperature change by year
-        region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
-    else:
+            region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
+        else:
         # Filter data for the selected region and year range
-        region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
+            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
                                   (ETC_cleaned['Year'] >= start_year) & 
                                   (ETC_cleaned['Year'] <= end_year)]
-    return region_data
+        return region_data
 
 # UI
-st.write("##### Regional temperature change over time")
+    st.write("##### Regional temperature change over time")
 
 # Slider for selecting range of years
-start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
+    start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
 
 # Dropdown for selecting continent or world view
-selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
+    selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
+
+# Filter data based on selected continent and year range
+    filtered_data = filter_data(selected_continent, start_year, end_year)
 
 # Define colors for different regions
-colors = sns.color_palette("Set1", n_colors=len(regions))
+    colors = sns.color_palette("Set1", n_colors=1)  # Use a single color for the selected region
 
-# Line chart with color-coded lines
-fig, ax = plt.subplots()
-for i, region in enumerate(regions):
-    region_data = filter_data(region, start_year, end_year)
-    ax.plot(region_data['Year'], region_data['Temp Change'], label=region, color=colors[i])
-
-# Add legend
-ax.legend(loc='upper left')
+# Line chart with color-coded line for the selected region
+    fig, ax = plt.subplots()
+    ax.plot(filtered_data['Year'], filtered_data['Temp Change'], color=colors[0])
 
 # Add labels and title
-ax.set_xlabel('Year')
-ax.set_ylabel('Temperature Change (°C)')
-ax.set_title('Temperature Change Over Time')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Temperature Change (°C)')
+    ax.set_title('Temperature Change Over Time - {}'.format(selected_continent))
 
 # Show plot
-st.pyplot(fig)
+    st.pyplot(fig)
 
 
 ###
