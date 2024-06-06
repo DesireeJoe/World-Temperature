@@ -1363,12 +1363,7 @@ if page == "Prediction":
         if st.button("Predict"):
             features = get_features(year, coal_co2, population, gdp, co2)
             prediction = predict_surface_temperature(features)
-            if prediction is not None:
-                st.write("Predicted Surface Temperature:", prediction)
-            else:
-                st.write("Prediction could not be made due to an error in loading the model.")
-    
-    prediction()
+            st.write(f"The prediction of the surface temperature anomaly is: {prediction[0]}")
 
 
   
