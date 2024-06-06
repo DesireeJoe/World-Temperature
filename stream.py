@@ -1674,7 +1674,18 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     fig.update_xaxes(title_text='Year')
     fig.update_yaxes(title_text='Temperature Change (°C)')
     st.plotly_chart(fig)
+    
+    # Create box plot of temperature anomalies for each region
+    fig_boxplot = px.box(ETC_cleaned, x='Area', y='Temp Change', color='Area',
+                         title='Temperature Anomalies by Region',
+                         labels={'Temp Change': 'Temperature Anomalies (°C)', 'Area': 'Region'})
 
+    # Add styling and layout options for better visualization
+    fig_boxplot.update_traces(marker=dict(size=6, opacity=0.7), boxmean=True)
+    fig_boxplot.update_layout(showlegend=False, yaxis_title='Temperature Anomalies (°C)', xaxis_title='Region')
+
+    # Show the box plot
+    st.plotly_chart(fig_boxplot)
 
 ###
 
