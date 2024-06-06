@@ -1194,7 +1194,7 @@ import streamlit as st
 if page == "Time-series modeling with SARIMA":
     st.title('Time-series Modeling with SARIMA')
 
-    ts = pd.read_csv('ts.csv', index_col=0)
+    ts = pd.read_csv('ts_final.csv', index_col=0)
     ts.index = pd.to_datetime(ts.index)
 
     # Split data into training and testing sets
