@@ -1183,109 +1183,110 @@ if page ==  "Machine Learning Models":
   st.pyplot(fig)  
 
 ###################################################################################################################
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+import numpy as np
+import plotly.express as px
+import plotly.graph_objects as go
 import statsmodels.api as sm
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import streamlit as st
 
-if page == "Time-series modeling with SARIMA":
-    st.title('Time-series modeling with SARIMA')
-    
-    ts = pd.read_csv('ts.csv')
+# Load and prepare the data
+ts = pd.read_csv('ts_final.csv')
 
-    # Split data into training and testing sets
-    train_size = int(len(ts) * 0.8)
-    train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
+# Ensure the first column is in datetime format
+ts['Date'] = pd.to_datetime(ts['Date'])
 
-    # Define SARIMA model parameters
-    p = 1  # Autoregressive order
-    d = 1  # Differencing order
-    q = 1  # Moving average order
-    P = 1  # Seasonal autoregressive order
-    D = 1  # Seasonal differencing order
-    Q = 1  # Seasonal moving average order
-    s = 12  # Seasonal period (monthly data)
+# Set the date column as the index
+ts.set_index('Date', inplace=True)
 
-    # Fit
-    sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
-    sarima_model_fit = sarima_model.fit()
+# Extract the time series data
+ts_data = ts['TemperatureAnomaly']
 
-    # Print model summary
-    st.write(sarima_model_fit.summary())
+# Split data into training and testing sets
+train_size = int(len(ts_data) * 0.97)
+train_data, test_data = ts_data.iloc[:train_size], ts_data.iloc[train_size:]
 
-    # Model Evaluation
-    predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
-    mae = mean_absolute_error(test_data, predictions)
-    mse = mean_squared_error(test_data, predictions)
-    rmse = np.sqrt(mse)
-    st.write(f'Mean Absolute Error: {mae}')
-    st.write(f'Mean Squared Error: {mse}')
-    st.write(f'Root Mean Squared Error: {rmse}')
+# Define SARIMA model parameters
+p, d, q = 1, 1, 1
+P, D, Q, s = 1, 1, 1, 12
 
-    # Forecasting
-    forecast = sarima_model_fit.forecast(steps=len(test_data))  # Forecast for the test period
-    prediction_interval = sarima_model_fit.get_forecast(steps=len(test_data)).conf_int()
+# Fit SARIMA model
+sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
+sarima_model_fit = sarima_model.fit(disp=False)
 
-    # Model Interpretation
-    # Print model summary
-    st.write(sarima_model_fit.summary())
+# Streamlit layout
+st.title('Time-series Modeling with SARIMA')
+st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
 
-    # Plot residuals
-    residuals = sarima_model_fit.resid
+# Model summary
+st.subheader("Model Summary")
+st.write(sarima_model_fit.summary())
 
-    plt.figure(figsize=(12, 6))
-    plt.plot(residuals)
-    plt.title('Residuals of SARIMA Model')
-    plt.xlabel('Time')
-    plt.ylabel('Residuals')
-    plt.grid(True)
-    st.pyplot(plt)
+# Model Evaluation
+predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
+mae = mean_absolute_error(test_data, predictions)
+mse = mean_squared_error(test_data, predictions)
+rmse = np.sqrt(mse)
+st.subheader("Model Evaluation")
+st.write(f'Mean Absolute Error: {mae:.4f}')
+st.write(f'Mean Squared Error: {mse:.4f}')
+st.write(f'Root Mean Squared Error: {rmse:.4f}')
 
-    # Plot ACF and PACF of residuals
-    fig, ax = plt.subplots(2, 1, figsize=(12, 8))
-    sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
-    sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
-    st.pyplot(fig)
+# Forecasting
+forecast_steps = len(test_data)
+forecast = sarima_model_fit.get_forecast(steps=forecast_steps)
+forecast_values = forecast.predicted_mean
+confidence_intervals = forecast.conf_int()
 
-    # Simple baseline: Use the mean of the training data as the forecast
-    baseline_forecast = [ts.mean()] * len(ts)
+# Plot residuals
+residuals = sarima_model_fit.resid
+st.subheader("Residuals of SARIMA Model")
+fig_residuals = px.line(residuals, title='Residuals of SARIMA Model')
+st.plotly_chart(fig_residuals)
 
-    # Calculate baseline MAE, MSE, and RMSE
-    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
-    baseline_mse = np.mean((ts - baseline_forecast)**2)
-    baseline_rmse = np.sqrt(baseline_mse)
+# Plot ACF and PACF of residuals
+st.subheader("ACF and PACF of Residuals")
+fig_acf_pacf = plt.figure(figsize=(12, 8))
+ax1 = fig_acf_pacf.add_subplot(211)
+sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax1)
+ax2 = fig_acf_pacf.add_subplot(212)
+sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax2)
+st.pyplot(fig_acf_pacf)
 
-    st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
-    st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
-    st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
+# Baseline forecast
+baseline_forecast = [train_data.mean()] * len(test_data)
+baseline_mae = mean_absolute_error(test_data, baseline_forecast)
+baseline_mse = mean_squared_error(test_data, baseline_forecast)
+baseline_rmse = np.sqrt(baseline_mse)
 
-    # Forecasting future values
-    forecast_steps = 36  # Forecasting 3 years ahead (for monthly data)
-    forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
-    confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
+# Forecasting future values
+future_steps = 36
+future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
+future_forecast_values = future_forecast.predicted_mean
+future_confidence_intervals = future_forecast.conf_int()
 
-    # Range for the forecast
-    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+forecast_index = pd.date_range(start=ts_data.index[-1] + pd.DateOffset(months=1), periods=future_steps, freq='M')
 
-    # Plotting
-    plt.figure(figsize=(12, 6))
-    plt.plot(ts.index, ts, label='Observed')
-    plt.plot(forecast_index, forecast_values, color='red', label='Forecast')
-    plt.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
-    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-    plt.xlabel('Time')
-    plt.ylabel('Temperature Anomaly')
-    plt.title('SARIMA Model Forecast')
-    plt.grid(True)
-    st.pyplot(plt)
+# Plotting
+st.subheader("SARIMA Model Forecast")
+fig_forecast = go.Figure()
+
+fig_forecast.add_trace(go.Scatter(x=ts_data.index, y=ts_data, mode='lines', name='Observed'))
+fig_forecast.add_trace(go.Scatter(x=test_data.index, y=predictions, mode='lines', name='Predicted', line=dict(color='red')))
+fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_forecast_values, mode='lines', name='Forecast', line=dict(color='green')))
+fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 0], fill=None, mode='lines', line=dict(color='lightgreen'), showlegend=False))
+fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 1], fill='tonexty', mode='lines', line=dict(color='lightgreen'), name='Confidence Interval'))
+
+fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
+st.plotly_chart(fig_forecast)
+
 ###########################################################################################
 
 import pickle
 import gzip
+import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.ensemble import GradientBoostingRegressor
