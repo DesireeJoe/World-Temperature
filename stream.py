@@ -1293,21 +1293,20 @@ if page == 'Time-series modeling with SARIMA':
     st.plotly_chart(fig_forecast)
 
 ###########################################################################################
-
 import pickle
 import gzip
-import sklearn
-from sklearn.model_selection import train_test_split
+import numpy as np
+import pandas as pd
+import streamlit as st
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
 if page == "Prediction":
     st.title('Prediction with Gradient Boosting')
-    
+
     # Define the prediction function
     def prediction():
         def load_model():
@@ -1380,8 +1379,6 @@ if page == "Prediction":
                 st.write("Prediction could not be made due to an error in loading the model.")
     
     prediction()
-
-
   
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
