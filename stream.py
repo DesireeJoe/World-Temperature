@@ -71,7 +71,7 @@ Using data from FAO, NASA and ‘Our World In Data”, This project explores his
     """)
 
 #print the gif
-  st.markdown("![Global Temperature Anomaly](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29hNGFibnZuZzhqOWZvcTFhbnJlemZha2k1OGZhcTBubTVldGRmcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OBWPNNz0xLm3daysZS/giphy-downsized-large.gif)")
+st.markdown("![Global Temperature Anomaly](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29hNGFibnZuZzhqOWZvcTFhbnJlemZha2k1OGZhcTBubTVldGRmcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OBWPNNz0xLm3daysZS/giphy-downsized-large.gif)")
 
 
 ####################################################################################################################################################################################################################
