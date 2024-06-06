@@ -1192,95 +1192,96 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import streamlit as st
 
-# Load and prepare the data
-ts = pd.read_csv('ts_final.csv')
-
-# Ensure the first column is in datetime format
-ts['Date'] = pd.to_datetime(ts['Date'])
-
-# Set the date column as the index
-ts.set_index('Date', inplace=True)
-
-# Extract the time series data
-ts_data = ts['TemperatureAnomaly']
-
-# Split data into training and testing sets
-train_size = int(len(ts_data) * 0.97)
-train_data, test_data = ts_data.iloc[:train_size], ts_data.iloc[train_size:]
-
-# Define SARIMA model parameters
-p, d, q = 1, 1, 1
-P, D, Q, s = 1, 1, 1, 12
-
-# Fit SARIMA model
-sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
-sarima_model_fit = sarima_model.fit(disp=False)
-
-# Streamlit layout
-st.title('Time-series Modeling with SARIMA')
-st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
-
-# Model summary
-st.subheader("Model Summary")
-st.write(sarima_model_fit.summary())
-
-# Model Evaluation
-predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
-mae = mean_absolute_error(test_data, predictions)
-mse = mean_squared_error(test_data, predictions)
-rmse = np.sqrt(mse)
-st.subheader("Model Evaluation")
-st.write(f'Mean Absolute Error: {mae:.4f}')
-st.write(f'Mean Squared Error: {mse:.4f}')
-st.write(f'Root Mean Squared Error: {rmse:.4f}')
-
-# Forecasting
-forecast_steps = len(test_data)
-forecast = sarima_model_fit.get_forecast(steps=forecast_steps)
-forecast_values = forecast.predicted_mean
-confidence_intervals = forecast.conf_int()
-
-# Plot residuals
-residuals = sarima_model_fit.resid
-st.subheader("Residuals of SARIMA Model")
-fig_residuals = px.line(residuals, title='Residuals of SARIMA Model')
-st.plotly_chart(fig_residuals)
-
-# Plot ACF and PACF of residuals
-st.subheader("ACF and PACF of Residuals")
-fig_acf_pacf = plt.figure(figsize=(12, 8))
-ax1 = fig_acf_pacf.add_subplot(211)
-sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax1)
-ax2 = fig_acf_pacf.add_subplot(212)
-sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax2)
-st.pyplot(fig_acf_pacf)
-
-# Baseline forecast
-baseline_forecast = [train_data.mean()] * len(test_data)
-baseline_mae = mean_absolute_error(test_data, baseline_forecast)
-baseline_mse = mean_squared_error(test_data, baseline_forecast)
-baseline_rmse = np.sqrt(baseline_mse)
-
-# Forecasting future values
-future_steps = 36
-future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
-future_forecast_values = future_forecast.predicted_mean
-future_confidence_intervals = future_forecast.conf_int()
-
-forecast_index = pd.date_range(start=ts_data.index[-1] + pd.DateOffset(months=1), periods=future_steps, freq='M')
-
-# Plotting
-st.subheader("SARIMA Model Forecast")
-fig_forecast = go.Figure()
-
-fig_forecast.add_trace(go.Scatter(x=ts_data.index, y=ts_data, mode='lines', name='Observed'))
-fig_forecast.add_trace(go.Scatter(x=test_data.index, y=predictions, mode='lines', name='Predicted', line=dict(color='red')))
-fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_forecast_values, mode='lines', name='Forecast', line=dict(color='green')))
-fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 0], fill=None, mode='lines', line=dict(color='lightgreen'), showlegend=False))
-fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 1], fill='tonexty', mode='lines', line=dict(color='lightgreen'), name='Confidence Interval'))
-
-fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
-st.plotly_chart(fig_forecast)
+if page == 'Time-series modeling with SARIMA':
+  # Load and prepare the data
+  ts = pd.read_csv('ts_final.csv')
+  
+  # Ensure the first column is in datetime format
+  ts['Date'] = pd.to_datetime(ts['Date'])
+  
+  # Set the date column as the index
+  ts.set_index('Date', inplace=True)
+  
+  # Extract the time series data
+  ts_data = ts['TemperatureAnomaly']
+  
+  # Split data into training and testing sets
+  train_size = int(len(ts_data) * 0.97)
+  train_data, test_data = ts_data.iloc[:train_size], ts_data.iloc[train_size:]
+  
+  # Define SARIMA model parameters
+  p, d, q = 1, 1, 1
+  P, D, Q, s = 1, 1, 1, 12
+  
+  # Fit SARIMA model
+  sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
+  sarima_model_fit = sarima_model.fit(disp=False)
+  
+  # Streamlit layout
+  st.title('Time-series Modeling with SARIMA')
+  st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
+  
+  # Model summary
+  st.subheader("Model Summary")
+  st.write(sarima_model_fit.summary())
+  
+  # Model Evaluation
+  predictions = sarima_model_fit.predict(start=test_data.index[0], end=test_data.index[-1])
+  mae = mean_absolute_error(test_data, predictions)
+  mse = mean_squared_error(test_data, predictions)
+  rmse = np.sqrt(mse)
+  st.subheader("Model Evaluation")
+  st.write(f'Mean Absolute Error: {mae:.4f}')
+  st.write(f'Mean Squared Error: {mse:.4f}')
+  st.write(f'Root Mean Squared Error: {rmse:.4f}')
+  
+  # Forecasting
+  forecast_steps = len(test_data)
+  forecast = sarima_model_fit.get_forecast(steps=forecast_steps)
+  forecast_values = forecast.predicted_mean
+  confidence_intervals = forecast.conf_int()
+  
+  # Plot residuals
+  residuals = sarima_model_fit.resid
+  st.subheader("Residuals of SARIMA Model")
+  fig_residuals = px.line(residuals, title='Residuals of SARIMA Model')
+  st.plotly_chart(fig_residuals)
+  
+  # Plot ACF and PACF of residuals
+  st.subheader("ACF and PACF of Residuals")
+  fig_acf_pacf = plt.figure(figsize=(12, 8))
+  ax1 = fig_acf_pacf.add_subplot(211)
+  sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax1)
+  ax2 = fig_acf_pacf.add_subplot(212)
+  sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax2)
+  st.pyplot(fig_acf_pacf)
+  
+  # Baseline forecast
+  baseline_forecast = [train_data.mean()] * len(test_data)
+  baseline_mae = mean_absolute_error(test_data, baseline_forecast)
+  baseline_mse = mean_squared_error(test_data, baseline_forecast)
+  baseline_rmse = np.sqrt(baseline_mse)
+  
+  # Forecasting future values
+  future_steps = 36
+  future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
+  future_forecast_values = future_forecast.predicted_mean
+  future_confidence_intervals = future_forecast.conf_int()
+  
+  forecast_index = pd.date_range(start=ts_data.index[-1] + pd.DateOffset(months=1), periods=future_steps, freq='M')
+  
+  # Plotting
+  st.subheader("SARIMA Model Forecast")
+  fig_forecast = go.Figure()
+  
+  fig_forecast.add_trace(go.Scatter(x=ts_data.index, y=ts_data, mode='lines', name='Observed'))
+  fig_forecast.add_trace(go.Scatter(x=test_data.index, y=predictions, mode='lines', name='Predicted', line=dict(color='red')))
+  fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_forecast_values, mode='lines', name='Forecast', line=dict(color='green')))
+  fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 0], fill=None, mode='lines', line=dict(color='lightgreen'), showlegend=False))
+  fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 1], fill='tonexty', mode='lines', line=dict(color='lightgreen'), name='Confidence Interval'))
+  
+  fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
+  st.plotly_chart(fig_forecast)
 
 ###########################################################################################
 
@@ -1484,22 +1485,22 @@ if page ==  "Credits" :
 ########################################################################################################################################################################################################################
 
 if page == "Exploration Analysis - FAO":
-    st.write("### Exploration of FAO Datasets")
-    st.write("##### Food and Agriculture Organization of the United Nations")
-
     # Load data
     @st.cache
     def load_data():
-        FAO_Continent = pd.read_csv("FAO_merged.csv", sep=',', encoding='latin1')
-        FAO_global = pd.read_csv("FAO_Global.csv", sep=',', encoding='latin1')
-        return FAO_Continent, FAO_global
+        ETC_all = pd.read_csv('Environment_Temperature_change_E_All_Data.csv', encoding='latin1')
+        ETC_all_noflag = pd.read_csv('Environment_Temperature_change_E_All_Data_NOFLAG.csv', encoding='latin1')
+        ETC_all_area_codes = pd.read_csv('Environment_Temperature_change_E_AreaCodes.csv', encoding='latin1')
+        ETC_all_area_flags = pd.read_csv('Environment_Temperature_change_E_Flags.csv', encoding='latin1')
+        ETC_cleaned= pd.read_csv('ETC.csv', encoding='latin1')
+        return ETC_all, ETC_all_noflag,ETC_all_area_codes,ETC_all_area_flags,ETC_cleaned
 
-    FAO_Continent, FAO_global = load_data()
+    ETC_all, ETC_all_noflag,ETC_all_area_codes,ETC_all_area_flags,ETC_cleaned = load_data()
 
   
-
-    # Check if 'Months' column exists
-    if isinstance(FAO_Continent, pd.DataFrame) and 'Months' in FAO_Continent.columns:
+        st.write("### Exploration of FAO Datasets")
+        st.write("##### Food and Agriculture Organization of the United Nations")
+        
         st.markdown("""
         The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
@@ -1524,79 +1525,112 @@ if page == "Exploration Analysis - FAO":
                 **Base period:** 1951-1980
             """)
 
-        st.dataframe(FAO_global, height=400)
+        # Toggle button to show/hide checkboxes and dataframes
+    if 'show_data' not in st.session_state:
+        st.session_state.show_data = False
 
-        # Check if 'Months' column exists
-        if 'Months' in FAO_Continent.columns:
-            fao_merged_filt = FAO_Continent[FAO_Continent['Months'] == 'Meteorological year']
+    if st.button("View Original Datasets"):
+        st.session_state.show_data = not st.session_state.show_data
 
-            # Filter for 5 continents
-            fao_merged_filt = fao_merged_filt[fao_merged_filt['Area'].isin(['Americas', 'Europe', 'Asia', 'Africa', 'Oceania'])]
+    if st.session_state.show_data:
+        # Checkboxes for dataframes
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            view_ETC_all = st.checkbox("View: ETC_all")
+        with col2:
+            view_ETC_all_noflag = st.checkbox("View: ETC_all_noflag")
+        with col3:
+            view_ETC_all_area_codes = st.checkbox("View: ETC_all_area_codes")
+        with col4:
+            view_ETC_all_area_flags = st.checkbox("View: ETC_all_area_flags")
 
-            # Add 'world' option to the list of continents
-            continents = ['world'] + list(fao_merged_filt['Area'].unique())
+        # Display dataframes based on checkboxes
+        if view_ETC_all:
+            st.write("### ETC_all")
+            st.write(ETC_all)
+        if view_ETC_all_noflag:
+            st.write("### ETC_all_noflag")
+            st.write(ETC_all_noflag)
+        if view_ETC_all_area_codes:
+            st.write("### ETC_all_area_codes")
+            st.write(ETC_all_area_codes)
+        if view_ETC_all_area_flags:
+            st.write("### ETC_all_area_flags")
+            st.write(ETC_all_area_flags)
 
-            # Slider for year range selection
-            st.write("#### Temperature changes from 1961 - 2019")
-            year_range = st.slider(
-                "Select the year range",
-                int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max()),                (int(fao_merged_filt['Year'].min()), int(fao_merged_filt['Year'].max())), 
-                step=1
-            )
+    # Button for final dataset "Environmental Temperature Change"
+    session_state = st.session_state
+    if "show_etc_checkboxes" not in session_state:
+        session_state.show_etc_checkboxes = False
+    if "show_etc_df" not in session_state:
+        session_state.show_etc_df = False
+    if "show_etc_stats" not in session_state:
+        session_state.show_etc_stats = False
 
-            # Dropdown for continent selection
-            selected_continent = st.selectbox("Select continent", continents)
+    show_etc_checkboxes = st.button("Final Dataset: Environmental Temperature Change")
+    if show_etc_checkboxes:
+        session_state.show_etc_checkboxes = not session_state.show_etc_checkboxes
 
-            # Filter the data based on selected continent and year range
-            if selected_continent == 'world':
-                # Compute average temperature change for all continents
-                filtered_data = fao_merged_filt.groupby('Year')['Temperature change'].mean().reset_index()
-            else:
-                filtered_data = fao_merged_filt[(fao_merged_filt['Year'] >= year_range[0]) & (fao_merged_filt['Year'] <= year_range[1])]
-                filtered_data = filtered_data[filtered_data['Area'] == selected_continent]
+    if session_state.show_etc_checkboxes:
+        # Checkbox to view DataFrame
+        view_df_etc = st.checkbox("View DataFrame")
+        session_state.show_etc_df = view_df_etc
 
-            if not filtered_data.empty:
-                # Plot temperature change
-                fig, ax = plt.subplots(figsize=(10, 6))
-                ax.plot(filtered_data['Year'], filtered_data['Temperature change'], marker='o')
-                ax.set_xlabel('Years')
-                ax.set_ylabel('Temperature (°C)')
-                if selected_continent == 'world':
-                    ax.set_title('Temperature change (°C) for the world')
-                else:
-                    ax.set_title(f'Temperature change (°C) for {selected_continent}')
-                ax.grid(True)
-                ax.set_ylim(-1.5, 2.5)  # Set y-axis limits from -2 to 2
+        if view_df_etc:
+            st.write("### Final Dataset on Environmental Temperature Change")
+            st.write(ETC_cleaned)
 
-                st.pyplot(fig)
-            else:
-                st.write("No data available for the selected continent and year range.")
-    else:
-        st.write("Data for exploration is not available.")
+        # Checkbox to view statistics
+        view_stats_etc = st.checkbox("1961 - 2023 Overall Change")
+        session_state.show_etc_stats = view_stats_etc
 
-    
+        if view_stats_etc:
+            # List of regions
+            regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-        # Choropleth Map with color scale
-        fig = px.choropleth(
-            FAO_global,
-            locations='ISO3 Code',
-            color='Temperature change',
-            hover_name='Area',
-            animation_frame='Year',
-            projection='natural earth',
-            title='Temperature Change Over Time',
-            color_continuous_scale='Viridis'
-        )
+            # List to store results
+            results = []
 
-        fig.update_layout(
-            coloraxis_colorbar=dict(
-                title='Temperature Change (°C)'
-            ),
-            coloraxis_colorbar_thickness=25,
-            coloraxis_colorbar_len=0.5
-        )
+            for region in regions:
+                region_data = ETC_cleaned[ETC_cleaned['Area'] == region].copy()
 
-        st.plotly_chart(fig)
+                # Filter data for 1961 and 2023
+                temp_1961 = region_data[region_data['Year'] == 1961]['Temp Change'].values[0]
+                temp_2023 = region_data[region_data['Year'] == 2023]['Temp Change'].values[0]
+
+                # Calculate total difference of change between 2023 and 1961
+                total_diff = temp_2023 - temp_1961
+
+                # Calculate year-on-year difference
+                region_data['Yearly Change'] = region_data['Temp Change'].diff()
+
+                # Calculate the average difference of change between two years
+                avg_diff = region_data['Yearly Change'].mean()
+
+                # Calculate the median difference of change between two years
+                median_diff = region_data['Yearly Change'].median()
+
+                # Calculate the standard deviation for year-on-year difference
+                std_dev_diff = region_data['Yearly Change'].std()
+
+                # Append results to the list
+                results.append({
+                    'Region': region,
+                    'Temp Change 1961 (°C)': temp_1961,
+                    'Temp Change 2023 (°C)': temp_2023,
+                    'Total Difference (2023 - 1961)': total_diff,
+                    'Average Difference': avg_diff,
+                    'Median Difference': median_diff,
+                    'Standard Deviation': std_dev_diff
+                })
+
+            results_df = pd.DataFrame(results)
+
+            # Display statistics table
+            st.write("### Overall change in global temperature by continent")
+            st.write(results_df)  
+
+       
 
 ###
 
