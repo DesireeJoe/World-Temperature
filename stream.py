@@ -1642,7 +1642,7 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     # Define list of regions
     regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-    # Function to filter data based on selected region and year range
+# Function to filter data based on selected region and year range
     def filter_data(region, start_year, end_year):
         if region == "World":
         # Calculate overall temperature change by year
@@ -1666,20 +1666,14 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
 # Filter data based on selected continent and year range
     filtered_data = filter_data(selected_continent, start_year, end_year)
 
-# Define colors for different regions
-    colors = sns.color_palette("Set1", n_colors=1)  # Use a single color for the selected region
-
-# Line chart with color-coded line for the selected region
-    fig, ax = plt.subplots()
-    ax.plot(filtered_data['Year'], filtered_data['Temp Change'], color=colors[0])
-
-# Add labels and title
-    ax.set_xlabel('Year')
-    ax.set_ylabel('Temperature Change (°C)')
-    ax.set_title('Temperature Change Over Time - {}'.format(selected_continent))
-
-# Show plot
-    st.pyplot(fig)
+# Create an interactive line chart with hover tooltips
+    fig = px.line(filtered_data, x='Year', y='Temp Change', labels={'Temp Change': 'Temperature Change (°C)'}, 
+                  title=f'Temperature Change Over Time - {selected_continent}',
+                  hover_data={'Year': True, 'Temp Change': True})
+    fig.update_traces(mode='lines+markers', hovertemplate='%{x}<br>Year: %{customdata[0]}<br>Temp Change: %{y:.2f}°C')
+    fig.update_xaxes(title_text='Year')
+    fig.update_yaxes(title_text='Temperature Change (°C)')
+    st.plotly_chart(fig)
 
 
 ###
