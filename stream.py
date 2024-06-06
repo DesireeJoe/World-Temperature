@@ -1311,6 +1311,9 @@ def load_model():
     with open('gradient_boosting.pkl','rb') as model_file:
         model = pickle.load(model_file)
     return model
+st.title('Prediction with Gradient Boosting')
+st.header("Prediction")
+st.subheader('Prediction Simulation with Gradient Boosting')
 data = pd.read_csv("datas_pre_processed.csv")
 # Get the minimum and maximum values
 year_min, year_max = data['year'].min(), data['year'].max()
