@@ -1185,7 +1185,8 @@ if page ==  "Machine Learning Models":
 ###################################################################################################################
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 import statsmodels.api as sm
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -1215,8 +1216,11 @@ P, D, Q, s = 1, 1, 1, 12
 sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
 sarima_model_fit = sarima_model.fit(disp=False)
 
-# Print model summary
+# Streamlit layout
 st.title('Time-series Modeling with SARIMA')
+st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
+
+# Model summary
 st.subheader("Model Summary")
 st.write(sarima_model_fit.summary())
 
@@ -1239,20 +1243,17 @@ confidence_intervals = forecast.conf_int()
 # Plot residuals
 residuals = sarima_model_fit.resid
 st.subheader("Residuals of SARIMA Model")
-plt.figure(figsize=(12, 6))
-plt.plot(residuals)
-plt.title('Residuals of SARIMA Model')
-plt.xlabel('Time')
-plt.ylabel('Residuals')
-plt.grid(True)
-st.pyplot(plt)
+fig_residuals = px.line(residuals, title='Residuals of SARIMA Model')
+st.plotly_chart(fig_residuals)
 
 # Plot ACF and PACF of residuals
 st.subheader("ACF and PACF of Residuals")
-fig, ax = plt.subplots(2, 1, figsize=(12, 8))
-sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
-sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
-st.pyplot(fig)
+fig_acf_pacf = plt.figure(figsize=(12, 8))
+ax1 = fig_acf_pacf.add_subplot(211)
+sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax1)
+ax2 = fig_acf_pacf.add_subplot(212)
+sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax2)
+st.pyplot(fig_acf_pacf)
 
 # Baseline forecast
 baseline_forecast = [train_data.mean()] * len(test_data)
@@ -1275,24 +1276,24 @@ forecast_index = pd.date_range(start=ts_data.index[-1] + pd.DateOffset(months=1)
 
 # Plotting
 st.subheader("SARIMA Model Forecast")
-plt.figure(figsize=(12, 6))
-plt.plot(ts_data.index, ts_data, label='Observed')
-plt.plot(test_data.index, predictions, label='Predicted', color='red')
-plt.fill_between(test_data.index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Interval')
-plt.plot(forecast_index, future_forecast_values, color='green', label='Forecast')
-plt.fill_between(forecast_index, future_confidence_intervals.iloc[:, 0], future_confidence_intervals.iloc[:, 1], color='lightgreen', alpha=0.3, label='Future Confidence Interval')
-plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-plt.xlabel('Time')
-plt.ylabel('Temperature Anomaly')
-plt.title('SARIMA Model Forecast')
-plt.grid(True)
-st.pyplot(plt)
+fig_forecast = go.Figure()
+
+fig_forecast.add_trace(go.Scatter(x=ts_data.index, y=ts_data, mode='lines', name='Observed'))
+fig_forecast.add_trace(go.Scatter(x=test_data.index, y=predictions, mode='lines', name='Predicted', line=dict(color='red')))
+fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_forecast_values, mode='lines', name='Forecast', line=dict(color='green')))
+fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 0], fill=None, mode='lines', line=dict(color='lightgreen'), showlegend=False))
+fig_forecast.add_trace(go.Scatter(x=forecast_index, y=future_confidence_intervals.iloc[:, 1], fill='tonexty', mode='lines', line=dict(color='lightgreen'), name='Confidence Interval'))
+
+fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
+st.plotly_chart(fig_forecast)
+
 
 
 ###########################################################################################
 
 import pickle
 import gzip
+import sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 from sklearn.ensemble import GradientBoostingRegressor
