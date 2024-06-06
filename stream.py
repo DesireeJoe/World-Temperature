@@ -1313,7 +1313,7 @@ def load_model():
     return model
 data = pd.read_csv("datas_pre_processed.csv")
 # Get the minimum and maximum values
-    year_min, year_max = data['year'].min(), data['year'].max()
+year_min, year_max = data['year'].min(), data['year'].max()
     coal_co2_min, coal_co2_max = data['coal_co2'].min(), data['coal_co2'].max()
     population_min, population_max = data['population'].min(), data['population'].max()
     gdp_min, gdp_max = data['gdp'].min(), data['gdp'].max()
