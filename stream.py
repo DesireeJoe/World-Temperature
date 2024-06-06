@@ -1675,14 +1675,32 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     fig.update_yaxes(title_text='Temperature Change (°C)')
     st.plotly_chart(fig)
     
-    # Create box plot of temperature anomalies for each region
-    fig_boxplot = px.box(ETC_cleaned, x='Area', y='Temp Change', color='Area',
-                         title='Temperature Anomalies by Region',
-                         labels={'Temp Change': 'Temperature Anomalies (°C)', 'Area': 'Region'})
+    # Boxplot function to filter data based on selected region and year range
+    def filter_data_for_boxplot(region, start_year, end_year):
+        if region == "World":
+        # Calculate overall temperature change by year
+            region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
+        else:
+        # Filter data for the selected region and year range
+            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
+                                      (ETC_cleaned['Year'] >= start_year) & 
+                                      (ETC_cleaned['Year'] <= end_year)]
+        return region_data
+
+    # UI
+    st.write("##### Temperature Anomalies Box Plot")
+
+    # Filter data based on selected continent and year range
+    filtered_data_boxplot = filter_data_for_boxplot(selected_continent, start_year, end_year)
+
+    # Create box plot of temperature anomalies for selected region
+    fig_boxplot = px.box(filtered_data_boxplot, y='Temp Change', 
+                         title=f'Temperature Anomalies Box Plot - {selected_continent}',
+                         labels={'Temp Change': 'Temperature Anomalies (°C)'})
 
     # Add styling and layout options for better visualization
-    fig_boxplot.update_traces(marker=dict(size=6, opacity=0.7), boxmean=True)
-    fig_boxplot.update_layout(showlegend=False, yaxis_title='Temperature Anomalies (°C)', xaxis_title='Region')
+    fig_boxplot.update_traces(marker=dict(size=6, opacity=0.7))
+    fig_boxplot.update_layout(yaxis_title='Temperature Anomalies (°C)')
 
     # Show the box plot
     st.plotly_chart(fig_boxplot)
