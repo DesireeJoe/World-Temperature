@@ -1636,7 +1636,34 @@ if page == "Exploration Analysis - FAO":
             st.write("### Overall change in global temperature by continent")
             st.write(results_df)
 
+# Define list of regions
+regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
+# Function to filter data based on selected region
+def filter_data(region, year):
+    if region == "World":
+        region_data = ETC_cleaned.groupby('Year').mean().reset_index()
+    else:
+        region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & (ETC_cleaned['Year'] <= year)]
+    return region_data
+
+# UI
+st.write("### Exploration of FAO Datasets")
+st.write("##### Food and Agriculture Organization of the United Nations")
+
+# Slider for selecting range of years
+start_year = st.slider("Select start year", min_value=1961, max_value=2023, value=1961)
+end_year = st.slider("Select end year", min_value=1961, max_value=2023, value=2023)
+
+# Dropdown for selecting continent or world view
+selected_continent = st.selectbox("Select continent or world view", regions)
+
+# Filter data based on selected continent and range of years
+filtered_data = filter_data(selected_continent, end_year)
+
+# Line chart
+st.write("### Temperature Change Over Time")
+st.line_chart(filtered_data.set_index('Year').loc[start_year:end_year, 'Temp Change'])
 
 
                
