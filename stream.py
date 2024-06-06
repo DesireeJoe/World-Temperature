@@ -1313,7 +1313,7 @@ if page == "Prediction":
         def load_model():
             try:
                 # Decompress the model file
-                with gzip.open("gradient_boosting (2).pkl.gz", "rb") as f:
+                with open("gradient.pkl", "rb") as f:
                     model = pickle.load(f)
                 st.write("Model loaded successfully.")
                 return model
