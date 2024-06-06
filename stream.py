@@ -1187,34 +1187,30 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import streamlit as st
 
 if page == "Time-series modeling with SARIMA":
-    st.title('Time-series modeling with SARIMA')
-    
-    ts = pd.read_csv('ts.csv')
+    st.title('Time-series Modeling with SARIMA')
+
+    ts = pd.read_csv('ts.csv', index_col=0)
+    ts.index = pd.to_datetime(ts.index)
 
     # Split data into training and testing sets
     train_size = int(len(ts) * 0.8)
     train_data, test_data = ts.iloc[:train_size], ts.iloc[train_size:]
 
     # Define SARIMA model parameters
-    p = 1  # Autoregressive order
-    d = 1  # Differencing order
-    q = 1  # Moving average order
-    P = 1  # Seasonal autoregressive order
-    D = 1  # Seasonal differencing order
-    Q = 1  # Seasonal moving average order
-    s = 12  # Seasonal period (monthly data)
+    p, d, q = 1, 1, 1
+    P, D, Q, s = 1, 1, 1, 12
 
-    # Fit
-    sarima_model = SARIMAX(ts, order=(p, d, q), seasonal_order=(P, D, Q, s))
-    sarima_model_fit = sarima_model.fit()
+    # Fit SARIMA model
+    sarima_model = SARIMAX(train_data, order=(p, d, q), seasonal_order=(P, D, Q, s))
+    sarima_model_fit = sarima_model.fit(disp=False)
 
     # Print model summary
+    st.subheader("Model Summary")
     st.write(sarima_model_fit.summary())
 
     # Model Evaluation
@@ -1222,21 +1218,20 @@ if page == "Time-series modeling with SARIMA":
     mae = mean_absolute_error(test_data, predictions)
     mse = mean_squared_error(test_data, predictions)
     rmse = np.sqrt(mse)
-    st.write(f'Mean Absolute Error: {mae}')
-    st.write(f'Mean Squared Error: {mse}')
-    st.write(f'Root Mean Squared Error: {rmse}')
+    st.subheader("Model Evaluation")
+    st.write(f'Mean Absolute Error: {mae:.4f}')
+    st.write(f'Mean Squared Error: {mse:.4f}')
+    st.write(f'Root Mean Squared Error: {rmse:.4f}')
 
     # Forecasting
-    forecast = sarima_model_fit.forecast(steps=len(test_data))  # Forecast for the test period
-    prediction_interval = sarima_model_fit.get_forecast(steps=len(test_data)).conf_int()
-
-    # Model Interpretation
-    # Print model summary
-    st.write(sarima_model_fit.summary())
+    forecast_steps = len(test_data)
+    forecast = sarima_model_fit.get_forecast(steps=forecast_steps)
+    forecast_values = forecast.predicted_mean
+    confidence_intervals = forecast.conf_int()
 
     # Plot residuals
     residuals = sarima_model_fit.resid
-
+    st.subheader("Residuals of SARIMA Model")
     plt.figure(figsize=(12, 6))
     plt.plot(residuals)
     plt.title('Residuals of SARIMA Model')
@@ -1246,42 +1241,46 @@ if page == "Time-series modeling with SARIMA":
     st.pyplot(plt)
 
     # Plot ACF and PACF of residuals
+    st.subheader("ACF and PACF of Residuals")
     fig, ax = plt.subplots(2, 1, figsize=(12, 8))
     sm.graphics.tsa.plot_acf(residuals, lags=40, ax=ax[0])
     sm.graphics.tsa.plot_pacf(residuals, lags=40, ax=ax[1])
     st.pyplot(fig)
 
-    # Simple baseline: Use the mean of the training data as the forecast
-    baseline_forecast = [ts.mean()] * len(ts)
-
-    # Calculate baseline MAE, MSE, and RMSE
-    baseline_mae = np.mean(np.abs(ts - baseline_forecast))
-    baseline_mse = np.mean((ts - baseline_forecast)**2)
+    # Baseline forecast
+    baseline_forecast = [train_data.mean()] * len(test_data)
+    baseline_mae = mean_absolute_error(test_data, baseline_forecast)
+    baseline_mse = mean_squared_error(test_data, baseline_forecast)
     baseline_rmse = np.sqrt(baseline_mse)
 
+    st.subheader("Baseline Model Evaluation")
     st.write(f'Baseline Mean Absolute Error: {baseline_mae:.4f}')
     st.write(f'Baseline Mean Squared Error: {baseline_mse:.4f}')
     st.write(f'Baseline Root Mean Squared Error: {baseline_rmse:.4f}')
 
     # Forecasting future values
-    forecast_steps = 36  # Forecasting 3 years ahead (for monthly data)
-    forecast_values = sarima_model_fit.get_forecast(steps=forecast_steps).predicted_mean
-    confidence_intervals = sarima_model_fit.get_forecast(steps=forecast_steps).conf_int()
+    future_steps = 36
+    future_forecast = sarima_model_fit.get_forecast(steps=future_steps)
+    future_forecast_values = future_forecast.predicted_mean
+    future_confidence_intervals = future_forecast.conf_int()
 
-    # Range for the forecast
-    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+    forecast_index = pd.date_range(start=ts.index[-1] + pd.DateOffset(months=1), periods=future_steps, freq='M')
 
     # Plotting
+    st.subheader("SARIMA Model Forecast")
     plt.figure(figsize=(12, 6))
     plt.plot(ts.index, ts, label='Observed')
-    plt.plot(forecast_index, forecast_values, color='red', label='Forecast')
-    plt.fill_between(forecast_index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Intervals')
+    plt.plot(test_data.index, predictions, label='Predicted', color='red')
+    plt.fill_between(test_data.index, confidence_intervals.iloc[:, 0], confidence_intervals.iloc[:, 1], color='pink', alpha=0.3, label='Confidence Interval')
+    plt.plot(forecast_index, future_forecast_values, color='green', label='Forecast')
+    plt.fill_between(forecast_index, future_confidence_intervals.iloc[:, 0], future_confidence_intervals.iloc[:, 1], color='lightgreen', alpha=0.3, label='Future Confidence Interval')
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.xlabel('Time')
     plt.ylabel('Temperature Anomaly')
     plt.title('SARIMA Model Forecast')
     plt.grid(True)
     st.pyplot(plt)
+
 ###########################################################################################
 
 import pickle
