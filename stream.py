@@ -1636,32 +1636,33 @@ if page == "Exploration Analysis - FAO":
             st.write(results_df)
 #Slider & line graphs of continental temp change
 
-# Define list of regions
-regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
+    # Define list of regions
+    regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
 # Function to filter data based on selected region and year range
-def filter_data(region, start_year, end_year):
-    if region == "World":
+    def filter_data(region, start_year, end_year):
+        if region == "World":
         region_data = ETC_cleaned.groupby('Year').mean().reset_index()
-    else:
-        region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & (ETC_cleaned['Year'] >= start_year) & (ETC_cleaned['Year'] <= end_year)]
-    return region_data
+        else:
+            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & (ETC_cleaned['Year'] >= start_year) & (ETC_cleaned['Year'] <= end_year)]
+        return region_data
 
-# UI
-st.write("##### Regional temperature change over time")
+    # UI
+    st.write("##### Regional temperature change over time")
 
-# Slider for selecting range of years
-start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
+    # Slider for selecting range of years
+    start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
 
-# Dropdown for selecting continent or world view
-selected_continent = st.selectbox("Select continent or world view", regions)
+    # Dropdown for selecting continent or world view
+    selected_continent = st.selectbox("Select continent or world view", regions)
+  
+    # Filter data based on selected continent and year range
+    filtered_data = filter_data(selected_continent, start_year, end_year)
 
-# Filter data based on selected continent and year range
-filtered_data = filter_data(selected_continent, start_year, end_year)
+    # Line chart
+    st.write("### Temperature Change Over Time")
+    st.line_chart(filtered_data.set_index('Year')['Temp Change'])
 
-# Line chart
-st.write("### Temperature Change Over Time")
-st.line_chart(filtered_data.set_index('Year')['Temp Change'])
 
 ###
 
