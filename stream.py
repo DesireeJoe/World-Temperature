@@ -123,6 +123,7 @@ if page ==  "Exploration Analysis - NASA":
     nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
     nasa['Year'] = nasa['Year'].astype(str)
     nasa['Year'] = nasa['Year'].str.replace(',', '')
+    nasa['Year'] = nasa['Year'].astype(int)
     return nasa
 
   nasa = load_data()
