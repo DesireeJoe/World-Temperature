@@ -1299,47 +1299,54 @@ if page == 'Time-series modeling with SARIMA':
     st.plotly_chart(fig_forecast)
 
 ###########################################################################################
-if page == 'Prediction':
 import pickle
 import pandas as pd
 import numpy as np
 import streamlit as st
 from sklearn.ensemble import GradientBoostingRegressor
 
-def load_model():
-    with open('gradient_boosting.pkl','rb') as model_file:
-        model = pickle.load(model_file)
-    return model
-st.title('Prediction with Gradient Boosting')
-st.header("Prediction")
-st.subheader('Prediction Simulation with Gradient Boosting')
-data = pd.read_csv("datas_pre_processed.csv")
-# Get the minimum and maximum values
-year_min, year_max = data['year'].min(), data['year'].max()
-coal_co2_min, coal_co2_max = data['coal_co2'].min(), data['coal_co2'].max()
-population_min, population_max = data['population'].min(), data['population'].max()
-gdp_min, gdp_max = data['gdp'].min(), data['gdp'].max()
-co2_min, co2_max = data['co2'].min(), data['co2'].max()
-year_value = data['year'].max()
-coal_co2_value = data['coal_co2'].mean()
-population_value = data['population'].mean()
-gdp_value = data['gdp'].mean()
-co2_value = data['co2'].mean()
-# Feature inputs
-col1, col2 = st.columns(2)
-with col1:
-  year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
-  coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
-with col2:
-  population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
-  gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
-  co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
-features = [[year, coal_co2, population, gdp, co2]]
-model = load_model
-predict = model.predict(features)
-st.markdown( f"<p style='font -size:24px; font-weight:bold;'>The Surface Temperature Anomaly is: {prediction[ 0 ]} </p>" , unsafe_allow_html= True )
+if page == 'Prediction':
+    def load_model():
+        with open('gradient_boosting.pkl', 'rb') as model_file:
+            model = pickle.load(model_file)
+        return model
 
-streamlit run stream.py
+    st.title('Prediction with Gradient Boosting')
+    st.header("Prediction")
+    st.subheader('Prediction Simulation with Gradient Boosting')
+
+    data = pd.read_csv("datas_pre_processed.csv")
+
+    # Get the minimum and maximum values
+    year_min, year_max = data['year'].min(), data['year'].max()
+    coal_co2_min, coal_co2_max = data['coal_co2'].min(), data['coal_co2'].max()
+    population_min, population_max = data['population'].min(), data['population'].max()
+    gdp_min, gdp_max = data['gdp'].min(), data['gdp'].max()
+    co2_min, co2_max = data['co2'].min(), data['co2'].max()
+
+    year_value = data['year'].max()
+    coal_co2_value = data['coal_co2'].mean()
+    population_value = data['population'].mean()
+    gdp_value = data['gdp'].mean()
+    co2_value = data['co2'].mean()
+
+    # Feature inputs
+    col1, col2 = st.columns(2)
+
+    with col1:
+        year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
+        coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
+
+    with col2:
+        population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
+        gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
+        co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
+
+    features = [[year, coal_co2, population, gdp, co2]]
+    model = load_model()
+    prediction = model.predict(features)
+
+    st.markdown(f"<p style='font-size:24px; font-weight:bold;'>The Surface Temperature Anomaly is: {prediction[0]}</p>", unsafe_allow_html=True)
   
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
