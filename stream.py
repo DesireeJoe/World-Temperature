@@ -1307,7 +1307,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 
 if page == 'Prediction':
     def load_model():
-        with open('gradient_boosting.pkl', 'rb') as model_file:
+        with open('gradient_boosting.pkl', 'wb') as model_file:
             model = pickle.load(model_file)
         return model
 
