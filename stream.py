@@ -121,6 +121,7 @@ if page ==  "Exploration Analysis - NASA":
   @st.cache
   def load_data():
     nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
+    nasa['Year'] = nasa['Year'].astype(str)
     return nasa
 
   nasa = load_data()
