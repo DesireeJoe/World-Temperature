@@ -5,3 +5,8 @@ matplotlib
 scipy
 streamlit
 plotly
+statsmodels
+scikit-learn==1.2.2
+gdown
+requests
+joblib==1.4.2
