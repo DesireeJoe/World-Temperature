@@ -1378,7 +1378,7 @@ if page == "Prediction":
         
         # Add a button for prediction
         if st.button("Predict"):
-            features = get_features(year, coal_co2, population, gdp, co2)
+            features = get_features(Year, Coal CO2, Population, GDP, CO2)
             prediction = predict_surface_temperature(features)
             if prediction is not None:
                 st.write("Predicted Surface Temperature:", prediction)
