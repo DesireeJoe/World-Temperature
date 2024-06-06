@@ -1195,13 +1195,13 @@ import streamlit as st
 ts = pd.read_csv('ts_final.csv')
 
 # Ensure the first column is in datetime format
-ts['date'] = pd.to_datetime(ts['date'])
+ts['Date'] = pd.to_datetime(ts['Date'])
 
 # Set the date column as the index
-ts.set_index('date', inplace=True)
+ts.set_index('Date', inplace=True)
 
 # Extract the time series data
-ts_data = ts['sta']
+ts_data = ts['TemperatureAnomaly']
 
 # Split data into training and testing sets
 train_size = int(len(ts_data) * 0.8)
