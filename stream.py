@@ -1684,6 +1684,14 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
             boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
 
     # Create Box plot
+    boxplot_data = []
+    for region in regions:
+        if region == "World":
+            boxplot_data.append(ETC_cleaned)
+        else:
+            boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
+
+# Create Box plot
     fig_boxplot = go.Figure()
 
     for i, region_data in enumerate(boxplot_data):
@@ -1692,9 +1700,11 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
             name=regions[i],
             boxmean='sd',
             marker=dict(color=px.colors.qualitative.Plotly[i]),
-            boxpoints='all'
+            boxpoints='all',
+            jitter=0.5,  # Spread out data points
+            width=0.4  # Adjust box width
         ))
-
+    
     # Update layout for better visualization
     fig_boxplot.update_layout(
         title="Surface Temperature Anomalies by Continent",
@@ -1703,9 +1713,9 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
         boxmode='group',  # group boxes of different traces
         showlegend=True,
         legend=dict(title='Continent')
-    )    
-
-# Show the plot
+    )
+    
+    # Show the plot
     st.plotly_chart(fig_boxplot)
 
 ###
