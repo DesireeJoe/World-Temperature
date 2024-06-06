@@ -1498,6 +1498,9 @@ if page ==  "Credits" :
 
 ########################################################################################################################################################################################################################
 
+import pandas as pd
+import streamlit as st
+
 if page == "Exploration Analysis - FAO":
     st.write("### Exploration of FAO Datasets")
     st.write("##### Food and Agriculture Organization of the United Nations")
@@ -1634,17 +1637,18 @@ if page == "Exploration Analysis - FAO":
             # Display statistics table
             st.write("### Overall change in global temperature by continent")
             st.write(results_df)
-#Slider & line graphs of continental temp change
 
     # Define list of regions
     regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-# Function to filter data based on selected region and year range
+    # Function to filter data based on selected region and year range
     def filter_data(region, start_year, end_year):
         if region == "World":
-        region_data = ETC_cleaned.groupby('Year').mean().reset_index()
+            region_data = ETC_cleaned.groupby('Year').mean().reset_index()
         else:
-            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & (ETC_cleaned['Year'] >= start_year) & (ETC_cleaned['Year'] <= end_year)]
+            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
+                                      (ETC_cleaned['Year'] >= start_year) & 
+                                      (ETC_cleaned['Year'] <= end_year)]
         return region_data
 
     # UI
@@ -1654,7 +1658,7 @@ if page == "Exploration Analysis - FAO":
     start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
 
     # Dropdown for selecting continent or world view
-    selected_continent = st.selectbox("Select continent or world view", regions)
+    selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
   
     # Filter data based on selected continent and year range
     filtered_data = filter_data(selected_continent, start_year, end_year)
@@ -1662,6 +1666,7 @@ if page == "Exploration Analysis - FAO":
     # Line chart
     st.write("### Temperature Change Over Time")
     st.line_chart(filtered_data.set_index('Year')['Temp Change'])
+
 
 
 ###
