@@ -1205,7 +1205,7 @@ ts.set_index('Date', inplace=True)
 ts_data = ts['TemperatureAnomaly']
 
 # Split data into training and testing sets
-train_size = int(len(ts_data) * 0.8)
+train_size = int(len(ts_data) * 0.95)
 train_data, test_data = ts_data.iloc[:train_size], ts_data.iloc[train_size:]
 
 # Define SARIMA model parameters
