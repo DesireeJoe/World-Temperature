@@ -1717,7 +1717,28 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     
     # Show the plot
     st.plotly_chart(fig_boxplot)
-
+#top 10 bar chart
+    ETC_2023 = ETC_cleaned[ETC_cleaned['Year'] == 2023]
+    
+    # Sort data by temperature change in descending order
+    ETC_2023_sorted = ETC_2023.sort_values(by='Temp Change', ascending=False)
+    
+    # Select top 10 regions with the highest temperature anomaly
+    top_10_regions = ETC_2023_sorted.head(10)
+    
+    # Plot bar chart
+    fig_bar = px.bar(top_10_regions, x='Temp Change', y='Area', orientation='h', 
+                     title='Top 10 Regions with Highest Temperature Anomaly in 2023',
+                     labels={'Temp Change': 'Temperature Anomaly (°C)', 'Area': 'Region'})
+    
+    # Update layout for better visualization
+    fig_bar.update_layout(
+        xaxis=dict(title='Temperature Anomaly (°C)'),
+        yaxis=dict(title='Region')
+    )
+    
+    # Show the plot
+    st.plotly_chart(fig_bar)
 ###
 
 
