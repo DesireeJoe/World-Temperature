@@ -26,7 +26,6 @@ page = st.sidebar.radio(" ", ["Home", "Introduction",
                               "Conclusion", "Credits"])
 
 
-
 #########################################################################################################################################################################################################################
 if page == 'Home':
   
@@ -1499,6 +1498,9 @@ if page ==  "Credits" :
 
 ########################################################################################################################################################################################################################
 
+import pandas as pd
+import streamlit as st
+
 if page == "Exploration Analysis - FAO":
     st.write("### Exploration of FAO Datasets")
     st.write("##### Food and Agriculture Organization of the United Nations")
@@ -1518,21 +1520,22 @@ if page == "Exploration Analysis - FAO":
         Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below.
         """)
     with st.expander("Full description of data"):
-         st.markdown("""**Data description:**
-             The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. 
-            The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, 
-            i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.
-            The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)
-            \n\n
-            **Statistical concepts and definitions:** Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1    
-            \n\n
-            **Reference area:** Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
-            FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
-            \n\n
-            **Time coverage:** 1961-2023 | Periodicity: Monthly, Seasonal, Yearly
-            \n\n
-            **Base period:** 1951-1980
-            """)
+         st.markdown("""
+**Data description:**\n
+The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates.\n 
+The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal, and annual mean temperature anomalies,\n 
+i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.\n
+The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)\n\n
+**Statistical concepts and definitions:**\n
+Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1\n\n    
+**Reference area:**\n
+Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
+FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: [FAO GeoNetwork](https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8))\n\n
+**Time coverage:**\n
+1961-2023 | Periodicity: Monthly, Seasonal, Yearly\n\n
+**Base period:**\n
+1951-1980
+""")
     # Toggle button to show/hide checkboxes and dataframes
     if 'show_data' not in st.session_state:
         st.session_state.show_data = False
@@ -1636,20 +1639,106 @@ if page == "Exploration Analysis - FAO":
             st.write("### Overall change in global temperature by continent")
             st.write(results_df)
 
-# Define list of regions
-regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
+    # Define list of regions
+    regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-# Function to filter data based on selected region
-def filter_data(region, year):
-    if region == "World":
-        region_data = ETC.groupby('Year').mean().reset_index()
-    else:
-        region_data = ETC[(ETC['Area'] == region) & (ETC['Year'] <= year)]
-    return region_data
+# Function to filter data based on selected region and year range
+    def filter_data(region, start_year, end_year):
+        if region == "World":
+        # Calculate overall temperature change by year
+            region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
+        else:
+        # Filter data for the selected region and year range
+            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
+                                  (ETC_cleaned['Year'] >= start_year) & 
+                                  (ETC_cleaned['Year'] <= end_year)]
+        return region_data
 
+# UI
+    st.write("##### Regional temperature change over time")
 
-               
+# Slider for selecting range of years
+    start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
 
+# Dropdown for selecting continent or world view
+    selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
+
+# Filter data based on selected continent and year range
+    filtered_data = filter_data(selected_continent, start_year, end_year)
+
+# Create an interactive line chart with hover tooltips
+    fig = px.line(filtered_data, x='Year', y='Temp Change', labels={'Temp Change': 'Temperature Change (°C)'}, 
+                  title=f'Temperature Change Over Time - {selected_continent}',
+                  hover_data={'Year': True, 'Temp Change': True})
+    fig.update_traces(mode='lines+markers', hovertemplate='%{x}<br>Year: %{customdata[0]}<br>Temp Change: %{y:.2f}°C')
+    fig.update_xaxes(title_text='Year')
+    fig.update_yaxes(title_text='Temperature Change (°C)')
+    st.plotly_chart(fig)
+
+# Prepare data for the boxplot
+    boxplot_data = []
+    for region in regions:
+        if region == "World":
+            boxplot_data.append(ETC_cleaned)
+        else:
+            boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
+
+    # Create Box plot
+    boxplot_data = []
+    for region in regions:
+        if region == "World":
+            boxplot_data.append(ETC_cleaned)
+        else:
+            boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
+
+# Create Box plot
+    fig_boxplot = go.Figure()
+
+    for i, region_data in enumerate(boxplot_data):
+        fig_boxplot.add_trace(go.Box(
+            y=region_data['Temp Change'],
+            name=regions[i],
+            boxmean='sd',
+            marker=dict(color=px.colors.qualitative.Plotly[i]),
+            boxpoints='all',
+            jitter=0.5,  # Spread out data points
+            width=0.4  # Adjust box width
+        ))
+    
+    # Update layout for better visualization
+    fig_boxplot.update_layout(
+        title="Surface Temperature Anomalies by Continent",
+        xaxis=dict(title='Continent'),
+        yaxis=dict(title='Temperature Change (°C)'),
+        boxmode='group',  # group boxes of different traces
+        showlegend=True,
+        legend=dict(title='Continent')
+    )
+    
+    # Show the plot
+    st.plotly_chart(fig_boxplot)
+#top 10 bar chart
+    ETC_2023 = ETC_cleaned[ETC_cleaned['Year'] == 2023]
+    
+    # Sort data by temperature change in descending order
+    ETC_2023_sorted = ETC_2023.sort_values(by='Temp Change', ascending=False)
+    
+    # Select top 10 regions with the highest temperature anomaly
+    top_10_regions = ETC_2023_sorted.head(10)
+    
+    # Plot bar chart
+    fig_bar = px.bar(top_10_regions, x='Temp Change', y='Area', orientation='h', 
+                     title='Top 10 Regions with Highest Temperature Anomaly in 2023',
+                     labels={'Temp Change': 'Temperature Anomaly (°C)', 'Area': 'Region'})
+    
+    # Update layout for better visualization
+    fig_bar.update_layout(
+        xaxis=dict(title='Temperature Anomaly (°C)'),
+        yaxis=dict(title='Region')
+    )
+    
+    # Show the plot
+    st.plotly_chart(fig_bar)
 ###
 
 
