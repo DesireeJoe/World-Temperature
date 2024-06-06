@@ -1483,9 +1483,6 @@ if page ==  "Credits" :
 ########################################################################################################################################################################################################################
 
 if page == "Exploration Analysis - FAO":
-    st.write("### Exploration of FAO Datasets")
-    st.write("##### Food and Agriculture Organization of the United Nations")
-
     # Load data
     @st.cache
     def load_data():
@@ -1499,6 +1496,9 @@ if page == "Exploration Analysis - FAO":
     ETC_all, ETC_all_noflag,ETC_all_area_codes,ETC_all_area_flags,ETC_cleaned = load_data()
 
   
+        st.write("### Exploration of FAO Datasets")
+        st.write("##### Food and Agriculture Organization of the United Nations")
+        
         st.markdown("""
         The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
