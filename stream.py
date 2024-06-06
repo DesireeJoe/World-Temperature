@@ -1499,9 +1499,6 @@ if page == "Exploration Analysis - FAO":
     ETC_all, ETC_all_noflag,ETC_all_area_codes,ETC_all_area_flags,ETC_cleaned = load_data()
 
   
-
-    # Check if 'Months' column exists
-    if isinstance(FAO_Continent, pd.DataFrame) and 'Months' in FAO_Continent.columns:
         st.markdown("""
         The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
 
