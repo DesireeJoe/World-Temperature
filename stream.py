@@ -122,7 +122,7 @@ if page ==  "Exploration Analysis - NASA":
   def load_data():
     nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
     # Remove commas and convert 'Year' column to integers
-    nasa['Year'] = nasa['Year'].str.replace(',', '').astype(int)
+    nasa['Year'] = nasa['Year'].apply(lambda x: int(x.replace(',', '')))
 
     return nasa
 
