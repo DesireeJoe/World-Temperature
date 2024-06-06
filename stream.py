@@ -1192,6 +1192,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import streamlit as st
 
+# Define the page for Streamlit
 if page == 'Time-series modeling with SARIMA':
     # Load and prepare the data
     ts = pd.read_csv('ts_final.csv')
@@ -1282,7 +1283,6 @@ if page == 'Time-series modeling with SARIMA':
     
     fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
     st.plotly_chart(fig_forecast)
-
 
 ###########################################################################################
 
