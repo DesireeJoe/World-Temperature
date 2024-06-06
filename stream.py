@@ -1302,92 +1302,41 @@ if page == 'Time-series modeling with SARIMA':
 
 import pickle
 import gzip
-import sklearn
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
+import pandas as pd
+import numpy as np
+import streamlit as st
 from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.metrics import r2_score
-import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy import stats
 
-if page == "Prediction":
-    st.title('Prediction with Gradient Boosting')
-    
-    # Define the prediction function
-    def prediction():
-        def load_model():
-            try:
-                # Decompress the model file
-                with gzip.open("gradient_boosting (2).pkl.gz", "rb") as f:
-                    model = pickle.load(f)
-                st.write("Model loaded successfully.")
-                return model
-            except FileNotFoundError:
-                st.error("Model file not found. Please check the file path.")
-                return None
-            except pickle.UnpicklingError:
-                st.error("Error unpickling the model file. The file might be corrupted.")
-                return None
-            except Exception as e:
-                st.error(f"An unexpected error occurred: {e}")
-                return None
-        
-        def get_features(year, coal_co2, population, gdp, co2):
-            features = np.array([year, coal_co2, population, gdp, co2])
-            return features.reshape(1, -1)
-        
-        def predict_surface_temperature(features):
-            model = load_model()
-            if model is not None:
-                prediction = model.predict(features)
-                return np.round(prediction, 3)
-            else:
-                return None
-        
-        st.header("Prediction")
-        st.subheader('Prediction Simulation with Gradient Boosting')
-        
-        data = pd.read_csv("datas_pre_processed.csv")
-        df3 = data.copy()
-        
-        # Get the minimum and maximum values
-        year_min, year_max = df3['year'].min(), df3['year'].max()
-        coal_co2_min, coal_co2_max = df3['coal_co2'].min(), df3['coal_co2'].max()
-        population_min, population_max = df3['population'].min(), df3['population'].max()
-        gdp_min, gdp_max = df3['gdp'].min(), df3['gdp'].max()
-        co2_min, co2_max = df3['co2'].min(), df3['co2'].max()
-        
-        year_value = df3['year'].max()
-        coal_co2_value = df3['coal_co2'].mean()
-        population_value = df3['population'].mean()
-        gdp_value = df3['gdp'].mean()
-        co2_value = df3['co2'].mean()
-        
-        # Feature inputs
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
-            coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
-        
-        with col2:
-            population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
-            gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
-            co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
-        
-        # Add a button for prediction
-        if st.button("Predict"):
-            features = get_features(year, coal_co2, population, gdp, co2)
-            prediction = predict_surface_temperature(features)
-            if prediction is not None:
-                st.write("Predicted Surface Temperature:", prediction)
-            else:
-                st.write("Prediction could not be made due to an error in loading the model.")
-    
-    prediction()
-
-
+def load_model():
+    with open('gradient_boosting.pkl','rb') as model_file:
+        model = pickle.load(model_file)
+    return model
+data = pd.read_csv("datas_pre_processed.csv")
+# Get the minimum and maximum values
+    year_min, year_max = data['year'].min(), data['year'].max()
+    coal_co2_min, coal_co2_max = data['coal_co2'].min(), data['coal_co2'].max()
+    population_min, population_max = data['population'].min(), data['population'].max()
+    gdp_min, gdp_max = data['gdp'].min(), data['gdp'].max()
+    co2_min, co2_max = data['co2'].min(), data['co2'].max()
+    year_value = data['year'].max()
+    coal_co2_value = data['coal_co2'].mean()
+    population_value = data['population'].mean()
+    gdp_value = data['gdp'].mean()
+    co2_value = data['co2'].mean()
+    # Feature inputs
+    col1, col2 = st.columns(2)
+    with col1:
+        year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
+        coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
+    with col2:
+        population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
+        gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
+        co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
+features = [[year, coal_co2, population, gdp, co2]]
+model = load_model
+predict = model.predict(features)
+st.markdown( f"<p style='font -size:24px; font-weight:bold;'>The Surface Temperature Anomaly is: {prediction[ 0 ]} </p>" , unsafe_allow_html= True )
+streamlit run stream.py
   
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
