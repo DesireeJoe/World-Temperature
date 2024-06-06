@@ -1299,9 +1299,8 @@ if page == 'Time-series modeling with SARIMA':
     st.plotly_chart(fig_forecast)
 
 ###########################################################################################
-
+if page == 'Prediction':
 import pickle
-import gzip
 import pandas as pd
 import numpy as np
 import streamlit as st
@@ -1340,6 +1339,7 @@ model = load_model
 predict = model.predict(features)
 st.markdown( f"<p style='font -size:24px; font-weight:bold;'>The Surface Temperature Anomaly is: {prediction[ 0 ]} </p>" , unsafe_allow_html= True )
 
+streamlit run stream.py
   
 ########################################################################################################################################################################################################################
 if page ==  "Conclusion":
