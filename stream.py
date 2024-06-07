@@ -842,23 +842,21 @@ if page == "Modelling Preparation":
         - Deleted 46,181 rows from the OWID dataset
         - Deleted 346 rows from the Surface Temperature Anomaly dataset
         - The final dataset has no missing values
-
-    3. **Removing Duplicates:**
         - Ensured no duplicate records exist
 
-    4. **Outlier Detection and Removal:**
-        - Used Z-score method to identify and remove outliers from the surface temperature anomaly column
+    3. **Outlier Detection and Removal:**
+        - Identified outliers using a boxplot for the surface temperature anomaly column.
+        - Removed outliers using the Z-score method.
 
-    5. **Merging Datasets:**
+    4. **Merging Datasets:**
         - Merged datasets based on country, iso_code, and year
-        - Integrated temperature anomaly and CO2 emissions data
+        - Integrated features related to CO2 emissions, greenhouse gases, GDP, and population
 
     6. **Feature Selection:**
-        - Selected columns relevant to analysis
-        - Included the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population
+        - Dropped irrelevant columnss
+        - Identified the target variable amd renamed it from surface temperature anomaly to sta for readibility and normalized features using Min-Max normalization.
 
     7. **Further Cleaning and Formatting:**
-        - Removed unnecessary columns
         - Ensured appropriate data types
         - Converted float64 columns to int64 for standardization
 
