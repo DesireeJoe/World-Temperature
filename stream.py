@@ -1309,6 +1309,11 @@ if page == "Prediction":
                 with open("gradient.pkl", "rb") as f:
                     model = pickle.load(f)
                 st.write("Model loaded successfully.")
+                st.write(f"Model type: {type(model)}")
+                if hasattr(model, 'predict'):
+                    st.write("Model has a predict method.")
+                else:
+                    st.write("Model does NOT have a predict method.")
                 return model
             except FileNotFoundError:
                 st.error("Model file not found. Please check the file path.")
@@ -1384,8 +1389,6 @@ if page == "Prediction":
     # Run the prediction function
     if __name__ == "__main__":
         prediction()
-
-
 
 
 ########################################################################################################################################################################################################################
