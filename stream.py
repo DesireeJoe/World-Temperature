@@ -1457,7 +1457,7 @@ if page == "🔮 Prediction":
                 st.write("Predicted Surface Temperature:", prediction_result)
             else:
                 st.write("Prediction could not be made due to an error in loading the model.")
-   n
+
     if __name__ == "__main__":
         prediction()
 
