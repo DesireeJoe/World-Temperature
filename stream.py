@@ -1492,22 +1492,21 @@ if page ==  "Credits" :
 
 import pandas as pd
 import streamlit as st
+import plotly.express as px
+import plotly.graph_objects as go
 
-if page == "Exploration Analysis - FAO":
+def load_data():
+    ETC_all = pd.read_csv('Environment_Temperature_change_E_All_Data.csv', encoding='latin1')
+    ETC_all_noflag = pd.read_csv('Environment_Temperature_change_E_All_Data_NOFLAG.csv', encoding='latin1')
+    ETC_all_area_codes = pd.read_csv('Environment_Temperature_change_E_AreaCodes.csv', encoding='latin1')
+    ETC_all_area_flags = pd.read_csv('Environment_Temperature_change_E_Flags.csv', encoding='latin1')
+    ETC_cleaned = pd.read_csv('ETC.csv', encoding='latin1')
+    return ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned
+
+def fao_exploration(ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned):
     st.write("### Exploration of FAO Datasets")
     st.write("##### Food and Agriculture Organization of the United Nations")
-    
-    # Load data
-    @st.cache
-    def load_data():
-        ETC_all = pd.read_csv('Environment_Temperature_change_E_All_Data.csv', encoding='latin1')
-        ETC_all_noflag = pd.read_csv('Environment_Temperature_change_E_All_Data_NOFLAG.csv', encoding='latin1')
-        ETC_all_area_codes = pd.read_csv('Environment_Temperature_change_E_AreaCodes.csv', encoding='latin1')
-        ETC_all_area_flags = pd.read_csv('Environment_Temperature_change_E_Flags.csv', encoding='latin1')
-        ETC_cleaned = pd.read_csv('ETC.csv', encoding='latin1')
-        return ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned
 
-    ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
     st.markdown(""" The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
         Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below.
         """)
@@ -1634,31 +1633,31 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     # Define list of regions
     regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
 
-# Function to filter data based on selected region and year range
+    # Function to filter data based on selected region and year range
     def filter_data(region, start_year, end_year):
         if region == "World":
-        # Calculate overall temperature change by year
+            # Calculate overall temperature change by year
             region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
         else:
-        # Filter data for the selected region and year range
+            # Filter data for the selected region and year range
             region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
-                                  (ETC_cleaned['Year'] >= start_year) & 
-                                  (ETC_cleaned['Year'] <= end_year)]
+                                      (ETC_cleaned['Year'] >= start_year) & 
+                                      (ETC_cleaned['Year'] <= end_year)]
         return region_data
 
-# UI
+    # UI
     st.write("##### Regional temperature change over time")
 
-# Slider for selecting range of years
+    # Slider for selecting range of years
     start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
 
-# Dropdown for selecting continent or world view
-    selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
+    # Dropdown for selecting continent or world view
+        selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
 
-# Filter data based on selected continent and year range
+    # Filter data based on selected continent and year range
     filtered_data = filter_data(selected_continent, start_year, end_year)
 
-# Create an interactive line chart with hover tooltips
+    # Create an interactive line chart with hover tooltips
     fig = px.line(filtered_data, x='Year', y='Temp Change', labels={'Temp Change': 'Temperature Change (°C)'}, 
                   title=f'Temperature Change Over Time - {selected_continent}',
                   hover_data={'Year': True, 'Temp Change': True})
@@ -1667,7 +1666,7 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     fig.update_yaxes(title_text='Temperature Change (°C)')
     st.plotly_chart(fig)
 
-# Prepare data for the boxplot
+    # Prepare data for the boxplot
     boxplot_data = []
     for region in regions:
         if region == "World":
@@ -1676,16 +1675,7 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
             boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
 
     # Create Box plot
-    boxplot_data = []
-    for region in regions:
-        if region == "World":
-            boxplot_data.append(ETC_cleaned)
-        else:
-            boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
-
-# Create Box plot
     fig_boxplot = go.Figure()
-
     for i, region_data in enumerate(boxplot_data):
         fig_boxplot.add_trace(go.Box(
             y=region_data['Temp Change'],
@@ -1709,7 +1699,8 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     
     # Show the plot
     st.plotly_chart(fig_boxplot)
-#top 10 bar chart
+
+    # Top 10 Regions Bar Chart
     ETC_2023 = ETC_cleaned[ETC_cleaned['Year'] == 2023]
     
     # Sort data by temperature change in descending order
@@ -1732,8 +1723,8 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
     # Show the plot
     st.plotly_chart(fig_bar)
 
-#Hot/Cold temp chart
-def plot_temperature_categories():
+# Function to plot hot/cold temperature categories
+def plot_temperature_categories(ETC_cleaned):
     st.title("Temperature Categories Over Years")
 
     # Function to calculate temperature categories
@@ -1771,16 +1762,17 @@ def plot_temperature_categories():
 
     st.plotly_chart(fig)
 
-# Add the function to the Streamlit app
+# Main Streamlit app
 if __name__ == '__main__':
     st.sidebar.title("Navigation")
     page = st.sidebar.radio("Go to", ["FAO Exploration", "Temperature Categories"])
 
-    if page == "FAO Exploration":
-        fao_exploration()  # Assuming fao_exploration() is defined elsewhere in your script
-    elif page == "Temperature Categories":
-        plot_temperature_categories()
+    ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
 
+    if page == "FAO Exploration":
+        fao_exploration(ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned)
+    elif page == "Temperature Categories":
+        plot_temperature_categories(ETC_cleaned)
 
 
 ###
