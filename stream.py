@@ -793,10 +793,10 @@ if page ==  "Exploration Analysis - STA":
       st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
-if page ==  "Modelling Preparation":
-  # Title of the app
-     st.title('Modelling Preparation')
-     st.markdown(
+if page == "Modelling Preparation":
+    # Title of the app
+    st.title('Modelling Preparation')
+    st.markdown(
         """
         <style>
         .centered-title {
@@ -809,33 +809,58 @@ if page ==  "Modelling Preparation":
         </style>
         """,
         unsafe_allow_html=True,
-     )
-     st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
+    )
+    st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-     # Description in short points
-     st.markdown("""
-     ### Steps in Pre-processing and Merging Datasets
+    # Description in short points
+    st.markdown("""
+    ### Steps in Pre-processing and Merging Datasets
 
-     - **Objective:** Clean and prepare data for exploration and modeling, ensuring quality and consistency.
-     - **Datasets:** CO2 emissions data (OWID) and surface temperature anomaly data (HadCRUT).
-     - **Renaming Columns:** Standardized column names, converting to lowercase and renaming for clarity.
-     - **Handling Missing Values:** Identified and removed rows with missing values.
-     - Deleted 46,181 rows from the OWID dataset.
-     - Deleted 346 rows from the Surface Temperature Anomaly dataset.
-     - The final dataset has no missing values
-     - **Removing Duplicates:** Ensured no duplicate records exist.
-     - **Outlier Detection and Removal:** Used Z-score method to identify and remove outliers from the surface temperature anomaly column.
-     - **Merging Datasets:** Merged datasets based on country, iso_code, and year, integrating temperature anomaly and CO2 emissions data.
-     - **Feature Selection:** Selected columns relevant to analysis, including the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population.
-     - **Further Cleaning and Formatting:** Removed unnecessary columns and ensured appropriate data types.
-     - Converted float64 columns to int64 for standardization.
-     - **Final Data Checks:** Ensured no remaining missing values and verified data types.
+    **Objective:** Clean and prepare data for exploration and modeling, ensuring quality and consistency.
 
-      This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
-      """)
-if page ==  "Modelling Preparation":
-# Load data function
+    **Datasets:**
+    - CO2 emissions data (OWID)
+    - Surface temperature anomaly data (HadCRUT)
+
+    **Pre-processing Steps:**
+    
+    1. **Renaming Columns:**
+        - Standardized column names
+        - Converted to lowercase and renamed for clarity
+
+    2. **Handling Missing Values:**
+        - Identified and removed rows with missing values
+        - Deleted 46,181 rows from the OWID dataset
+        - Deleted 346 rows from the Surface Temperature Anomaly dataset
+        - The final dataset has no missing values
+
+    3. **Removing Duplicates:**
+        - Ensured no duplicate records exist
+
+    4. **Outlier Detection and Removal:**
+        - Used Z-score method to identify and remove outliers from the surface temperature anomaly column
+
+    5. **Merging Datasets:**
+        - Merged datasets based on country, iso_code, and year
+        - Integrated temperature anomaly and CO2 emissions data
+
+    6. **Feature Selection:**
+        - Selected columns relevant to analysis
+        - Included the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population
+
+    7. **Further Cleaning and Formatting:**
+        - Removed unnecessary columns
+        - Ensured appropriate data types
+        - Converted float64 columns to int64 for standardization
+
+    8. **Final Data Checks:**
+        - Ensured no remaining missing values
+        - Verified data types
+
+    This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
+    """)
+
  @st.cache
  def load_data():
      datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
