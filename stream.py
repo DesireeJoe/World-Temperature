@@ -297,7 +297,7 @@ if page ==  "🔬 Exploration Analysis - NASA":
 if page ==  "🌍 Exploration Analysis - OWID":
 # Title of the app
   st.title('Exploration Analysis - OWID')
-if page == "Exploration Analysis - OWID":
+if page == "🌍 Exploration Analysis - OWID":
     st.markdown(
         """
         <style>
