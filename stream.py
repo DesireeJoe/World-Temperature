@@ -1656,7 +1656,7 @@ if page == "Exploration Analysis - FAO":
         start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
     
         # Dropdown for selecting continent or world view
-            selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
+        selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
     
         # Filter data based on selected continent and year range
         filtered_data = filter_data(selected_continent, start_year, end_year)
