@@ -56,14 +56,40 @@ if page == 'Home':
 #########################################################################################################################################################################################################################
 if page == 'Introduction':
     st.write("## World Temperature: Effects of Greenhouse Gases on Global Temperatures")
+    
     st.markdown("""
-Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change. 
+    <div style="text-align: justify;">
+    <p><strong>Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change.</strong></p>
+    </div>
+    """, unsafe_allow_html=True)
 
-The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. This project dives into historical temperature records to uncover trends and patterns, using data from FAO, NASA and ‘Our World In Data”.
-We want to understand how global warming has evolved over centuries and decades. We'll start by carefully looking at temperature data, going from the past to the present. Through detailed analysis and visualisation, we'll reveal how temperatures have changed across different parts of the world and over time.
-Using data from FAO, NASA and ‘Our World In Data”, This project explores historical temperature records to try to uncover trends and patterns. We will highlight this data exploration in further detail in the next steps.
-    """)
-    st.markdown("![Global Temperature Anomaly](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29hNGFibnZuZzhqOWZvcTFhbnJlemZha2k1OGZhcTBubTVldGRmcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OBWPNNz0xLm3daysZS/giphy-downsized-large.gif)")
+    st.markdown("""
+    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e6e6fa; margin-bottom: 20px;">
+    <p>The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
+    This project dives into historical temperature records to uncover trends and patterns, using data from 
+    <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, 
+    <a href="https://data.giss.nasa.gov/gistemp/a" target="_blank">NASA</a>, and 
+    <a href="https://ourworldindata.org/explorers/co2?facet=none&Gas+or+Warming=CO%E2%82%82&Accounting=Territorial&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&country=CHN~USA~IND~GBR~OWID_WRL" target="_blank">'Our World in Data'</a>.
+    </p>
+    <p>Through careful analysis, we want to understand how global warming has evolved over centuries and decades. We'll start by carefully looking at temperature data, going from the past to the present to reveal how temperatures have changed across different parts of the world over time.</p>
+    <p>We will highlight this data exploration in further detail in the next steps.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="text-align: justify; margin-top: 20px;">
+    <p><strong>Steps taken throughout this project:</strong></p>
+    <p>- Analysis of various datasets to identify global patterns</p>
+    <p>- Investigate relationships between temperature and factors like GDP, population, and CO2</p>
+    <p>- Development of predictive models for forecasting temperature changes</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div style="text-align: center;">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExY29hNGFibnZuZzhqOWZvcTFhbnJlemZha2k1OGZhcTBubTVldGRmcCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/OBWPNNz0xLm3daysZS/giphy-downsized-large.gif" alt="Global Temperature Anomaly">
+    </div>
+    """, unsafe_allow_html=True)
 
 
 ####################################################################################################################################################################################################################
@@ -1502,7 +1528,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 if page == "Exploration Analysis - FAO":
-    st.write("### Exploration of FAO Datasets")
+    st.write("### Exploration Analysis - FAO")
     st.write("##### Food and Agriculture Organization of the United Nations")
 
     # Function to load data
