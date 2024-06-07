@@ -1766,17 +1766,7 @@ if page == "Exploration Analysis - FAO":
     
         st.plotly_chart(fig)
     
-    # Main Streamlit app
-    if __name__ == '__main__':
-        st.sidebar.title("Navigation")
-        page = st.sidebar.radio("Go to", ["FAO Exploration", "Temperature Categories"])
-    
-        ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
-    
-        if page == "FAO Exploration":
-            fao_exploration(ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned)
-        elif page == "Temperature Categories":
-            plot_temperature_categories(ETC_cleaned)
+
 
 
 ###
