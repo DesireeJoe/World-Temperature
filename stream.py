@@ -1727,10 +1727,10 @@ if page == "Exploration Analysis - FAO":
         # Show the plot
         st.plotly_chart(fig_bar)
     
-    # Function to plot hot/cold temperature categories
+    #  Function to plot hot/cold temperature categories
     def plot_temperature_categories(ETC_cleaned):
         st.title("Temperature Categories Over Years")
-    
+
         # Function to calculate temperature categories
         def calculate_temperature_categories(df, year):
             data_year = df[df['Year'] == year]
@@ -1738,12 +1738,12 @@ if page == "Exploration Analysis - FAO":
             within_2_sd = ((data_year['Temp Change'] >= -2 * data_year['Std Dev']) & (data_year['Temp Change'] <= 2 * data_year['Std Dev'])).sum()
             greater_than_2_sd = (data_year['Temp Change'] > 2 * data_year['Std Dev']).sum()
             return lower_than_2_sd, within_2_sd, greater_than_2_sd
-    
+
         # List of years to analyze
         years = [1961, 1991, 2021]
-    
+
         fig = go.Figure()
-    
+
         for year in years:
             cold, normal, warm = calculate_temperature_categories(ETC_cleaned, year)
             categories = ['Cold', 'Normal', 'Warm']
@@ -1756,17 +1756,18 @@ if page == "Exploration Analysis - FAO":
                 name=str(year),
                 marker_color=colors
             ))
-    
+
         fig.update_layout(
             title="Number of Countries by Temperature Category",
             xaxis_title="Temperature Category",
             yaxis_title="Number of Countries",
             barmode='group'
         )
-    
-        st.plotly_chart(fig)
-    
 
+        st.plotly_chart(fig)
+
+    # Call the function to plot the temperature categories
+    plot_temperature_categories(ETC_cleaned)
 
 
 ###
