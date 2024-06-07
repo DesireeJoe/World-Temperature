@@ -1558,7 +1558,7 @@ if page == "Exploration Analysis - FAO":
 
 
     st.markdown("""
-<div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa;">
+<div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa; margin-bottom: 20px;">
     <p>The FAOSTAT Temperature Change data provides updates on how land temperatures have shifted from 1961 to 2023. 
     It includes monthly, seasonal, and yearly temperature changes compared to the 1951-1980 baseline. 
     This means that current temperature changes are measured against the average temperatures recorded during the period from 1951 to 1980, 
