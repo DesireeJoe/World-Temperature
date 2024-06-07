@@ -64,18 +64,13 @@ if page == 'Introduction':
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align: justify;">
+    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #f9f9f9;">
     <p>The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
     This project dives into historical temperature records to uncover trends and patterns, using data from 
     <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, 
     <a href="https://data.giss.nasa.gov/gistemp/a" target="_blank">NASA</a>, and 
     <a href="https://ourworldindata.org/explorers/co2?facet=none&Gas+or+Warming=CO%E2%82%82&Accounting=Territorial&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&country=CHN~USA~IND~GBR~OWID_WRL" target="_blank">'Our World in Data'</a>.
     </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style="text-align: justify;">
     <p>Through careful analysis, we want to understand how global warming has evolved over centuries and decades. We'll start by carefully looking at temperature data, going from the past to the present to reveal how temperatures have changed across different parts of the world over time.</p>
     <p>We will highlight this data exploration in further detail in the next steps.</p>
     </div>
@@ -84,11 +79,6 @@ if page == 'Introduction':
     st.markdown("""
     <div style="text-align: justify;">
     <p><strong>Steps taken throughout this project:</strong></p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <div style="text-align: justify;">
     <p>- Analysis of various datasets to identify global patterns</p>
     <p>- Investigate relationships between temperature and factors like GDP, population, and CO2</p>
     <p>- Development of predictive models for forecasting temperature changes</p>
