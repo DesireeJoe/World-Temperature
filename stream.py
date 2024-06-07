@@ -11,19 +11,38 @@ import plotly.graph_objects as go
 
 
 
-# Seitenleiste
-st.sidebar.markdown('<style>div.row-widget.stRadio div{color: black;}</style>', unsafe_allow_html=True)
-# st.sidebar.write('<font color="black">Main Menu</font>', unsafe_allow_html=True)
-page = st.sidebar.radio(" ", ["Home", "Introduction",
-                              "Exploration Analysis - NASA",
-                              "Exploration Analysis - OWID",
-                              "Exploration Analysis - STA",
-                              "Exploration Analysis - FAO",
-                              "Modelling Preparation",
-                              "Machine Learning Models",
-                              "Time-series modeling with SARIMA",
-                              "Prediction",
-                              "Conclusion", "Credits"])
+# Sidebar Configuration
+st.sidebar.title("Main Menu")
+
+# Sidebar navigation with emojis
+pages = [
+    "🏠 Home",
+    "📖 Introduction",
+    "🔬 Exploration Analysis - NASA",
+    "🌍 Exploration Analysis - OWID",
+    "📉 Exploration Analysis - STA",
+    "📊 Exploration Analysis - FAO",
+    "🛠️ Modelling Preparation",
+    "🤖 Machine Learning Models",
+    "📈 Time-series modeling with SARIMA",
+    "🔮 Prediction",
+    "📌 Conclusion",
+    "👥 Credits"
+]
+page = st.sidebar.radio("Navigate to", pages)
+
+# Sidebar additional info
+st.sidebar.markdown(
+    """
+    - **Course**: Data Analyst
+    - **Instructor**: Tarik Anouar
+    - **Date**: June 2024
+    - **Team Members**:
+        - Desireé Jörke
+        - Manasi Deshpande
+        - Fiona Murphy
+    """
+)
 
 
 #########################################################################################################################################################################################################################
