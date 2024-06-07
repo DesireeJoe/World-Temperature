@@ -793,6 +793,9 @@ if page ==  "Exploration Analysis - STA":
       st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
+import streamlit as st
+import pandas as pd
+
 if page == "Modelling Preparation":
     # Title of the app
     st.title('Modelling Preparation')
@@ -861,15 +864,17 @@ if page == "Modelling Preparation":
     This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
     """)
 
- @st.cache
- def load_data():
-     datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
-     return datas_pre_processed
+    @st.cache
+    def load_data():
+        datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
+        return datas_pre_processed
 
- # Load the dataset
- datas_pre_processed = load_data()
- # Display the dataset (optional)
- st.dataframe(datas_pre_processed)
+    # Load the dataset
+    datas_pre_processed = load_data()
+    
+    # Display the dataset (optional)
+    st.dataframe(datas_pre_processed)
+
 
 ###
 ########################################################################################################################################################################################################################
