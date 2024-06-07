@@ -56,9 +56,10 @@ if page == 'Home':
 #########################################################################################################################################################################################################################
 if page == 'Introduction':
     st.write("## World Temperature: Effects of Greenhouse Gases on Global Temperatures")
+    
     st.markdown("""
     <div style="text-align: justify;">
-    <strong>Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change.</strong>
+    <p><strong>Understanding what impacts our planet's temperature changes over time is vital for understanding the dynamics of climate change.</strong></p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -69,24 +70,22 @@ if page == 'Introduction':
 
     st.markdown("""
     <div style="text-align: justify;">
-    Through careful analysis, we want to understand how global warming has evolved over centuries and decades. We'll start by carefully looking at temperature data, going from the past to the present to reveal how temperatures have changed across different parts of the world over time.
-    We will highlight this data exploration in further detail in the next steps.
+    <p>Through careful analysis, we want to understand how global warming has evolved over centuries and decades. We'll start by carefully looking at temperature data, going from the past to the present to reveal how temperatures have changed across different parts of the world over time.</p>
+    <p>We will highlight this data exploration in further detail in the next steps.</p>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
     <div style="text-align: justify;">
-    <strong>Steps taken throughout this project:</strong>  
+    <p><strong>Steps taken throughout this project:</strong></p>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
     <div style="text-align: justify;">
-    - Analysis of various datasets to identify global patterns
-    <br>
-    - Investigate relationships between temperature and factors like GDP, population, and CO2
-    <br>
-    - Development of predictive models for forecasting temperature changes
+    <p>- Analysis of various datasets to identify global patterns</p>
+    <p>- Investigate relationships between temperature and factors like GDP, population, and CO2</p>
+    <p>- Development of predictive models for forecasting temperature changes</p>
     </div>
     """, unsafe_allow_html=True)
 
