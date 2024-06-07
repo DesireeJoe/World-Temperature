@@ -1306,14 +1306,9 @@ if page == "Prediction":
     def prediction():
         def load_model():
             try:
-                with open("gradient.pkl", "rb") as f:
+                with open("gradient2.pkl", "rb") as f:
                     model = pickle.load(f)
                 st.write("Model loaded successfully.")
-                st.write(f"Model type: {type(model)}")
-                if hasattr(model, 'predict'):
-                    st.write("Model has a predict method.")
-                else:
-                    st.write("Model does NOT have a predict method.")
                 return model
             except FileNotFoundError:
                 st.error("Model file not found. Please check the file path.")
