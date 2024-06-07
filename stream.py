@@ -1747,20 +1747,20 @@ FAO Global Administrative Unit Layer (GAUL National level – reference year 201
 
         # List of years to analyze
         years = [1961, 1991, 2021]
+        colors = ['blue', 'green', 'red']
 
         fig = go.Figure()
 
-        for year in years:
+        for year, color in zip(years, colors):
             cold, normal, warm = calculate_temperature_categories(ETC_cleaned, year)
             categories = ['Cold', 'Normal', 'Warm']
             counts = [cold, normal, warm]
-            colors = ['blue', 'grey', 'red']
             
             fig.add_trace(go.Bar(
                 x=categories,
                 y=counts,
                 name=str(year),
-                marker_color=colors
+                marker_color=color
             ))
 
         fig.update_layout(
