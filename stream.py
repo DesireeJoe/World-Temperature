@@ -1527,12 +1527,6 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-import streamlit as st
-
-import streamlit as st
-
-import streamlit as st
-
 if page == "Exploration Analysis - FAO":
     col1, col2 = st.columns([1, 3])
     
@@ -1541,10 +1535,11 @@ if page == "Exploration Analysis - FAO":
     
     with col2:
         st.markdown("""
-        <div style='display: flex; align-items: center; height: 100%;'>
+        <div style='display: flex; align-items: center; height: 120px;'>
             <h3 style='margin: 0;'>Exploration Analysis - FAO</h3>
         </div>
         """, unsafe_allow_html=True)
+
     
 
 
