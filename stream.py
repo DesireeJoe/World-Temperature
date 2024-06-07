@@ -825,15 +825,12 @@ if page == "Modelling Preparation":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="blue-box">
-        <h3>Datasets</h3>
-        <ul>
-            <li>CO2 emissions data (OWID)</li>
-            <li>Surface temperature anomaly data (HadCRUT)</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
+    with st.expander("Datasets"):
+        st.markdown("""
+        **Datasets:**
+        - CO2 emissions data (OWID)
+        - Surface temperature anomaly data (HadCRUT)
+        """)
 
     st.markdown("""
     <div class="blue-box">
@@ -898,12 +895,9 @@ if page == "Modelling Preparation":
         datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
         return datas_pre_processed
 
-    # Load the dataset
     datas_pre_processed = load_data()
     
-    # Display the dataset (optional)
     st.dataframe(datas_pre_processed)
-
 
 
 ###
