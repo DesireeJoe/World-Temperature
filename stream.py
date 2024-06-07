@@ -73,7 +73,7 @@ if page == '🏠 Home':
  )
    
 #########################################################################################################################################################################################################################
-if page == 'Introduction':
+if page == '📖 Introduction':
     st.write("## World Temperature: Effects of Greenhouse Gases on Global Temperatures")
     
     st.markdown("""
@@ -114,7 +114,7 @@ if page == 'Introduction':
 ####################################################################################################################################################################################################################
 
 #Nasa Exploration#
-if page ==  "Exploration Analysis - NASA":
+if page ==  "🔬 Exploration Analysis - NASA":
 
 # Title of the app
   st.title('Exploration Analysis - NASA')
@@ -288,7 +288,7 @@ if page ==  "Exploration Analysis - NASA":
 
 ################################################################################################################################################################################################
 
-if page ==  "Exploration Analysis - OWID":
+if page ==  "🌍 Exploration Analysis - OWID":
 # Title of the app
   st.title('Exploration Analysis - OWID')
 if page == "Exploration Analysis - OWID":
@@ -395,7 +395,7 @@ if page == "Exploration Analysis - OWID":
          st.markdown('  * The high share of missing values across a large part of the variables in the OWID data set (ranging from 15.3% to 94.9% across variables) poses some challenges to data selection and data preprocessing that might influence interpretability of the results further down the road.')
 
          st.markdown("***")
-if page ==  "Exploration Analysis - OWID":
+if page ==  "🌍 Exploration Analysis - OWID":
 #Plots
 #Barplot of different categories of C02 emissions
  with st.expander("Barplot Representing the Distribution of CO2 Emissions Across Different Categories"):
@@ -458,7 +458,7 @@ if page ==  "Exploration Analysis - OWID":
       st.plotly_chart(fig)
       st.markdown("***")
 
-if page ==  "Exploration Analysis - OWID":
+if page ==  "🌍 Exploration Analysis - OWID":
 # Description of the plot
   with st.expander("### Description of the CO2 Emissions Distribution", expanded=True):
        
@@ -474,7 +474,7 @@ if page ==  "Exploration Analysis - OWID":
   """)
 
 #Line plot for Global Co2 emissions by emission sources 
-if page ==  "Exploration Analysis - OWID":
+if page ==  "🌍 Exploration Analysis - OWID":
    with st.expander("Line plot representing Global CO2 Emissions by Emission Sources"):
         st.write("The line plot illustrates global CO2 emissions over time, categorized by various emission sources. Each line in the plot represents the trend of CO2 emissions from a specific source, such as flaring, industrial processes, methane, nitrous oxide, oil, gas, coal, cement production, land use changes, and the total greenhouse gas emissions.")
 
@@ -528,7 +528,7 @@ if page ==  "Exploration Analysis - OWID":
         # Display the plot in Streamlit
         st.plotly_chart(fig)
        
-if page ==  "Exploration Analysis - OWID":
+if page ==  "🌍 Exploration Analysis - OWID":
 # Description of the plot
  with st.expander("Description of the Global CO2 Emissions by Emission Sources"):
        st.write("""
@@ -543,7 +543,7 @@ if page ==  "Exploration Analysis - OWID":
   """)
        st.markdown("***")
   
-if page ==  "Exploration Analysis - OWID":
+if page ==  "🌍 Exploration Analysis - OWID":
   with  st.expander("Top 15 Countries with Highest CO2 Emissions"):
         st.write("The line plot illustrates the trend of methane emissions over time for the top 15 countries with the highest total methane emissions. Each line represents the methane emissions trajectory for one of the top 15 countries")
 
@@ -599,7 +599,7 @@ if page ==  "Exploration Analysis - OWID":
       """)
 #####################################################################################################################################################################
  
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
 # Title of the app
      st.title('Exploration Analysis - STA')
      st.markdown(
@@ -693,7 +693,7 @@ if page ==  "Exploration Analysis - STA":
          
           st.markdown("***")
 
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
  with st.expander("Surface Temperature Anomaly in Top 5 countries"):
       st.write("The plot illustrates the surface temperature anomaly trends in the top 5 countries (Afghanistan, Chad, Uganda, Romania, and Belarus) from the years 1880 to 2017.")
       top_countries = ['Afghanistan', 'Chad', 'Uganda', 'Romania', 'Belarus']
@@ -708,7 +708,7 @@ if page ==  "Exploration Analysis - STA":
       st.plotly_chart(fig)
 
     # Description of the plot 
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
  with st.expander("Description of Surface Temperature Anomaly Trends"):
       st.write("""
    - The plot allows for a visual comparison of surface temperature anomalies across the top 5 countries over the available time period.
@@ -723,7 +723,7 @@ if page ==  "Exploration Analysis - STA":
     """)     
       st.markdown("***") 
 
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
    sns.set_style("whitegrid")
    @st.cache
    def load_data():
@@ -731,7 +731,7 @@ if page ==  "Exploration Analysis - STA":
        return merged_data
    merged_data = load_data()
         
-if page ==  "Exploration Analysis - STA":  
+if page ==  "📉 Exploration Analysis - STA":  
   with st.expander("CO2 Emissions and Surface Temperature Anomalies Over Years"):
        st.write("The Line plot represents two line plots on the same graph. The first line plot depicts the trend of surface temperature anomaly over the years from 1850 to 2017. The second line plot illustrates the trend of CO2 emissions over the years from 1880 to 2022.")
 
@@ -759,7 +759,7 @@ if page ==  "Exploration Analysis - STA":
       # Show the plot
        st.pyplot(fig)
 # Description of the plot
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
  with st.expander("Description of CO2 Emissions and Surface Temperature Anomalies Trends"):
       st.write("""                                                                                                                                  
     - Both line plots show an overall increasing trend over the respective time periods.
@@ -773,12 +773,12 @@ if page ==  "Exploration Analysis - STA":
     """)
       st.markdown("***")
 
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
     import streamlit as st
     import plotly.express as px
     import pandas as pd
 
-if page ==  "Exploration Analysis - STA":
+if page ==  "📉 Exploration Analysis - STA":
  with st.expander("Surface Temperature Anomalies Over Years in different countries"):
       st.write("The plot shows surface temperature anomaly over the years from 1850 to 2017 across different countries")
     # Sort the values of Year Column
@@ -812,7 +812,7 @@ if page ==  "Exploration Analysis - STA":
       st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
-if page == "Modelling Preparation":
+if page == "🛠️ Modelling Preparation":
     st.markdown(
         """
         <style>
@@ -901,7 +901,7 @@ if page == "Modelling Preparation":
 ###
 ########################################################################################################################################################################################################################
 
-if page ==  "Machine Learning Models":
+if page ==  "🤖 Machine Learning Models":
   # Title of the app
      st.title('Machine Learning Models')
      st.markdown(
@@ -940,7 +940,7 @@ In the initial stage of our machine learning models, we began by preparing our d
 
 The target variable for our models was the surface temperature anomaly (sta), while the remaining variables served as the features. We employed the `train_test_split` method to divide the dataset into training and testing subsets, allocating 80% of the data to training and 20% to testing, with a random state of 42 to ensure reproducibility. This foundational step was crucial in setting up the dataset for effective training and evaluation of our machine learning models.
 """)
-if page ==  "Machine Learning Models":
+if page ==  "🤖 Machine Learning Models":
   with st.expander("**Linear Regression and Decision Tree Models**"):
     # Initial paragraph
     st.markdown("""
@@ -1019,7 +1019,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 
 # Random Forest Model Expander
-if page ==  "Machine Learning Models":
+if page ==  "🤖 Machine Learning Models":
   with st.expander("**Random Forest Model**"):
       st.write("In the field of predictive analytics and data science, Random Forest modelling stands out as a powerful and versatile machine learning technique, where multiple decision trees are trained and aggregated to improve the overall predictive performance and robustness of the model. Those models are particularly well-suited for handling complex datasets with numerous features and intricate relationships.")
       @st.cache
@@ -1099,7 +1099,7 @@ if page ==  "Machine Learning Models":
       plt.legend()
       st.pyplot(plt)
 
-if page ==  "Machine Learning Models":
+if page ==  "🤖 Machine Learning Models":
   st.markdown(
                 """
                 <style>
@@ -1279,7 +1279,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 import streamlit as st
 
 # Define the page for Streamlit
-if page == 'Time-series modeling with SARIMA':
+if page == '📈 Time-series modeling with SARIMA':
     # Load and prepare the data
     ts = pd.read_csv('ts_final.csv')
     
@@ -1377,10 +1377,9 @@ import pandas as pd
 import streamlit as st
 from sklearn.ensemble import GradientBoostingRegressor
 
-if page == "Prediction":
+if page == "🔮 Prediction":
     st.title('Prediction with Gradient Boosting')
   
-    # Define the prediction function
     def prediction():
         def load_model():
             try:
@@ -1424,7 +1423,7 @@ if page == "Prediction":
         data = pd.read_csv("datas_pre_processed.csv")
         df3 = data.copy()
     
-        # Get the minimum and maximum values
+        # min/max values
         year_min, year_max = df3['year'].min(), df3['year'].max()
         coal_co2_min, coal_co2_max = df3['coal_co2'].min(), df3['coal_co2'].max()
         population_min, population_max = df3['population'].min(), df3['population'].max()
@@ -1437,7 +1436,7 @@ if page == "Prediction":
         gdp_value = df3['gdp'].mean()
         co2_value = df3['co2'].mean()
     
-        # Feature inputs
+    
         col1, col2 = st.columns(2)
     
         with col1:
@@ -1449,7 +1448,7 @@ if page == "Prediction":
             gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
             co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
     
-        # Add a button for prediction
+        # prediction button
         if st.button("Predict"):
             selected_features = get_features(year, coal_co2, population, gdp, co2)
             st.write("Selected features:", selected_features)
@@ -1458,14 +1457,13 @@ if page == "Prediction":
                 st.write("Predicted Surface Temperature:", prediction_result)
             else:
                 st.write("Prediction could not be made due to an error in loading the model.")
-    
-    # Run the prediction function
+   n
     if __name__ == "__main__":
         prediction()
 
 
 ########################################################################################################################################################################################################################
-if page ==  "Conclusion":
+if page ==  "📌 Conclusion":
   # Title of the app
      st.title('Conclusion')
      st.markdown(
@@ -1484,7 +1482,7 @@ if page ==  "Conclusion":
      )
      st.markdown('<h1 class="centered-title">Conclusion</h1>', unsafe_allow_html=True)
      st.markdown("<br><br>", unsafe_allow_html=True)
-if page == "Conclusion":
+if page == "📌 Conclusion":
     st.markdown("""
     ## Comparison of all Models & Conclusion
     
@@ -1515,18 +1513,18 @@ if page == "Conclusion":
     """)
   ###
 
-if page ==   "Credits" :
+if page ==   "👥 Credits" :
    st.title('Credits')
 
    col1, col2, col3 = st.columns(3)
-if page ==  "Credits" :   
+if page ==  "👥 Credits" :   
   with col1:
      st.write("**Members of the project team:**")
      st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
      st.write("**Resources:**")
      st.markdown("<br><br><br><br><br><br><br>", unsafe_allow_html=True)
      #st.write("**Project report: uploaden?**") # upload report
-if page ==  "Credits" :   
+if page ==  "👥 Credits" :   
   with col2:
      st.write("Manasi Deshpande")
      st.write("Desireé Jörke")
@@ -1564,7 +1562,7 @@ if page ==  "Credits" :
             unsafe_allow_html=True
         )
 
-if page ==  "Credits" :  
+if page ==  "👥 Credits" :  
      st.markdown("<br><br>", unsafe_allow_html=True)
      st.markdown("<span style='font-size: 12px;'>\*For each member of the group, specify the level of expertise around the problem addressed:</span>  \n<span style='font-size: 12px;'>   None of the members have prior knowledge with respect to in-depth climate data analysis.</span>", unsafe_allow_html=True)
 
@@ -1579,7 +1577,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-if page == "Exploration Analysis - FAO":
+if page == "📊 Exploration Analysis - FAO":
     col1, col2 = st.columns([1, 3])
     
     with col1:
