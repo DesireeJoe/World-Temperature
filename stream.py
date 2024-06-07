@@ -827,68 +827,47 @@ if page == "Modelling Preparation":
 
     with st.expander("Datasets"):
         st.markdown("""
-        **Datasets:**
         - CO2 emissions data (OWID)
         - Surface temperature anomaly data (HadCRUT)
         """)
 
     st.markdown("""
-    <div class="blue-box">
-        <h3>Pre-processing Steps</h3>
-        <ol>
-            <li><strong>Renaming Columns:</strong>
-                <ul>
-                    <li>Standardized column names</li>
-                    <li>Converted to lowercase and renamed for clarity</li>
-                </ul>
-            </li>
-            <li><strong>Handling Missing Values:</strong>
-                <ul>
-                    <li>Identified and removed rows with missing values</li>
-                    <li>Deleted 46,181 rows from the OWID dataset</li>
-                    <li>Deleted 346 rows from the Surface Temperature Anomaly dataset</li>
-                    <li>The final dataset has no missing values</li>
-                </ul>
-            </li>
-            <li><strong>Removing Duplicates:</strong>
-                <ul>
-                    <li>Ensured no duplicate records exist</li>
-                </ul>
-            </li>
-            <li><strong>Outlier Detection and Removal:</strong>
-                <ul>
-                    <li>Used Z-score method to identify and remove outliers from the surface temperature anomaly column</li>
-                </ul>
-            </li>
-            <li><strong>Merging Datasets:</strong>
-                <ul>
-                    <li>Merged datasets based on country, iso_code, and year</li>
-                    <li>Integrated temperature anomaly and CO2 emissions data</li>
-                </ul>
-            </li>
-            <li><strong>Feature Selection:</strong>
-                <ul>
-                    <li>Selected columns relevant to analysis</li>
-                    <li>Included the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population</li>
-                </ul>
-            </li>
-            <li><strong>Further Cleaning and Formatting:</strong>
-                <ul>
-                    <li>Removed unnecessary columns</li>
-                    <li>Ensured appropriate data types</li>
-                    <li>Converted float64 columns to int64 for standardization</li>
-                </ul>
-            </li>
-            <li><strong>Final Data Checks:</strong>
-                <ul>
-                    <li>Ensured no remaining missing values</li>
-                    <li>Verified data types</li>
-                </ul>
-            </li>
-        </ol>
-    </div>
-    <p>This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.</p>
-    """, unsafe_allow_html=True)
+    ### Pre-processing Steps
+    1. **Renaming Columns:**
+        - Standardized column names
+        - Converted to lowercase and renamed for clarity
+
+    2. **Handling Missing Values:**
+        - Identified and removed rows with missing values
+        - Deleted 46,181 rows from the OWID dataset
+        - Deleted 346 rows from the Surface Temperature Anomaly dataset
+        - The final dataset has no missing values
+
+    3. **Removing Duplicates:**
+        - Ensured no duplicate records exist
+
+    4. **Outlier Detection and Removal:**
+        - Used Z-score method to identify and remove outliers from the surface temperature anomaly column
+
+    5. **Merging Datasets:**
+        - Merged datasets based on country, iso_code, and year
+        - Integrated temperature anomaly and CO2 emissions data
+
+    6. **Feature Selection:**
+        - Selected columns relevant to analysis
+        - Included the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population
+
+    7. **Further Cleaning and Formatting:**
+        - Removed unnecessary columns
+        - Ensured appropriate data types
+        - Converted float64 columns to int64 for standardization
+
+    8. **Final Data Checks:**
+        - Ensured no remaining missing values
+        - Verified data types
+
+    This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
+    """)
 
     @st.cache
     def load_data():
@@ -898,6 +877,7 @@ if page == "Modelling Preparation":
     datas_pre_processed = load_data()
     
     st.dataframe(datas_pre_processed)
+
 
 
 ###
