@@ -64,7 +64,7 @@ if page == 'Introduction':
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e6e6fa; margin-bottom: 20px;">
+    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa; margin-bottom: 20px;">
     <p>The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
     This project dives into historical temperature records to uncover trends and patterns, using data from 
     <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, 
@@ -793,10 +793,8 @@ if page ==  "Exploration Analysis - STA":
       st.plotly_chart(fig)
 ########################################################################################################################################################################################################################
 
-if page ==  "Modelling Preparation":
-  # Title of the app
-     st.title('Modelling Preparation')
-     st.markdown(
+if page == "Modelling Preparation":
+    st.markdown(
         """
         <style>
         .centered-title {
@@ -806,45 +804,80 @@ if page ==  "Modelling Preparation":
             border-bottom: 2px solid black;
             padding: 10px;
         }
+        .blue-box {
+            border: 1px solid #d6d6d6;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #e0f7fa;
+            margin-bottom: 20px;
+        }
         </style>
         """,
         unsafe_allow_html=True,
-     )
-     st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
+    )
+    st.markdown('<h1 class="centered-title">Modelling Preparation</h1>', unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-     # Description in short points
-     st.markdown("""
-     ### Steps in Pre-processing and Merging Datasets
+    st.markdown("""
+    <div class="blue-box">
+        <h3>Objective</h3>
+        <p>Clean and prepare data for exploration and modeling, ensuring quality and consistency.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
-     - **Objective:** Clean and prepare data for exploration and modeling, ensuring quality and consistency.
-     - **Datasets:** CO2 emissions data (OWID) and surface temperature anomaly data (HadCRUT).
-     - **Renaming Columns:** Standardized column names, converting to lowercase and renaming for clarity.
-     - **Handling Missing Values:** Identified and removed rows with missing values.
-     - Deleted 46,181 rows from the OWID dataset.
-     - Deleted 346 rows from the Surface Temperature Anomaly dataset.
-     - The final dataset has no missing values
-     - **Removing Duplicates:** Ensured no duplicate records exist.
-     - **Outlier Detection and Removal:** Used Z-score method to identify and remove outliers from the surface temperature anomaly column.
-     - **Merging Datasets:** Merged datasets based on country, iso_code, and year, integrating temperature anomaly and CO2 emissions data.
-     - **Feature Selection:** Selected columns relevant to analysis, including the target variable and features related to CO2 emissions, greenhouse gases, GDP, and population.
-     - **Further Cleaning and Formatting:** Removed unnecessary columns and ensured appropriate data types.
-     - Converted float64 columns to int64 for standardization.
-     - **Final Data Checks:** Ensured no remaining missing values and verified data types.
+    with st.expander("Datasets"):
+        st.markdown("""
+        - CO2 emissions data (OWID)
+        - Surface temperature anomaly data (HadCRUT)
+        """)
 
-      This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
-      """)
-if page ==  "Modelling Preparation":
-# Load data function
- @st.cache
- def load_data():
-     datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
-     return datas_pre_processed
+    st.markdown("""
+    ### Pre-processing Steps
+    1. **Renaming Columns:**
+        - Standardized column names
+        - Converted to lowercase and renamed for clarity
 
- # Load the dataset
- datas_pre_processed = load_data()
- # Display the dataset (optional)
- st.dataframe(datas_pre_processed)
+    2. **Handling Missing Values & Duplicates:**
+        - Identified and removed rows with missing values.
+        - Deleted 46,181 rows from the OWID dataset.
+        - Deleted 346 rows from the Surface Temperature Anomaly dataset.
+        - The final dataset has no missing values.
+        - Ensured no duplicate records exist.
+
+    3. **Outlier Detection and Removal:**
+        - Identified outliers using a boxplot for the surface temperature anomaly column.
+        - Removed outliers using the Z-score method. Data points with Z-scores greater than a threshold (e.g., 3) were considered outliers and removed.
+
+    4. **Merging Datasets:**
+        - Merged datasets based on country, iso_code, and year
+        - Integrated features related to CO2 emissions, greenhouse gases, GDP, and population
+
+    6. **Feature Selection:**
+        - Dropped irrelevant columnss
+        - Identified the target variable amd renamed it from surface temperature anomaly to sta for readibility.
+        - Normalized features using Min-Max normalization to scale the data to a range [0, 1].
+
+    7. **Further Cleaning and Formatting:**
+        - Ensured appropriate data types
+        - Converted float64 columns to int64 for standardization
+
+    8. **Final Data Checks:**
+        - Ensured no remaining missing values
+        - Verified data types to ensure they were appropriate for further analysis and modeling.
+
+    This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
+    """)
+
+    @st.cache
+    def load_data():
+        datas_pre_processed = pd.read_csv("datas_pre_processed.csv", encoding='latin1')
+        return datas_pre_processed
+
+    datas_pre_processed = load_data()
+    
+    st.dataframe(datas_pre_processed)
+
+
 
 ###
 ########################################################################################################################################################################################################################
@@ -1528,8 +1561,20 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 if page == "Exploration Analysis - FAO":
-    st.write("### Exploration Analysis - FAO")
-    st.write("##### Food and Agriculture Organization of the United Nations")
+    col1, col2 = st.columns([1, 3])
+    
+    with col1:
+        st.image("fao.png", width=120)
+    
+    with col2:
+        st.markdown("""
+        <div style='display: flex; align-items: center; height: 120px;'>
+            <h3 style='margin: 0;'>Exploration Analysis - Food and Agriculture Organization of the United Nations (FAO) </h3>
+        </div>
+        """, unsafe_allow_html=True)
+
+    
+
 
     # Function to load data
     @st.cache
@@ -1544,23 +1589,26 @@ if page == "Exploration Analysis - FAO":
     # Load the data
     ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
 
-    # Existing content
-    st.markdown(""" The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
-        Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below.
-        """)
+
+    st.markdown("""
+<div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa; margin-bottom: 20px;">
+    <p>The FAOSTAT Temperature Change data provides updates on how land temperatures have shifted from 1961 to 2023. 
+    It includes monthly, seasonal, and yearly temperature changes compared to the 1951-1980 baseline. 
+    This means that current temperature changes are measured against the average temperatures recorded during the period from 1951 to 1980, 
+    which serves as a reference point for understanding long-term trends.</p>
+</div>
+""", unsafe_allow_html=True)
+    
     with st.expander("Full description of data"):
          st.markdown("""
 **Data description:**\n
-The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates.\n 
-The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal, and annual mean temperature anomalies,\n 
-i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.\n
-The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)\n\n
+The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates. The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal and annual mean temperature anomalies, i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980. The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)..\n
 **Statistical concepts and definitions:**\n
-Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1\n\n    
+
+Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1.\n
 **Reference area:**\n
-Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
-FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: [FAO GeoNetwork](https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8))\n\n
-**Time coverage:**\n
+Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories.&nbsp; | Code - reference area: FAOSTAT, M49, ISO2 and ISO3 (https://www.fao.org/faostat/en/#definitions).CHAR(13)CHAR(10)CHAR(13)CHAR(10)FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
+\n**Time coverage:**\n
 1961-2023 | Periodicity: Monthly, Seasonal, Yearly\n\n
 **Base period:**\n
 1951-1980
