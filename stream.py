@@ -11,10 +11,9 @@ import plotly.graph_objects as go
 
 
 
-# Sidebar Configuration
 st.sidebar.title("Main Menu")
 
-# Sidebar navigation with emojis
+# Sidebar navigation 
 pages = [
     "🏠 Home",
     "📖 Introduction",
@@ -29,9 +28,8 @@ pages = [
     "📌 Conclusion",
     "👥 Credits"
 ]
-page = st.sidebar.radio("Navigate to", pages)
+page = st.sidebar.radio(" ", pages)  
 
-# Sidebar additional info
 st.sidebar.markdown(
     """
     - **Course**: Data Analyst
@@ -43,7 +41,6 @@ st.sidebar.markdown(
         - Fiona Murphy
     """
 )
-
 
 #########################################################################################################################################################################################################################
 if page == '🏠 Home':
