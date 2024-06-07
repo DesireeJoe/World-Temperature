@@ -1495,9 +1495,6 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
-# Set the page variable correctly
-page = "Exploration Analysis - FAO"
-
 if page == "Exploration Analysis - FAO":
     st.write("### Exploration of FAO Datasets")
     st.write("##### Food and Agriculture Organization of the United Nations")
