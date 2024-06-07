@@ -1529,14 +1529,16 @@ import plotly.graph_objects as go
 
 import streamlit as st
 
+import streamlit as st
+
 if page == "Exploration Analysis - FAO":
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([1, 3])
     
     with col1:
-        st.markdown("### Exploration Analysis - FAO")
+        st.image("fao.png", width=150)
     
     with col2:
-        st.image("food-and-agriculture-organization-blue-logo-international-fund-for-agricultural-development-united-nations-symbol-working-group-investment-text-line-png-clipart.jpg", width=150)
+        st.markdown("### Exploration Analysis - FAO")
     
     st.write("## Analysis Content")
     st.markdown("""
@@ -1544,6 +1546,7 @@ if page == "Exploration Analysis - FAO":
     <!-- Your content here -->
     </div>
     """, unsafe_allow_html=True)
+
 
 
     # Function to load data
