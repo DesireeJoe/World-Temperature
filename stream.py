@@ -1531,22 +1531,21 @@ import streamlit as st
 
 import streamlit as st
 
+import streamlit as st
+
 if page == "Exploration Analysis - FAO":
     col1, col2 = st.columns([1, 3])
     
     with col1:
-        st.image("fao.png", width=150)
+        st.image("fao.png", width=120)
     
     with col2:
-        st.markdown("### Exploration Analysis - FAO")
+        st.markdown("""
+        <div style='display: flex; align-items: center; height: 100%;'>
+            <h3 style='margin: 0;'>Exploration Analysis - FAO</h3>
+        </div>
+        """, unsafe_allow_html=True)
     
-    st.write("## Analysis Content")
-    st.markdown("""
-    <div style="text-align: justify;">
-    <!-- Your content here -->
-    </div>
-    """, unsafe_allow_html=True)
-
 
 
     # Function to load data
