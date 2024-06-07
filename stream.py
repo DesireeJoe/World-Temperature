@@ -64,7 +64,7 @@ if page == 'Introduction':
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e6e6fa; margin-bottom: 20px;">
+    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa; margin-bottom: 20px;">
     <p>The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
     This project dives into historical temperature records to uncover trends and patterns, using data from 
     <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, 
@@ -1556,10 +1556,16 @@ if page == "Exploration Analysis - FAO":
     # Load the data
     ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
 
-    # Existing content
-    st.markdown(""" The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
-        Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below.
-        """)
+
+    st.markdown("""
+<div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa;">
+    <p>The FAOSTAT Temperature Change data provides updates on how land temperatures have shifted from 1961 to 2023. 
+    It includes monthly, seasonal, and yearly temperature changes compared to the 1951-1980 baseline. 
+    This means that current temperature changes are measured against the average temperatures recorded during the period from 1951 to 1980, 
+    which serves as a reference point for understanding long-term trends.</p>
+</div>
+""", unsafe_allow_html=True)
+    
     with st.expander("Full description of data"):
          st.markdown("""
 **Data description:**\n
@@ -1568,10 +1574,7 @@ The FAOSTAT Temperature change on land domain disseminates statistics of mean su
 
 Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1.\n
 **Reference area:**\n
-Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories.&nbsp; | Code - reference area: FAOSTAT, M49, ISO2 and ISO3 <a href="https://www.fao.org/faostat/en/#definitions" target="_blank">Definitions</a>.
-
-FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: <a href="https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8" target="_blank">GeoNetwork</a>.
-
+Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories.&nbsp; | Code - reference area: FAOSTAT, M49, ISO2 and ISO3 (https://www.fao.org/faostat/en/#definitions).CHAR(13)CHAR(10)CHAR(13)CHAR(10)FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8
 \n**Time coverage:**\n
 1961-2023 | Periodicity: Monthly, Seasonal, Yearly\n\n
 **Base period:**\n
