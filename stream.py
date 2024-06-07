@@ -837,16 +837,16 @@ if page == "Modelling Preparation":
         - Standardized column names
         - Converted to lowercase and renamed for clarity
 
-    2. **Handling Missing Values:**
-        - Identified and removed rows with missing values
-        - Deleted 46,181 rows from the OWID dataset
-        - Deleted 346 rows from the Surface Temperature Anomaly dataset
-        - The final dataset has no missing values
-        - Ensured no duplicate records exist
+    2. **Handling Missing Values & Duplicates:**
+        - Identified and removed rows with missing values.
+        - Deleted 46,181 rows from the OWID dataset.
+        - Deleted 346 rows from the Surface Temperature Anomaly dataset.
+        - The final dataset has no missing values.
+        - Ensured no duplicate records exist.
 
     3. **Outlier Detection and Removal:**
         - Identified outliers using a boxplot for the surface temperature anomaly column.
-        - Removed outliers using the Z-score method.
+        - Removed outliers using the Z-score method. Data points with Z-scores greater than a threshold (e.g., 3) were considered outliers and removed.
 
     4. **Merging Datasets:**
         - Merged datasets based on country, iso_code, and year
@@ -854,7 +854,8 @@ if page == "Modelling Preparation":
 
     6. **Feature Selection:**
         - Dropped irrelevant columnss
-        - Identified the target variable amd renamed it from surface temperature anomaly to sta for readibility and normalized features using Min-Max normalization.
+        - Identified the target variable amd renamed it from surface temperature anomaly to sta for readibility.
+        - Normalized features using Min-Max normalization to scale the data to a range [0, 1].
 
     7. **Further Cleaning and Formatting:**
         - Ensured appropriate data types
@@ -862,7 +863,7 @@ if page == "Modelling Preparation":
 
     8. **Final Data Checks:**
         - Ensured no remaining missing values
-        - Verified data types
+        - Verified data types to ensure they were appropriate for further analysis and modeling.
 
     This meticulous pre-processing and merging of datasets ensured that our data was clean, well-structured, and ready for the next steps in our analysis and modeling process.
     """)
