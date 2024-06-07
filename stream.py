@@ -9,11 +9,20 @@ import io
 import plotly.express as px
 import plotly.graph_objects as go
 
-
+st.markdown(
+    """
+    <style>
+    .css-1d391kg {
+        margin-top: -30px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 st.sidebar.title("Main Menu")
 
-# Sidebar navigation 
+# Sidebar navigation
 pages = [
     "🏠 Home",
     "📖 Introduction",
@@ -28,7 +37,7 @@ pages = [
     "📌 Conclusion",
     "👥 Credits"
 ]
-page = st.sidebar.radio(" ", pages)  
+page = st.sidebar.radio("", pages)  
 
 st.sidebar.markdown(
     """
