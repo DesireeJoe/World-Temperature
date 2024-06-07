@@ -63,10 +63,16 @@ if page == 'Introduction':
     </div>
     """, unsafe_allow_html=True)
 
-    st.info("""
-    The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
-    \nThis project dives into historical temperature records to uncover trends and patterns, using data from <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, <a href="https://data.giss.nasa.gov/gistemp/a" target="_blank">NASA</a>, and <a href="https://ourworldindata.org/explorers/co2?facet=none&Gas+or+Warming=CO%E2%82%82&Accounting=Territorial&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&country=CHN~USA~IND~GBR~OWID_WRL" target="_blank">'Our World in Data'</a>.
-    """)
+    st.markdown("""
+    <div style="text-align: justify;">
+    <p>The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
+    This project dives into historical temperature records to uncover trends and patterns, using data from 
+    <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, 
+    <a href="https://data.giss.nasa.gov/gistemp/a" target="_blank">NASA</a>, and 
+    <a href="https://ourworldindata.org/explorers/co2?facet=none&Gas+or+Warming=CO%E2%82%82&Accounting=Territorial&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&country=CHN~USA~IND~GBR~OWID_WRL" target="_blank">'Our World in Data'</a>.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("""
     <div style="text-align: justify;">
