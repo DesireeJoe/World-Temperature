@@ -64,7 +64,7 @@ if page == 'Introduction':
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #f9f9f9;">
+    <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e6e6fa; margin-bottom: 20px;">
     <p>The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
     This project dives into historical temperature records to uncover trends and patterns, using data from 
     <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, 
@@ -77,7 +77,7 @@ if page == 'Introduction':
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="text-align: justify;">
+    <div style="text-align: justify; margin-top: 20px;">
     <p><strong>Steps taken throughout this project:</strong></p>
     <p>- Analysis of various datasets to identify global patterns</p>
     <p>- Investigate relationships between temperature and factors like GDP, population, and CO2</p>
