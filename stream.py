@@ -1536,7 +1536,7 @@ if page == "Exploration Analysis - FAO":
     with col2:
         st.markdown("""
         <div style='display: flex; align-items: center; height: 120px;'>
-            <h3 style='margin: 0;'>Exploration Analysis - FAO</h3>
+            <h3 style='margin: 0;'>Exploration Analysis - Food and Agriculture Organization of the United Nations (FAO) </h3>
         </div>
         """, unsafe_allow_html=True)
 
