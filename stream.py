@@ -65,7 +65,7 @@ if page == 'Introduction':
 
     st.info("""
     The goal of our project is to analyze the relationship between rising greenhouse gas emissions and their effect on global temperatures. 
-    \nThis project dives into historical temperature records to uncover trends and patterns, using data from FAO, NASA, and ‘Our World In Data’.
+    \nThis project dives into historical temperature records to uncover trends and patterns, using data from <a href="https://www.fao.org/faostat/en/#data/ET/metadata" target="_blank">FAO</a>, <a href="https://data.giss.nasa.gov/gistemp/a" target="_blank">NASA</a>, and <a href="https://ourworldindata.org/explorers/co2?facet=none&Gas+or+Warming=CO%E2%82%82&Accounting=Territorial&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&country=CHN~USA~IND~GBR~OWID_WRL" target="_blank">'Our World in Data'</a>.
     """)
 
     st.markdown("""
@@ -1532,7 +1532,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 if page == "Exploration Analysis - FAO":
-    st.write("### Exploration of FAO Datasets")
+    st.write("### Exploration Analysis - FAO")
     st.write("##### Food and Agriculture Organization of the United Nations")
 
     # Function to load data
