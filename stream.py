@@ -1495,10 +1495,15 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 
+# Set the page variable correctly
+page = "Exploration Analysis - FAO"
+
 if page == "Exploration Analysis - FAO":
     st.write("### Exploration of FAO Datasets")
     st.write("##### Food and Agriculture Organization of the United Nations")
 
+    # Function to load data
+    @st.cache
     def load_data():
         ETC_all = pd.read_csv('Environment_Temperature_change_E_All_Data.csv', encoding='latin1')
         ETC_all_noflag = pd.read_csv('Environment_Temperature_change_E_All_Data_NOFLAG.csv', encoding='latin1')
@@ -1506,227 +1511,228 @@ if page == "Exploration Analysis - FAO":
         ETC_all_area_flags = pd.read_csv('Environment_Temperature_change_E_Flags.csv', encoding='latin1')
         ETC_cleaned = pd.read_csv('ETC.csv', encoding='latin1')
         return ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned
+
+    # Load the data
+    ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned = load_data()
+
+    # Existing content
+    st.markdown(""" The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
+        Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below.
+        """)
+    with st.expander("Full description of data"):
+         st.markdown("""
+**Data description:**\n
+The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates.\n 
+The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal, and annual mean temperature anomalies,\n 
+i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.\n
+The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)\n\n
+**Statistical concepts and definitions:**\n
+Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1\n\n    
+**Reference area:**\n
+Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
+FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: [FAO GeoNetwork](https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8))\n\n
+**Time coverage:**\n
+1961-2023 | Periodicity: Monthly, Seasonal, Yearly\n\n
+**Base period:**\n
+1951-1980
+""")
+
+    # Toggle button to show/hide checkboxes and dataframes
+    if 'show_data' not in st.session_state:
+        st.session_state.show_data = False
+
+    if st.button("View Original Datasets"):
+        st.session_state.show_data = not st.session_state.show_data
+
+    if st.session_state.show_data:
+        # Checkboxes for dataframes
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            view_ETC_all = st.checkbox("View: ETC_all")
+        with col2:
+            view_ETC_all_noflag = st.checkbox("View: ETC_all_noflag")
+        with col3:
+            view_ETC_all_area_codes = st.checkbox("View: ETC_all_area_codes")
+        with col4:
+            view_ETC_all_area_flags = st.checkbox("View: ETC_all_area_flags")
+
+        # Display dataframes based on checkboxes
+        if view_ETC_all:
+            st.write("### ETC_all")
+            st.write(ETC_all)
+        if view_ETC_all_noflag:
+            st.write("### ETC_all_noflag")
+            st.write(ETC_all_noflag)
+        if view_ETC_all_area_codes:
+            st.write("### ETC_all_area_codes")
+            st.write(ETC_all_area_codes)
+        if view_ETC_all_area_flags:
+            st.write("### ETC_all_area_flags")
+            st.write(ETC_all_area_flags)
+
+    # Button for final dataset "Environmental Temperature Change"
+    session_state = st.session_state
+    if "show_etc_checkboxes" not in session_state:
+        session_state.show_etc_checkboxes = False
+    if "show_etc_df" not in session_state:
+        session_state.show_etc_df = False
+    if "show_etc_stats" not in session_state:
+        session_state.show_etc_stats = False
+
+    show_etc_checkboxes = st.button("Final Dataset: Environmental Temperature Change")
+    if show_etc_checkboxes:
+        session_state.show_etc_checkboxes = not session_state.show_etc_checkboxes
+
+    if session_state.show_etc_checkboxes:
+        # Checkbox to view DataFrame
+        view_df_etc = st.checkbox("View DataFrame")
+        session_state.show_etc_df = view_df_etc
+
+        if view_df_etc:
+            st.write("### Final Dataset on Environmental Temperature Change")
+            st.write(ETC_cleaned)
+
+        # Checkbox to view statistics
+        view_stats_etc = st.checkbox("1961 - 2023 Overall Change")
+        session_state.show_etc_stats = view_stats_etc
+
+        if view_stats_etc:
+            # List of regions
+            regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
+
+            # List to store results
+            results = []
+
+            for region in regions:
+                region_data = ETC_cleaned[ETC_cleaned['Area'] == region].copy()
+                temp_1961 = region_data[region_data['Year'] == 1961]['Temp Change'].values[0]
+                temp_2023 = region_data[region_data['Year'] == 2023]['Temp Change'].values[0]
+
+                # Calculate total difference of change between 2023 and 1961
+                total_diff = temp_2023 - temp_1961
+
+                # Calculate year-on-year difference
+                region_data['Yearly Change'] = region_data['Temp Change'].diff()
+
+                # Calculate the average difference of change between two years
+                avg_diff = region_data['Yearly Change'].mean()
+
+                # Calculate the median difference of change between two years
+                median_diff = region_data['Yearly Change'].median()
+
+                # Calculate the standard deviation for year-on-year difference
+                std_dev_diff = region_data['Yearly Change'].std()
+
+                # Append results to the list
+                results.append({
+                    'Region': region,
+                    'Temp Change 1961 (°C)': temp_1961,
+                    'Temp Change 2023 (°C)': temp_2023,
+                    'Total Difference (2023 - 1961)': total_diff,
+                    'Average Difference': avg_diff,
+                    'Median Difference': median_diff,
+                    'Standard Deviation': std_dev_diff
+                })
+
+            results_df = pd.DataFrame(results)
+
+            # Display statistics table
+            st.write("### Overall change in global temperature by continent")
+            st.write(results_df)
+
+    # Define list of regions
+    regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
+
+    # Function to filter data based on selected region and year range
+    def filter_data(region, start_year, end_year):
+        if region == "World":
+            # Calculate overall temperature change by year
+            region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
+        else:
+            # Filter data for the selected region and year range
+            region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
+                                      (ETC_cleaned['Year'] >= start_year) & 
+                                      (ETC_cleaned['Year'] <= end_year)]
+        return region_data
+
+    # UI
+    st.write("##### Regional temperature change over time")
+
+    # Slider for selecting range of years
+    start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
+
+    # Dropdown for selecting continent or world view
+    selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
+
+    # Filter data based on selected continent and year range
+    filtered_data = filter_data(selected_continent, start_year, end_year)
+
+    # Create an interactive line chart with hover tooltips
+    fig = px.line(filtered_data, x='Year', y='Temp Change', labels={'Temp Change': 'Temperature Change (°C)'}, 
+                  title=f'Temperature Change Over Time - {selected_continent}',
+                  hover_data={'Year': True, 'Temp Change': True})
+    fig.update_traces(mode='lines+markers', hovertemplate='%{x}<br>Year: %{customdata[0]}<br>Temp Change: %{y:.2f}°C')
+    fig.update_xaxes(title_text='Year')
+    fig.update_yaxes(title_text='Temperature Change (°C)')
+    st.plotly_chart(fig)
+
+    # Prepare data for the boxplot
+    boxplot_data = []
+    for region in regions:
+        if region == "World":
+            boxplot_data.append(ETC_cleaned)
+        else:
+            boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
+
+    # Create Box plot
+    fig_boxplot = go.Figure()
+    for i, region_data in enumerate(boxplot_data):
+        fig_boxplot.add_trace(go.Box(
+            y=region_data['Temp Change'],
+            name=regions[i],
+            boxmean='sd',
+            marker=dict(color=px.colors.qualitative.Plotly[i]),
+            boxpoints='all',
+            jitter=0.5,  # Spread out data points
+            width=0.4  # Adjust box width
+        ))
     
-    def fao_exploration(ETC_all, ETC_all_noflag, ETC_all_area_codes, ETC_all_area_flags, ETC_cleaned):
-        st.write("### Exploration of FAO Datasets")
-        st.write("##### Food and Agriculture Organization of the United Nations")
+    # Update layout for better visualization
+    fig_boxplot.update_layout(
+        title="Surface Temperature Anomalies by Continent",
+        xaxis=dict(title='Continent'),
+        yaxis=dict(title='Temperature Change (°C)'),
+        boxmode='group',  # group boxes of different traces
+        showlegend=True,
+        legend=dict(title='Continent')
+    )
     
-        st.markdown(""" The FAOSTAT Temperature Change on land domain provides comprehensive statistics on mean surface temperature changes by country from 1961 to 2019, with updates on a yearly basis. This initial step of data exploration serves as a first step to our broader goal to visualize and comprehend the intricate dynamics driving climate change. 
-            Before we explored more datasets and analyzing the greenhouse gases we first wanted to know: are global temperatures really increasing? Hence, our decision to explore this dataset stems from a fundamental concern: understanding the profound impact of greenhouse gases on our planet's climate. A more detailed description of the dataset can be found in the dropdown below.
-            """)
-        with st.expander("Full description of data"):
-             st.markdown("""
-    **Data description:**\n
-    The FAOSTAT Temperature change on land domain disseminates statistics of mean surface temperature change by country, with annual updates.\n 
-    The current dissemination covers the period 1961–2023. Statistics are available for monthly, seasonal, and annual mean temperature anomalies,\n 
-    i.e., temperature change with respect to a baseline climatology, corresponding to the period 1951–1980.\n
-    The standard deviation of the temperature change of the baseline methodology is also available. Data are based on the publicly available GISTEMP data, the Global Surface Temperature Change data distributed by the National Aeronautics and Space Administration Goddard Institute for Space Studies (NASA-GISS)\n\n
-    **Statistical concepts and definitions:**\n
-    Statistical standards: Data in the Temperature Change on land domain are not an explicit SEEA variable. Nonetheless, country and regional calculations employ a definition of “Land area” consistent with SEEA Land Use definitions, specifically SEEA CF Table 5.11 “Land Use Classification” and SEEA AFF Table 4.8, “Physical asset account for land use.” The Temperature Change domain of the FAOSTAT Agri-Environmental Indicators section is compliant with the Framework for the Development of Environmental Statistics (FDES 2013), contributing to FDES Component 1: Environmental Conditions and Quality, Sub-component 1.1: Physical Conditions, Topic 1.1.1: Atmosphere, climate and weather, Core set/ Tier 1 statistics a.1\n\n    
-    **Reference area:**\n
-    Reference area: Area of all the Countries and Territories of the world. In 2023: 198 countries and 39 territories. 
-    FAO Global Administrative Unit Layer (GAUL National level – reference year 2014. FAO Geospatial data repository GeoNetwork. Permanent address: [FAO GeoNetwork](https://www.fao.org:80/geonetwork?uuid=f7e7adb0-88fd-11da-a88f-000d939bc5d8))\n\n
-    **Time coverage:**\n
-    1961-2023 | Periodicity: Monthly, Seasonal, Yearly\n\n
-    **Base period:**\n
-    1951-1980
-    """)
-        # Toggle button to show/hide checkboxes and dataframes
-        if 'show_data' not in st.session_state:
-            st.session_state.show_data = False
+    # Show the plot
+    st.plotly_chart(fig_boxplot)
+
+    # Top 10 Regions Bar Chart
+    ETC_2023 = ETC_cleaned[ETC_cleaned['Year'] == 2023]
     
-        if st.button("View Original Datasets"):
-            st.session_state.show_data = not st.session_state.show_data
+    # Sort data by temperature change in descending order
+    ETC_2023_sorted = ETC_2023.sort_values(by='Temp Change', ascending=False)
     
-        if st.session_state.show_data:
-            # Checkboxes for dataframes
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                view_ETC_all = st.checkbox("View: ETC_all")
-            with col2:
-                view_ETC_all_noflag = st.checkbox("View: ETC_all_noflag")
-            with col3:
-                view_ETC_all_area_codes = st.checkbox("View: ETC_all_area_codes")
-            with col4:
-                view_ETC_all_area_flags = st.checkbox("View: ETC_all_area_flags")
+    # Select top 10 regions with the highest temperature anomaly
+    top_10_regions = ETC_2023_sorted.head(10)
     
-            # Display dataframes based on checkboxes
-            if view_ETC_all:
-                st.write("### ETC_all")
-                st.write(ETC_all)
-            if view_ETC_all_noflag:
-                st.write("### ETC_all_noflag")
-                st.write(ETC_all_noflag)
-            if view_ETC_all_area_codes:
-                st.write("### ETC_all_area_codes")
-                st.write(ETC_all_area_codes)
-            if view_ETC_all_area_flags:
-                st.write("### ETC_all_area_flags")
-                st.write(ETC_all_area_flags)
+    # Plot bar chart
+    fig_bar = px.bar(top_10_regions, x='Temp Change', y='Area', orientation='h', 
+                     title='Top 10 Regions with Highest Temperature Anomaly in 2023',
+                     labels={'Temp Change': 'Temperature Anomaly (°C)', 'Area': 'Region'})
     
-        # Button for final dataset "Environmental Temperature Change"
-        session_state = st.session_state
-        if "show_etc_checkboxes" not in session_state:
-            session_state.show_etc_checkboxes = False
-        if "show_etc_df" not in session_state:
-            session_state.show_etc_df = False
-        if "show_etc_stats" not in session_state:
-            session_state.show_etc_stats = False
+    # Update layout for better visualization
+    fig_bar.update_layout(
+        xaxis=dict(title='Temperature Anomaly (°C)'),
+        yaxis=dict(title='Region')
+    )
     
-        show_etc_checkboxes = st.button("Final Dataset: Environmental Temperature Change")
-        if show_etc_checkboxes:
-            session_state.show_etc_checkboxes = not session_state.show_etc_checkboxes
-    
-        if session_state.show_etc_checkboxes:
-            # Checkbox to view DataFrame
-            view_df_etc = st.checkbox("View DataFrame")
-            session_state.show_etc_df = view_df_etc
-    
-            if view_df_etc:
-                st.write("### Final Dataset on Environmental Temperature Change")
-                st.write(ETC_cleaned)
-    
-            # Checkbox to view statistics
-            view_stats_etc = st.checkbox("1961 - 2023 Overall Change")
-            session_state.show_etc_stats = view_stats_etc
-    
-            if view_stats_etc:
-                # List of regions
-                regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
-    
-                # List to store results
-                results = []
-    
-                for region in regions:
-                    region_data = ETC_cleaned[ETC_cleaned['Area'] == region].copy()
-                    temp_1961 = region_data[region_data['Year'] == 1961]['Temp Change'].values[0]
-                    temp_2023 = region_data[region_data['Year'] == 2023]['Temp Change'].values[0]
-    
-                    # Calculate total difference of change between 2023 and 1961
-                    total_diff = temp_2023 - temp_1961
-    
-                    # Calculate year-on-year difference
-                    region_data['Yearly Change'] = region_data['Temp Change'].diff()
-    
-                    # Calculate the average difference of change between two years
-                    avg_diff = region_data['Yearly Change'].mean()
-    
-                    # Calculate the median difference of change between two years
-                    median_diff = region_data['Yearly Change'].median()
-    
-                    # Calculate the standard deviation for year-on-year difference
-                    std_dev_diff = region_data['Yearly Change'].std()
-    
-                    # Append results to the list
-                    results.append({
-                        'Region': region,
-                        'Temp Change 1961 (°C)': temp_1961,
-                        'Temp Change 2023 (°C)': temp_2023,
-                        'Total Difference (2023 - 1961)': total_diff,
-                        'Average Difference': avg_diff,
-                        'Median Difference': median_diff,
-                        'Standard Deviation': std_dev_diff
-                    })
-    
-                results_df = pd.DataFrame(results)
-    
-                # Display statistics table
-                st.write("### Overall change in global temperature by continent")
-                st.write(results_df)
-    
-        # Define list of regions
-        regions = ["Americas", "Asia", "Europe", "Africa", "Oceania", "World"]
-    
-        # Function to filter data based on selected region and year range
-        def filter_data(region, start_year, end_year):
-            if region == "World":
-                # Calculate overall temperature change by year
-                region_data = ETC_cleaned.groupby('Year')['Temp Change'].mean().reset_index()
-            else:
-                # Filter data for the selected region and year range
-                region_data = ETC_cleaned[(ETC_cleaned['Area'] == region) & 
-                                          (ETC_cleaned['Year'] >= start_year) & 
-                                          (ETC_cleaned['Year'] <= end_year)]
-            return region_data
-    
-        # UI
-        st.write("##### Regional temperature change over time")
-    
-        # Slider for selecting range of years
-        start_year, end_year = st.slider("Select range of years", min_value=1961, max_value=2023, value=(1961, 2023))
-    
-        # Dropdown for selecting continent or world view
-        selected_continent = st.selectbox("Select continent or world view", regions, index=len(regions)-1)
-    
-        # Filter data based on selected continent and year range
-        filtered_data = filter_data(selected_continent, start_year, end_year)
-    
-        # Create an interactive line chart with hover tooltips
-        fig = px.line(filtered_data, x='Year', y='Temp Change', labels={'Temp Change': 'Temperature Change (°C)'}, 
-                      title=f'Temperature Change Over Time - {selected_continent}',
-                      hover_data={'Year': True, 'Temp Change': True})
-        fig.update_traces(mode='lines+markers', hovertemplate='%{x}<br>Year: %{customdata[0]}<br>Temp Change: %{y:.2f}°C')
-        fig.update_xaxes(title_text='Year')
-        fig.update_yaxes(title_text='Temperature Change (°C)')
-        st.plotly_chart(fig)
-    
-        # Prepare data for the boxplot
-        boxplot_data = []
-        for region in regions:
-            if region == "World":
-                boxplot_data.append(ETC_cleaned)
-            else:
-                boxplot_data.append(ETC_cleaned[ETC_cleaned['Area'] == region])
-    
-        # Create Box plot
-        fig_boxplot = go.Figure()
-        for i, region_data in enumerate(boxplot_data):
-            fig_boxplot.add_trace(go.Box(
-                y=region_data['Temp Change'],
-                name=regions[i],
-                boxmean='sd',
-                marker=dict(color=px.colors.qualitative.Plotly[i]),
-                boxpoints='all',
-                jitter=0.5,  # Spread out data points
-                width=0.4  # Adjust box width
-            ))
-        
-        # Update layout for better visualization
-        fig_boxplot.update_layout(
-            title="Surface Temperature Anomalies by Continent",
-            xaxis=dict(title='Continent'),
-            yaxis=dict(title='Temperature Change (°C)'),
-            boxmode='group',  # group boxes of different traces
-            showlegend=True,
-            legend=dict(title='Continent')
-        )
-        
-        # Show the plot
-        st.plotly_chart(fig_boxplot)
-    
-        # Top 10 Regions Bar Chart
-        ETC_2023 = ETC_cleaned[ETC_cleaned['Year'] == 2023]
-        
-        # Sort data by temperature change in descending order
-        ETC_2023_sorted = ETC_2023.sort_values(by='Temp Change', ascending=False)
-        
-        # Select top 10 regions with the highest temperature anomaly
-        top_10_regions = ETC_2023_sorted.head(10)
-        
-        # Plot bar chart
-        fig_bar = px.bar(top_10_regions, x='Temp Change', y='Area', orientation='h', 
-                         title='Top 10 Regions with Highest Temperature Anomaly in 2023',
-                         labels={'Temp Change': 'Temperature Anomaly (°C)', 'Area': 'Region'})
-        
-        # Update layout for better visualization
-        fig_bar.update_layout(
-            xaxis=dict(title='Temperature Anomaly (°C)'),
-            yaxis=dict(title='Region')
-        )
-        
-        # Show the plot
-        st.plotly_chart(fig_bar)
-    
+    # Show the plot
+    st.plotly_chart(fig_bar)
+
     # Function to plot hot/cold temperature categories
     def plot_temperature_categories(ETC_cleaned):
         st.write("### Temperature Categories Over Years")
@@ -1768,6 +1774,9 @@ if page == "Exploration Analysis - FAO":
 
     # Call the function to plot the temperature categories
     plot_temperature_categories(ETC_cleaned)
+
+
+
        
 
 ###
