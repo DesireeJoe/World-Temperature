@@ -314,7 +314,7 @@ if page == "🌍 Exploration Analysis - OWID":
     )
     col1, col2 = st.columns([1, 3])
     with col1:
-        st.image("world.png", width=120)
+        st.image("CO2.png", width=120)
     
     with col2:
         st.markdown("""
