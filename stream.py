@@ -170,45 +170,45 @@ if page ==  "🔬 Exploration Analysis - NASA":
         unsafe_allow_html=True
     )
 
-# Load data
-@st.cache
-def load_data():
-    nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
-    # Remove commas and convert 'Year' column to integers
-    # Remove commas and convert 'Year' column to integers
-    nasa['Year'] = nasa['Year'].apply(lambda x: int(x.replace(',', '')) if isinstance(x, str) else x)
-    return nasa
-
-nasa = load_data()
-# Load data
-@st.cache
-def load_data():
-    nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
-    return nasa
-
-nasa = load_data()
-# Show the data
-if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(nasa)
-                
-# Basic data info expander
-with st.expander("Properties and Descriptive statistics of the NASA dataset"):
-  st.write("**Size of the DataFrame:**", nasa.shape)
-  buffer = io.StringIO()
-  nasa.info(buf=buffer)
-  s = buffer.getvalue()
-  st.text(s)
-  st.markdown("**Variables:**")
-  st.markdown("- The year of the measures\n"
-                "- 'Glob': This column represents the global average temperature anomaly. It provides the average temperature anomaly across the entire Earth, combining data from all latitudes and longitudes.\n"
-                "- 'NHem': This column represents the temperature anomaly for the Northern Hemisphere. It includes data from all latitudes in the Northern Hemisphere, from the equator (0 degrees latitude) to the North Pole (90 degrees latitude).\n"
-                "- 'SHem': This column represents the temperature anomaly for the Southern Hemisphere. It includes data from all latitudes in the Southern Hemisphere, from the equator (0 degrees latitude) to the South Pole (-90 degrees latitude).\n"
-                "- The rest of the variables represent latitude bands, indicating different regions of the Earth. E.g. the column '24N-90N' represents the latitude band from 24 degrees North to 90 degrees North, covering the Arctic region.")
-  st.write("**Missing values per column:**", nasa.isna().sum())
-  st.write("**Number of duplicates:**", nasa.duplicated().sum())
-  st.write("**Data Description:**")
-  st.write(nasa.describe())
+    # Load data
+    @st.cache
+    def load_data():
+        nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
+        # Remove commas and convert 'Year' column to integers
+        # Remove commas and convert 'Year' column to integers
+        nasa['Year'] = nasa['Year'].apply(lambda x: int(x.replace(',', '')) if isinstance(x, str) else x)
+        return nasa
+    
+    nasa = load_data()
+    # Load data
+    @st.cache
+    def load_data():
+        nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
+        return nasa
+    
+    nasa = load_data()
+    # Show the data
+    if st.checkbox('Show raw data'):
+        st.subheader('Raw data')
+        st.write(nasa)
+                    
+    # Basic data info expander
+    with st.expander("Properties and Descriptive statistics of the NASA dataset"):
+      st.write("**Size of the DataFrame:**", nasa.shape)
+      buffer = io.StringIO()
+      nasa.info(buf=buffer)
+      s = buffer.getvalue()
+      st.text(s)
+      st.markdown("**Variables:**")
+      st.markdown("- The year of the measures\n"
+                    "- 'Glob': This column represents the global average temperature anomaly. It provides the average temperature anomaly across the entire Earth, combining data from all latitudes and longitudes.\n"
+                    "- 'NHem': This column represents the temperature anomaly for the Northern Hemisphere. It includes data from all latitudes in the Northern Hemisphere, from the equator (0 degrees latitude) to the North Pole (90 degrees latitude).\n"
+                    "- 'SHem': This column represents the temperature anomaly for the Southern Hemisphere. It includes data from all latitudes in the Southern Hemisphere, from the equator (0 degrees latitude) to the South Pole (-90 degrees latitude).\n"
+                    "- The rest of the variables represent latitude bands, indicating different regions of the Earth. E.g. the column '24N-90N' represents the latitude band from 24 degrees North to 90 degrees North, covering the Arctic region.")
+      st.write("**Missing values per column:**", nasa.isna().sum())
+      st.write("**Number of duplicates:**", nasa.duplicated().sum())
+      st.write("**Data Description:**")
+      st.write(nasa.describe())
 
   # Boxplot for distribution of variables
   st.markdown("#### Temperature anomalies in the different regions - Box-and-Whisker Plot")
