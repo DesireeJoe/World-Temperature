@@ -56,7 +56,7 @@ if page == '🏠 Home':
   
   
 # Your Streamlit app content
-  st.title("World Temperature")
+  st.title("World Temperature Analysis")
 
   # Add the image to the home page
   st.image("world.png",  use_column_width=True)
