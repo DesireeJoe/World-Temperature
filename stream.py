@@ -312,6 +312,7 @@ if page == "🌍 Exploration Analysis - OWID":
         """,
         unsafe_allow_html=True,
     )
+    col1, col2 = st.columns([1, 3])
     with col1:
         st.image("world.png", width=120)
     
