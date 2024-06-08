@@ -173,12 +173,12 @@ if page ==  "🔬 Exploration Analysis - NASA":
 # Load data
 @st.cache
 def load_data():
-nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
-# Remove commas and convert 'Year' column to integers
-# Remove commas and convert 'Year' column to integers
-nasa['Year'] = nasa['Year'].apply(lambda x: int(x.replace(',', '')) if isinstance(x, str) else x)
-
-
+    nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
+    # Remove commas and convert 'Year' column to integers
+    # Remove commas and convert 'Year' column to integers
+    nasa['Year'] = nasa['Year'].apply(lambda x: int(x.replace(',', '')) if isinstance(x, str) else x)
+    
+    
 return nasa
 
 nasa = load_data()
