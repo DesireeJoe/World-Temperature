@@ -1384,7 +1384,7 @@ import streamlit as st
 from sklearn.ensemble import GradientBoostingRegressor
 
 if page == "🔮 Prediction":
-    st.title('Prediction with Gradient Boosting')
+    st.title('Prediction Simulation with Gradient Boosting')
   
     def prediction():
         def load_model():
@@ -1423,8 +1423,6 @@ if page == "🔮 Prediction":
                 st.error("Loaded model does not have a 'predict' method. It might be the wrong type.")
                 return None
     
-        st.header("Prediction")
-        st.subheader('Prediction Simulation with Gradient Boosting')
     
         data = pd.read_csv("datas_pre_processed.csv")
         df3 = data.copy()
