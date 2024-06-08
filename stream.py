@@ -1464,7 +1464,7 @@ if page == "🔮 Prediction":
             st.write("Selected features:", selected_features)
             prediction_result = sta(selected_features)
             if prediction_result is not None:
-                st.write("Predicted Surface Temperature:", prediction_result)
+                st.write("Predicted Surface Temperature Anomaly:", prediction_result)
             else:
                 st.write("Prediction could not be made due to an error in loading the model.")
 
