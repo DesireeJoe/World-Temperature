@@ -183,7 +183,7 @@ if page == "🔬 Exploration Analysis - NASA":
     )
 
     # Load data
-    @st.cache
+    @st.cache_data
     def load_data():
         nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
         nasa['Year'] = nasa['Year'].apply(lambda x: int(x.replace(',', '')) if isinstance(x, str) else x)
@@ -238,7 +238,7 @@ if page == "🔬 Exploration Analysis - NASA":
         ax.set_xlabel('Year')
         ax.set_ylabel('Temperature Anomaly (°C)')
         st.pyplot(fig)
-        st.write("""The Lineplot shows an increasing negative temperature change until 1910 (approx.) and increasing positive temperature change from approx. 1910 onwards until present. The graph indicates that temperature changes have been steadily increasing on average in recent years. This suggests that it is getting warmer on a global scale. Comparing temperature anomalies between the Northern and the Southern hemisphere shows that, especially since the year 2000, the temperature anomalies have been more positive in the Northern Hemisphere than in the Southern one. So the Temperature anomalies have been more positive in the Northern Hemisphere. This observation aligns with the overall understanding of climate change, as the Northern Hemisphere has been shown to experience more pronounced warming trends compared to the Southern Hemisphere. It could be attributed to various factors, including differences in land distribution, ocean currents, atmospheric circulation patterns, and human activities concentrated in the Northern Hemisphere. However, it is important to note that both hemispheres are experiencing significant warming trends, and the overall global temperature anomaly is increasing over time. This information underscores the importance of addressing climate change and its impacts on a global scale.""")
+        st.write("""The Lineplot shows an increasing negative temperature change until 1910 (approx.) and increasing positive temperature change from approx. 1910 onwards until present. The graph indicates that temperature changes have been steadily increasing on average in recent years. This suggests that it is getting warmer on a global scale. Comparing temperature anomalies between the Northern and the Southern hemisphere shows that, especially since the year 2000, the temperature anomalies have been more positive in the Northern Hemisphere than in the Southern one. So the Temperature anomalies have been more positive in the Northern Hemisphere. This observation aligns with the overall understanding of climate change, as the Northern Hemisphere has been shown to experience more pronounced warming trends compared to the Southern Hemisphere. It could be attributed to various factors, including differences in land distribution, ocean currents, atmospheric circulation patterns, and human activities concentrated in the Northern Hemisphere. Overall, it is important to note that both hemispheres are experiencing significant warming trends, and the overall global temperature anomaly is increasing over time. This information underscores the importance of addressing climate change and its impacts on a global scale.""")
       
         # Striped plot for climatic development with segmented color map
         from matplotlib.colors import LinearSegmentedColormap
@@ -293,6 +293,7 @@ if page == "🔬 Exploration Analysis - NASA":
       
         st.pyplot(fig)
         st.write('These graphs make it possible to identify trends, patterns, and correlations in temperature data. The linear regressions help quantify the direction and strength of these relationships and provide important insights into how climate has evolved in different regions over the years. To obtain a more profound comprehension of temperature variations over time across various latitudinal bands, a Pearson correlation analysis was performed for each latitude. Additionally, scatter plots were created to visualise the relationship between temperature change and the corresponding year. The plots reveal a consistent temperature increase over time, as all linear regression trends are positive. For the latitude 90S-64S (South Pole) plot, there is significant scatter, showing a more weak correlation. This suggests that while the South Pole has seen varied temperatures, using just the year is not enough to predict these anomalies. An also noticeable temperature dip occurred in approx. 1910 / 1920s and from the 1950s to 1980s (except in regions like SHem, 24S-24N, and 90S-64S). This non-uniform decrease hints at regional influences on temperature shifts, warranting further study.')
+
 
   ####
 
