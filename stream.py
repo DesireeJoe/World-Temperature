@@ -1443,16 +1443,20 @@ if page == "🔮 Prediction":
         co2_value = df3['co2'].mean()
     
     
-        col1, col2 = st.columns(2)
-    
-        with col1:
-            year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
-            coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
-    
-        with col2:
-            population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
-            gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
-            co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
+        # Year slider
+        year = st.slider("Year", min_value=int(year_min), max_value=int(year_max), step=1, value=int(year_value))
+        
+        # Coal CO2 slider
+        coal_co2 = st.slider("Coal CO2", min_value=float(coal_co2_min), max_value=float(coal_co2_max), value=float(coal_co2_value))
+        
+        # Population slider
+        population = st.slider("Population", min_value=float(population_min), max_value=float(population_max), value=float(population_value))
+        
+        # GDP slider
+        gdp = st.slider("GDP", min_value=float(gdp_min), max_value=float(gdp_max), value=float(gdp_value))
+        
+        # CO2 slider
+        co2 = st.slider("CO2", min_value=float(co2_min), max_value=float(co2_max), value=float(co2_value))
     
         # prediction button
         if st.button("Predict"):
@@ -1595,9 +1599,6 @@ if page == "📊 Exploration Analysis - FAO":
             <h3 style='margin: 0;'>Exploration Analysis - Food and Agriculture Organization of the United Nations (FAO) </h3>
         </div>
         """, unsafe_allow_html=True)
-
-    
-
 
     # Function to load data
     @st.cache
