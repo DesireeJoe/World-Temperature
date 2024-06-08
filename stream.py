@@ -56,7 +56,7 @@ if page == '🏠 Home':
   
   
 # Your Streamlit app content
-  st.title("World Temperature")
+  st.title("World Temperature Analysis")
 
   # Add the image to the home page
   st.image("world.png",  use_column_width=True)
@@ -1312,7 +1312,7 @@ if page == '📈 Time-series modeling with SARIMA':
     
     # Streamlit layout
     st.title('Time-series Modeling with SARIMA')
-    st.markdown("This application demonstrates the SARIMA model for time-series forecasting of temperature anomalies.")
+    st.markdown("Time series data is all around us, like in this case as weather patterns to demand forecasting and seasonal trends. To predict future values, we turn to powerful models like the Seasonal Autoregressive Integrated Moving Average (SARIMA). This is a versatile and widely used time series forecasting model as an extension of the non-seasonal ARIMA model, designed to handle data with seasonal patterns. SARIMA captures both short-term and long-term dependencies within the data, making it a robust tool for forecasting. It combines the concepts of autoregressive (AR), integrated (I), and moving average (MA) models with seasonal components.")
     
     # Model summary
     st.subheader("Model Summary")
@@ -1375,6 +1375,9 @@ if page == '📈 Time-series modeling with SARIMA':
     
     fig_forecast.update_layout(title='SARIMA Model Forecast', xaxis_title='Time', yaxis_title='Temperature Anomaly', legend=dict(x=0, y=1, bgcolor='rgba(255, 255, 255, 0)', bordercolor='rgba(255, 255, 255, 0)'))
     st.plotly_chart(fig_forecast)
+
+    st.subheader('Conclusion')
+    st.markdown("The analysis of the temperature anomaly data using the Seasonal Autoregressive Integrated Moving Average (SARIMA) model has yielded promising results. After fitting the SARIMA model to the historical temperature anomaly data since 1880, we achieved impressive accuracy metrics. These metrics indicate that the SARIMA model accurately captures the patterns and trends in the historical temperature anomaly data, significantly outperforming the baseline model. The low error values suggest that the model is reliable in predicting future temperature anomalies. An analysis of the residuals confirmed that they resemble white noise, which validates the model's assumptions. The residuals exhibited no significant autocorrelation, indicating that the SARIMA model has effectively captured the underlying structure of the temperature anomaly data. Using the fitted SARIMA model, we forecasted the temperature anomalies for the next three years. The forecast indicates a continuing increase in temperature anomalies, suggesting that the trend of rising temperatures observed in the historical data is expected to persist. The increasing temperature anomalies forecasted by the SARIMA model align with broader climate change trends observed globally. These findings underscore the importance of continued monitoring and proactive measures to mitigate the impacts of climate change. The model's accuracy provides confidence in its predictions, making it a valuable tool for researchers and policymakers in planning and implementing climate-related strategies. In conclusion, the SARIMA model has proven to be a robust and reliable method for analysing and forecasting temperature anomalies.")
 
 ###########################################################################################
 import pickle
