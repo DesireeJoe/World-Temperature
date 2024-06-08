@@ -614,22 +614,8 @@ if page ==  "🌍 Exploration Analysis - OWID":
 #####################################################################################################################################################################
  
 if page ==  "📉 Exploration Analysis - STA":
-# Title of the app
-     st.title('Exploration Analysis - STA')
-     st.markdown(
-        """
-        <style>
-        .centered-title {
-            font-size: 28px;
-            text-align: center;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 10px;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-     )
+
+    
      col1, col2 = st.columns([1, 3])
      with col1:
         st.image("Surface temperature anomaly.png", width=120)
