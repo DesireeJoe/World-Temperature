@@ -1385,6 +1385,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 
 if page == "🔮 Prediction":
     st.title('Prediction Simulation with Gradient Boosting')
+    st.subheader(' ')
   
     def prediction():
         def load_model():
