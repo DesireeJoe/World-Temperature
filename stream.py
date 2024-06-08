@@ -313,10 +313,10 @@ if page == "🌍 Exploration Analysis - OWID":
         unsafe_allow_html=True,
     )
     
-    with col1:
+     with col1:
         st.image("world.png", width=120)
     
-    with col2:
+     with col2:
         st.markdown("""
         <div style='display: flex; align-items: center; height: 120px;'>
             <h3 style='margin: 0;'>Exploration Analysis - Our World In Data (OWID) </h3>
