@@ -632,13 +632,27 @@ if page ==  "📉 Exploration Analysis - STA":
         """,
         unsafe_allow_html=True,
      )
-     st.markdown('<h1 class="centered-title">Exploration Analysis - Surface Temperature Analysis</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
+     col1, col2 = st.columns([1, 3])
+     with col1:
+        st.image("Surface temperature anomaly.png", width=120)
+    
+     with col2:
+        st.markdown("""
+        <div style='display: flex; align-items: center; height: 120px;'>
+            <h3 style='margin: 0;'>Exploration Analysis - Surface Temperature Anomaly (STA) </h3>
+        </div>
+        """, unsafe_allow_html=True)
 
      st.markdown("#### The Surface Temperature Anomaly Dataset")
 
-     st.write('**Intro**')
-     st.write('Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature. Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).')
+     st.markdown("""
+     <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa; margin-bottom: 20px;">
+     <p>Surface temperature anomaly, measured in degrees Celsius The temperature anomaly is relative to the 1951-1980 global average temperature.
+     Data is based on the HadCRUT analysis from the Climatic Research Unit (University of East Anglia) in conjunction with the Hadley Centre (UK Met Office).</p>
+     </div>
+     """, unsafe_allow_html=True)
+
+     
      st.write('Overview of the Surface Temperature Anomaly dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
 
     # Load Data
