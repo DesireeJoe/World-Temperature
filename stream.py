@@ -121,12 +121,18 @@ if page == '📖 Introduction':
 
 #Nasa Exploration#
 if page ==  "🔬 Exploration Analysis - NASA":
-
-# Title of the app
-  st.title('Exploration Analysis - NASA')
-# Display the logo
-  st.image("nasa_x2.png", caption="", use_column_width=80)
-
+    
+    col1, col2 = st.columns([1, 3])
+    with col1:
+        st.image("nasa_x2.png", width=120)
+    
+    with col2:
+        st.markdown("""
+        <div style='display: flex; align-items: center; height: 120px;'>
+            <h3 style='margin: 0;'>Exploration Analysis - NASA </h3>
+        </div>
+        """, unsafe_allow_html=True)
+    
 # Introduction Section 
   st.markdown(
         """
