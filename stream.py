@@ -187,7 +187,7 @@ nasa = load_data()
 # Load data
 @st.cache
 def load_data():
-nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
+    nasa = pd.read_csv("NASA_zonal.csv", encoding='latin1')
 
 return nasa
 
