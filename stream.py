@@ -312,16 +312,26 @@ if page == "🌍 Exploration Analysis - OWID":
         """,
         unsafe_allow_html=True,
     )
-    st.markdown('<h1 class="centered-title">Exploration Analysis - OWID</h1>', unsafe_allow_html=True)
-    st.markdown("<br><br>", unsafe_allow_html=True)
-
-    st.write('Exploratory analyses are used to gain initial insight into the data, identify data quality issues, discover patterns and generate hypotheses. They are the starting point for further analyses and research in which specific questions are answered or models are developed.')
-    st.write('Various representations and visualisations of the dataset now follow.')
+    
+    with col1:
+        st.image("world.png", width=120)
+    
+    with col2:
+        st.markdown("""
+        <div style='display: flex; align-items: center; height: 120px;'>
+            <h3 style='margin: 0;'>Exploration Analysis - Our World In Data (OWID) </h3>
+        </div>
+        """, unsafe_allow_html=True)
 
     st.markdown("#### The OWID Dataset")
 
-    st.write('**Intro**')
-    st.write('The CO2 and Greenhouse Gas Emissions dataset is a collection of key metrics maintained by Our World in Data. It is updated regularly and includes data on CO2 emissions (annual, per capita, cumulative and consumption-based), other greenhouse gasses, energy mix, and other relevant metrics.')
+    st.markdown("""
+     <div style="border: 1px solid #d6d6d6; padding: 10px; border-radius: 5px; background-color: #e0f7fa; margin-bottom: 20px;">
+     <p>The CO2 and Greenhouse Gas Emissions dataset is a collection of key metrics maintained by Our World in Data.
+     It is updated regularly and includes data on CO2 emissions (annual, per capita, cumulative and consumption-based), other greenhouse gasses, energy mix, and other relevant metrics.</p>
+     </div>
+     """, unsafe_allow_html=True)
+    
     st.write('Overview of the OWID dataset, including statistics and basic properties: This step provides a first insight into the dataset, including the available variables and the general structure.')
 
     # Load Data
