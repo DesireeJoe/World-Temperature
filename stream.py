@@ -43,7 +43,7 @@ st.sidebar.markdown(
     """
     - **Course**: Data Analyst
     - **Instructor**: Tarik Anouar
-    - **Date**: June 2024
+    - **Date**: 11 June 2024
     - **Team Members**:
         - Desireé Jörke
         - Manasi Deshpande
