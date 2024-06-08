@@ -194,9 +194,9 @@ return nasa
 nasa = load_data()
 # Show the data
 if st.checkbox('Show raw data'):
-st.subheader('Raw data')
-st.write(nasa)
-            
+    st.subheader('Raw data')
+    st.write(nasa)
+                
 # Basic data info expander
   with st.expander("Properties and Descriptive statistics of the NASA dataset"):
       st.write("**Size of the DataFrame:**", nasa.shape)
