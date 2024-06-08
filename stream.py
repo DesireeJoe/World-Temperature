@@ -134,7 +134,7 @@ if page ==  "🔬 Exploration Analysis - NASA":
         """, unsafe_allow_html=True)
     
 # Introduction Section 
-      st.markdown(
+        st.markdown(
             """
             <style>
             .intro-box {
