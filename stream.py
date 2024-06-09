@@ -1063,12 +1063,13 @@ if page ==  "🤖 Machine Learning Models":
       y_pred_rf = random_forest.predict(X_test)
       mse_rf = mean_squared_error(y_test, y_pred_rf)
       mae_rf = mean_absolute_error(y_test, y_pred_rf)
-      r2_rf = r2_score(y_test, y_pred_rf)
+      r2_train = r2_score(y_train, y_train_pred)
+      r2_test = r2_score(y_test, y_test_pred)
   
       st.write("### Model Evaluation")
       metrics_df_rf = pd.DataFrame({
-          'Metric': ['Mean Squared Error', 'Mean Absolute Error', 'R² Score'],
-          'Value': [mse_rf, mae_rf, r2_rf]
+          'Metric': ['Mean Squared Error', 'Mean Absolute Error', 'R² Score Train', 'R² Score Test'],
+          'Value': [mse_rf, mae_rf, r2_train, r2_test]
       })
       st.write(metrics_df_rf)
   
