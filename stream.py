@@ -1492,8 +1492,7 @@ if page ==  "📌 Conclusion":
         """,
         unsafe_allow_html=True,
      )
-     st.markdown('<h1 class="centered-title">Conclusion</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
+
 if page == "📌 Conclusion":
     st.markdown("""
     ## Comparison of all Models & Conclusion
