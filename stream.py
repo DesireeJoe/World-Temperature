@@ -341,7 +341,7 @@ if page ==  "🌍 Exploration Analysis - OWID":
     with st.expander("Descriptive statistics of the OWID dataset"):
          st.dataframe(Co2.describe())
          st.markdown('**Looking at the OWID data set, the summary statistics indicate various things:**')
-         st.markdown('*  In various variables, the mean and median value differ substantially (e.g. co2: 379.98 mean vs 3.10 median. This mismatch could 1) indicate the presence of outliers skewing the value distribution')
+         st.markdown('*  In various variables, the mean and median value differ substantially (e.g. co2: 379.98 mean vs 3.8 median. This mismatch could indicate the presence of outliers skewing the value distribution')
          st.markdown('*  A high number of missing values denoted as "0", skewing the distribution')
          st.markdown('*  The large difference between the Q3 and Q4 and the max value in various variables (e.g. co2, total_ghg) indicates the existence of very high outlier values')
 
