@@ -1847,53 +1847,53 @@ Area of all the Countries and Territories of the world. In 2023: 198 countries a
     # Show the plot
     st.plotly_chart(fig_bar)
 
-    import streamlit as st
-import plotly.graph_objects as go
 
-
-        # Function to plot hot/cold temperature categories
-        def plot_temperature_categories(ETC_cleaned):
-            st.write("### Temperature Categories Over Years")
-        
-            # Function to calculate temperature categories
-            def calculate_temperature_categories(df, year):
-                data_year = df[df['Year'] == year]
-                lower_than_2_sd = (data_year['Temp Change'] < -2 * data_year['Std Dev']).sum()
-                within_2_sd = ((data_year['Temp Change'] >= -2 * data_year['Std Dev']) & (data_year['Temp Change'] <= 2 * data_year['Std Dev'])).sum()
-                greater_than_2_sd = (data_year['Temp Change'] > 2 * data_year['Std Dev']).sum()
-                return lower_than_2_sd, within_2_sd, greater_than_2_sd
-        
-            # List of years to analyze
-            years = [1961, 1991, 2021]
-            colors = ['blue', 'green', 'red']
-        
-            fig = go.Figure()
-        
-            for year, color in zip(years, colors):
-                cold, normal, warm = calculate_temperature_categories(ETC_cleaned, year)
-                categories = ['Cold', 'Normal', 'Warm']
-                counts = [cold, normal, warm]
-                
-                fig.add_trace(go.Bar(
-                    x=categories,
-                    y=counts,
-                    name=str(year),
-                    marker_color=color,
-                    text=[f"< -2 SD", "-2 SD <= Temp <= 2 SD", "> 2 SD"],
-                    textposition='outside'
-                ))
-        
-            fig.update_layout(
-                title="Number of Countries by Temperature Category",
-                xaxis_title="Temperature Category",
-                yaxis_title="Number of Countries",
-                barmode='group'
-            )
-        
-            st.plotly_chart(fig)
-        
-        # Call the function to plot the temperature categories
-        plot_temperature_categories(ETC_cleaned)
+    # Function to plot hot/cold temperature categories
+    def plot_temperature_categories(ETC_cleaned):
+        st.write("### Temperature Categories Over Years")
+    
+        # Function to calculate temperature categories
+        def calculate_temperature_categories(df, year):
+            data_year = df[df['Year'] == year]
+            lower_than_2_sd = (data_year['Temp Change'] < -2 * data_year['Std Dev']).sum()
+            within_2_sd = ((data_year['Temp Change'] >= -2 * data_year['Std Dev']) & (data_year['Temp Change'] <= 2 * data_year['Std Dev'])).sum()
+            greater_than_2_sd = (data_year['Temp Change'] > 2 * data_year['Std Dev']).sum()
+            return lower_than_2_sd, within_2_sd, greater_than_2_sd
+    
+        # List of years to analyze
+        years = [1961, 1991, 2021]
+        colors = ['blue', 'green', 'red']
+    
+        fig = go.Figure()
+    
+        for year, color in zip(years, colors):
+            cold, normal, warm = calculate_temperature_categories(ETC_cleaned, year)
+            categories = ['Cold', 'Normal', 'Warm']
+            counts = [cold, normal, warm]
+            
+            fig.add_trace(go.Bar(
+                x=categories,
+                y=counts,
+                name=str(year),
+                marker_color=color,
+                text=[f"< -2 SD", "-2 SD <= Temp <= 2 SD", "> 2 SD"],
+                textposition='outside'
+            ))
+    
+        fig.update_layout(
+            title="Number of Countries by Temperature Category",
+            xaxis_title="Temperature Category",
+            yaxis_title="Number of Countries",
+            barmode='group'
+        )
+    
+        st.plotly_chart(fig)
+    
+    # Call the function to plot the temperature categories
+    plot_temperature_categories(ETC_cleaned)
+    
+    
+            
         
 
 
