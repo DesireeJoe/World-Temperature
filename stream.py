@@ -352,7 +352,7 @@ if page ==  "🌍 Exploration Analysis - OWID":
                      f"- Number of Columns: {Co2.shape[1]}\n")
          st.markdown("")
          st.markdown("###### Data types")
-         st.markdown("- 71 variables are of data type float\n"
+         st.markdown("- 76 variables are of data type float\n"
                     "- 1 variable is of dtype integer\n"
                     "- 2 variables are of dtype object\n"
                     "- This dataset is basically from the year 1880-2022 and shows the year wise values of CO2 emissions across different countries for every year\n")
