@@ -1871,12 +1871,18 @@ Area of all the Countries and Territories of the world. In 2023: 198 countries a
             categories = ['Cold', 'Normal', 'Warm']
             counts = [cold, normal, warm]
             
+            data_year = ETC_cleaned[ETC_cleaned['Year'] == year]
+            mean_sd = data_year['Std Dev'].mean()
+            mean_temp_change = data_year['Temp Change'].mean()
+            
             fig.add_trace(go.Bar(
                 x=categories,
                 y=counts,
                 name=str(year),
                 marker_color=color,
-                text=[f"< -2 SD", "-2 SD <= Temp <= 2 SD", "> 2 SD"],
+                text=[f"< -2 SD (< {mean_temp_change - 2 * mean_sd:.2f}°C)", 
+                      f"-2 SD <= Temp <= 2 SD ({mean_temp_change - 2 * mean_sd:.2f}°C to {mean_temp_change + 2 * mean_sd:.2f}°C)", 
+                      f"> 2 SD (> {mean_temp_change + 2 * mean_sd:.2f}°C)"],
                 textposition='outside'
             ))
     
@@ -1893,12 +1899,9 @@ Area of all the Countries and Territories of the world. In 2023: 198 countries a
     plot_temperature_categories(ETC_cleaned)
     
     
-            
-        
-
-
-
-       
+    
+    
+           
 
 ###
 
