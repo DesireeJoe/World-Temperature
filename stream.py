@@ -1295,9 +1295,6 @@ from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.statespace.sarimax import SARIMAX
 import pickle
 
-# Page selection
-page = st.sidebar.selectbox('Select a page:', ['📈 Time-series modeling with SARIMA'])
-
 if page == '📈 Time-series modeling with SARIMA':
     st.title('Time-series modeling with SARIMA')
 
