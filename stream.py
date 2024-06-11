@@ -1367,7 +1367,7 @@ if page == '📈 Time-series modeling with SARIMA':
 
     # Forecasting
     st.subheader('Forecasting')
-    forecast_steps = st.slider('Select number of months to forecast:', 1, 120, 30)
+    forecast_steps = st.slider('Select number of months to forecast:', 1, 60, 30)
     forecast = results.get_forecast(steps=forecast_steps)
     forecast_ci = forecast.conf_int()
 
