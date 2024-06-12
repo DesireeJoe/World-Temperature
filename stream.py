@@ -1623,13 +1623,10 @@ if page ==   "Credits" :
             unsafe_allow_html=True
         )
 
-if page ==  "Credits" :  
-     
-# linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
-# linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
+    # linkedIn logo 1 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Logo.svg.original.svg
+    # linkedIn logo 2 https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg
 
 ########################################################################################################################################################################################################################
-
 import pandas as pd
 import streamlit as st
 import plotly.express as px
@@ -1923,7 +1920,7 @@ Area of all the Countries and Territories of the world. In 2023: 198 countries a
 
     # Call the function to plot the temperature categories
     plot_temperature_categories(ETC_cleaned)
-
+#####################################################################################################################################
 
 
        
