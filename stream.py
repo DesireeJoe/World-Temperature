@@ -1578,18 +1578,15 @@ if page == "Conclusion":
   ###
 
 if page ==   "Credits" :
-   st.title('Credits')
-
-   col1, col2, col3 = st.columns(3)
-if page ==  "Credits" :   
-  with col1:
+    st.title('Credits')
+    col1, col2, col3 = st.columns(3)
+    with col1:
      st.write("**Members of the project team:**")
      st.markdown("<br><br><br><br><br><br>", unsafe_allow_html=True)
      st.write("**Resources:**")
      st.markdown("<br><br><br><br><br><br><br>", unsafe_allow_html=True)
-     #st.write("**Project report: uploaden?**") # upload report
-if page ==  "Credits" :   
-  with col2:
+     #st.write("**Project report: uploaden?**") # upload report 
+    with col2:
      st.write("Manasi Deshpande")
      st.write("Desireé Jörke")
      st.write("Fiona Murphy")
@@ -1601,7 +1598,7 @@ if page ==  "Credits" :
      st.write("[Surface Temperature Anomaly Data](https://ourworldindata.org/grapher/hadcrut-surface-temperature-anomaly)")
      st.write("[FAO Annual Surface Temperature Change dataset](https://www.fao.org/faostat/en/#data/ET)")
     
-  with col3:     
+      with col3:     
      linkedin_icon = "https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
 
      st.markdown(
