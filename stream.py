@@ -134,7 +134,7 @@ import math
 from scipy.stats import linregress
 
 # NASA Exploration
-if page == "🔬 Exploration Analysis - NASA":
+if page == "Exploration Analysis - NASA":
     
     col1, col2 = st.columns([1, 3])
     with col1:
@@ -924,8 +924,6 @@ if page ==  "Machine Learning Models":
         """,
         unsafe_allow_html=True,
      )
-     st.markdown('<h1 class="centered-title">Machine Learning Models</h1>', unsafe_allow_html=True)
-     st.markdown("<br><br>", unsafe_allow_html=True)
      st.markdown("""
 ### Dataset Preparation and Initial Splitting for Machine Learning Models
 
