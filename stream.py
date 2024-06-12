@@ -42,8 +42,7 @@ page = st.sidebar.radio("", pages)
 st.sidebar.markdown(
     """
     - **Course**: Data Analyst
-    - **Instructor**: Tarik Anouar
-    - **Date**: 11 June 2024
+    - **Defense**: 11 June 2024
     - **Team Members**:
         - Desireé Jörke
         - Manasi Deshpande
