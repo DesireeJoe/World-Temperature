@@ -30,7 +30,7 @@ pages = [
     "Exploration Analysis - OWID",
     "Exploration Analysis - STA",
     "Exploration Analysis - FAO",
-    "🛠Modelling Preparation",
+    "Modelling Preparation",
     "Machine Learning Models",
     "Time-series modeling with SARIMA",
     "Prediction",
