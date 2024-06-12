@@ -1287,12 +1287,15 @@ if page ==  "🤖 Machine Learning Models":
   st.pyplot(fig)  
 
 ###################################################################################################################
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from statsmodels.tsa.statespace.sarimax import SARIMAX
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+import numpy as np
 import pickle
 
 if page == '📈 Time-series modeling with SARIMA':
@@ -1303,6 +1306,10 @@ if page == '📈 Time-series modeling with SARIMA':
 
     st.subheader('Introduction')
     st.write("Time series data is all around us, like in this case as weather patterns to demand forecasting and seasonal trends. To predict future values, we turn to powerful models like the Seasonal Autoregressive Integrated Moving Average (SARIMA). This is a versatile and widely used time series forecasting model as an extension of the non-seasonal ARIMA model, designed to handle data with seasonal patterns. SARIMA captures both short-term and long-term dependencies within the data, making it a robust tool for forecasting. It combines the concepts of autoregressive (AR), integrated (I), and moving average (MA) models with seasonal components.")
+
+    # Display the first few rows of the dataset
+    st.subheader('Dataset Preview')
+    st.write(ts.head())
 
     # Visualize the data
     st.subheader('Monthly Temperature Anomaly Over Time')
@@ -1353,33 +1360,77 @@ if page == '📈 Time-series modeling with SARIMA':
     plot_pacf(ts_diff, ax=ax[1], lags=40)
     st.pyplot(fig)
 
-    # Fit SARIMA model (example parameters, adjust as needed)
+    # Split the data into training and testing sets
+    st.subheader('Train-Test Split')
+    train_size = st.slider('Select training set size (as a percentage of total data):', 50, 95, 80)
+    train_size = int(len(ts) * train_size / 100)
+    train, test = ts[:train_size], ts[train_size:]
+
+    # Fit SARIMA model on the training set (example parameters, adjust as needed)
     st.subheader('Fit SARIMA Model')
     st.write('Fitting SARIMA model with parameters (1, 1, 1)x(1, 1, 1, 12)')
-    model = SARIMAX(ts, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
+    model = SARIMAX(train, order=(1, 1, 1), seasonal_order=(1, 1, 1, 12))
     results = model.fit()
-    st.write(results.summary())
+    
+    # Display summary in a scrollable text box
+    summary_html = results.summary().as_html()
+    st.markdown(f'<div style="overflow: scroll; height: 200px; border: 1px solid black;">{summary_html}</div>', unsafe_allow_html=True)
 
     # Model diagnostics
     st.subheader('Model Diagnostics')
     fig = results.plot_diagnostics(figsize=(12, 8))
     st.pyplot(fig)
 
-    # Forecasting
+    # Forecasting on the test set
     st.subheader('Forecasting')
-    forecast_steps = st.slider('Select number of months to forecast:', 1, 60, 30)
+    forecast_steps = len(test)
     forecast = results.get_forecast(steps=forecast_steps)
     forecast_ci = forecast.conf_int()
 
-    # Plot forecast
+    # Plot forecast against actual data
     fig, ax = plt.subplots(figsize=(12, 6))
-    ax.plot(ts, label='Observed')
+    ax.plot(train, label='Train')
+    ax.plot(test, label='Test', color='orange')
     ax.plot(forecast.predicted_mean, label='Forecast', color='red')
     ax.fill_between(forecast_ci.index, forecast_ci.iloc[:, 0], forecast_ci.iloc[:, 1], color='red', alpha=0.3)
     ax.set_xlabel('Date')
     ax.set_ylabel('Temperature Anomaly')
     ax.legend()
     st.pyplot(fig)
+
+    # Calculate RMSE and MAPE
+    st.subheader('Model Evaluation Metrics')
+    actual = test
+    predicted = forecast.predicted_mean
+
+    st.write('Actual values:', actual)
+    st.write('Predicted values:', predicted)
+
+    if len(actual) == len(predicted):
+        rmse = np.sqrt(mean_squared_error(actual, predicted))
+        mape = mean_absolute_percentage_error(actual, predicted)
+
+        st.write(f'RMSE: {rmse:.4f}')
+        st.write(f'MAPE: {mape:.4f}')
+    else:
+        st.write("Error: The actual and predicted series do not have the same length.")
+        st.write(f'Length of actual values: {len(actual)}')
+        st.write(f'Length of predicted values: {len(predicted)}')
+
+    # Save the model
+    st.subheader('Save the Model')
+    if st.button('Save Model'):
+        with open('sarima_model.pkl', 'wb') as pkl:
+            pickle.dump(results, pkl)
+        st.write("Model saved as 'sarima_model.pkl'.")
+
+    # Load the model (for demonstration)
+    st.subheader('Load the Model')
+    if st.button('Load Model'):
+        with open('sarima_model.pkl', 'rb') as pkl:
+            loaded_model = pickle.load(pkl)
+        st.write("Model loaded successfully.")
+        st.write(loaded_model.summary())
 
     st.subheader('Conclusion')
     st.markdown("The analysis of the temperature anomaly data using the Seasonal Autoregressive Integrated Moving Average (SARIMA) model has yielded promising results. After fitting the SARIMA model to the historical temperature anomaly data since 1880, we achieved impressive accuracy metrics. These metrics indicate that the SARIMA model accurately captures the patterns and trends in the historical temperature anomaly data, significantly outperforming the baseline model. The low error values suggest that the model is reliable in predicting future temperature anomalies. An analysis of the residuals confirmed that they resemble white noise, which validates the model's assumptions. The residuals exhibited no significant autocorrelation, indicating that the SARIMA model has effectively captured the underlying structure of the temperature anomaly data. Using the fitted SARIMA model, we forecasted the temperature anomalies for the next three years. The forecast indicates a continuing increase in temperature anomalies, suggesting that the trend of rising temperatures observed in the historical data is expected to persist. The increasing temperature anomalies forecasted by the SARIMA model align with broader climate change trends observed globally. These findings underscore the importance of continued monitoring and proactive measures to mitigate the impacts of climate change. The model's accuracy provides confidence in its predictions, making it a valuable tool for researchers and policymakers in planning and implementing climate-related strategies. In conclusion, the SARIMA model has proven to be a robust and reliable method for analysing and forecasting temperature anomalies.")
